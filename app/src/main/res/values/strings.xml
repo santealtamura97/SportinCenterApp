@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SportinCenterApp</string>
+    <string name="app_name">SportingCenterApp</string>
+    <string name="navigation_draw_open">open navigation drawer</string>
+    <string name="navigation_draw_close">close navigation drawer</string>
 </resources>
