@@ -3,9 +3,12 @@ package com.example.sportincenterapp
 
 
 
-import android.content.Intent
+
+
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,12 +26,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout = findViewById(R.id.nav_view)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         navigationView.setNavigationItemSelectedListener(this)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.Fragment_container, HomeFragment())
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close)
+        val homeButton : ImageButton = findViewById(R.id.home_button)
+        homeButton.setOnClickListener {supportFragmentManager.beginTransaction()
+            .replace(R.id.Fragment_container, HomeFragment()).commit()}
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, HomeFragment()).commit()
             navigationView.setCheckedItem(R.id.home)
         }
 
@@ -42,13 +52,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+
+
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.calendar -> {
-                val intent = Intent(this, CalendarActivity::class.java)
-                startActivity(intent)
+            R.id.calendar -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, CalendarFragment()).commit()
             }
-        }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }

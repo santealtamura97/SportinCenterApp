@@ -14,14 +14,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/toolbar"
-            android:background="@color/design_default_color_primary">
+            android:background="@color/orange_nav_menu">
+
+            <ImageButton
+                android:id="@+id/home_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="290dp"
+                android:src="@drawable/ic_baseline_home_24"
+                android:background="@color/orange_nav_menu"
+                ></ImageButton>
 
         </androidx.appcompat.widget.Toolbar>
-
 
         <FrameLayout
             android:layout_width="match_parent"
