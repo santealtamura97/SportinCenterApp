@@ -1,54 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- first group -->
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/user"
             android:icon="@drawable/ic_baseline_account_circle_24"
-            android:title="Utente">
-
+            android:title="@string/utente">
         </item>
+
         <item
             android:id="@+id/bookings"
             android:icon="@drawable/ic_baseline_edit_24"
-            android:title="Prenotazioni">
-
+            android:title="@string/prenotazioni">
         </item>
+
         <item
             android:id="@+id/calendar"
             android:icon="@drawable/ic_baseline_calendar_today_24"
-            android:title="Calendario">
+            android:title="@string/calendario">
 
         </item>
+
         <item
             android:id="@+id/news"
             android:icon="@drawable/ic_baseline_new_releases_24"
-            android:title="Avvisi">
-
-        </item>
-    </group>
-
-    <group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/settings"
-            android:icon="@drawable/ic_baseline_settings_24"
-            android:title="Impostazioni">
-        </item>
-        <item
-            android:id="@+id/help"
-            android:icon="@drawable/ic_baseline_help_outline_24"
-            android:title="Aiuto">
-
-        </item>
-        <item
-            android:id="@+id/contacts"
-            android:icon="@drawable/ic_baseline_send_24"
-            android:title="Contatti">
+            android:title="@string/avvisi">
 
         </item>
 
     </group>
 
+    <!-- empty items only for space -->
+    <item android:title="">
+    </item>
+    <item android:title="">
+    </item>
+
+    <item android:title ="@string/sistema">
+        <menu>
+
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="@string/impostazioni">
+            </item>
+
+            <item
+                android:id="@+id/help"
+                android:icon="@drawable/ic_baseline_help_outline_24"
+                android:title="@string/FAQ">
+            </item>
+
+            <item
+                android:id="@+id/contacts"
+                android:icon="@drawable/ic_baseline_send_24"
+                android:title="@string/contatti">
+            </item>
+
+        </menu>
+
+    </item>
 
 </menu>
