@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:gravity="center"
+    android:layout_height="160dp"
+    android:gravity="bottom"
     android:orientation="vertical"
-    android:background="@color/primary_color">
-
+    android:padding="15dp"
+    android:background="@color/orange_nav_menu"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="left|center">
+        android:layout_height="100dp"
+        android:padding="20dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:src="@mipmap/outline_face_black_24dp">
         </ImageView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome utente"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/white"
-            android:textSize="25dp">
-        </TextView>
+            android:paddingLeft="40dp"
+            android:text="Sante Altamura"
+            android:textColor="#ffffff"
+            android:textSize="25sp">
 
+        </TextView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:gravity="left|center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="sante.altamura@edu.unito.it">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/white"
-            android:text="email_utente@dominio.it">
-        </TextView>
-
-    </LinearLayout>
+    </TextView>
 
 </LinearLayout>

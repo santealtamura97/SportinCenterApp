@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <!-- first theme color -->
-    <color name="primary_color">#FF4500</color>
-    <color name="background_color">#DCC7C7</color>
+    <color name="orange_nav_menu">#FF4500</color>
+    <color name="orange_selection_nav_menu">#FF7F50</color>
+    <color name="background_navigation_menu">#FAF0E6</color>
 </resources>

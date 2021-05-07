@@ -11,9 +11,10 @@
         android:theme="@style/Theme.SportingCenterApp">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.SportingCenterApp">
+            android:theme="@style/Theme.SportingCenterApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
