@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange_logo">#F2A444</color>
     <!-- first theme colors -->
     <color name="primary_color">#FF4500</color>
     <color name="background_color">#DCC7C7</color>

@@ -2,9 +2,7 @@ package com.example.sportincenterapp
 
 
 
-
-
-
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageButton
@@ -57,7 +55,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (menuItem.itemId) {
             R.id.calendar -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, CalendarFragment()).commit()
+
             }
+
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }

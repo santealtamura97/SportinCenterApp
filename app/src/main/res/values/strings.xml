@@ -10,5 +10,6 @@
     <string name="impostazioni">Impostazioni</string>
     <string name="FAQ">FAQ</string>
     <string name="contatti">Contatti</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>
