@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".UserPage">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/userpage_background">
+        </ImageView>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/primary_color">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="230dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text="@string/bmi">
+            </TextView>
+
+            <TextView
+                android:id="@+id/bmi_text"
+                android:layout_width="80dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:text="24">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- USER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="30dp"
+                android:text="@string/utente">
+            </TextView>
+
+            <EditText
+                android:id="@+id/user_text"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:gravity="center_vertical"
+                android:textSize="25dp">
+            </EditText>
+
+        </LinearLayout>
+
+        <!-- Età -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="30dp"
+                android:text="@string/eta">
+            </TextView>
+
+            <EditText
+                android:id="@+id/age_text"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="90dp"
+                android:gravity="center_vertical"
+                android:textSize="25dp">
+            </EditText>
+
+        </LinearLayout>
+
+        <!-- Peso -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="30dp"
+                android:text="@string/peso">
+            </TextView>
+
+            <EditText
+                android:id="@+id/weight_text"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="90dp"
+                android:gravity="center_vertical"
+                android:textSize="25dp">
+            </EditText>
+
+        </LinearLayout>
+
+        <!-- Altezza -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="30dp"
+                android:text="@string/altezza">
+            </TextView>
+
+            <EditText
+                android:id="@+id/tall_text"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="70dp"
+                android:gravity="center_vertical"
+                android:textSize="25dp">
+            </EditText>
+
+        </LinearLayout>
+
+        <!-- Abbonamento -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="25dp"
+                android:text="@string/abbonamento">
+            </TextView>
+
+            <TextView
+                android:id="@+id/subscription_text"
+                android:layout_width="190dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:textSize="25dp">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- Unità di misura -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="230dp"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:textSize="30dp"
+                android:text="@string/um">
+            </TextView>
+
+            <RadioGroup
+                android:id="@+id/um_text"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="70dp"
+                android:gravity="center_vertical"
+                android:textSize="25dp">
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/profileimage_container"
+        android:src="@drawable/ic_launcher_foreground">
+    </ImageView>
+
+</FrameLayout>

@@ -2,7 +2,7 @@
     <string name="app_name">SportingCenterApp</string>
     <string name="navigation_draw_open">open navigation drawer</string>
     <string name="navigation_draw_close">close navigation drawer</string>
-    <string name="utente">Utente</string>
+    <string name="profilo">Profilo</string>
     <string name="prenotazioni">Prenotazioni</string>
     <string name="calendario">Calendario</string>
     <string name="avvisi">Avvisi</string>
@@ -11,5 +11,14 @@
     <string name="FAQ">FAQ</string>
     <string name="contatti">Contatti</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="utente">Utente:</string>
+    <string name="eta">Età:</string>
+    <string name="peso">Peso:</string>
+    <string name="altezza">Altezza:</string>
+    <string name="bmi">BMI:</string>
+    <string name="abbonamento">Abbonamento:</string>
+    <string name="um">Unità di misura:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

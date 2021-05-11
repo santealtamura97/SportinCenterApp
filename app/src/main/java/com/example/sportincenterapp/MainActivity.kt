@@ -55,7 +55,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (menuItem.itemId) {
             R.id.calendar -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, CalendarFragment()).commit()
-
+            R.id.profile -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, UserPage()).commit()
             }
 
         drawerLayout.closeDrawer(GravityCompat.START)
