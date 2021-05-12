@@ -23,10 +23,11 @@
         </ImageView>
 
         <TextView
+            android:id="@+id/nome_utente_nav_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome utente"
             android:layout_marginLeft="15dp"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="25dp">
         </TextView>

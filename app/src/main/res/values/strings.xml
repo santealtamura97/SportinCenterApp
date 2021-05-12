@@ -17,7 +17,9 @@
     <string name="altezza">Altezza:</string>
     <string name="bmi">BMI:</string>
     <string name="abbonamento">Abbonamento:</string>
-    <string name="um">Unità di misura:</string>
+    <string name="um">Misura:</string>
+    <string name="um_1">Kg/Cm:</string>
+    <string name="um_2">Lib/In:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
