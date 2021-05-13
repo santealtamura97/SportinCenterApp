@@ -25,5 +25,17 @@
     <string name="settings_email">E-mail</string>
     <string name="settings_password">Password</string>
     <string name="settings_version">Versione</string>
+    <string name="contacts_title">CONTATTI</string>
+    <string name="contacts_hours">Orari:</string>
+    <string name="contacts_hours_string">09:00-20:00 da Lun a Ven</string>
+    <string name="contacts_hours_string_2">09:00-12:00 Sab</string>
+    <string name="contacts_address">Indirizzo:</string>
+    <string name="contacts_address_string">Via Verdi,0 - 10124 Torino</string>
+    <string name="contacts_telephone">Telefono:</string>
+    <string name="contacts_telephone_string">045 6231460</string>
+    <string name="contacts_telephone_string_2">+39 3359329644</string>
+    <string name="contacts_telephone_string_3">+39 3252249678</string>
+    <string name="contacts_email">E-mail:</string>
+    <string name="contacts_email_string">sportingCenter@gmail.com</string>
 
 </resources>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Settings"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/primary_color">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/contacts_title"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="25dp">
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- ORARI -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/contacts_hours"
+                android:textColor="@color/primary_color"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="30dp">
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="@string/contacts_hours_string"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp">
+                </TextView>
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="@string/contacts_hours_string_2"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp">
+                </TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- INDIRIZZO -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/contacts_address"
+                android:textColor="@color/primary_color"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="30dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="25dp"
+                android:text="@string/contacts_address_string"
+                android:layout_gravity="center_vertical"
+                android:textSize="15dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <!-- TELEFONO -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/contacts_telephone"
+                android:textColor="@color/primary_color"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="30dp">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/contacts_telephone_string"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop= "5dp"
+                    android:text="@string/contacts_telephone_string_2"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/contacts_telephone_string_3"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp">
+
+                </TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- EMAIL -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/contacts_email"
+                android:textColor="@color/primary_color"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="30dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="25dp"
+                android:text="@string/contacts_email_string"
+                android:layout_gravity="center_vertical"
+                android:textSize="15dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
