@@ -16,14 +16,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, Communicator {
 
     private lateinit var drawerLayout: DrawerLayout
-    private var default_name: String? = "Andrea Forino"
-    private var default_email: String? = "andrea.forino@edu.unito.it"
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +35,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val header = navigationView.getHeaderView(0)
         var user_name = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         var user_email = header.findViewById<TextView>(R.id.email_nav_header)
-        user_name.text = default_name
-        user_email.text = default_email
+
+        sessionManager = SessionManager(this) //initialize session manager in this class
+
+        user_name.text = sessionManager.fetchUserName()
+        println(sessionManager.fetchUserEmail())
+        user_email.text = sessionManager.fetchUserEmail()
 
         navigationView.setNavigationItemSelectedListener(this)
 
