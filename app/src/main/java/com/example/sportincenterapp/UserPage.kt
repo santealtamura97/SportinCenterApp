@@ -1,5 +1,7 @@
 package com.example.sportincenterapp
 
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -40,6 +42,9 @@ class UserPage : Fragment() {
         val radioButton_2 = v.findViewById<RadioButton>(R.id.radioButton_2)
         val weight_um = v.findViewById<TextView>(R.id.weight_um)
         val tall_um = v.findViewById<TextView>(R.id.tall_um)
+
+
+
 
         //Communicator passData example (not already used)
         communicator = activity as Communicator

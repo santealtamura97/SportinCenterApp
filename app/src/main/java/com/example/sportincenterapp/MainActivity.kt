@@ -3,6 +3,7 @@ package com.example.sportincenterapp
 
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -75,8 +76,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.Fragment_container, CalendarFragment()).commit()
             R.id.profile -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, UserPage()).commit()
+            R.id.news -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, Advertisment ()).commit()
             R.id.settings -> supportFragmentManager.beginTransaction()
                     .replace(R.id.Fragment_container, Settings()).commit()
+            R.id.help -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, Faq()).commit()
             R.id.contacts -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, Concacts()).commit()
             }
