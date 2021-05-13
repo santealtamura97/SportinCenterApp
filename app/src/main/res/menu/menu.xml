@@ -35,8 +35,6 @@
     <!-- empty items only for space -->
     <item android:title="">
     </item>
-    <item android:title="">
-    </item>
 
     <item android:title ="@string/sistema">
         <menu>

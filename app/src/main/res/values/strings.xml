@@ -20,7 +20,10 @@
     <string name="um">Misura:</string>
     <string name="um_1">Kg/Cm:</string>
     <string name="um_2">Lib/In:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_title">IMPOSTAZIONI</string>
+    <string name="settings_language">Lingua</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_password">Password</string>
+    <string name="settings_version">Versione</string>
 
 </resources>

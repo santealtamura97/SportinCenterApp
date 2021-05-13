@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var drawerLayout: DrawerLayout
     private var default_name: String? = "Andrea Forino"
+    private var default_email: String? = "andrea.forino@edu.unito.it"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
         var user_name = header.findViewById<TextView>(R.id.nome_utente_nav_header)
+        var user_email = header.findViewById<TextView>(R.id.email_nav_header)
         user_name.text = default_name
+        user_email.text = default_email
 
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -72,6 +75,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.Fragment_container, CalendarFragment()).commit()
             R.id.profile -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, UserPage()).commit()
+            R.id.settings -> supportFragmentManager.beginTransaction()
+                    .replace(R.id.Fragment_container, Settings()).commit()
             }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -84,6 +89,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val header : View = navigationView.getHeaderView(0)
         val user_name = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         user_name.text = editTextInput
+    }
+
+    override fun user_email_update(editTextInput: String) {
+
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        val header : View = navigationView.getHeaderView(0)
+        val user_email = header.findViewById<TextView>(R.id.email_nav_header)
+        user_email.text = editTextInput
     }
 
     override fun pass_data(editTextInput: String) {

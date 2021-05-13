@@ -41,11 +41,11 @@
         android:gravity="left|center">
 
         <TextView
+            android:id="@+id/email_nav_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/white"
-            android:text="email_utente@dominio.it">
+            android:textColor="@color/white">
         </TextView>
 
     </LinearLayout>
