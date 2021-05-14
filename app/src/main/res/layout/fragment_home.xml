@@ -2,16 +2,129 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF9800"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Home Fragement"
-        android:textSize="30sp"
-        android:textColor="#ffffff">
+    android:background="@color/white">
 
-    </TextView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/logo_small_icon_only">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:gravity= "center"
+                    android:textColor ="@color/primary_color"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Sporting Center">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/primary_color">
+            </LinearLayout>
+
+            <ImageSwitcher
+                android:id = "@+id/imageswitcher_home"
+                android:layout_width="350dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center">
+            </ImageSwitcher>
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:background="@color/background_color">
+
+                      <ImageButton
+                           android:id="@+id/prev"
+                           android:layout_width="50dp"
+                           android:layout_height="30dp"
+                           android:background="@color/primary_color"
+                           android:layout_gravity="left"
+                           android:src="@drawable/ic_baseline_navigate_before_24">
+                      </ImageButton>
+
+
+                      <ImageButton
+                         android:id="@+id/next"
+                         android:layout_width="50dp"
+                         android:layout_height="30dp"
+                         android:background="@color/primary_color"
+                         android:layout_marginLeft="250dp"
+                         android:src="@drawable/ic_baseline_navigate_next_24">
+
+                     </ImageButton>
+
+                   </LinearLayout>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/primary_color"
+                android:textSize="30dp"
+                android:text="Chi siamo?">
+            </TextView>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="400dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:text="Lo Sporting Center è un centro sportivo nato circa 25 anni fa a Torino.
+Nel corso degli anni si è sempre distinto per la vasta gamma di attività sportive offerte
+e di corsi selezionabili. Il fiore all'occhiello del centro è la struttura che fornisce ampi spazi
+e una moltitudine di macchinari per agevolare tutte le esigenze dei clienti.\n
+Per venire incontro alle esigenze dei clienti e spinti anche dalla pandemia di COVID-19 è stata sviluppata la
+nostra nuova applicazione, con il quale sarà possibile visionare e gestire i corsi inclusi nel proprio abbonamento">
+            </TextView>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/primary_color"
+                android:textSize="30dp"
+                android:text="Dove siamo?">
+            </TextView>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="450dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:text="La sede principale è situata a Torino, per altri dettagli su come raggiungerci
+o contattarci recarsi nella sezione Contatti">
+            </TextView>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

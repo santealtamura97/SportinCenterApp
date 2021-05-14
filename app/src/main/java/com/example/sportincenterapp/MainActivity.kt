@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.SurfaceControl
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val header = navigationView.getHeaderView(0)
         var user_name = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         var user_email = header.findViewById<TextView>(R.id.email_nav_header)
+
 
         sessionManager = SessionManager(this) //initialize session manager in this class
 

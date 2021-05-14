@@ -1,46 +1,57 @@
 package com.example.sportincenterapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.animation.AnimationUtils
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageSwitcher
+import android.widget.ImageView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
+
+    private var nameList = intArrayOf(R.drawable.palestra_1, R.drawable.palestra_2, R.drawable.palestra_3, R.drawable.palestra_4, R.drawable.palestra_5)
+    private var index = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val v = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val imgSwitcher = v.findViewById<ImageSwitcher>(R.id.imageswitcher_home)
+        imgSwitcher?.setFactory({
+            val imgView = ImageView(ApplicationContextProvider.getContext())
+            imgView
+        })
+
+        imgSwitcher?.setImageResource(nameList[index])
+
+        val imgIn = AnimationUtils.loadAnimation(
+                ApplicationContextProvider.getContext(), android.R.anim.slide_in_left)
+        imgSwitcher?.inAnimation = imgIn
+
+        val imgOut = AnimationUtils.loadAnimation(
+                ApplicationContextProvider.getContext(), android.R.anim.slide_out_right)
+        imgSwitcher?.outAnimation = imgOut
+
+        // previous button functionality
+       val prev = v.findViewById<ImageButton>(R.id.prev)
+        prev.setOnClickListener {
+            index = if (index - 1 >= 0) index - 1 else 2
+            imgSwitcher?.setImageResource(nameList[index])
+        }
+        // next button functionality
+        val next = v.findViewById<ImageButton>(R.id.next)
+        next.setOnClickListener {
+            index = if (index + 1 < nameList.size) index +1 else 0
+            imgSwitcher?.setImageResource(nameList[index])
+        }
+
+        return v
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                HomeFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-    }
 }
