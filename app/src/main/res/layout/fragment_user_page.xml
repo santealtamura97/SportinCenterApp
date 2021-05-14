@@ -52,13 +52,14 @@
                 android:textSize="25dp"
                 android:textStyle="bold"></TextView>
 
-            <EditText
+            <TextView
                 android:id="@+id/user_text"
                 android:layout_width="220dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:gravity="center_vertical"
-                android:textSize="25dp"></EditText>
+                android:textSize="25dp"
+                android:text=""></TextView>
 
         </LinearLayout>
 

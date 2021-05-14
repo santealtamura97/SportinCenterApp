@@ -1,11 +1,10 @@
 package com.example.sportincenterapp
 
-import android.content.res.Resources
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -13,7 +12,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.navigation.NavigationView
+import com.example.sportincenterapp.utils.SessionManager
 
 
 class UserPage : Fragment() {
@@ -21,17 +20,19 @@ class UserPage : Fragment() {
     private lateinit var communicator: Communicator
 
     // Default values for the user page //
-    val default_user = "Andrea Forino"
+    var user_name: String? = "Default"
     val default_age = "26"
     val default_weight = "73"
     val default_tall = "173"
     val default_subscription = "plus"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
         //Exctract the frangment
         val v = inflater.inflate(R.layout.fragment_user_page, container, false)
         //Extract all the component that will be used
-        val user = v.findViewById<EditText>(R.id.user_text)
+        var user = v.findViewById<TextView>(R.id.user_text)
         val age = v.findViewById<EditText>(R.id.age_text)
         val weight = v.findViewById<EditText>(R.id.weight_text)
         val tall = v.findViewById<EditText>(R.id.tall_text)
@@ -48,11 +49,11 @@ class UserPage : Fragment() {
 
         //Communicator passData example (not already used)
         communicator = activity as Communicator
-        communicator.user_name_update(default_user)
+
 
 
         /* ASSIGN DEFAULT VALUE */
-        user.setText(default_user)
+        user.text = user_name
         age.setText(default_age)
         weight.setText(default_weight)
         tall.setText(default_tall)

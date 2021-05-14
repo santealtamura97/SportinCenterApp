@@ -2,22 +2,19 @@ package com.example.sportincenterapp
 
 
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.SurfaceControl
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
 
@@ -26,6 +23,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var sessionManager: SessionManager
+    var context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +35,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val header = navigationView.getHeaderView(0)
         var user_name = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         var user_email = header.findViewById<TextView>(R.id.email_nav_header)
+        var login_button = header.findViewById<Button>(R.id.login_button)
+        login_button.setOnClickListener { intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent) }
 
 
         sessionManager = SessionManager(this) //initialize session manager in this class
 
-        user_name.text = sessionManager.fetchUserName()
-        println(sessionManager.fetchUserEmail())
-        user_email.text = sessionManager.fetchUserEmail()
+        if (!sessionManager.fetchUserName().isNullOrEmpty()) {
+            user_name.text = sessionManager.fetchUserName()
+            user_email.text = sessionManager.fetchUserEmail()
+            user_name.visibility = View.VISIBLE
+            login_button.visibility = View.GONE
+            pass_data_user_page(sessionManager.fetchUserName())
+        }
 
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -114,6 +119,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun pass_data(editTextInput: String) {
 
+    }
+
+    override fun pass_data_user_page(userName: String?) {
+        var fragmentUserPage = UserPage()
+        fragmentUserPage.user_name = userName
     }
 
 }

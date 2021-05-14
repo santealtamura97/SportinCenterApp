@@ -2,13 +2,14 @@ package com.example.sportincenterapp.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.sportincenterapp.LoginActivity
 import com.example.sportincenterapp.R
 
 
 /**
  * Session manager to save and fetch data from SharedPreferences
  */
-class SessionManager (context: Context){
+class SessionManager(context: Context){
     private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
 
     companion object {
