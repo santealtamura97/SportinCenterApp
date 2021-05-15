@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -12,7 +11,6 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.sportincenterapp.utils.SessionManager
 
 
 class UserPage : Fragment() {
@@ -20,13 +18,16 @@ class UserPage : Fragment() {
     private lateinit var communicator: Communicator
 
     // Default values for the user page //
-    var user_name: String? = "Default"
+    //var user_name: String? = "Default"
+    var userName = "Dafault"
     val default_age = "26"
     val default_weight = "73"
     val default_tall = "173"
     val default_subscription = "plus"
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
 
 
         //Exctract the frangment
@@ -53,7 +54,7 @@ class UserPage : Fragment() {
 
 
         /* ASSIGN DEFAULT VALUE */
-        user.text = user_name
+        user.text = this.arguments?.getString("username");
         age.setText(default_age)
         weight.setText(default_weight)
         tall.setText(default_tall)
@@ -138,5 +139,6 @@ class UserPage : Fragment() {
         val bmi = ((weight.toDouble()) / ( (tall.toDouble()/100) * (tall.toDouble()/100))).toString()
         return bmi
     }
+
 
 }

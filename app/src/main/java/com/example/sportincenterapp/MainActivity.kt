@@ -23,31 +23,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var sessionManager: SessionManager
+
+    private var userName: TextView? = null
+
     var context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sessionManager = SessionManager(this) //initialize session manager in this class
 
         //Main navigation settings
         setContentView(R.layout.activity_main)
         drawerLayout = findViewById(R.id.nav_view)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
-        var user_name = header.findViewById<TextView>(R.id.nome_utente_nav_header)
+
+        userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         var user_email = header.findViewById<TextView>(R.id.email_nav_header)
         var login_button = header.findViewById<Button>(R.id.login_button)
         login_button.setOnClickListener { intent = Intent(context, LoginActivity::class.java)
             startActivity(intent) }
 
-
-        sessionManager = SessionManager(this) //initialize session manager in this class
-
         if (!sessionManager.fetchUserName().isNullOrEmpty()) {
-            user_name.text = sessionManager.fetchUserName()
+            userName?.text = sessionManager.fetchUserName()
             user_email.text = sessionManager.fetchUserEmail()
-            user_name.visibility = View.VISIBLE
+            userName?.visibility = View.VISIBLE
             login_button.visibility = View.GONE
-            pass_data_user_page(sessionManager.fetchUserName())
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -79,14 +80,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-
-
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+
         when (menuItem.itemId) {
+
             R.id.calendar -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, CalendarFragment()).commit()
-            R.id.profile -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, UserPage()).commit()
+            R.id.profile ->
+                supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, initializeUserPage()).commit()
             R.id.news -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, Advertisment ()).commit()
             R.id.settings -> supportFragmentManager.beginTransaction()
@@ -99,6 +101,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun initializeUserPage(): UserPage {
+        val bundle = Bundle()
+        val userPage = UserPage()
+        bundle.putString("username", userName?.text.toString())
+        userPage.arguments = bundle
+
+        return userPage
     }
 
     override fun user_name_update(editTextInput: String) {
@@ -122,8 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun pass_data_user_page(userName: String?) {
-        var fragmentUserPage = UserPage()
-        fragmentUserPage.user_name = userName
+
     }
 
 }
