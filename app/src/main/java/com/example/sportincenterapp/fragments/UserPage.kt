@@ -1,4 +1,4 @@
-package com.example.sportincenterapp
+package com.example.sportincenterapp.fragments
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +11,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.sportincenterapp.interfaces.Communicator
+import com.example.sportincenterapp.R
 
 
 class UserPage : Fragment() {
@@ -80,7 +82,7 @@ class UserPage : Fragment() {
         })
 
         //Listener for weight edit text
-        weight.addTextChangedListener(object : TextWatcher {
+        /*weight.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {}
 
@@ -127,7 +129,7 @@ class UserPage : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
             }
-        })
+        })*/
 
         return v
     }

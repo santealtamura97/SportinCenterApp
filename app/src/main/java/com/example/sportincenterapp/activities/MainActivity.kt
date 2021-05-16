@@ -1,8 +1,7 @@
-package com.example.sportincenterapp
+package com.example.sportincenterapp.activities
 
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -15,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.sportincenterapp.*
+import com.example.sportincenterapp.fragments.*
+import com.example.sportincenterapp.interfaces.Communicator
+import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
 
@@ -24,13 +27,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var sessionManager: SessionManager
 
-    private var userName: TextView? = null
-
-    var context: Context = this
+    private lateinit var userName: TextView
+    private lateinit var userEmail: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sessionManager = SessionManager(this) //initialize session manager in this class
+        sessionManager = SessionManager(ApplicationContextProvider.getContext()) //initialize session manager in this class
 
         //Main navigation settings
         setContentView(R.layout.activity_main)
@@ -39,16 +41,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val header = navigationView.getHeaderView(0)
 
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
-        var user_email = header.findViewById<TextView>(R.id.email_nav_header)
-        var login_button = header.findViewById<Button>(R.id.login_button)
-        login_button.setOnClickListener { intent = Intent(context, LoginActivity::class.java)
+        userEmail = header.findViewById<TextView>(R.id.email_nav_header)
+
+        val loginButton = header.findViewById<Button>(R.id.login_button)
+        loginButton.setOnClickListener { intent = Intent(ApplicationContextProvider.getContext(), LoginActivity::class.java)
             startActivity(intent) }
 
         if (!sessionManager.fetchUserName().isNullOrEmpty()) {
             userName?.text = sessionManager.fetchUserName()
-            user_email.text = sessionManager.fetchUserEmail()
+            userEmail.text = sessionManager.fetchUserEmail()
             userName?.visibility = View.VISIBLE
-            login_button.visibility = View.GONE
+            loginButton.visibility = View.GONE
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -90,13 +93,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, initializeUserPage()).commit()
             R.id.news -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, Advertisment ()).commit()
+                .replace(R.id.Fragment_container, Advertisment()).commit()
             R.id.settings -> supportFragmentManager.beginTransaction()
                     .replace(R.id.Fragment_container, Settings()).commit()
             R.id.help -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, Faq()).commit()
             R.id.contacts -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, Concacts()).commit()
+                .replace(R.id.Fragment_container, Contacts()).commit()
             }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -106,34 +109,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initializeUserPage(): UserPage {
         val bundle = Bundle()
         val userPage = UserPage()
-        bundle.putString("username", userName?.text.toString())
+        bundle.putString("username", userName.text.toString())
         userPage.arguments = bundle
 
         return userPage
-    }
-
-    override fun user_name_update(editTextInput: String) {
-
-        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        val header : View = navigationView.getHeaderView(0)
-        val user_name = header.findViewById<TextView>(R.id.nome_utente_nav_header)
-        user_name.text = editTextInput
-    }
-
-    override fun user_email_update(editTextInput: String) {
-
-        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        val header : View = navigationView.getHeaderView(0)
-        val user_email = header.findViewById<TextView>(R.id.email_nav_header)
-        user_email.text = editTextInput
-    }
-
-    override fun pass_data(editTextInput: String) {
-
-    }
-
-    override fun pass_data_user_page(userName: String?) {
-
     }
 
 }

@@ -1,16 +1,16 @@
-package com.example.sportincenterapp
+package com.example.sportincenterapp.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageSwitcher
 import android.widget.ImageView
+import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.R
 
 class HomeFragment : Fragment() {
 

@@ -1,11 +1,13 @@
-package com.example.sportincenterapp
+package com.example.sportincenterapp.activities
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.responses.LoginResponse
@@ -19,14 +21,13 @@ class LoginActivity : AppCompatActivity() {
     private  var etPassword: EditText? = null
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
-    var context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        etUsername = findViewById<EditText>(R.id.etUserName)
-        etPassword = findViewById<EditText>(R.id.etPassword)
+        etUsername = findViewById(R.id.etUserName)
+        etPassword = findViewById(R.id.etPassword)
 
         findViewById<View>(R.id.btnLogin).setOnClickListener { loginUser() }
     }
@@ -36,22 +37,22 @@ class LoginActivity : AppCompatActivity() {
         val password = etPassword!!.text.toString().trim { it <= ' ' }
 
         if (email.isEmpty()) {
-            etUsername!!.error = "Inserisci l'Username"
+            etUsername!!.error = resources.getString(R.string.missing_email_message)
             etUsername!!.requestFocus()
             return
         } else if (password.isEmpty()) {
-            etPassword!!.error = "Inserisci la Password"
+            etPassword!!.error = resources.getString(R.string.missing_password_message)
             etPassword!!.requestFocus()
             return
         }
 
         apiClient = ApiClient()
-        sessionManager = SessionManager(this)
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
         apiClient.getApiService().login(LoginRequest(email,password))
             .enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    // Error logging in
+                    Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.login_error), Toast.LENGTH_LONG).show()
                 }
 
                 override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
@@ -62,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
                         sessionManager.saveUserId(loginResponse.user.id)
                         sessionManager.saveUsername(loginResponse.user.displayName)
                         sessionManager.saveUserEmail(loginResponse.user.email)
-                        intent = Intent(context, MainActivity::class.java)
+                        intent = Intent(ApplicationContextProvider.getContext(), MainActivity::class.java)
                         startActivity(intent)
                     } else {
                         // Error logging in

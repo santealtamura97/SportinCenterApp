@@ -2,21 +2,21 @@
     <string name="app_name">SportingCenterApp</string>
     <string name="navigation_draw_open">open navigation drawer</string>
     <string name="navigation_draw_close">close navigation drawer</string>
-    <string name="profilo">Profilo</string>
-    <string name="prenotazioni">Prenotazioni</string>
-    <string name="calendario">Calendario</string>
-    <string name="avvisi">Avvisi</string>
-    <string name="sistema">Sistema</string>
-    <string name="impostazioni">Impostazioni</string>
+    <string name="profile">Profilo</string>
+    <string name="bookings">Prenotazioni</string>
+    <string name="calendar">Calendario</string>
+    <string name="advertisment">Avvisi</string>
+    <string name="system">Sistema</string>
+    <string name="settings">Impostazioni</string>
     <string name="FAQ">FAQ</string>
-    <string name="contatti">Contatti</string>
+    <string name="contacts">Contatti</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="utente">Utente:</string>
-    <string name="eta">Età:</string>
-    <string name="peso">Peso:</string>
-    <string name="altezza">Altezza:</string>
+    <string name="user">Utente:</string>
+    <string name="age">Età:</string>
+    <string name="weight">Peso:</string>
+    <string name="height">Altezza:</string>
     <string name="bmi">BMI:</string>
-    <string name="abbonamento">Abbonamento:</string>
+    <string name="subscription">Abbonamento:</string>
     <string name="um">Misura:</string>
     <string name="um_1">Kg/Cm:</string>
     <string name="um_2">Lib/In:</string>
@@ -51,7 +51,12 @@
     <string name="advertisment_halloween">31/10 - Paura di perdere la forma?</string>
     <string name="advertisment_newyear">31/12 - Capodanno in palestra</string>
     <string name="login_button">Login</string>
-
-
+    <string name="email_login">Email</string>
+    <string name="password_login">Password</string>
+    <string name="missing_email_message">Per favore inserire la email</string>
+    <string name="missing_password_message">Per favore inserire la password</string>
+    <string name="create_account"><u>Registrati</u></string>
+    <string name="help"><u>Aiuto?</u></string>
+    <string name="login_error">Autenticazione non riuscita!</string>
 
 </resources>

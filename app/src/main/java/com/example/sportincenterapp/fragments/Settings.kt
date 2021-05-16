@@ -1,4 +1,4 @@
-package com.example.sportincenterapp
+package com.example.sportincenterapp.fragments
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import com.example.sportincenterapp.interfaces.Communicator
+import com.example.sportincenterapp.R
 
 
 class Settings : Fragment() {
@@ -40,11 +42,10 @@ class Settings : Fragment() {
         version.text = default_version
 
         //Communicator passData example (not already used)
-        communicator = activity as Communicator
-        communicator.user_email_update(default_email)
+        //communicator = activity as Communicator
 
         //Listener for email edit text
-        email.addTextChangedListener(object : TextWatcher {
+        /*email.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
                 communicator.user_email_update(s.toString())
@@ -55,7 +56,7 @@ class Settings : Fragment() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {}
-        })
+        })*/
 
         return v
     }

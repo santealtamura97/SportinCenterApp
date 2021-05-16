@@ -7,26 +7,26 @@
         <item
             android:id="@+id/profile"
             android:icon="@drawable/ic_baseline_account_circle_24"
-            android:title="@string/profilo">
+            android:title="@string/profile">
         </item>
 
         <item
             android:id="@+id/bookings"
             android:icon="@drawable/ic_baseline_edit_24"
-            android:title="@string/prenotazioni">
+            android:title="@string/bookings">
         </item>
 
         <item
             android:id="@+id/calendar"
             android:icon="@drawable/ic_baseline_calendar_today_24"
-            android:title="@string/calendario">
+            android:title="@string/calendar">
 
         </item>
 
         <item
             android:id="@+id/news"
             android:icon="@drawable/ic_baseline_new_releases_24"
-            android:title="@string/avvisi">
+            android:title="@string/advertisment">
 
         </item>
 
@@ -36,13 +36,13 @@
     <item android:title="">
     </item>
 
-    <item android:title ="@string/sistema">
+    <item android:title ="@string/system">
         <menu>
 
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/ic_baseline_settings_24"
-                android:title="@string/impostazioni">
+                android:title="@string/settings">
             </item>
 
             <item
@@ -54,7 +54,7 @@
             <item
                 android:id="@+id/contacts"
                 android:icon="@drawable/ic_baseline_send_24"
-                android:title="@string/contatti">
+                android:title="@string/contacts">
             </item>
 
         </menu>

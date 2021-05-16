@@ -2,7 +2,6 @@ package com.example.sportincenterapp.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.sportincenterapp.LoginActivity
 import com.example.sportincenterapp.R
 
 
