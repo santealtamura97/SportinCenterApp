@@ -12,6 +12,7 @@
     <color name="orange_logo">#F2A444</color>
     <color name="transparent">#00000000</color>
     <color name="media">#EA6D78</color>
+    <color name="view_line">#F7F7F9</color>
     <!-- first theme colors -->
     <color name="primary_color">#FF4500</color>
     <color name="background_color">#DCC7C7</color>

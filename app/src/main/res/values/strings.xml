@@ -63,5 +63,11 @@
     <string name="create_account"><u>Registrati</u></string>
     <string name="help"><u>Aiuto?</u></string>
     <string name="login_error">Autenticazione non riuscita!</string>
+    <string name="registration_messagge">Abbiamo bisogno solo di alcuni dati per la registrazione!</string>
+    <string name="registration_welcome">Benvenuto/a !</string>
+    <string name="registration_complete_name">Nome e Cognome</string>
+    <string name="join_us_button">Registrati</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

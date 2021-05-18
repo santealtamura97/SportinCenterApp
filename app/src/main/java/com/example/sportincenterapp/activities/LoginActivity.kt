@@ -1,16 +1,19 @@
 package com.example.sportincenterapp.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-import com.example.sportincenterapp.utils.ApplicationContextProvider
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.responses.LoginResponse
+import com.example.sportincenterapp.fragments.CalendarFragment
+import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
         etPassword = findViewById(R.id.etPassword)
 
         findViewById<View>(R.id.btnLogin).setOnClickListener { loginUser() }
+        findViewById<TextView>(R.id.registration_link).setOnClickListener {
+            intent = Intent(ApplicationContextProvider.getContext(), RegistrationActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun loginUser() {
