@@ -150,6 +150,14 @@
                         android:background="@color/view_line" />
                     <!--Email Details-->
 
+                    <!--Birth Details-->
+
+                    <!-- TODO: ADD BIRTH DATE PICKER EDIT TEXT -->
+
+                    <!--Birth Details-->
+
+
+
 
                     <!--Password Details-->
 
@@ -172,6 +180,30 @@
                         android:textStyle="bold"
                         android:textSize="18dp" />
 
+                    <View
+                        style="@style/Normal_Margin_Style"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_line" />
+
+                    <EditText
+                        android:id="@+id/reg_password_confirm_et"
+                        style="@style/Font_family_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:drawableLeft="@drawable/password"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/password_confirm"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:fontFamily="sans-serif-regular"
+                        android:textStyle="bold"
+                        android:textSize="18dp" />
+
 
                     <View
                         style="@style/Normal_Margin_Style"
@@ -180,6 +212,8 @@
                         android:layout_marginBottom="5dp"
                         android:background="@color/view_line" />
                     <!--Password Details-->
+
+
 
                 </LinearLayout>
 

@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val bundle = Bundle()
         val userPage = UserPage()
         bundle.putString("username", userName.text.toString())
+        bundle.putString("email", userEmail.text.toString())
         userPage.arguments = bundle
 
         return userPage

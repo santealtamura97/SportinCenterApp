@@ -5,7 +5,7 @@
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
-     android:background="@color/grey"
+     android:background="@color/primary_color"
      android:orientation="vertical">
 
      <LinearLayout
@@ -174,13 +174,13 @@
                              <ImageView
                                  android:layout_width="40dp"
                                  android:layout_height="40dp"
-                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:background="@drawable/circular_white_bordersolid"
                                  android:padding="10dp"
                                  android:src="@drawable/ic_baseline_call_24" />
 
                              <EditText
                                  android:id="@+id/user_phonenumber_edit"
-                                 android:layout_width="wrap_content"
+                                 android:layout_width="150dp"
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="20dp"
                                  android:textSize="15dp"
@@ -204,7 +204,7 @@
                              <ImageView
                                  android:layout_width="40dp"
                                  android:layout_height="40dp"
-                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:background="@drawable/circular_white_bordersolid"
                                  android:padding="10dp"
                                  android:src="@drawable/ic_baseline_email_24" />
 
@@ -226,7 +226,7 @@
                              <ImageView
                                  android:layout_width="40dp"
                                  android:layout_height="40dp"
-                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:background="@drawable/circular_white_bordersolid"
                                  android:padding="10dp"
                                  android:src="@drawable/ic_baseline_cake_24" />
 
@@ -248,13 +248,13 @@
                              <ImageView
                                  android:layout_width="40dp"
                                  android:layout_height="40dp"
-                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:background="@drawable/circular_white_bordersolid"
                                  android:padding="10dp"
                                  android:src="@drawable/ic_baseline_place_24" />
 
                              <EditText
                                  android:id="@+id/user_address_edit"
-                                 android:layout_width="wrap_content"
+                                 android:layout_width="150dp"
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="20dp"
                                  android:textSize="15sp"

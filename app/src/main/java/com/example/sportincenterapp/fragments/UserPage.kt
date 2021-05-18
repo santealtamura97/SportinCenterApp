@@ -19,13 +19,12 @@ class UserPage : Fragment() {
     // Communicator instance
     private lateinit var communicator: Communicator
 
-    // For test //
-    var userName = "Default"
-    var default_subscription = "plus"
-    var default_telephone = "+39 3317429674"
-    var default_email = "andrea.forino@edu.unito.it"
-    var default_birth = "02/04/1995"
-    var default_address = "Via del fante/3A, 37060"
+    // User info //
+    val default_subscription = "Non ti è ancora stato assegnato un abbonamento!"
+    val default_telephone = "+39 "
+    var default_address = "Indirizzo"
+
+    // User Features //
     var default_age = "26"
     var default_weight = "73"
     var default_tall = "173"
@@ -74,17 +73,17 @@ class UserPage : Fragment() {
         //Communicator passData example (not already used)
         communicator = activity as Communicator
 
+
+        user.text = arguments?.getString("username");
+        email.text = arguments?.getString("email")
+        um_1.text = arguments?.getString("um_1")
+        um_2.text = arguments?.getString("um_2")
+
         /* ASSIGN DEFAULT VALUE */
-        user.text = this.arguments?.getString("username");
-        um_1.text = this.arguments?.getString("um_1")
-        um_2.text = this.arguments?.getString("um_2")
         sub.text = default_subscription
         telephone_view.text = default_telephone
         telephone_edit.setText(telephone_view.text)
-        email.text = default_email
-        birth.text = default_birth
         address_view.text = default_address
-        address_set.setText(address_view.text)
         age_view.text = default_age
         age_set.setText(age_view.text)
         weight_view.text = default_weight
