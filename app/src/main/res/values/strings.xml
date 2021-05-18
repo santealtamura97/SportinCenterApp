@@ -2,6 +2,7 @@
     <string name="app_name">SportingCenterApp</string>
     <string name="navigation_draw_open">open navigation drawer</string>
     <string name="navigation_draw_close">close navigation drawer</string>
+    <!-- navigation header -->
     <string name="profile">Profilo</string>
     <string name="bookings">Prenotazioni</string>
     <string name="calendar">Calendario</string>
@@ -11,19 +12,23 @@
     <string name="FAQ">FAQ</string>
     <string name="contacts">Contatti</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="user">Utente:</string>
+    <!-- User page -->
+    <string name="user_information_title">Informazioni utente:</string>
+    <string name="user_physics_title">Caratteristiche fisiche:</string>
     <string name="age">Età:</string>
     <string name="weight">Peso:</string>
     <string name="height">Altezza:</string>
     <string name="bmi">BMI:</string>
-    <string name="subscription">Abbonamento:</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+
+    <!-- SETTINGS  -->
+    <string name="settings_title">IMPOSTAZIONI</string>
     <string name="um">Misura:</string>
     <string name="um_1">Kg/Cm:</string>
     <string name="um_2">Lib/In:</string>
-    <string name="settings_title">IMPOSTAZIONI</string>
     <string name="settings_language">Lingua</string>
-    <string name="settings_email">E-mail</string>
-    <string name="settings_password">Password</string>
+    <string name="settings_theme">Tema</string>
     <string name="settings_version">Versione</string>
     <string name="contacts_title">CONTATTI</string>
     <string name="contacts_hours">Orari:</string>

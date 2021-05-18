@@ -31,18 +31,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp">
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp">
 
             <TextView
-                android:layout_width="120dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/settings_language"
                 android:textColor="@color/primary_color"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textSize="30dp">
+                android:textSize="25dp">
 
             </TextView>
 
@@ -59,76 +59,107 @@
         </LinearLayout>
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp">
-
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_gravity="center_vertical"
-            android:text= "@string/settings_email"
-            android:textColor="@color/primary_color"
-            android:fontFamily="sans-serif-condensed-light"
-            android:textSize="30dp">
-
-        </TextView>
-
-            <EditText
-                android:id="@+id/settings_email"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"
-                android:textSize="15dp">
-
-            </EditText>
-
-    </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="30dp">
 
             <TextView
-                android:layout_width="120dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/settings_password"
+                android:text="@string/settings_theme"
                 android:textColor="@color/primary_color"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textSize="30dp">
+                android:textSize="25dp">
 
             </TextView>
 
-            <EditText
-                android:id="@+id/settings_password"
-                android:layout_width="170dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
+            <TextView
+                android:id="@+id/settings_theme"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
-                android:textSize="15dp">
+                android:layout_gravity="center_vertical"
+                android:textSize="20dp">
 
-            </EditText>
+            </TextView>
 
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="30dp">
 
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/um"
+                android:textColor="@color/primary_color"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="25dp">
+
+            </TextView>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="250dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/um_1"
+                    android:textSize="15dp"></TextView>
+
+                <RadioButton
+                    android:id="@+id/radioButton_1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:checked="true"></RadioButton>
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:text="@string/um_2"
+                    android:textSize="15dp"></TextView>
+
+                <RadioButton
+                    android:id="@+id/radioButton_2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"></RadioButton>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/settings_version"
                 android:textColor="@color/primary_color"
                 android:fontFamily="sans-serif-condensed-light"
-                android:textSize="30dp">
+                android:textSize="25dp">
 
             </TextView>
 
@@ -143,6 +174,8 @@
             </TextView>
 
         </LinearLayout>
+
+
 
     </LinearLayout>
 

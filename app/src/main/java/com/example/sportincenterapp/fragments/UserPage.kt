@@ -7,82 +7,97 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.R
+import org.w3c.dom.Text
 
 
 class UserPage : Fragment() {
     // Communicator instance
     private lateinit var communicator: Communicator
 
-    // Default values for the user page //
-    //var user_name: String? = "Default"
-    var userName = "Dafault"
-    val default_age = "26"
-    val default_weight = "73"
-    val default_tall = "173"
-    val default_subscription = "plus"
-
+    // For test //
+    var userName = "Default"
+    var default_subscription = "plus"
+    var default_telephone = "+39 3317429674"
+    var default_email = "andrea.forino@edu.unito.it"
+    var default_birth = "02/04/1995"
+    var default_address = "Via del fante/3A, 37060"
+    var default_age = "26"
+    var default_weight = "73"
+    var default_tall = "173"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-
-
         //Exctract the frangment
         val v = inflater.inflate(R.layout.fragment_user_page, container, false)
+
         //Extract all the component that will be used
+        //User name
         var user = v.findViewById<TextView>(R.id.user_text)
-        val age = v.findViewById<EditText>(R.id.age_text)
-        val weight = v.findViewById<EditText>(R.id.weight_text)
-        val tall = v.findViewById<EditText>(R.id.tall_text)
-        val sub =  v.findViewById<TextView>(R.id.subscription_text)
+        //Telephone
+        var telephone_view = v.findViewById<TextView>(R.id.user_phonenumber_view) //view
+        var telephone_edit = v.findViewById<EditText>(R.id.user_phonenumber_edit) //set
+        //Telephone
+        var email = v.findViewById<TextView>(R.id.user_emailaddress) //view
+        //Birthday
+        var birth = v.findViewById<TextView>(R.id.user_birthday) //view
+        //Address
+        val address_view = v.findViewById<TextView>(R.id.user_address_view) //view
+        val address_set = v.findViewById<TextView>(R.id.user_address_edit) //set
+        //Age
+        val age_view = v.findViewById<TextView>(R.id.user_age_view) //view
+        val age_set = v.findViewById<EditText>(R.id.user_age_edit) //set
+        //Weight
+        val weight_view = v.findViewById<TextView>(R.id.user_weight_view) //view
+        val weight_set = v.findViewById<EditText>(R.id.user_weight_edit)
+        //Tall
+        val tall_view = v.findViewById<TextView>(R.id.user_tall_view) //view
+        val tall_edit = v.findViewById<EditText>(R.id.user_tall_edit) //edit
+        //subscription
+        val sub =  v.findViewById<TextView>(R.id.user_subscription)
+        //unit misure
+        var um_1 =  v.findViewById<TextView>(R.id.um_1)
+        var um_2 =  v.findViewById<TextView>(R.id.um_2)
+        //bmi
         val bmi = v.findViewById<TextView>(R.id.bmi_text)
-        val um_radioGroup = v.findViewById<RadioGroup>(R.id.radioGroup)
-        val radioButton_1 = v.findViewById<RadioButton>(R.id.radioButton_1)
-        val radioButton_2 = v.findViewById<RadioButton>(R.id.radioButton_2)
-        val weight_um = v.findViewById<TextView>(R.id.weight_um)
-        val tall_um = v.findViewById<TextView>(R.id.tall_um)
 
-
-
+        //Edit button
+        val editbtn_1 = v.findViewById<Button>(R.id.button_infouser)
+        val editbtn_1_save = v.findViewById<Button>(R.id.button_infouser_save)
+        val editbtn_2 = v.findViewById<Button>(R.id.button_physics)
+        val editbtn_2_save = v.findViewById<Button>(R.id.button_physics_save)
 
         //Communicator passData example (not already used)
         communicator = activity as Communicator
 
-
-
         /* ASSIGN DEFAULT VALUE */
         user.text = this.arguments?.getString("username");
-        age.setText(default_age)
-        weight.setText(default_weight)
-        tall.setText(default_tall)
+        um_1.text = this.arguments?.getString("um_1")
+        um_2.text = this.arguments?.getString("um_2")
         sub.text = default_subscription
-        bmi.text = calculateBMI(weight.text.toString(), tall.text.toString())
+        telephone_view.text = default_telephone
+        telephone_edit.setText(telephone_view.text)
+        email.text = default_email
+        birth.text = default_birth
+        address_view.text = default_address
+        address_set.setText(address_view.text)
+        age_view.text = default_age
+        age_set.setText(age_view.text)
+        weight_view.text = default_weight
+        weight_set.setText(weight_view.text)
+        tall_view.text = default_tall
+        tall_edit.setText(tall_view.text)
 
-        if (radioButton_1.isChecked) {
-            weight_um.text = "Kg"
-            tall_um.text = "Cm"
-        } else {
-            weight_um.text = "Lib"
-            tall_um.text = "In"
-        }
+        bmi.text = calculateBMI(weight_view.text.toString(), tall_view.text.toString())
 
         /* LISTENERS */
 
-        //Listener for radioGroup
-        um_radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.radioButton_1 ->  { weight_um.text = "Kg"; tall_um.text = "Cm" } //Case RadioButton 1
-                R.id.radioButton_2 -> { weight_um.text = "Lib"; tall_um.text = "In" } //Case RadioButton 2
-            }
-        })
-
-        //Listener for weight edit text
-        /*weight.addTextChangedListener(object : TextWatcher {
+        //Listener for address edit text
+        telephone_edit.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {}
 
@@ -92,14 +107,60 @@ class UserPage : Fragment() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                if (s.length > 0 && tall.text.length > 0) {
-                    bmi.text = calculateBMI(s.toString(), tall.text.toString())
+                telephone_view.text = telephone_edit.text
+            }
+        })
+
+        //Listener for address edit text
+        address_set.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                address_view.text = address_set.text
+            }
+        })
+
+        //Listener for age edit text
+        age_set.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                age_view.text = age_set.text
+            }
+        })
+
+        //Listener for weight edit text
+        weight_set.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                if (s.length > 0 && tall_view.text.length > 0) {
+                    bmi.text = calculateBMI(s.toString(), tall_view.text.toString())
                 }
+                weight_view.text = weight_set.text
             }
         })
 
         //Listener for tall edit text
-        tall.addTextChangedListener(object : TextWatcher {
+        tall_edit.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {}
 
@@ -109,27 +170,54 @@ class UserPage : Fragment() {
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                if (s.length > 0 && weight.text.length > 0) {
-                    bmi.text = calculateBMI(weight.text.toString(), s.toString())
+                if (s.length > 0 && weight_view.text.length > 0) {
+                    bmi.text = calculateBMI(weight_view.text.toString(), s.toString())
                 }
+                tall_view.text = tall_edit.text
             }
         })
 
-        //Listener for weight edit text
-        user.addTextChangedListener(object : TextWatcher {
+        //Button edit/save listener
 
-            override fun afterTextChanged(s: Editable) {
-                communicator.user_name_update(s.toString())
-            }
+        editbtn_1.setOnClickListener {
+            editbtn_1.visibility = View.GONE
+            editbtn_1_save.visibility = View.VISIBLE
+            address_view.visibility = View.GONE
+            address_set.visibility = View.VISIBLE
+            telephone_view.visibility = View.GONE
+            telephone_edit.visibility = View.VISIBLE
+        }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
+        editbtn_1_save.setOnClickListener {
+            editbtn_1.visibility = View.VISIBLE
+            editbtn_1_save.visibility = View.GONE
+            address_view.visibility = View.VISIBLE
+            address_set.visibility = View.GONE
+            telephone_view.visibility = View.VISIBLE
+            telephone_edit.visibility = View.GONE
+        }
 
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-            }
-        })*/
+        editbtn_2.setOnClickListener {
+            editbtn_2.visibility = View.GONE
+            editbtn_2_save.visibility = View.VISIBLE
+            age_view.visibility = View.GONE
+            age_set.visibility = View.VISIBLE
+            weight_view.visibility = View.GONE
+            weight_set.visibility = View.VISIBLE
+            tall_view.visibility = View.GONE
+            tall_edit.visibility = View.VISIBLE
+        }
+
+        editbtn_2_save.setOnClickListener {
+            editbtn_2.visibility = View.VISIBLE
+            editbtn_2_save.visibility = View.GONE
+            age_view.visibility = View.VISIBLE
+            age_set.visibility = View.GONE
+            weight_view.visibility = View.VISIBLE
+            weight_set.visibility = View.GONE
+            tall_view.visibility = View.VISIBLE
+            tall_edit.visibility = View.GONE
+        }
 
         return v
     }

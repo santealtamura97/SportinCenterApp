@@ -1,262 +1,440 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".fragments.UserPage">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="721dp"
-        android:layout_marginTop="110dp"
-        android:orientation="vertical">
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/grey"
+     android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/primary_color">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="240dp"
+         android:background="@color/primary_color" />
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_marginLeft="230dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/bmi"
-                android:textColor="@color/white"
-                android:textSize="30dp"
-                android:textStyle="bold"></TextView>
+     <!--Top Header Layout-->
+     <LinearLayout
+         android:id="@+id/topbar"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:orientation="horizontal"
+         android:gravity="center_horizontal"
+         android:padding="16dp">
 
-            <TextView
-                android:id="@+id/bmi_text"
-                android:layout_width="80dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                android:textSize="30dp"></TextView>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:textColor="@color/white"
+             android:text="@string/profile"
+             android:textSize="20dp"
+             android:textStyle="bold" />
 
-        </LinearLayout>
+     </LinearLayout>
 
-        <!-- USER -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp">
+     <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:scrollbars="none"
+         android:layout_below="@+id/topbar">
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="@string/user"
-                android:textSize="25dp"
-                android:textStyle="bold"></TextView>
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:paddingLeft="20dp"
+             android:paddingTop="10dp"
+             android:paddingRight="20dp">
 
-            <TextView
-                android:id="@+id/user_text"
-                android:layout_width="220dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_vertical"
-                android:textSize="25dp"
-                android:text=""></TextView>
+             <!--Top Profile Section -->
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/circularbordersolid"
+                 android:gravity="center"
+                 android:orientation="vertical"
+                 android:padding="16dp">
 
-        </LinearLayout>
+                 <ImageView
+                     android:layout_width="130dp"
+                     android:layout_height="130dp"
+                     android:background="@drawable/profileimage_container"
+                     android:src="@drawable/ic_launcher_foreground">
+                 </ImageView>
 
-        <!-- Età -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp">
+                     <TextView
+                         android:id="@+id/user_text"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="5dp"
+                         android:textSize="20dp" />
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="@string/age"
-                android:textSize="25dp"
-                android:textStyle="bold"></TextView>
+                    <TextView
+                         android:id="@+id/user_subscription"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="5dp"
+                         android:textSize="14dp">
 
-            <EditText
-                android:id="@+id/age_text"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_vertical"
-                android:textSize="25dp"></EditText>
+                     </TextView>
+             </LinearLayout>
 
-        </LinearLayout>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:background="@drawable/circularbordersolid">
 
-        <!-- Peso -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp">
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center_vertical"
+                     android:text="@string/bmi"
+                     android:textColor="@color/primary_color"
+                     android:textSize="30dp"
+                     android:textStyle="bold"
+                     android:padding="10dp">
 
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="@string/weight"
-                android:textSize="25dp"
-                android:textStyle="bold"></TextView>
+                 </TextView>
 
-            <EditText
-                android:id="@+id/weight_text"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_vertical"
-                android:textSize="25dp"></EditText>
+                 <TextView
+                     android:id="@+id/bmi_text"
+                     android:layout_width="80dp"
+                     android:layout_height="60dp"
+                     android:layout_gravity="center_vertical"
+                     android:padding="10dp"
+                     android:textSize="30dp"></TextView>
 
-            <TextView
-                android:id="@+id/weight_um"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp"
-                android:gravity="center_vertical"
-                android:text="Kg"
-                android:textSize="30dp"
-                android:textStyle="bold"></TextView>
+             </LinearLayout>
 
-        </LinearLayout>
+             <!--Bottom Cards with sections-->
+             <LinearLayout
+                 android:id="@+id/personalinfo"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical">
 
-        <!-- Altezza -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp">
+                 <!--Contact Details-->
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="5dp"
+                     android:background="@drawable/circularbordersolid"
+                     android:orientation="vertical"
+                     android:padding="16dp">
 
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="@string/height"
-                android:textSize="25dp"
-                android:textStyle="bold"></TextView>
+                     <LinearLayout
+                         android:id="@+id/a"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/tall_text"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_vertical"
-                android:textSize="25dp"></EditText>
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@string/user_information_title"
+                             android:textSize="17dp"
+                             android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tall_um"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp"
-                android:gravity="center_vertical"
-                android:text="Cm"
-                android:textSize="30dp"
-                android:textStyle="bold"></TextView>
+                         <Button
+                             android:id="@+id/button_infouser_save"
+                             android:layout_width="80dp"
+                             android:layout_height="30dp"
+                             android:text="@string/save"
+                             android:layout_marginLeft="105dp"
+                             android:textColor="@color/primary_color"
+                             android:background="@color/white"
+                             android:textSize="13dp"
+                             android:visibility="gone"/>
 
-        </LinearLayout>
+                         <Button
+                             android:id="@+id/button_infouser"
+                             android:layout_width="80dp"
+                             android:layout_height="30dp"
+                             android:text="@string/edit"
+                             android:layout_marginLeft="105dp"
+                             android:textColor="@color/primary_color"
+                             android:background="@color/white"
+                             android:textSize="13dp" />
+                     </LinearLayout>
 
-        <!-- Abbonamento -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp">
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="10dp"
+                         android:orientation="vertical">
 
-            <TextView
-                android:layout_width="190dp"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="@string/subscription"
-                android:textSize="25dp"
-                android:textStyle="bold"></TextView>
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
 
-            <TextView
-                android:id="@+id/subscription_text"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_vertical"
-                android:textSize="25dp"></TextView>
+                             <ImageView
+                                 android:layout_width="40dp"
+                                 android:layout_height="40dp"
+                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:padding="10dp"
+                                 android:src="@drawable/ic_baseline_call_24" />
 
-        </LinearLayout>
+                             <EditText
+                                 android:id="@+id/user_phonenumber_edit"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15dp"
+                                 android:visibility="gone"/>
 
-        <!-- Unità di misura -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp">
+                             <TextView
+                                 android:id="@+id/user_phonenumber_view"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15dp" />
+                         </LinearLayout>
 
-            <TextView
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="@string/um"
-                android:textSize="25dp"
-                android:textStyle="bold"></TextView>
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_marginTop="10dp"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:orientation="horizontal">
+                             <ImageView
+                                 android:layout_width="40dp"
+                                 android:layout_height="40dp"
+                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:padding="10dp"
+                                 android:src="@drawable/ic_baseline_email_24" />
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/um_1"
-                    android:textSize="15dp"></TextView>
+                             <TextView
+                                 android:id="@+id/user_emailaddress"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15sp" />
+                         </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/radioButton_1"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:checked="true"></RadioButton>
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_marginTop="10dp"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
-                    android:text="@string/um_2"
-                    android:textSize="15dp"></TextView>
+                             <ImageView
+                                 android:layout_width="40dp"
+                                 android:layout_height="40dp"
+                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:padding="10dp"
+                                 android:src="@drawable/ic_baseline_cake_24" />
 
-                <RadioButton
-                    android:id="@+id/radioButton_2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"></RadioButton>
-            </RadioGroup>
+                             <TextView
+                                 android:id="@+id/user_birthday"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15sp" />
+                         </LinearLayout>
 
-        </LinearLayout>
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_marginTop="10dp"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
 
-    </LinearLayout>
+                             <ImageView
+                                 android:layout_width="40dp"
+                                 android:layout_height="40dp"
+                                 android:background="@drawable/circular_grey_bordersolid"
+                                 android:padding="10dp"
+                                 android:src="@drawable/ic_baseline_place_24" />
 
-    <ImageView
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/profileimage_container"
-        android:src="@drawable/ic_launcher_foreground">
-    </ImageView>
+                             <EditText
+                                 android:id="@+id/user_address_edit"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15sp"
+                                 android:visibility="gone"/>
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="180dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/logo_small"
-        />
+                             <TextView
+                                 android:id="@+id/user_address_view"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15sp" />
+                         </LinearLayout>
 
-</FrameLayout>
+                     </LinearLayout>
+                 </LinearLayout>
+
+                 <!--Physics Details-->
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="5dp"
+                     android:background="@drawable/circularbordersolid"
+                     android:orientation="vertical"
+                     android:padding="16dp">
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content">
+
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="Caratteristiche fisiche:"
+                             android:textSize="17sp"
+                             android:textStyle="bold" />
+
+                         <Button
+                             android:id="@+id/button_physics_save"
+                             android:layout_width="80dp"
+                             android:layout_height="30dp"
+                             android:text="@string/save"
+                             android:layout_marginLeft="105dp"
+                             android:textColor="@color/primary_color"
+                             android:background="@color/white"
+                             android:textSize="13dp"
+                             android:visibility="gone"/>
+
+                         <Button
+                             android:id="@+id/button_physics"
+                             android:layout_width="80dp"
+                             android:layout_height="30dp"
+                             android:layout_marginLeft="85dp"
+                             android:layout_gravity="center_vertical"
+                             android:text="@string/edit"
+                             android:textColor="@color/primary_color"
+                             android:background="@color/white"
+                             android:textSize="13dp" />
+                     </LinearLayout>
+
+                     <LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="10dp"
+                         android:orientation="vertical">
+
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:padding="10dp"
+                                 android:text="@string/age"
+                                 android:textStyle="bold"
+                                 android:textSize="15dp" />
+
+                             <EditText
+                                 android:id="@+id/user_age_edit"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="55dp"
+                                 android:textSize="20dp"
+                                 android:visibility="gone"/>
+
+                             <TextView
+                                 android:id="@+id/user_age_view"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="55dp"
+                                 android:textSize="20dp"/>
+
+                         </LinearLayout>
+
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:padding="10dp"
+                                 android:text="@string/height"
+                                 android:textStyle="bold"
+                                 android:textSize="15dp" />
+
+                             <EditText
+                                 android:id="@+id/user_tall_edit"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="25dp"
+                                 android:textSize="20dp"
+                                 android:visibility="gone"/>
+
+                             <TextView
+                                 android:id="@+id/user_tall_view"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="25dp"
+                                 android:textSize="20dp" />
+
+                             <TextView
+                                 android:id="@+id/um_1"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15dp"/>
+
+                         </LinearLayout>
+
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
+
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:padding="10dp"
+                                 android:text="@string/weight"
+                                 android:textStyle="bold"
+                                 android:textSize="15dp" />
+
+                             <EditText
+                                 android:id="@+id/user_weight_edit"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="40dp"
+                                 android:textSize="20dp"
+                                 android:visibility="gone"/>
+
+                             <TextView
+                                 android:id="@+id/user_weight_view"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="40dp"
+                                 android:textSize="20dp" />
+
+                             <TextView
+                                 android:id="@+id/um_2"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15dp"/>
+
+                         </LinearLayout>
+
+                     </LinearLayout>
+
+                 </LinearLayout>
+
+             </LinearLayout>
+
+         </LinearLayout>
+
+     </ScrollView>
+
+ </RelativeLayout>

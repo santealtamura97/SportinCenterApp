@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.sportincenterapp.*
+import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var userEmail: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         sessionManager = SessionManager(ApplicationContextProvider.getContext()) //initialize session manager in this class
 
@@ -113,6 +115,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         userPage.arguments = bundle
 
         return userPage
+    }
+
+    override fun um_update(um_1: String, um_2: String) {
+        val bundle = Bundle()
+        bundle.putString("um1", um_1)
+        bundle.putString("um2", um_2)
+
+        val fragmentUser = UserPage()
+        fragmentUser.arguments = bundle
     }
 
 }
