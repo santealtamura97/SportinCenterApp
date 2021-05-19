@@ -60,6 +60,11 @@
     <string name="password_login">Password</string>
     <string name="missing_email_message">Per favore inserire la email</string>
     <string name="missing_password_message">Per favore inserire la password</string>
+    <string name="missing_display_name_message">Per favore inserire un nome e un cognome</string>
+    <string name="missing_confirm_password_message">Per favore conferma la tua password</string>
+    <string name="password_not_equal_confirm_password_message">Per favore conferma correttamente la password</string>
+    <string name="signup_error">Registrazione non riuscita!</string>
+    <string name="signup_success">Riceverai una mail per confermare il tuo Account</string>
     <string name="create_account"><u>Registrati</u></string>
     <string name="help"><u>Aiuto?</u></string>
     <string name="login_error">Autenticazione non riuscita!</string>

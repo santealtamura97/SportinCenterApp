@@ -93,7 +93,7 @@
 
 
                     <EditText
-                        android:id="@+id/reg_name_et"
+                        android:id="@+id/display_name"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
 
 
                     <EditText
-                        android:id="@+id/reg_email_et"
+                        android:id="@+id/register_email"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
 
 
                     <EditText
-                        android:id="@+id/reg_password_et"
+                        android:id="@+id/register_password"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                         android:background="@color/view_line" />
 
                     <EditText
-                        android:id="@+id/reg_password_confirm_et"
+                        android:id="@+id/confirm_register_password"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -218,7 +218,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/reg_button_join_us"
+                    android:id="@+id/btnRegistration"
                     style="@style/Font_family_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
