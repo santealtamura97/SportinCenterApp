@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.*
 import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.fragments.*
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
 
+    val fragmentUser : Fragment = UserPage()
+    val fragmentSettings : Fragment = Settings()
+    val bundleUser : Bundle = Bundle()
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -41,6 +46,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout = findViewById(R.id.nav_view)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
+
+        /*val menu = navigationView.menu
+        val item0 = menu.getItem(0)
+        item0.setVisible(false) */
 
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         userEmail = header.findViewById<TextView>(R.id.email_nav_header)
@@ -75,6 +84,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigationView.setCheckedItem(R.id.home)
         }
 
+        initializeUserPage()
+
     }
 
     override fun onBackPressed() {
@@ -91,13 +102,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.calendar -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, CalendarFragment()).commit()
-            R.id.profile ->
-                supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, initializeUserPage()).commit()
+            R.id.profile -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, fragmentUser).commit()
             R.id.news -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, Advertisment()).commit()
             R.id.settings -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.Fragment_container, Settings()).commit()
+                    .replace(R.id.Fragment_container, fragmentSettings).commit()
             R.id.help -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, Faq()).commit()
             R.id.contacts -> supportFragmentManager.beginTransaction()
@@ -108,23 +118,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun initializeUserPage(): UserPage {
-        val bundle = Bundle()
-        val userPage = UserPage()
-        bundle.putString("username", userName.text.toString())
-        bundle.putString("email", userEmail.text.toString())
-        userPage.arguments = bundle
-
-        return userPage
+    private fun initializeUserPage() {
+        bundleUser.putString("username", userName.text.toString())
+        bundleUser.putString("email", userEmail.text.toString())
+        bundleUser.putString("um1", "Kg")
+        bundleUser.putString("um2", "Cm")
+        fragmentUser.arguments = bundleUser
     }
 
     override fun um_update(um_1: String, um_2: String) {
-        val bundle = Bundle()
-        bundle.putString("um1", um_1)
-        bundle.putString("um2", um_2)
-
-        val fragmentUser = UserPage()
-        fragmentUser.arguments = bundle
+        bundleUser.putString("um1", um_1)
+        bundleUser.putString("um2", um_2)
+        fragmentUser.arguments = bundleUser
     }
 
 }

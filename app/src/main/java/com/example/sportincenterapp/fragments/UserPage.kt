@@ -16,8 +16,6 @@ import org.w3c.dom.Text
 
 
 class UserPage : Fragment() {
-    // Communicator instance
-    private lateinit var communicator: Communicator
 
     // User info //
     val default_subscription = "Non ti è ancora stato assegnato un abbonamento!"
@@ -25,7 +23,7 @@ class UserPage : Fragment() {
     var default_address = "Indirizzo"
 
     // User Features //
-    var default_age = "26"
+    var default_age = arguments?.getString("um1")
     var default_weight = "73"
     var default_tall = "173"
 
@@ -54,7 +52,7 @@ class UserPage : Fragment() {
         val weight_view = v.findViewById<TextView>(R.id.user_weight_view) //view
         val weight_set = v.findViewById<EditText>(R.id.user_weight_edit)
         //Tall
-        val tall_view = v.findViewById<TextView>(R.id.user_tall_view) //view
+        var tall_view = v.findViewById<TextView>(R.id.user_tall_view) //view
         val tall_edit = v.findViewById<EditText>(R.id.user_tall_edit) //edit
         //subscription
         val sub =  v.findViewById<TextView>(R.id.user_subscription)
@@ -70,15 +68,6 @@ class UserPage : Fragment() {
         val editbtn_2 = v.findViewById<Button>(R.id.button_physics)
         val editbtn_2_save = v.findViewById<Button>(R.id.button_physics_save)
 
-        //Communicator passData example (not already used)
-        communicator = activity as Communicator
-
-
-        user.text = arguments?.getString("username");
-        email.text = arguments?.getString("email")
-        um_1.text = arguments?.getString("um_1")
-        um_2.text = arguments?.getString("um_2")
-
         /* ASSIGN DEFAULT VALUE */
         sub.text = default_subscription
         telephone_view.text = default_telephone
@@ -90,6 +79,13 @@ class UserPage : Fragment() {
         weight_set.setText(weight_view.text)
         tall_view.text = default_tall
         tall_edit.setText(tall_view.text)
+
+
+        user.text = arguments?.getString("username")
+        email.text = arguments?.getString("email")
+        um_1.text = arguments?.getString("um1")
+        um_2.text = arguments?.getString("um2")
+        println(arguments?.getString("email"))
 
         bmi.text = calculateBMI(weight_view.text.toString(), tall_view.text.toString())
 

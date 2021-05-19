@@ -8,5 +8,5 @@ Interface for communication between fragment
 interface Communicator {
     //fun user_name_update (editTextInput: String) //Communication between fragment user and activity
     //fun user_email_update (editTextInput: String) //Communication between fragment user and activity
-    fun um_update(um_1: String, um_2 : String)
+    fun um_update(um_1: String, um_2: String)
 }

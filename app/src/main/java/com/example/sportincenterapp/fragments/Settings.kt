@@ -1,6 +1,7 @@
 package com.example.sportincenterapp.fragments
 
 import android.os.Bundle
+import android.os.Debug
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,8 @@ class Settings : Fragment() {
                 //Listener for radioGroup
         um_radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.radioButton_1 ->  {communicator.um_update("Kg", "Cm") } //Case RadioButton 1
+                R.id.radioButton_1 ->  { communicator.um_update("Kg", "Cm") } //Case RadioButton 1
+
                 R.id.radioButton_2 -> { communicator.um_update("Lib", "In") } //Case RadioButton 2
             }
         })
