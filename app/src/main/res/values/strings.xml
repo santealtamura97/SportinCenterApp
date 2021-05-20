@@ -2,6 +2,7 @@
     <string name="app_name">SportingCenterApp</string>
     <string name="navigation_draw_open">open navigation drawer</string>
     <string name="navigation_draw_close">close navigation drawer</string>
+
     <!-- navigation header -->
     <string name="profile">Profilo</string>
     <string name="bookings">Prenotazioni</string>
@@ -12,6 +13,7 @@
     <string name="FAQ">FAQ</string>
     <string name="contacts">Contatti</string>
     <string name="title_activity_login">LoginActivity</string>
+
     <!-- User page -->
     <string name="user_information_title">Informazioni utente:</string>
     <string name="user_physics_title">Caratteristiche fisiche:</string>
@@ -22,7 +24,7 @@
     <string name="edit">Edit</string>
     <string name="save">Save</string>
 
-    <!-- SETTINGS  -->
+    <!-- Settings  -->
     <string name="settings_title">IMPOSTAZIONI</string>
     <string name="um">Misura:</string>
     <string name="um_1">Kg/Cm:</string>
@@ -30,6 +32,14 @@
     <string name="settings_language">Lingua</string>
     <string name="settings_theme">Tema</string>
     <string name="settings_version">Versione</string>
+
+    <string-array name="temi">
+        <item>Tema 1</item>
+        <item>Tema 2</item>
+        <item>Tema 3</item>
+    </string-array>
+
+    <!-- Contatti -->
     <string name="contacts_title">CONTATTI</string>
     <string name="contacts_hours">Orari:</string>
     <string name="contacts_hours_string">09:00-20:00 da Lun a Ven</string>
@@ -42,6 +52,8 @@
     <string name="contacts_telephone_string_3">+39 3252249678</string>
     <string name="contacts_email">E-mail:</string>
     <string name="contacts_email_string">sportingCenter@gmail.com</string>
+
+    <!-- FAQ -->
     <string name="faq_title">FAQ</string>
     <string name="faq_question_1">1. Come posso modificare il mio abbonamento?</string>
     <string name="faq_respose_1">Per modificare il suo abbonamento è necessario recarsi fisicamente all\'ufficio informazioni dello sportingCenter</string>
@@ -49,12 +61,18 @@
     <string name="faq_respose_2"> No, il rimborso non è sempre possibile. Nelle clausole del contratto stipulato con il centro sportivo sono specificate le casistiche di rimborso.\nIn caso di dubbi o perplessità contattare lo SportingCenter con i recapiti nella sezione Contatti</string>
     <string name="faq_question_3">3. L\'app non mi permette la prenotazione ad un evento, cosa fare?</string>
     <string name="faq_respose_3">Controllare nelle informazioni dell\'evento se ci sono ancora posti disponibili, in caso di malfunzionamento dell\'app effettuare un aggiornamento. Se i problemi persistono contattare la segreteria con i recapiti nella sezione Contatti</string>
+
+    <!-- Advertisment -->
     <string name="advertisment_title">Avvisi</string>
     <string name="advertisment_girlpower">08/03 - Festeggia le donne insieme a noi</string>
     <string name="advertisment_easter">04/04 - Pasqua con noi pasquestta con chi vuoi</string>
     <string name="advertisment_anniversary">23/07 - 25 anni di Sporting Center</string>
     <string name="advertisment_halloween">31/10 - Paura di perdere la forma?</string>
     <string name="advertisment_newyear">31/12 - Capodanno in palestra</string>
+
+    <!-- HOME -->
+    <string name="home_title">Sporting Center</string>
+    <!-- Log in -->
     <string name="login_button">Login</string>
     <string name="email_login">Email</string>
     <string name="password_login">Password</string>
@@ -68,7 +86,5 @@
     <string name="registration_complete_name">Nome e Cognome</string>
     <string name="join_us_button">Registrati</string>
     <string name="password_confirm">Conferma password</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

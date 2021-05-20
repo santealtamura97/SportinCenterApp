@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/title_settings_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
@@ -35,6 +36,7 @@
             android:layout_marginTop="30dp">
 
             <TextView
+                android:id="@+id/language_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -64,6 +66,7 @@
             android:layout_marginTop="30dp">
 
             <TextView
+                android:id="@+id/theme_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -75,15 +78,13 @@
 
             </TextView>
 
-            <TextView
-                android:id="@+id/settings_theme"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
+            <Spinner
+                android:id="@+id/spinner_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
                 android:layout_gravity="center_vertical"
-                android:textSize="20dp">
-
-            </TextView>
+                android:entries="@array/temi"/>
 
         </LinearLayout>
 
@@ -94,6 +95,7 @@
             android:layout_marginTop="30dp">
 
             <TextView
+                android:id="@+id/misure_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -126,7 +128,8 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:checked="true"></RadioButton>
+                    android:checked="true"
+                    android:buttonTint="@color/black"></RadioButton>
 
                 <TextView
                     android:layout_width="50dp"
@@ -141,7 +144,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"></RadioButton>
+                    android:layout_marginLeft="10dp"
+                    android:buttonTint="@color/black"></RadioButton>
             </RadioGroup>
 
         </LinearLayout>
@@ -152,6 +156,7 @@
             android:layout_marginTop="30dp">
 
             <TextView
+                android:id="@+id/version_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"

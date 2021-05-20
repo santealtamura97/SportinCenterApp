@@ -9,38 +9,31 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Button
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.R
 import org.w3c.dom.Text
 
 
 class UserPage : Fragment() {
 
-    // User info //
-    val default_subscription = "Non ti è ancora stato assegnato un abbonamento!"
-    val default_telephone = "+39 "
-    var default_address = "Indirizzo"
-
-    // User Features //
-    var default_age = arguments?.getString("um1")
-    var default_weight = "73"
-    var default_tall = "173"
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        //Exctract the frangment
+        //Fragment view
         val v = inflater.inflate(R.layout.fragment_user_page, container, false)
 
-        //Extract all the component that will be used
+        // Component of the view //
+
+        //RelativeLayout
+        val rLayout = v.findViewById<RelativeLayout>(R.id.relative_layout_user)
         //User name
         var user = v.findViewById<TextView>(R.id.user_text)
         //Telephone
         var telephone_view = v.findViewById<TextView>(R.id.user_phonenumber_view) //view
         var telephone_edit = v.findViewById<EditText>(R.id.user_phonenumber_edit) //set
-        //Telephone
+        //Email
         var email = v.findViewById<TextView>(R.id.user_emailaddress) //view
-        //Birthday
+        //Birthday date
         var birth = v.findViewById<TextView>(R.id.user_birthday) //view
         //Address
         val address_view = v.findViewById<TextView>(R.id.user_address_view) //view
@@ -60,120 +53,94 @@ class UserPage : Fragment() {
         var um_1 =  v.findViewById<TextView>(R.id.um_1)
         var um_2 =  v.findViewById<TextView>(R.id.um_2)
         //bmi
-        val bmi = v.findViewById<TextView>(R.id.bmi_text)
-
-        //Edit button
+        val bmi = v.findViewById<TextView>(R.id.bmi_text) //bmi value
+        val bmi_text = v.findViewById<TextView>(R.id.bmi) //bmi text
+        //Edit/Save buttons
         val editbtn_1 = v.findViewById<Button>(R.id.button_infouser)
         val editbtn_1_save = v.findViewById<Button>(R.id.button_infouser_save)
         val editbtn_2 = v.findViewById<Button>(R.id.button_physics)
         val editbtn_2_save = v.findViewById<Button>(R.id.button_physics_save)
 
         /* ASSIGN DEFAULT VALUE */
-        sub.text = default_subscription
-        telephone_view.text = default_telephone
-        telephone_edit.setText(telephone_view.text)
-        address_view.text = default_address
-        age_view.text = default_age
-        age_set.setText(age_view.text)
-        weight_view.text = default_weight
-        weight_set.setText(weight_view.text)
-        tall_view.text = default_tall
-        tall_edit.setText(tall_view.text)
-
-
+        bmi.text = calculateBMI(weight_view.text.toString(), tall_view.text.toString())
         user.text = arguments?.getString("username")
         email.text = arguments?.getString("email")
         um_1.text = arguments?.getString("um1")
         um_2.text = arguments?.getString("um2")
         println(arguments?.getString("email"))
 
-        bmi.text = calculateBMI(weight_view.text.toString(), tall_view.text.toString())
+        /* ASSIGN DEFAULT COLOR */
+        rLayout.setBackgroundResource(arguments!!.getInt("color"))
+        bmi_text.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+        editbtn_1.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+        editbtn_1_save.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+        editbtn_2.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+        editbtn_2_save.setTextColor(getResources().getColor(arguments!!.getInt("color")))
 
         /* LISTENERS */
 
-        //Listener for address edit text
+        //Telephone edit text listener
         telephone_edit.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 telephone_view.text = telephone_edit.text
             }
         })
 
-        //Listener for address edit text
+        //Address edit text listener
         address_set.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 address_view.text = address_set.text
             }
         })
 
-        //Listener for age edit text
+        //Age edit text listener
         age_set.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 age_view.text = age_set.text
             }
         })
 
-        //Listener for weight edit text
+        //Weight edit text listener
         weight_set.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.length > 0 && tall_view.text.length > 0) {
                     bmi.text = calculateBMI(s.toString(), tall_view.text.toString())
+                } else {
+                    bmi.text = "-.--"
                 }
                 weight_view.text = weight_set.text
             }
         })
 
-        //Listener for tall edit text
+        //Tall edit text listener
         tall_edit.addTextChangedListener(object : TextWatcher {
-
             override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.length > 0 && weight_view.text.length > 0) {
                     bmi.text = calculateBMI(weight_view.text.toString(), s.toString())
+                } else {
+                    bmi.text = "-.--"
                 }
                 tall_view.text = tall_edit.text
             }
         })
 
-        //Button edit/save listener
-
+        //Edit/save button listener
+        //Edit1
         editbtn_1.setOnClickListener {
             editbtn_1.visibility = View.GONE
             editbtn_1_save.visibility = View.VISIBLE
@@ -182,7 +149,7 @@ class UserPage : Fragment() {
             telephone_view.visibility = View.GONE
             telephone_edit.visibility = View.VISIBLE
         }
-
+        //Save1
         editbtn_1_save.setOnClickListener {
             editbtn_1.visibility = View.VISIBLE
             editbtn_1_save.visibility = View.GONE
@@ -191,7 +158,7 @@ class UserPage : Fragment() {
             telephone_view.visibility = View.VISIBLE
             telephone_edit.visibility = View.GONE
         }
-
+        //Edit2
         editbtn_2.setOnClickListener {
             editbtn_2.visibility = View.GONE
             editbtn_2_save.visibility = View.VISIBLE
@@ -202,7 +169,7 @@ class UserPage : Fragment() {
             tall_view.visibility = View.GONE
             tall_edit.visibility = View.VISIBLE
         }
-
+        //Save2
         editbtn_2_save.setOnClickListener {
             editbtn_2.visibility = View.VISIBLE
             editbtn_2_save.visibility = View.GONE
@@ -221,7 +188,12 @@ class UserPage : Fragment() {
     Function used for calculate the BMI
      */
     fun calculateBMI(weight: String, tall: String): String {
-        val bmi = ((weight.toDouble()) / ( (tall.toDouble()/100) * (tall.toDouble()/100))).toString()
+        var bmi = ""
+        if (weight.length > 1 && tall.length > 1) {
+            bmi = ((weight.toDouble()) / ((tall.toDouble() / 100) * (tall.toDouble() / 100))).toString()
+        } else {
+            bmi = "-.--"
+        }
         return bmi
     }
 

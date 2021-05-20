@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/title_faq_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
@@ -37,6 +38,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/first_faq_text"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
@@ -56,6 +58,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/second_faq_text"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"
@@ -76,6 +79,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/third_faq_text"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginLeft="10dp"

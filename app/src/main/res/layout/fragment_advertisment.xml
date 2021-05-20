@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/title_advertisment"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
@@ -53,6 +54,7 @@
                         android:background="@drawable/girlpover_event"></ImageView>
 
                     <TextView
+                        android:id="@+id/text_first_event"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
@@ -76,6 +78,7 @@
                         android:background="@drawable/easter_event"></ImageView>
 
                     <TextView
+                        android:id="@+id/text_second_event"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
@@ -99,6 +102,7 @@
                         android:background="@drawable/anniversary_event"></ImageView>
 
                     <TextView
+                        android:id="@+id/text_third_event"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
@@ -122,6 +126,7 @@
                         android:background="@drawable/halloween_event"></ImageView>
 
                     <TextView
+                        android:id="@+id/text_fourth_event"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
@@ -146,6 +151,7 @@
                         android:background="@drawable/newyear_event"></ImageView>
 
                     <TextView
+                        android:id="@+id/text_fifth_event"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"

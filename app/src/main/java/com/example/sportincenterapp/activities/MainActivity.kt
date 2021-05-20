@@ -1,22 +1,20 @@
 package com.example.sportincenterapp.activities
 
-
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.sportincenterapp.R
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.example.sportincenterapp.*
-import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
@@ -34,7 +32,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     val fragmentUser : Fragment = UserPage()
     val fragmentSettings : Fragment = Settings()
+    val fragmentHome : Fragment = HomeFragment()
+    val fragmentAdvertisment : Fragment = Advertisment()
+    val fragmentFaq : Fragment = Faq()
+    val fragmentContacts : Fragment = Contacts()
     val bundleUser : Bundle = Bundle()
+    val bundleHome : Bundle = Bundle()
+    val bundleAdvertisment: Bundle = Bundle()
+    val bundleFaq: Bundle = Bundle()
+    val bundleContacts: Bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -67,20 +73,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navigationView.setNavigationItemSelectedListener(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, HomeFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close)
 
         //Home button settings
         val homeButton : ImageButton = findViewById(R.id.home_button)
         homeButton.setOnClickListener {supportFragmentManager.beginTransaction()
-            .replace(R.id.Fragment_container, HomeFragment()).commit()}
+            .replace(R.id.Fragment_container, fragmentHome).commit()}
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, HomeFragment()).commit()
+                .replace(R.id.Fragment_container, fragmentHome).commit()
             navigationView.setCheckedItem(R.id.home)
         }
 
@@ -105,13 +111,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.profile -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentUser).commit()
             R.id.news -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, Advertisment()).commit()
+                .replace(R.id.Fragment_container, fragmentAdvertisment).commit()
             R.id.settings -> supportFragmentManager.beginTransaction()
                     .replace(R.id.Fragment_container, fragmentSettings).commit()
             R.id.help -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, Faq()).commit()
+                .replace(R.id.Fragment_container, fragmentFaq).commit()
             R.id.contacts -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, Contacts()).commit()
+                .replace(R.id.Fragment_container, fragmentContacts).commit()
             }
 
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -123,13 +129,58 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleUser.putString("email", userEmail.text.toString())
         bundleUser.putString("um1", "Kg")
         bundleUser.putString("um2", "Cm")
+        bundleUser.putInt("color", R.color.primary_color)
+        bundleHome.putInt("color", R.color.primary_color)
+        bundleAdvertisment.putInt("color", R.color.primary_color)
+        bundleFaq.putInt("color", R.color.primary_color)
+        bundleContacts.putInt("color", R.color.primary_color)
         fragmentUser.arguments = bundleUser
+        fragmentHome.arguments = bundleHome
+        fragmentAdvertisment.arguments = bundleAdvertisment
+        fragmentFaq.arguments = bundleFaq
+        fragmentContacts.arguments = bundleContacts
     }
 
     override fun um_update(um_1: String, um_2: String) {
         bundleUser.putString("um1", um_1)
         bundleUser.putString("um2", um_2)
         fragmentUser.arguments = bundleUser
+    }
+
+    override fun theme(index : Int) {
+        val homeBtn = findViewById<ImageButton>(R.id.home_button)
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        val header = navigationView.getHeaderView(0)
+        val tlbar: Toolbar = findViewById(R.id.toolbar)
+
+        if (index == 0) {
+            header.setBackgroundResource(R.color.primary_color)
+            tlbar.setBackgroundResource(R.color.primary_color)
+            homeBtn.setBackgroundResource(R.color.primary_color)
+            bundleUser.putInt("color", R.color.primary_color)
+            bundleHome.putInt("color", R.color.primary_color)
+            bundleAdvertisment.putInt("color", R.color.primary_color)
+            bundleFaq.putInt("color", R.color.primary_color)
+            bundleContacts.putInt("color", R.color.primary_color)
+        } else if (index == 1) {
+            header.setBackgroundResource(R.color.primary_color_2)
+            tlbar.setBackgroundResource(R.color.primary_color_2)
+            homeBtn.setBackgroundResource(R.color.primary_color_2)
+            bundleUser.putInt("color", R.color.primary_color_2)
+            bundleHome.putInt("color", R.color.primary_color_2)
+            bundleAdvertisment.putInt("color", R.color.primary_color_2)
+            bundleFaq.putInt("color", R.color.primary_color_2)
+            bundleContacts.putInt("color", R.color.primary_color_2)
+        } else if (index == 2) {
+            header.setBackgroundResource(R.color.primary_color_3)
+            tlbar.setBackgroundResource(R.color.primary_color_3)
+            homeBtn.setBackgroundResource(R.color.primary_color_3)
+            bundleUser.putInt("color", R.color.primary_color_3)
+            bundleHome.putInt("color", R.color.primary_color_3)
+            bundleAdvertisment.putInt("color", R.color.primary_color_3)
+            bundleFaq.putInt("color", R.color.primary_color_3)
+            bundleContacts.putInt("color", R.color.primary_color_3)
+        }
     }
 
 }

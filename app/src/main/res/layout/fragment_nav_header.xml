@@ -6,7 +6,8 @@
     android:layout_height="180dp"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/primary_color">
+    android:background="@color/primary_color"
+    style="@style/Theme.SportingCenterApp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +39,7 @@
             android:id="@+id/login_button"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:background="@color/orange_logo"
+            android:background="@color/grey"
             android:text="@string/login_button">
         </Button>
 

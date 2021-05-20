@@ -28,6 +28,7 @@
                 </ImageView>
 
                 <TextView
+                    android:id="@+id/app_name"
                     android:layout_width="250dp"
                     android:layout_height="60dp"
                     android:gravity= "center"
@@ -35,12 +36,13 @@
                     android:textSize="30dp"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif-light"
-                    android:text="Sporting Center">
+                    android:text="@string/home_title">
                 </TextView>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/first_separator"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/primary_color">
@@ -83,11 +85,11 @@
                    </LinearLayout>
 
             <TextView
+                android:id="@+id/firststring_home"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="5dp"
-                android:textColor="@color/primary_color"
                 android:textSize="30dp"
                 android:text="Chi siamo?">
             </TextView>
@@ -107,6 +109,7 @@ nostra nuova applicazione, con il quale sarà possibile visionare e gestire i co
             </TextView>
 
             <TextView
+                android:id="@+id/secondstring_home"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
