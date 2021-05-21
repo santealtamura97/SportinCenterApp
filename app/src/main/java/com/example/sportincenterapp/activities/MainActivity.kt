@@ -30,17 +30,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
 
-    val fragmentUser : Fragment = UserPage()
-    val fragmentSettings : Fragment = Settings()
-    val fragmentHome : Fragment = HomeFragment()
-    val fragmentAdvertisment : Fragment = Advertisment()
-    val fragmentFaq : Fragment = Faq()
-    val fragmentContacts : Fragment = Contacts()
-    val bundleUser : Bundle = Bundle()
-    val bundleHome : Bundle = Bundle()
-    val bundleAdvertisment: Bundle = Bundle()
-    val bundleFaq: Bundle = Bundle()
-    val bundleContacts: Bundle = Bundle()
+    private val fragmentUser : Fragment = UserPage()
+    private val fragmentSettings : Fragment = Settings()
+    private val fragmentHome : Fragment = HomeFragment()
+    private val fragmentAdvertisment : Fragment = Advertisment()
+    private val fragmentFaq : Fragment = Faq()
+    private val fragmentContacts : Fragment = Contacts()
+    private val bundleUser : Bundle = Bundle()
+    private val bundleHome : Bundle = Bundle()
+    private val bundleAdvertisment: Bundle = Bundle()
+    private val bundleFaq: Bundle = Bundle()
+    private val bundleContacts: Bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -52,10 +52,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout = findViewById(R.id.nav_view)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
-
-        /*val menu = navigationView.menu
-        val item0 = menu.getItem(0)
-        item0.setVisible(false) */
 
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         userEmail = header.findViewById<TextView>(R.id.email_nav_header)
@@ -69,6 +65,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             userEmail.text = sessionManager.fetchUserEmail()
             userName?.visibility = View.VISIBLE
             loginButton.visibility = View.GONE
+        } else{
+            val menu = navigationView.menu
+
+            val userPageItem = menu.getItem(0)
+            val bookingsItem = menu.getItem(1)
+            val calendarItem = menu.getItem(2)
+
+            userPageItem.isVisible = false
+            bookingsItem.isVisible = false
+            calendarItem.isVisible = false
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -89,9 +95,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.Fragment_container, fragmentHome).commit()
             navigationView.setCheckedItem(R.id.home)
         }
-
-        initializeUserPage()
-
+        initializeFragments()
     }
 
     override fun onBackPressed() {
@@ -124,16 +128,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun initializeUserPage() {
+    private fun initializeFragments() {
         bundleUser.putString("username", userName.text.toString())
         bundleUser.putString("email", userEmail.text.toString())
         bundleUser.putString("um1", "Kg")
         bundleUser.putString("um2", "Cm")
         bundleUser.putInt("color", R.color.primary_color)
+
         bundleHome.putInt("color", R.color.primary_color)
+
         bundleAdvertisment.putInt("color", R.color.primary_color)
+
         bundleFaq.putInt("color", R.color.primary_color)
+
         bundleContacts.putInt("color", R.color.primary_color)
+
         fragmentUser.arguments = bundleUser
         fragmentHome.arguments = bundleHome
         fragmentAdvertisment.arguments = bundleAdvertisment

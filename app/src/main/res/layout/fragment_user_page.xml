@@ -358,7 +358,7 @@
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:padding="10dp"
-                                 android:text="@string/height"
+                                 android:text="@string/weight"
                                  android:textStyle="bold"
                                  android:textSize="15dp" />
 
@@ -396,7 +396,7 @@
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:padding="10dp"
-                                 android:text="@string/weight"
+                                 android:text="@string/height"
                                  android:textStyle="bold"
                                  android:textSize="15dp" />
 
