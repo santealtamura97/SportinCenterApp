@@ -19,6 +19,7 @@
             android:background="@color/primary_color">
 
             <TextView
+                android:id="@+id/ad_title"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"

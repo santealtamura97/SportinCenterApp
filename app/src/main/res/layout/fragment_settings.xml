@@ -19,11 +19,11 @@
             android:background="@color/primary_color">
 
             <TextView
+                android:id="@+id/text_title_settings"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:text="@string/settings_title"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="25dp">
@@ -48,15 +48,22 @@
 
             </TextView>
 
-            <TextView
-                android:id="@+id/settings_language"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
+            <Spinner
+                android:id="@+id/spinner_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
-                android:textSize="20dp">
+                android:entries="@array/lingua" />
 
-            </TextView>
+            <Spinner
+                android:id="@+id/spinner_language_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/lingua_en"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -85,6 +92,15 @@
                 android:layout_marginLeft="35dp"
                 android:layout_gravity="center_vertical"
                 android:entries="@array/temi"/>
+
+            <Spinner
+                android:id="@+id/spinner_theme_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/temi_en"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

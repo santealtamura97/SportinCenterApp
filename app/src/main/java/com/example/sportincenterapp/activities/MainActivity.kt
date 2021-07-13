@@ -27,15 +27,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var sessionManager: SessionManager
 
+    //User informations
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
-
+    //Fragments
     private val fragmentUser : Fragment = UserPage()
     private val fragmentSettings : Fragment = Settings()
     private val fragmentHome : Fragment = HomeFragment()
     private val fragmentAdvertisment : Fragment = Advertisment()
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
+    //Bundles
     private val bundleUser : Bundle = Bundle()
     private val bundleHome : Bundle = Bundle()
     private val bundleAdvertisment: Bundle = Bundle()
@@ -129,20 +131,49 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initializeFragments() {
+        //Strings
         bundleUser.putString("username", userName.text.toString())
         bundleUser.putString("email", userEmail.text.toString())
         bundleUser.putString("um1", "Kg")
         bundleUser.putString("um2", "Cm")
+        //Color
         bundleUser.putInt("color", R.color.primary_color)
-
         bundleHome.putInt("color", R.color.primary_color)
-
         bundleAdvertisment.putInt("color", R.color.primary_color)
-
         bundleFaq.putInt("color", R.color.primary_color)
-
         bundleContacts.putInt("color", R.color.primary_color)
+        //Language
+        bundleHome.putInt("string_home_1", R.string.first_title_home)
+        bundleHome.putInt("string_home_2", R.string.first_text_home)
+        bundleHome.putInt("string_home_3", R.string.second_title_home)
+        bundleHome.putInt("string_home_4", R.string.second_text_home)
+        bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
+        bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower)
+        bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter)
+        bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary)
+        bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween)
+        bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)
+        bundleFaq.putInt("string_faq_1", R.string.faq_question_1)
+        bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1)
+        bundleFaq.putInt("string_faq_2", R.string.faq_question_2)
+        bundleFaq.putInt("string_faq_2a", R.string.faq_respose_2)
+        bundleFaq.putInt("string_faq_3", R.string.faq_question_3)
+        bundleFaq.putInt("string_faq_3a", R.string.faq_respose_3)
+        bundleUser.putInt("string_user_1", R.string.user_information_title)
+        bundleUser.putInt("string_user_2", R.string.user_physics_title)
+        bundleUser.putInt("string_user_3", R.string.age)
+        bundleUser.putInt("string_user_4", R.string.weight)
+        bundleUser.putInt("string_user_5", R.string.height)
+        bundleContacts.putInt("string_contact_1", R.string.contacts_address)
+        bundleContacts.putInt("string_contact_2", R.string.contacts_telephone)
+        bundleContacts.putInt("string_contact_3", R.string.contacts_hours)
+        bundleContacts.putInt("string_contact_4", R.string.contacts_email)
+        bundleContacts.putInt("string_contact_5", R.string.contacts_title)
+        bundleContacts.putInt("string_contact_6", R.string.contacts_hours_string)
+        bundleContacts.putInt("string_contact_7", R.string.contacts_hours_string_2)
+        bundleContacts.putInt("string_contact_8", R.string.contacts_address_string)
 
+        //Assignments
         fragmentUser.arguments = bundleUser
         fragmentHome.arguments = bundleHome
         fragmentAdvertisment.arguments = bundleAdvertisment
@@ -171,6 +202,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleAdvertisment.putInt("color", R.color.primary_color)
             bundleFaq.putInt("color", R.color.primary_color)
             bundleContacts.putInt("color", R.color.primary_color)
+
         } else if (index == 1) {
             header.setBackgroundResource(R.color.primary_color_2)
             tlbar.setBackgroundResource(R.color.primary_color_2)
@@ -180,6 +212,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleAdvertisment.putInt("color", R.color.primary_color_2)
             bundleFaq.putInt("color", R.color.primary_color_2)
             bundleContacts.putInt("color", R.color.primary_color_2)
+
         } else if (index == 2) {
             header.setBackgroundResource(R.color.primary_color_3)
             tlbar.setBackgroundResource(R.color.primary_color_3)
@@ -192,4 +225,81 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun language(index: Int) {
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        val menu = navigationView.menu
+
+        if (index == 0) {
+            bundleHome.putInt("string_home_1", R.string.first_title_home)
+            bundleHome.putInt("string_home_2", R.string.first_text_home)
+            bundleHome.putInt("string_home_3", R.string.second_title_home)
+            bundleHome.putInt("string_home_4", R.string.second_text_home)
+            bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
+            bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower)
+            bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter)
+            bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary)
+            bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween)
+            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)
+            bundleFaq.putInt("string_faq_1", R.string.faq_question_1)
+            bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1)
+            bundleFaq.putInt("string_faq_2", R.string.faq_question_2)
+            bundleFaq.putInt("string_faq_2a", R.string.faq_respose_2)
+            bundleFaq.putInt("string_faq_3", R.string.faq_question_3)
+            bundleFaq.putInt("string_faq_3a", R.string.faq_respose_3)
+            bundleContacts.putInt("string_contact_1", R.string.contacts_address)
+            bundleContacts.putInt("string_contact_2", R.string.contacts_telephone)
+            bundleContacts.putInt("string_contact_3", R.string.contacts_hours)
+            bundleContacts.putInt("string_contact_4", R.string.contacts_email)
+            bundleContacts.putInt("string_contact_5", R.string.contacts_title)
+            bundleContacts.putInt("string_contact_6", R.string.contacts_hours_string)
+            bundleContacts.putInt("string_contact_7", R.string.contacts_hours_string_2)
+            bundleContacts.putInt("string_contact_8", R.string.contacts_address_string)
+            menu.getItem(0).setTitle(getResources().getString(R.string.profile))
+            menu.getItem(1).setTitle(getResources().getString(R.string.bookings))
+            menu.getItem(2).setTitle(getResources().getString(R.string.calendar))
+            menu.getItem(3).setTitle(getResources().getString(R.string.advertisment))
+            menu.getItem(5).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings))
+            menu.getItem(5).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ))
+            menu.getItem(5).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts))
+        } else if (index == 1) {
+            bundleHome.putInt("string_home_1", R.string.first_title_home_en)
+            bundleHome.putInt("string_home_2", R.string.first_text_home_en)
+            bundleHome.putInt("string_home_3", R.string.second_title_home_en)
+            bundleHome.putInt("string_home_4", R.string.second_text_home_en)
+            bundleAdvertisment.putInt("string_title", R.string.advertisment_title_en)
+            bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower_en)
+            bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter_en)
+            bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary_en)
+            bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween_en)
+            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear_en)
+            bundleFaq.putInt("string_faq_1", R.string.faq_question_1_en)
+            bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1_en)
+            bundleFaq.putInt("string_faq_2", R.string.faq_question_2_en)
+            bundleFaq.putInt("string_faq_2a", R.string.faq_respose_2_en)
+            bundleFaq.putInt("string_faq_3", R.string.faq_question_3_en)
+            bundleFaq.putInt("string_faq_3a", R.string.faq_respose_3_en)
+            bundleUser.putInt("string_user_1", R.string.user_information_title_en)
+            bundleUser.putInt("string_user_2", R.string.user_physics_title_en)
+            bundleUser.putInt("string_user_3", R.string.age_en)
+            bundleUser.putInt("string_user_4", R.string.weight_en)
+            bundleUser.putInt("string_user_5", R.string.height_en)
+            bundleContacts.putInt("string_contact_1", R.string.contacts_address_en)
+            bundleContacts.putInt("string_contact_2", R.string.contacts_telephone_en)
+            bundleContacts.putInt("string_contact_3", R.string.contacts_hours_en)
+            bundleContacts.putInt("string_contact_4", R.string.contacts_email)
+            bundleContacts.putInt("string_contact_5", R.string.contacts_title_en)
+            bundleContacts.putInt("string_contact_6", R.string.contacts_hours_string_en)
+            bundleContacts.putInt("string_contact_7", R.string.contacts_hours_string_2_en)
+            bundleContacts.putInt("string_contact_8", R.string.contacts_address_string_en)
+
+            menu.getItem(0).setTitle(getResources().getString(R.string.profile_en))
+            menu.getItem(1).setTitle(getResources().getString(R.string.bookings_en))
+            menu.getItem(2).setTitle(getResources().getString(R.string.calendar_en))
+            menu.getItem(3).setTitle(getResources().getString(R.string.advertisment_en))
+            menu.getItem(5).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings_en))
+            menu.getItem(5).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ_en))
+            menu.getItem(5).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))
+        }
+
+    }
 }

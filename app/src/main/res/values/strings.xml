@@ -5,33 +5,63 @@
 
     <!-- navigation header -->
     <string name="profile">Profilo</string>
+    <string name="profile_en">Profile</string>
     <string name="bookings">Prenotazioni</string>
+    <string name="bookings_en">Bookings</string>
     <string name="calendar">Calendario</string>
+    <string name="calendar_en">Calendar</string>
     <string name="advertisment">Avvisi</string>
+    <string name="advertisment_en">Event</string>
     <string name="system">Sistema</string>
+    <string name="system_en">System</string>
     <string name="settings">Impostazioni</string>
+    <string name="settings_en">Settings</string>
     <string name="FAQ">FAQ</string>
+    <string name="FAQ_en">FAQ</string>
     <string name="contacts">Contatti</string>
+    <string name="contacts_en">Contacts</string>
     <string name="title_activity_login">LoginActivity</string>
 
+    <!-- Home page -->
+    <string name="home_title">Sporting Center</string>
+    <string name="first_title_home">Chi siamo?</string>
+    <string name="first_title_home_en">About us</string>
+    <string name="second_title_home">Dove siamo?</string>
+    <string name="second_title_home_en">Where we are?</string>
+    <string name="first_text_home">La SportingCenterApp è un"'"applicazione che permette agli utenti dello Sporting Center di Torino di visualizzare e gestire le differenti attività sportive offerte sulla base del loro abbonamento.</string>
+    <string name="first_text_home_en">The SportingCenterApp is an application that allows users of the Sporting Center of Turin to view and manage the different sports activities offered on the basis of their subscription.</string>
+    <string name="second_text_home">La sede principale è situata a Torino, per altri dettagli su come raggiungerci o contattarci recarsi nella sezione Contatti</string>
+    <string name="second_text_home_en">The head office is located in Turin, for more details on how to reach us or contact us go to the Contact section</string>
     <!-- User page -->
     <string name="user_information_title">Informazioni utente:</string>
+    <string name="user_information_title_en">User information:</string>
     <string name="user_physics_title">Caratteristiche fisiche:</string>
+    <string name="user_physics_title_en">Physical characteristics:</string>
     <string name="age">Età:</string>
+    <string name="age_en">Age:</string>
     <string name="weight">Peso:</string>
+    <string name="weight_en">Weight:</string>
     <string name="height">Altezza:</string>
+    <string name="height_en">Height:</string>
     <string name="bmi">BMI:</string>
-    <string name="edit">Edit</string>
-    <string name="save">Save</string>
+    <string name="edit">Modifica</string>
+    <string name="edit_en">Edit</string>
+    <string name="save">Salva</string>
+    <string name="save_en">Save</string>
 
     <!-- Settings  -->
     <string name="settings_title">IMPOSTAZIONI</string>
-    <string name="um">Misura:</string>
+    <string name="settings_title_en">SETTINGS</string>
+    <string name="um">Misura</string>
+    <string name="um_en">Measure</string>
     <string name="um_1">Kg/Cm:</string>
     <string name="um_2">Lib/In:</string>
     <string name="settings_language">Lingua</string>
+    <string name="settings_language_en">Language</string>
     <string name="settings_theme">Tema</string>
+    <string name="settings_theme_en">Theme</string>
     <string name="settings_version">Versione</string>
+    <string name="settings_version_en">Version</string>
 
     <string-array name="temi">
         <item>Tema 1</item>
@@ -39,14 +69,37 @@
         <item>Tema 3</item>
     </string-array>
 
+    <string-array name="temi_en">
+        <item>Theme 1</item>
+        <item>Theme 2</item>
+        <item>Theme 3</item>
+    </string-array>
+
+    <string-array name="lingua">
+        <item>Italiano</item>
+        <item>Inglese</item>
+    </string-array>
+
+    <string-array name="lingua_en">
+        <item>Italian</item>
+        <item>English</item>
+    </string-array>
+
     <!-- Contatti -->
     <string name="contacts_title">CONTATTI</string>
+    <string name="contacts_title_en">CONTACTS</string>
     <string name="contacts_hours">Orari:</string>
+    <string name="contacts_hours_en">Timetables:</string>
     <string name="contacts_hours_string">09:00-20:00 da Lun a Ven</string>
+    <string name="contacts_hours_string_en">09:00-20:00 from Mon to Fri</string>
     <string name="contacts_hours_string_2">09:00-12:00 Sab</string>
+    <string name="contacts_hours_string_2_en">09:00-12:00 Sat</string>
     <string name="contacts_address">Indirizzo:</string>
+    <string name="contacts_address_en">Address:</string>
     <string name="contacts_address_string">Via Verdi, 10 - 10124 Torino</string>
+    <string name="contacts_address_string_en">Verdi Street, 10 - 10124 Turin</string>
     <string name="contacts_telephone">Telefono:</string>
+    <string name="contacts_telephone_en">Telephone:</string>
     <string name="contacts_telephone_string">045 6231460</string>
     <string name="contacts_telephone_string_2">+39 3359329644</string>
     <string name="contacts_telephone_string_3">+39 3252249678</string>
@@ -56,22 +109,32 @@
     <!-- FAQ -->
     <string name="faq_title">FAQ</string>
     <string name="faq_question_1">1. Come posso modificare il mio abbonamento?</string>
+    <string name="faq_question_1_en">1. How can I modify my submission?</string>
     <string name="faq_respose_1">Per modificare il suo abbonamento è necessario recarsi fisicamente all\'ufficio informazioni dello sportingCenter</string>
+    <string name="faq_respose_1_en"> To modify your submission you must go to the Sporting center\'s information office</string>
     <string name="faq_question_2">2. Il rimborso dell\'abbonamento è sempre possibile?</string>
+    <string name="faq_question_2_en">2. The refund of the submission is always possible? </string>
     <string name="faq_respose_2"> No, il rimborso non è sempre possibile. Nelle clausole del contratto stipulato con il centro sportivo sono specificate le casistiche di rimborso.\nIn caso di dubbi o perplessità contattare lo SportingCenter con i recapiti nella sezione Contatti</string>
+    <string name="faq_respose_2_en"> No, the refund isn\'t always possible. In the terms of the Sporting Center\'s contract there are specify the cases for the refund.\nIf you have doubts please contact the center with the information contents in the section Contacts</string>
     <string name="faq_question_3">3. L\'app non mi permette la prenotazione ad un evento, cosa fare?</string>
+    <string name="faq_question_3_en">3. The application don\'t allow the submission to an event, what i must do? </string>
     <string name="faq_respose_3">Controllare nelle informazioni dell\'evento se ci sono ancora posti disponibili, in caso di malfunzionamento dell\'app effettuare un aggiornamento. Se i problemi persistono contattare la segreteria con i recapiti nella sezione Contatti</string>
+    <string name="faq_respose_3_en">Check in the event information if there are already free places, if there is a malfunction update it. If the problems persist please contact out office with the information in the section Contacts</string>
 
     <!-- Advertisment -->
     <string name="advertisment_title">Avvisi</string>
+    <string name="advertisment_title_en">Advertisments</string>
     <string name="advertisment_girlpower">08/03 - Festeggia le donne insieme a noi</string>
+    <string name="advertisment_girlpower_en">08/03 - Celebrate woman with us</string>
     <string name="advertisment_easter">04/04 - Pasqua con noi pasquestta con chi vuoi</string>
+    <string name="advertisment_easter_en">04/04 - Happy Easter</string>
     <string name="advertisment_anniversary">23/07 - 25 anni di Sporting Center</string>
+    <string name="advertisment_anniversary_en">23/07 - 25 years of Sporting Center</string>
     <string name="advertisment_halloween">31/10 - Paura di perdere la forma?</string>
+    <string name="advertisment_halloween_en">31/10 - Scary to lost the fitness?</string>
     <string name="advertisment_newyear">31/12 - Capodanno in palestra</string>
+    <string name="advertisment_newyear_en">31/12 - Happy new year with Sporting Center</string>
 
-    <!-- HOME -->
-    <string name="home_title">Sporting Center</string>
     <!-- Log in -->
     <string name="login_button">Login</string>
     <string name="email_login">Email</string>

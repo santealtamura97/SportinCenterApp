@@ -24,7 +24,9 @@ class HomeFragment : Fragment() {
         //Exctract component of the view
         //Strings
         val firstString = v.findViewById<TextView>(R.id.firststring_home)
+        val first_text_home = v.findViewById<TextView>(R.id.first_text_home)
         val secondString = v.findViewById<TextView>(R.id.secondstring_home)
+        val second_text_home = v.findViewById<TextView>(R.id.second_text_home)
         val app_name = v.findViewById<TextView>(R.id.app_name)
         //Separator
         val firstSeparator = v.findViewById<LinearLayout>(R.id.first_separator)
@@ -57,6 +59,12 @@ class HomeFragment : Fragment() {
         firstString.setTextColor(getResources().getColor(arguments!!.getInt("color")))
         secondString.setTextColor(getResources().getColor(arguments!!.getInt("color")))
         app_name.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+        
+        /* STRING VALUE */
+        firstString.setText(getResources().getString(arguments!!.getInt("string_home_1")))
+        first_text_home.setText(getResources().getString(arguments!!.getInt("string_home_2")))
+        secondString.setText(getResources().getString(arguments!!.getInt("string_home_3")))
+        second_text_home.setText(getResources().getString(arguments!!.getInt("string_home_4")))
 
         /* LISTENER */
 

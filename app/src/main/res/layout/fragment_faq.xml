@@ -49,6 +49,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/first_faq_body"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginLeft="10dp"
@@ -70,6 +71,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/second_faq_body"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_marginLeft="10dp"
@@ -91,6 +93,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/third_faq_body"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_marginLeft="10dp"

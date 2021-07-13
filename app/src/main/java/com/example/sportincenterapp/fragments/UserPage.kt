@@ -27,6 +27,8 @@ class UserPage : Fragment() {
         //RelativeLayout
         val rLayout = v.findViewById<RelativeLayout>(R.id.relative_layout_user)
         //User name
+        var user_title = v.findViewById<TextView>(R.id.info_user_text)
+        var physycall_title = v.findViewById<TextView>(R.id.physycal_car_title)
         var user = v.findViewById<TextView>(R.id.user_text)
         //Telephone
         var telephone_view = v.findViewById<TextView>(R.id.user_phonenumber_view) //view
@@ -39,12 +41,15 @@ class UserPage : Fragment() {
         val address_view = v.findViewById<TextView>(R.id.user_address_view) //view
         val address_set = v.findViewById<TextView>(R.id.user_address_edit) //set
         //Age
+        val age_text = v.findViewById<TextView>(R.id.age_text) //view
         val age_view = v.findViewById<TextView>(R.id.user_age_view) //view
         val age_set = v.findViewById<EditText>(R.id.user_age_edit) //set
         //Weight
+        val weight_text = v.findViewById<TextView>(R.id.weight_text) //view
         val weight_view = v.findViewById<TextView>(R.id.user_weight_view) //view
         val weight_set = v.findViewById<EditText>(R.id.user_weight_edit)
         //Tall
+        val tall_text = v.findViewById<TextView>(R.id.height_text) //view
         var tall_view = v.findViewById<TextView>(R.id.user_tall_view) //view
         val tall_edit = v.findViewById<EditText>(R.id.user_tall_edit) //edit
         //subscription
@@ -76,6 +81,14 @@ class UserPage : Fragment() {
         editbtn_1_save.setTextColor(getResources().getColor(arguments!!.getInt("color")))
         editbtn_2.setTextColor(getResources().getColor(arguments!!.getInt("color")))
         editbtn_2_save.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+
+        /* ASSIGN DEFAULT STRING */
+        user_title.setText(getResources().getString(arguments!!.getInt("string_user_1")))
+        physycall_title.setText(getResources().getString(arguments!!.getInt("string_user_2")))
+        age_text.setText(getResources().getString(arguments!!.getInt("string_user_3")))
+        weight_text.setText(getResources().getString(arguments!!.getInt("string_user_4")))
+        tall_text.setText(getResources().getString(arguments!!.getInt("string_user_5")))
+
 
         /* LISTENERS */
 

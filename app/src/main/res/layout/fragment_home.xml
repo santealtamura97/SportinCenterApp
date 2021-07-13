@@ -91,21 +91,17 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="5dp"
                 android:textSize="30dp"
-                android:text="Chi siamo?">
+                android:text="@string/first_title_home">
             </TextView>
 
             <TextView
+                android:id="@+id/first_text_home"
                 android:layout_width="350dp"
-                android:layout_height="400dp"
+                android:layout_height="170dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
-                android:text="Lo Sporting Center è un centro sportivo nato circa 25 anni fa a Torino.
-Nel corso degli anni si è sempre distinto per la vasta gamma di attività sportive offerte
-e di corsi selezionabili. Il fiore all'occhiello del centro è la struttura che fornisce ampi spazi
-e una moltitudine di macchinari per agevolare tutte le esigenze dei clienti.\n
-Per venire incontro alle esigenze dei clienti e spinti anche dalla pandemia di COVID-19 è stata sviluppata la
-nostra nuova applicazione, con il quale sarà possibile visionare e gestire i corsi inclusi nel proprio abbonamento">
+                android:text="@string/first_text_home">
             </TextView>
 
             <TextView
@@ -115,17 +111,17 @@ nostra nuova applicazione, con il quale sarà possibile visionare e gestire i co
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/primary_color"
                 android:textSize="30dp"
-                android:text="Dove siamo?">
+                android:text="@string/second_title_home">
             </TextView>
 
             <TextView
+                android:id="@+id/second_text_home"
                 android:layout_width="350dp"
-                android:layout_height="450dp"
+                android:layout_height="200dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
-                android:text="La sede principale è situata a Torino, per altri dettagli su come raggiungerci
-o contattarci recarsi nella sezione Contatti">
+                android:text="@string/second_text_home">
             </TextView>
         </LinearLayout>
     </ScrollView>
