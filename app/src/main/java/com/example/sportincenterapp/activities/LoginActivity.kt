@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
-        apiClient.getApiService().login(LoginRequest(email,password))
+        apiClient.getApiService(this).login(LoginRequest(email,password))
             .enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.login_error), Toast.LENGTH_LONG).show()
@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
                         intent = Intent(ApplicationContextProvider.getContext(), MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        // Error logging in
+                        Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.login_error), Toast.LENGTH_LONG).show()
                     }
                 }
             })

@@ -154,5 +154,7 @@
     <string name="registration_complete_name">Nome e Cognome</string>
     <string name="join_us_button">Registrati</string>
     <string name="password_confirm">Conferma password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
