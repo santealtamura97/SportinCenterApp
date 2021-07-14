@@ -16,6 +16,7 @@
             android:title="@string/bookings">
         </item>
 
+
         <item
             android:id="@+id/calendar"
             android:icon="@drawable/ic_baseline_calendar_today_24"
@@ -28,6 +29,13 @@
             android:icon="@drawable/ic_baseline_new_releases_24"
             android:title="@string/advertisment">
 
+        </item>
+
+        <item
+            android:id="@+id/admin_calendar"
+            android:visible="false"
+            android:title="@string/calendar"
+            android:icon="@drawable/ic_baseline_calendar_today_24">
         </item>
 
     </group>

@@ -69,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
                         sessionManager.saveAuthToken(loginResponse.accessToken)
                         sessionManager.saveUserId(loginResponse.user.id)
                         sessionManager.saveUsername(loginResponse.user.displayName)
+                        println(loginResponse.user.displayName)
                         sessionManager.saveUserEmail(loginResponse.user.email)
                         intent = Intent(ApplicationContextProvider.getContext(), MainActivity::class.java)
                         startActivity(intent)

@@ -62,18 +62,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         loginButton.setOnClickListener { intent = Intent(ApplicationContextProvider.getContext(), LoginActivity::class.java)
             startActivity(intent) }
 
+        val menu = navigationView.menu
+        val userPageItem = menu.getItem(0)
+        val bookingsItem = menu.getItem(1)
+        val calendarItem = menu.getItem(2)
+        val newsItem = menu.getItem(3)
+        val calendarAdminItem = menu.getItem(4)
+        val faqItem = menu.getItem(6).subMenu.getItem(1)
+        val contactsItem = menu.getItem(6).subMenu.getItem(2)
+
         if (!sessionManager.fetchUserName().isNullOrEmpty()) {
             userName?.text = sessionManager.fetchUserName()
             userEmail.text = sessionManager.fetchUserEmail()
+            if (sessionManager.fetchUserName() == "Admin" ) {
+                userPageItem.isVisible = false
+                bookingsItem.isVisible = false
+                calendarItem.isVisible = false
+                newsItem.isVisible = false
+                calendarAdminItem.isVisible = true
+                faqItem.isVisible = false
+                contactsItem.isVisible = false
+            }
             userName?.visibility = View.VISIBLE
             loginButton.visibility = View.GONE
         } else{
-            val menu = navigationView.menu
-
-            val userPageItem = menu.getItem(0)
-            val bookingsItem = menu.getItem(1)
-            val calendarItem = menu.getItem(2)
-
             userPageItem.isVisible = false
             bookingsItem.isVisible = false
             calendarItem.isVisible = false
@@ -258,9 +270,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(1).setTitle(getResources().getString(R.string.bookings))
             menu.getItem(2).setTitle(getResources().getString(R.string.calendar))
             menu.getItem(3).setTitle(getResources().getString(R.string.advertisment))
-            menu.getItem(5).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings))
-            menu.getItem(5).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ))
-            menu.getItem(5).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts))
+            menu.getItem(6).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings))
+            menu.getItem(6).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ))
+            menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts))
         } else if (index == 1) {
             bundleHome.putInt("string_home_1", R.string.first_title_home_en)
             bundleHome.putInt("string_home_2", R.string.first_text_home_en)
@@ -296,9 +308,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(1).setTitle(getResources().getString(R.string.bookings_en))
             menu.getItem(2).setTitle(getResources().getString(R.string.calendar_en))
             menu.getItem(3).setTitle(getResources().getString(R.string.advertisment_en))
-            menu.getItem(5).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings_en))
-            menu.getItem(5).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ_en))
-            menu.getItem(5).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))
+            menu.getItem(6).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings_en))
+            menu.getItem(6).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ_en))
+            menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))
         }
 
     }
