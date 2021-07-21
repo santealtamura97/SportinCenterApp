@@ -2,16 +2,48 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6AFF00"
-    >
-    <TextView
+    android:background = "@color/white" >
+
+    <ImageButton
+        android:id="@+id/add_calendar"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/circle_calendar"
+        android:src="@drawable/calendar">
+    </ImageButton>
+
+    <LinearLayout
+        android:id="@+id/calendar_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Calendar Fragement"
-        android:textSize="30sp"
-        android:textColor="#ffffff">
+        android:orientation="vertical"
+        android:visibility="gone">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    </TextView>
+        <DatePicker
+            android:id="@+id/calendar"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="none">
+
+        <ListView
+            android:id="@+id/simpleListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/primary_color"
+            android:dividerHeight="1dp" />
+
+    </ScrollView>
 
 </RelativeLayout>

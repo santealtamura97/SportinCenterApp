@@ -1,49 +1,76 @@
 package com.example.sportincenterapp.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import android.widget.ListView;
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.utils.ApplicationContextProvider
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CalendarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CalendarFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
-    }
+    var arrayList: ArrayList<MyData> = ArrayList()
+    var adapter: MyAdapter? = null
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalendarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalendarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        val v =  inflater.inflate(R.layout.fragment_calendar, container, false)
+        val add_button = v.findViewById<ImageButton>(R.id.add_calendar)
+        val calendar = v.findViewById<ScrollView>(R.id.calendar_body)
+        val listView = v.findViewById<ListView>(R.id.simpleListView)
+
+        add_button.setOnClickListener{
+            calendar.visibility = View.VISIBLE
+            add_button.visibility = View.GONE
+        }
+        v.setOnClickListener{
+            calendar.visibility = View.GONE
+            add_button.visibility = View.VISIBLE
+        }
+
+        //Fill the list with default data
+        arrayList.add(MyData(1, " Mashu", "987576443"))
+        arrayList.add(MyData(2, " Azhar", "8787576768"))
+        arrayList.add(MyData(3, " Niyaz", "65757657657"))
+
+        //Assign the adapter
+        adapter = MyAdapter(ApplicationContextProvider.getContext(), arrayList)
+        listView.adapter = adapter
+
+        return v;
     }
 }
+
+class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<MyData>) : BaseAdapter() {
+    private lateinit var serialNum: TextView
+    private lateinit var name: TextView
+    private lateinit var contactNum: TextView
+
+    override fun getCount(): Int {
+        return arrayList.size
+    }
+    override fun getItem(position: Int): Any {
+        return position
+    }
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+        var convertView = convertView
+        convertView = LayoutInflater.from(context).inflate(R.layout.listview, parent, false)
+        serialNum = convertView.findViewById(R.id.serialNumber)
+        name = convertView.findViewById(R.id.studentName)
+        contactNum = convertView.findViewById(R.id.mobileNum)
+        serialNum.text = " " + arrayList[position].num
+        name.text = arrayList[position].name
+        contactNum.text = arrayList[position].mobileNumber
+        return convertView
+    }
+}
+
+class MyData(var num: Int, var name: String, var mobileNumber: String)
