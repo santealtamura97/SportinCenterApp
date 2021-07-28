@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
     android:padding="4dp">
     <TextView
         android:id="@+id/serialNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Number"
+        android:text="Nome evento"
         android:textColor="@color/primary_color"
         android:textSize="16sp" />
     <TextView
         android:id="@+id/studentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="Orario"
         android:textColor="#000000"
         android:textSize="16sp" />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="Prenota"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="Info"/>
+
     <TextView
         android:id="@+id/mobileNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mobile Number"
-        android:textColor="@android:color/holo_purple"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:text="Nome evento"
+        android:visibility="gone"
+        android:textColor="@color/primary_color"
+        android:textSize="16sp" />
+
 </LinearLayout>

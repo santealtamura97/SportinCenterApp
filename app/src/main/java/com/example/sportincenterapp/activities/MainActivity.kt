@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else{
             userPageItem.isVisible = false
             bookingsItem.isVisible = false
-            calendarItem.isVisible = false
+            //calendarItem.isVisible = false
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -312,6 +312,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(6).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ_en))
             menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))
         }
-
     }
+
 }

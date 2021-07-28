@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.ListView;
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
+
 
 class CalendarFragment : Fragment() {
 
@@ -21,19 +23,30 @@ class CalendarFragment : Fragment() {
 
         val v =  inflater.inflate(R.layout.fragment_calendar, container, false)
         val add_button = v.findViewById<ImageButton>(R.id.add_calendar)
-        val calendar = v.findViewById<ScrollView>(R.id.calendar_body)
+        val calendar = v.findViewById<LinearLayout>(R.id.calendar_body)
         val listView = v.findViewById<ListView>(R.id.simpleListView)
 
         add_button.setOnClickListener{
             calendar.visibility = View.VISIBLE
             add_button.visibility = View.GONE
+            listView.visibility = View.GONE
         }
         v.setOnClickListener{
             calendar.visibility = View.GONE
             add_button.visibility = View.VISIBLE
+            listView.visibility = View.VISIBLE
         }
 
         //Fill the list with default data
+        arrayList.add(MyData(1, " Mashu", "987576443"))
+        arrayList.add(MyData(2, " Azhar", "8787576768"))
+        arrayList.add(MyData(3, " Niyaz", "65757657657"))
+        arrayList.add(MyData(1, " Mashu", "987576443"))
+        arrayList.add(MyData(2, " Azhar", "8787576768"))
+        arrayList.add(MyData(3, " Niyaz", "65757657657"))
+        arrayList.add(MyData(1, " Mashu", "987576443"))
+        arrayList.add(MyData(2, " Azhar", "8787576768"))
+        arrayList.add(MyData(3, " Niyaz", "65757657657"))
         arrayList.add(MyData(1, " Mashu", "987576443"))
         arrayList.add(MyData(2, " Azhar", "8787576768"))
         arrayList.add(MyData(3, " Niyaz", "65757657657"))
