@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
-        apiClient.getApiService(this).login(LoginRequest(email,password))
+        apiClient.getApiServiceAuth(this).login(LoginRequest(email,password))
             .enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.login_error), Toast.LENGTH_LONG).show()

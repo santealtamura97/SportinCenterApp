@@ -1,8 +1,8 @@
 package com.example.sportincenterapp.data
 
+import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.requests.SignUpRequest
-import com.example.sportincenterapp.data.responses.BookingResponse
 import com.example.sportincenterapp.data.responses.LoginResponse
 import com.example.sportincenterapp.data.responses.SignUpResponse
 import com.example.sportincenterapp.utils.Constant
@@ -23,7 +23,7 @@ interface ApiService {
     @POST(Constant.SIGN_UP_URL)
     fun signUp(@Body request: SignUpRequest) : Call<SignUpResponse>
 
-    @GET(Constant.GATEWAY_URL + Constant.CALENDAR_SERVICE + "/user/events/bookings/{user_id}")
-    fun findBookingsForUser(@Path ("user_id") id: Int?): Call<List<BookingResponse>>
+    @GET(Constant.ACTIVITY_SERVICE + "/all/activities")
+    fun getSportActivities(): Call <List<Activity>>
 
 }

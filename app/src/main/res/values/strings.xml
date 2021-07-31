@@ -10,8 +10,8 @@
     <string name="bookings_en">Bookings</string>
     <string name="calendar">Calendario</string>
     <string name="calendar_en">Calendar</string>
-    <string name="advertisment">Avvisi</string>
-    <string name="advertisment_en">Event</string>
+    <string name="activities">Attività Sportive</string>
+    <string name="activities_en">Sports Activities</string>
     <string name="system">Sistema</string>
     <string name="system_en">System</string>
     <string name="settings">Impostazioni</string>
@@ -20,6 +20,8 @@
     <string name="FAQ_en">FAQ</string>
     <string name="contacts">Contatti</string>
     <string name="contacts_en">Contacts</string>
+    <string name ="logout">Esci</string>
+    <string name ="logout_en">Logout</string>
     <string name="title_activity_login">LoginActivity</string>
 
     <!-- Home page -->
@@ -156,5 +158,8 @@
     <string name="password_confirm">Conferma password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Sport Activities -->
+    <string name = "failed_to_load_activities">Impossibile caricare le attività sportive</string>
 
 </resources>

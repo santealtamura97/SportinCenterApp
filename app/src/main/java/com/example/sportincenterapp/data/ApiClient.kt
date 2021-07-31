@@ -15,13 +15,28 @@ class ApiClient {
     //lateinit allows initializing a not-null property outside of a constructor
     private lateinit var apiService: ApiService
 
-    fun getApiService(context: Context): ApiService {
+    fun getApiServiceAuth(context: Context): ApiService {
 
 
         //Initialize ApiService if not initialize yet
         if (!::apiService.isInitialized) {
             val retrofit = Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.AUTH_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okhttpClient(context))
+                .build()
+
+            apiService = retrofit.create(ApiService::class.java)
+        }
+
+        return apiService
+    }
+
+    fun getApiServiceGateway(context: Context): ApiService {
+        //Initialize ApiService if not initialize yet
+        if (!::apiService.isInitialized) {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(Constant.GATEWAY_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okhttpClient(context))
                 .build()

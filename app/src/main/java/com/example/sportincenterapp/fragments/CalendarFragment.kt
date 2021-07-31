@@ -37,6 +37,8 @@ class CalendarFragment : Fragment() {
             listView.visibility = View.VISIBLE
         }
 
+
+
         //Fill the list with default data
         arrayList.add(MyData(1, " Mashu", "987576443"))
         arrayList.add(MyData(2, " Azhar", "8787576768"))

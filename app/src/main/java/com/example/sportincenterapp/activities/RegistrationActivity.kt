@@ -64,7 +64,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
 
         apiClient = ApiClient()
-        apiClient.getApiService(this).signUp(SignUpRequest(name,email,password,confirmPassword,enabled = false))
+        apiClient.getApiServiceAuth(this).signUp(SignUpRequest(name,email,password,confirmPassword,enabled = false))
                 .enqueue(object : Callback<SignUpResponse> {
                     override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
                         Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.signup_error), Toast.LENGTH_LONG).show()

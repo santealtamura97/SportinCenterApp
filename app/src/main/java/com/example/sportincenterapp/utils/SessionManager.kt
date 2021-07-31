@@ -64,4 +64,10 @@ class SessionManager(context: Context){
         editor.apply()
     }
 
+    fun logout() {
+        val editor = prefs.edit()
+        editor.clear()
+        editor.commit()
+    }
+
 }
