@@ -162,4 +162,10 @@
     <!-- Sport Activities -->
     <string name = "failed_to_load_activities">Impossibile caricare le attività sportive</string>
 
+    <!-- Logout -->
+    <string name="logout_confirm">Conferma</string>
+    <string name ="logout_message">Sei sicuro/a di voler uscire?</string>
+    <string name="logout_yes">Si</string>
+    <string name="logout_no">No</string>
+
 </resources>

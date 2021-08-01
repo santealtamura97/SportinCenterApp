@@ -7,14 +7,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.sportincenterapp.R
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.sportincenterapp.R
 import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
@@ -144,16 +144,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.contacts -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentContacts).commit()
 
-            R.id.logout -> {
-                sessionManager.logout()
-                finish();
-                startActivity(intent)
-            }
+            R.id.logout -> logout()
         }
-
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    private fun logout() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.logout_confirm);
+        builder.setMessage(R.string.logout_message);
+
+        builder.setPositiveButton(R.string.logout_yes) {
+            dialog, which -> // Do nothing but close the dialog
+            sessionManager.logout()
+            finish();
+            startActivity(intent)
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton(R.string.logout_no) {
+            dialog, which -> // Do nothing but close the dialog
+            dialog.dismiss()
+        }
+
+        val alert = builder.create()
+        alert.show()
+    }
+
 
     private fun initializeFragments() {
         //Strings
@@ -256,6 +274,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (index == 0) {
             bundleHome.putInt("string_home_1", R.string.first_title_home)
+
             bundleHome.putInt("string_home_2", R.string.first_text_home)
             bundleHome.putInt("string_home_3", R.string.second_title_home)
             bundleHome.putInt("string_home_4", R.string.second_text_home)
