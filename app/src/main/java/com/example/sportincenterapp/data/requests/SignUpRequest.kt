@@ -17,5 +17,8 @@ data class SignUpRequest (
         var matchingPassword: String,
 
         @SerializedName("enabled")
-        var enabled: Boolean
+        var enabled: Boolean,
+
+        @SerializedName("abbonamento")
+        var abbonamento: String
 )

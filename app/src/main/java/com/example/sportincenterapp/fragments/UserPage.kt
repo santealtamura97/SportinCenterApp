@@ -1,21 +1,35 @@
 package com.example.sportincenterapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Button
-import android.widget.RelativeLayout
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.activities.MainActivity
+import com.example.sportincenterapp.data.ApiClient
+import com.example.sportincenterapp.data.models.Activity
+import com.example.sportincenterapp.data.requests.LoginRequest
+import com.example.sportincenterapp.data.responses.LoginResponse
+import com.example.sportincenterapp.data.responses.SubscriptionResponse
+import com.example.sportincenterapp.utils.ActivityAdapter
+import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.utils.SessionManager
 import org.w3c.dom.Text
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class UserPage : Fragment() {
+
+    private var userSubscriptionView: TextView? = null
+    private lateinit var sessionManager: SessionManager
+    private lateinit var apiClient: ApiClient
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -23,16 +37,19 @@ class UserPage : Fragment() {
         val v = inflater.inflate(R.layout.fragment_user_page, container, false)
 
         // Component of the view //
-
-        //RelativeLayout
+        // RelativeLayout
         val rLayout = v.findViewById<RelativeLayout>(R.id.relative_layout_user)
         //User name
         var user_title = v.findViewById<TextView>(R.id.info_user_text)
         var physycall_title = v.findViewById<TextView>(R.id.physycal_car_title)
         var user = v.findViewById<TextView>(R.id.user_text)
-        //Telephone
+        // Telephone
         var telephone_view = v.findViewById<TextView>(R.id.user_phonenumber_view) //view
         var telephone_edit = v.findViewById<EditText>(R.id.user_phonenumber_edit) //set
+        // Subscription
+        userSubscriptionView = v.findViewById<TextView>(R.id.user_subscription_view) //View
+        setSubscriptionName()
+
         //Email
         var email = v.findViewById<TextView>(R.id.user_emailaddress) //view
         //Birthday date
@@ -193,21 +210,44 @@ class UserPage : Fragment() {
             tall_view.visibility = View.VISIBLE
             tall_edit.visibility = View.GONE
         }
-
         return v
     }
 
     /*
     Function used for calculate the BMI
      */
-    fun calculateBMI(weight: String, tall: String): String {
+    private fun calculateBMI(weight: String, tall: String): String {
         var bmi = ""
         if (weight.length > 1 && tall.length > 1) {
-            bmi = ((weight.toDouble()) / ((tall.toDouble() / 100) * (tall.toDouble() / 100))).toString()
+            val numerator = weight.toDouble()
+            val denominator = tall.toDouble() * tall.toDouble()
+            bmi = (numerator / denominator).toString()
         } else {
             bmi = "-.--"
         }
         return bmi
+    }
+
+    private fun setSubscriptionName() {
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        activity?.let {
+            sessionManager.fetchIdAbbonamento()?.let { it1 ->
+                apiClient.getApiServiceGateway(it).getSubfromid(it1)
+                    .enqueue(object : Callback<SubscriptionResponse> {
+
+                        override fun onResponse(
+                            call: Call<SubscriptionResponse>,
+                            response: Response<SubscriptionResponse>
+                        ) {
+                            userSubscriptionView!!.text = response.body()!!.name
+                        }
+                        override fun onFailure(call: Call<SubscriptionResponse>, t: Throwable) {
+
+                        }
+                    })
+            }
+        }
     }
 
 

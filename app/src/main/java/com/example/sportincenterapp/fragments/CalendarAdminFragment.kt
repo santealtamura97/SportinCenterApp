@@ -2,18 +2,15 @@ package com.example.sportincenterapp.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.ListView;
+import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
-import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 
-
-class CalendarFragment : Fragment() {
+class CalendarAdminFragment : Fragment() {
 
     var arrayList: ArrayList<MyData> = ArrayList()
     var adapter: MyAdapter? = null
@@ -21,7 +18,7 @@ class CalendarFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val v =  inflater.inflate(R.layout.fragment_calendar, container, false)
+        val v =  inflater.inflate(R.layout.fragment_admin_calendar, container, false)
         val add_button = v.findViewById<ImageButton>(R.id.add_calendar)
         val calendar = v.findViewById<LinearLayout>(R.id.calendar_body)
         val listView = v.findViewById<ListView>(R.id.simpleListView)
@@ -59,6 +56,7 @@ class CalendarFragment : Fragment() {
 
         return v;
     }
+
 }
 
 class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<MyData>) : BaseAdapter() {

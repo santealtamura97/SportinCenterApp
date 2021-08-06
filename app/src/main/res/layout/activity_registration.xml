@@ -51,6 +51,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
+                    android:id="@+id/registration_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -88,11 +89,41 @@
                         android:fontFamily="sans-serif-light"
                         android:text="@string/registration_messagge" />
 
+                    <!--User Code-->
+
+
+                    <EditText
+                        android:id="@+id/user_code"
+                        style="@style/Font_family_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:drawableLeft="@drawable/ic_person"
+                        android:drawablePadding="8dp"
+                        android:hint="@string/user_code"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:fontFamily="sans-serif-regular"
+                        android:textStyle="bold"
+                        android:textSize="18dp" />
+
+                    <View
+                        style="@style/Normal_Margin_Style"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/view_line" />
+
+
+                    <!--User Code-->
+
 
                     <!--Name Details-->
 
 
-                    <EditText
+                    <!--<EditText
                         android:id="@+id/display_name"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
@@ -116,7 +147,7 @@
                         style="@style/Normal_Margin_Style"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/view_line" />
+                        android:background="@color/view_line" />-->
 
                     <!--Name Details-->
 
@@ -212,8 +243,6 @@
                         android:layout_marginBottom="5dp"
                         android:background="@color/view_line" />
                     <!--Password Details-->
-
-
 
                 </LinearLayout>
 

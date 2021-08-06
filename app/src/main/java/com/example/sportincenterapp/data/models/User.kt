@@ -14,5 +14,10 @@ data class User (
     var email: String,
 
     @SerializedName("roles")
-    private var roles: MutableList<String?>? = null
+    private var roles: MutableList<String?>? = null,
+
+    @SerializedName("idAbbonamento")
+    var idAbbonamento: String
+
+
 )

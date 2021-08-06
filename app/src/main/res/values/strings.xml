@@ -20,8 +20,8 @@
     <string name="FAQ_en">FAQ</string>
     <string name="contacts">Contatti</string>
     <string name="contacts_en">Contacts</string>
-    <string name ="logout">Esci</string>
-    <string name ="logout_en">Logout</string>
+    <string name="logout">Esci</string>
+    <string name="logout_en">Logout</string>
     <string name="title_activity_login">LoginActivity</string>
 
     <!-- Home page -->
@@ -156,15 +156,17 @@
     <string name="registration_complete_name">Nome e Cognome</string>
     <string name="join_us_button">Registrati</string>
     <string name="password_confirm">Conferma password</string>
+    <string name="user_code">Codice utente (6 cifre)</string>
+    <string name="user_code_error_message">Codice utente NON valido</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Sport Activities -->
-    <string name = "failed_to_load_activities">Impossibile caricare le attività sportive</string>
+    <string name="failed_to_load_activities">Impossibile caricare le attività sportive</string>
 
     <!-- Logout -->
     <string name="logout_confirm">Conferma</string>
-    <string name ="logout_message">Sei sicuro/a di voler uscire?</string>
+    <string name="logout_message">Sei sicuro/a di voler uscire?</string>
     <string name="logout_yes">Si</string>
     <string name="logout_no">No</string>
 

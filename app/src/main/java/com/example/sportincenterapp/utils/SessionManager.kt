@@ -16,6 +16,7 @@ class SessionManager(context: Context){
         const val USER_ID = "user_id"
         const val USERNAME = "username"
         const val EMAIL = "email"
+        const val ABBONAMENTO = "abbonamento"
     }
 
     /**
@@ -46,6 +47,10 @@ class SessionManager(context: Context){
         return prefs.getString(USER_ID, null)
     }
 
+    fun fetchIdAbbonamento(): String? {
+        return prefs.getString(ABBONAMENTO, null)
+    }
+
     fun saveUserId(id: String) {
         val editor = prefs.edit()
         editor.putString(USER_ID, id)
@@ -61,6 +66,12 @@ class SessionManager(context: Context){
     fun saveUserEmail(email:String) {
         val editor = prefs.edit()
         editor.putString(EMAIL, email)
+        editor.apply()
+    }
+
+    fun saveIdAbbonamento(abbonamento: String) {
+        val editor = prefs.edit()
+        editor.putString(ABBONAMENTO, abbonamento)
         editor.apply()
     }
 

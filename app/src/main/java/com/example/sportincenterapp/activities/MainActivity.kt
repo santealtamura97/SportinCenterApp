@@ -34,14 +34,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentUser : Fragment = UserPage()
     private val fragmentSettings : Fragment = Settings()
     private val fragmentHome : Fragment = HomeFragment()
-    //private val fragmentAdvertisment : Fragment = Advertisment()
+    private val fragmentAdvertisment : Fragment = Advertisment()
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
     private val fragmentActivities: Fragment = ActivitiesFragment()
     //Bundles
     private val bundleUser : Bundle = Bundle()
     private val bundleHome : Bundle = Bundle()
-    //private val bundleAdvertisment: Bundle = Bundle()
+    private val bundleAdvertisment: Bundle = Bundle()
     private val bundleFaq: Bundle = Bundle()
     private val bundleContacts: Bundle = Bundle()
 
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val menu = navigationView.menu
         val userPageItem = menu.getItem(0)
-        val bookingsItem = menu.getItem(1)
+        val newsItem = menu.getItem(1)
         val calendarItem = menu.getItem(2)
         val activitiesItem = menu.getItem(3)
         val calendarAdminItem = menu.getItem(4)
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             userEmail.text = sessionManager.fetchUserEmail()
             if (sessionManager.fetchUserName() == "Admin" ) {
                 userPageItem.isVisible = false
-                bookingsItem.isVisible = false
+                newsItem.isVisible = false
                 calendarItem.isVisible = false
                 activitiesItem.isVisible = false
                 calendarAdminItem.isVisible = true
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else{
             calendarItem.isVisible = false
             userPageItem.isVisible = false
-            bookingsItem.isVisible = false
+            newsItem.isVisible = true
             logoutItem.isVisible = false
             activitiesItem.isVisible = false
         }
@@ -129,18 +129,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (menuItem.itemId) {
 
             R.id.calendar -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, CalendarFragment()).commit()
+                .replace(R.id.Fragment_container, CalendarCollectionFragment()).commit()
+
+            R.id.admin_calendar -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, CalendarAdminFragment()).commit()
+
             R.id.profile -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentUser).commit()
-            /*R.id.news -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentAdvertisment).commit()*/
+
+            R.id.news -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, fragmentAdvertisment).commit()
+
             R.id.activities -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentActivities).commit()
 
             R.id.settings -> supportFragmentManager.beginTransaction()
                     .replace(R.id.Fragment_container, fragmentSettings).commit()
+
             R.id.help -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentFaq).commit()
+
             R.id.contacts -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentContacts).commit()
 
@@ -182,7 +190,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //Color
         bundleUser.putInt("color", R.color.primary_color)
         bundleHome.putInt("color", R.color.primary_color)
-        //bundleAdvertisment.putInt("color", R.color.primary_color)
+        bundleAdvertisment.putInt("color", R.color.primary_color)
         bundleFaq.putInt("color", R.color.primary_color)
         bundleContacts.putInt("color", R.color.primary_color)
         //Language
@@ -190,12 +198,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleHome.putInt("string_home_2", R.string.first_text_home)
         bundleHome.putInt("string_home_3", R.string.second_title_home)
         bundleHome.putInt("string_home_4", R.string.second_text_home)
-        /*bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
+        bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
         bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower)
         bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter)
         bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary)
         bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween)
-        bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)*/
+        bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)
         bundleFaq.putInt("string_faq_1", R.string.faq_question_1)
         bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1)
         bundleFaq.putInt("string_faq_2", R.string.faq_question_2)
@@ -219,7 +227,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //Assignments
         fragmentUser.arguments = bundleUser
         fragmentHome.arguments = bundleHome
-        //fragmentAdvertisment.arguments = bundleAdvertisment
+        fragmentAdvertisment.arguments = bundleAdvertisment
         fragmentFaq.arguments = bundleFaq
         fragmentContacts.arguments = bundleContacts
     }
@@ -242,7 +250,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             homeBtn.setBackgroundResource(R.color.primary_color)
             bundleUser.putInt("color", R.color.primary_color)
             bundleHome.putInt("color", R.color.primary_color)
-            //bundleAdvertisment.putInt("color", R.color.primary_color)
+            bundleAdvertisment.putInt("color", R.color.primary_color)
             bundleFaq.putInt("color", R.color.primary_color)
             bundleContacts.putInt("color", R.color.primary_color)
 
@@ -252,7 +260,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             homeBtn.setBackgroundResource(R.color.primary_color_2)
             bundleUser.putInt("color", R.color.primary_color_2)
             bundleHome.putInt("color", R.color.primary_color_2)
-           //bundleAdvertisment.putInt("color", R.color.primary_color_2)
+            bundleAdvertisment.putInt("color", R.color.primary_color_2)
             bundleFaq.putInt("color", R.color.primary_color_2)
             bundleContacts.putInt("color", R.color.primary_color_2)
 
@@ -262,7 +270,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             homeBtn.setBackgroundResource(R.color.primary_color_3)
             bundleUser.putInt("color", R.color.primary_color_3)
             bundleHome.putInt("color", R.color.primary_color_3)
-            //bundleAdvertisment.putInt("color", R.color.primary_color_3)
+            bundleAdvertisment.putInt("color", R.color.primary_color_3)
             bundleFaq.putInt("color", R.color.primary_color_3)
             bundleContacts.putInt("color", R.color.primary_color_3)
         }
@@ -278,12 +286,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleHome.putInt("string_home_2", R.string.first_text_home)
             bundleHome.putInt("string_home_3", R.string.second_title_home)
             bundleHome.putInt("string_home_4", R.string.second_text_home)
-            /*bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
+            bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
             bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower)
             bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter)
             bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary)
             bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween)
-            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)*/
+            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)
             bundleFaq.putInt("string_faq_1", R.string.faq_question_1)
             bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1)
             bundleFaq.putInt("string_faq_2", R.string.faq_question_2)
@@ -299,9 +307,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleContacts.putInt("string_contact_7", R.string.contacts_hours_string_2)
             bundleContacts.putInt("string_contact_8", R.string.contacts_address_string)
             menu.getItem(0).setTitle(getResources().getString(R.string.profile))
-            menu.getItem(1).setTitle(getResources().getString(R.string.bookings))
+            menu.getItem(1).setTitle(getResources().getString(R.string.advertisment_title))
             menu.getItem(2).setTitle(getResources().getString(R.string.calendar))
-            //menu.getItem(3).setTitle(getResources().getString(R.string.advertisment))
+            menu.getItem(3).setTitle(getResources().getString(R.string.activities))
             menu.getItem(6).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings))
             menu.getItem(6).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ))
             menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts))
@@ -310,12 +318,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleHome.putInt("string_home_2", R.string.first_text_home_en)
             bundleHome.putInt("string_home_3", R.string.second_title_home_en)
             bundleHome.putInt("string_home_4", R.string.second_text_home_en)
-            /*bundleAdvertisment.putInt("string_title", R.string.advertisment_title_en)
+            bundleAdvertisment.putInt("string_title", R.string.advertisment_title_en)
             bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower_en)
             bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter_en)
             bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary_en)
             bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween_en)
-            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear_en)*/
+            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear_en)
             bundleFaq.putInt("string_faq_1", R.string.faq_question_1_en)
             bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1_en)
             bundleFaq.putInt("string_faq_2", R.string.faq_question_2_en)
@@ -337,10 +345,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleContacts.putInt("string_contact_8", R.string.contacts_address_string_en)
 
             menu.getItem(0).setTitle(getResources().getString(R.string.profile_en))
-            menu.getItem(1).setTitle(getResources().getString(R.string.bookings_en))
+            menu.getItem(1).setTitle(getResources().getString(R.string.advertisment_title_en))
             menu.getItem(2).setTitle(getResources().getString(R.string.calendar_en))
             menu.getItem(3).setTitle(getResources().getString(R.string.activities_en))
-            //menu.getItem(3).setTitle(getResources().getString(R.string.advertisment_en))
             menu.getItem(6).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings_en))
             menu.getItem(6).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ_en))
             menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))

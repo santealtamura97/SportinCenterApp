@@ -78,35 +78,6 @@
                      </TextView>
              </LinearLayout>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="5dp"
-                 android:background="@drawable/circularbordersolid">
-
-                 <TextView
-                     android:id="@+id/bmi"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_gravity="center_vertical"
-                     android:text="@string/bmi"
-                     android:textColor="@color/primary_color"
-                     android:textSize="30dp"
-                     android:textStyle="bold"
-                     android:padding="10dp">
-
-                 </TextView>
-
-                 <TextView
-                     android:id="@+id/bmi_text"
-                     android:layout_width="80dp"
-                     android:layout_height="60dp"
-                     android:layout_gravity="center_vertical"
-                     android:padding="10dp"
-                     android:textSize="30dp"></TextView>
-
-             </LinearLayout>
-
              <!--Bottom Cards with sections-->
              <LinearLayout
                  android:id="@+id/personalinfo"
@@ -163,6 +134,37 @@
                          android:layout_height="wrap_content"
                          android:layout_marginTop="10dp"
                          android:orientation="vertical">
+
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:gravity="center_vertical"
+                             android:paddingRight="8dp">
+
+
+                             <ImageView
+                                 android:layout_width="40dp"
+                                 android:layout_height="40dp"
+                                 android:background="@drawable/circular_white_bordersolid"
+                                 android:padding="10dp"
+                                 android:src="@drawable/ic_subscription" />
+
+                             <EditText
+                                 android:id="@+id/user_subscription_edit"
+                                 android:layout_width="150dp"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15dp"
+                                 android:visibility="gone" />
+
+                             <TextView
+                                 android:id="@+id/user_subscription_view"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginLeft="20dp"
+                                 android:textSize="15dp" />
+
+                         </LinearLayout>
 
                          <LinearLayout
                              android:layout_width="wrap_content"
@@ -368,7 +370,7 @@
                                  android:textSize="15dp" />
 
                              <EditText
-                                 android:id="@+id/user_tall_edit"
+                                 android:id="@+id/user_weight_edit"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="25dp"
@@ -407,7 +409,7 @@
                                  android:textSize="15dp" />
 
                              <EditText
-                                 android:id="@+id/user_weight_edit"
+                                 android:id="@+id/user_tall_edit"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="40dp"
@@ -427,6 +429,35 @@
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="20dp"
                                  android:textSize="15dp"/>
+
+                         </LinearLayout>
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:layout_marginTop="5dp"
+                             android:background="@drawable/circularbordersolid">
+
+                             <TextView
+                                 android:id="@+id/bmi"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:layout_gravity="center_vertical"
+                                 android:text="@string/bmi"
+                                 android:textColor="@color/primary_color"
+                                 android:textSize="30dp"
+                                 android:textStyle="bold"
+                                 android:padding="10dp">
+
+                             </TextView>
+
+                             <TextView
+                                 android:id="@+id/bmi_text"
+                                 android:layout_width="80dp"
+                                 android:layout_height="60dp"
+                                 android:layout_gravity="center_vertical"
+                                 android:padding="10dp"
+                                 android:textSize="30dp"></TextView>
 
                          </LinearLayout>
 

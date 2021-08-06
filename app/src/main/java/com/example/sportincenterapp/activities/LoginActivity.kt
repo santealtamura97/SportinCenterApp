@@ -12,7 +12,6 @@ import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.responses.LoginResponse
-import com.example.sportincenterapp.fragments.CalendarFragment
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import retrofit2.Call
@@ -54,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         apiClient = ApiClient()
+
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
         apiClient.getApiServiceAuth(this).login(LoginRequest(email,password))
@@ -69,7 +69,9 @@ class LoginActivity : AppCompatActivity() {
                         sessionManager.saveAuthToken(loginResponse.accessToken)
                         sessionManager.saveUserId(loginResponse.user.id)
                         sessionManager.saveUsername(loginResponse.user.displayName)
-                        println(loginResponse.user.displayName)
+                        if (loginResponse.user.idAbbonamento != null) {
+                            sessionManager.saveIdAbbonamento(loginResponse.user.idAbbonamento)
+                        }
                         sessionManager.saveUserEmail(loginResponse.user.email)
                         intent = Intent(ApplicationContextProvider.getContext(), MainActivity::class.java)
                         startActivity(intent)
