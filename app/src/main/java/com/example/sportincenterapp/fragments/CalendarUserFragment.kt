@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.utils.CalendarUserAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import java.text.DateFormat
+import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -18,7 +20,9 @@ class CalendarUserFragment : Fragment() {
 
     private lateinit var calendarUserAdapter: CalendarUserAdapter
     private lateinit var viewPager: ViewPager2
-    private val tabTitles = arrayOf("Oggi - 07/08/2021", "Dom - 08/08/2021", "Lun - 09/08/2021", "Mar - 10/08/2021", "Mer - 11/08/2021")
+    private val DATES_NUMBER = 5
+    private val tabDates = arrayOfNulls<String>(DATES_NUMBER)
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,14 +33,31 @@ class CalendarUserFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setTabDates()
         calendarUserAdapter = CalendarUserAdapter(this)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = calendarUserAdapter
         val tabLayout = view.findViewById(R.id.tab_layout) as TabLayout
         TabLayoutMediator(tabLayout, viewPager) {
-            tab, position ->  tab.text = tabTitles[position];
+            tab, position ->  tab.text = tabDates[position];
         }.attach()
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
     }
 
+    private fun setTabDates() {
+        val usersLocale = Locale.getDefault()
+        val dfs = DateFormatSymbols(usersLocale)
+        val weekdays: Array<String> = dfs.getWeekdays()
+        val calendar = Calendar.getInstance()
+        var day = calendar.time
+        var intDay: Int = calendar.get(Calendar.DAY_OF_WEEK)
+        val dateFormat: DateFormat = SimpleDateFormat("dd-MM-yyyy")
+
+        for (i in 0 until DATES_NUMBER) {
+            tabDates[i] = dateFormat.format(day) + " " + weekdays[intDay]
+            calendar.add(Calendar.DAY_OF_YEAR, 1)
+            intDay = calendar.get(Calendar.DAY_OF_WEEK)
+            day = calendar.time
+        }
+    }
 }

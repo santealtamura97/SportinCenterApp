@@ -6,14 +6,11 @@
     <!-- navigation header -->
     <string name="profile">Profilo</string>
     <string name="profile_en">Profile</string>
-    <string name="bookings">Prenotazioni</string>
-    <string name="bookings_en">Bookings</string>
     <string name="calendar">Calendario</string>
     <string name="calendar_en">Calendar</string>
     <string name="activities">Attività Sportive</string>
     <string name="activities_en">Sports Activities</string>
     <string name="system">Sistema</string>
-    <string name="system_en">System</string>
     <string name="settings">Impostazioni</string>
     <string name="settings_en">Settings</string>
     <string name="FAQ">FAQ</string>
@@ -47,9 +44,7 @@
     <string name="height_en">Height:</string>
     <string name="bmi">BMI:</string>
     <string name="edit">Modifica</string>
-    <string name="edit_en">Edit</string>
     <string name="save">Salva</string>
-    <string name="save_en">Save</string>
 
     <!-- Settings  -->
     <string name="settings_title">IMPOSTAZIONI</string>
@@ -143,7 +138,6 @@
     <string name="password_login">Password</string>
     <string name="missing_email_message">Per favore inserire la email</string>
     <string name="missing_password_message">Per favore inserire la password</string>
-    <string name="missing_display_name_message">Per favore inserire un nome e un cognome</string>
     <string name="missing_confirm_password_message">Per favore conferma la tua password</string>
     <string name="password_not_equal_confirm_password_message">Per favore conferma correttamente la password</string>
     <string name="signup_error">Registrazione non riuscita!</string>
@@ -153,13 +147,10 @@
     <string name="login_error">Autenticazione non riuscita!</string>
     <string name="registration_messagge">Abbiamo bisogno solo di alcuni dati per la registrazione!</string>
     <string name="registration_welcome">Benvenuto/a !</string>
-    <string name="registration_complete_name">Nome e Cognome</string>
     <string name="join_us_button">Registrati</string>
     <string name="password_confirm">Conferma password</string>
     <string name="user_code">Codice utente (6 cifre)</string>
-    <string name="user_code_error_message">Codice utente NON valido</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Sport Activities -->
     <string name="failed_to_load_activities">Impossibile caricare le attività sportive</string>
