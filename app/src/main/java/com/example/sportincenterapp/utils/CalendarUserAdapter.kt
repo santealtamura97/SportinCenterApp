@@ -9,7 +9,9 @@ import com.example.sportincenterapp.fragments.EventFragment
 
 class CalendarUserAdapter (fragment: CalendarUserFragment) : FragmentStateAdapter(fragment) {
 
-    private val ARG_OBJECT = "object"
+    private val ARG_OBJECT = "date"
+    private val DATES_NUMBER = 5
+    private var tabTitleDates = ArrayList<String>(DATES_NUMBER)
 
     override fun getItemCount(): Int = 5
 
@@ -17,9 +19,16 @@ class CalendarUserAdapter (fragment: CalendarUserFragment) : FragmentStateAdapte
 
         val fragment = EventFragment()
         fragment.arguments = Bundle().apply {
-            putInt(ARG_OBJECT, position + 1)
+            putString(ARG_OBJECT, tabTitleDates[position])
         }
         return fragment
     }
+
+    fun setTabTitleDates(tabDates : ArrayList<String>) {
+        for (date in tabDates) {
+            tabTitleDates.add(date)
+        }
+    }
+
 
 }

@@ -4,13 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.models.Event
 import kotlinx.android.synthetic.main.event_item.view.*
+import java.lang.StringBuilder
 
 class EventAdapter(val modelList: List<Event>, val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private lateinit var sessionManager: SessionManager
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolder).bind(modelList.get(position));
@@ -18,6 +24,7 @@ class EventAdapter(val modelList: List<Event>, val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
+        sessionManager = SessionManager(ApplicationContextProvider.getContext()) //initialize session manager in this class
         return ViewHolder(layoutInflater.inflate(R.layout.event_item, parent, false))
     }
 
@@ -38,8 +45,14 @@ class EventAdapter(val modelList: List<Event>, val context: Context) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
+
         init {
             itemView.setOnClickListener(this)
+            itemView.findViewById<Button>(R.id.book_button).setOnClickListener() {
+                bookEvent(modelList[position].id, sessionManager.fetchUserId()!!, modelList[position].title, modelList[position].data,
+                    modelList[position].oraInizio, modelList[position].oraFine)
+            }
+
         }
 
         fun bind(model: Event): Unit {
@@ -53,5 +66,33 @@ class EventAdapter(val modelList: List<Event>, val context: Context) :
         override fun onClick(p0: View?) {
             mClickListener.onClick(adapterPosition, itemView)
         }
+    }
+
+    private fun bookEvent(eventId: String, userId: String, eventTitle: String, date: String, oraInizio: String, oraFine: String) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle(eventTitle);
+
+        val strBuilder = StringBuilder()
+        strBuilder.appendln(context.resources.getString(R.string.book_event_confirm))
+        strBuilder.appendln(" ")
+        strBuilder.appendln(context.resources.getString(R.string.book_date) + date)
+        strBuilder.appendln(context.resources.getString(R.string.book_time) + oraInizio + " - " + oraFine)
+
+        builder.setMessage(strBuilder);
+
+        builder.setPositiveButton(R.string.book_yes) {
+                dialog, which -> // Do nothing but close the dialog
+                //TO-DO
+                //...
+                //..
+        }
+
+        builder.setNegativeButton(R.string.book_no) {
+                dialog, which -> // Do nothing but close the dialog
+            dialog.dismiss()
+        }
+
+        val alert = builder.create()
+        alert.show()
     }
 }

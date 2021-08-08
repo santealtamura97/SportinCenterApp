@@ -14,6 +14,7 @@ import java.text.DateFormat
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CalendarUserFragment : Fragment() {
@@ -21,7 +22,7 @@ class CalendarUserFragment : Fragment() {
     private lateinit var calendarUserAdapter: CalendarUserAdapter
     private lateinit var viewPager: ViewPager2
     private val DATES_NUMBER = 5
-    private val tabDates = arrayOfNulls<String>(DATES_NUMBER)
+    private val tabDates = ArrayList<String>(DATES_NUMBER)
 
 
     override fun onCreateView(
@@ -35,6 +36,7 @@ class CalendarUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setTabDates()
         calendarUserAdapter = CalendarUserAdapter(this)
+        calendarUserAdapter.setTabTitleDates(tabDates)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = calendarUserAdapter
         val tabLayout = view.findViewById(R.id.tab_layout) as TabLayout
@@ -44,6 +46,11 @@ class CalendarUserFragment : Fragment() {
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
     }
 
+    /**
+     * Inserisce 5 date a partire dalla data corrente.
+     * L'utente può prenotarsi agli eventi di 5 giorni da oggi.
+     *
+     */
     private fun setTabDates() {
         val usersLocale = Locale.getDefault()
         val dfs = DateFormatSymbols(usersLocale)
@@ -54,7 +61,7 @@ class CalendarUserFragment : Fragment() {
         val dateFormat: DateFormat = SimpleDateFormat("dd-MM-yyyy")
 
         for (i in 0 until DATES_NUMBER) {
-            tabDates[i] = dateFormat.format(day) + " " + weekdays[intDay]
+            tabDates.add(dateFormat.format(day) + " " + weekdays[intDay])
             calendar.add(Calendar.DAY_OF_YEAR, 1)
             intDay = calendar.get(Calendar.DAY_OF_WEEK)
             day = calendar.time

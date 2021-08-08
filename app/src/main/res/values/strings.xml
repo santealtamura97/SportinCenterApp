@@ -155,6 +155,13 @@
     <!-- Sport Activities -->
     <string name="failed_to_load_activities">Impossibile caricare le attività sportive</string>
 
+    <!-- Event User Calendar -->
+    <string name="book_event_confirm">Sei sicuro di voler prenotare?</string>
+    <string name="book_date">Data: </string>
+    <string name="book_time">Orario: </string>
+    <string name="book_yes">Si</string>
+    <string name="book_no">No</string>
+
     <!-- Logout -->
     <string name="logout_confirm">Conferma</string>
     <string name="logout_message">Sei sicuro/a di voler uscire?</string>

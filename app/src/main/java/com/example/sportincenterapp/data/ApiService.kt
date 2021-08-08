@@ -35,4 +35,7 @@ interface ApiService {
     @GET(Constant.CALENDAR_SERVICE + "/user/user_events")
     fun getAllEvents(): Call <List<Event>>
 
+    @PUT(Constant.CALENDAR_SERVICE + "/user/user_date_events/{subId}/{userId}/{date}")
+    fun getEventsForUserInDate(@Path(value = "subId") subId: String, @Path(value = "userId") userId : String, @Path(value = "date") date: String): Call <List<Event>>
+
 }

@@ -23,17 +23,25 @@ class EventFragment : Fragment() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+    private lateinit var eventsDate: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        view?.findViewById<View>(R.id.book_button)?.setOnClickListener {
+
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //la data che rappresenta il fragment corrente
+        eventsDate = arguments!!.getString("date").toString().split(" ")[0]
 
         rcv.apply {
             // set a LinearLayoutManager to handle Android
@@ -43,28 +51,31 @@ class EventFragment : Fragment() {
             apiClient = ApiClient()
             sessionManager = SessionManager(ApplicationContextProvider.getContext())
             activity?.let {
-                apiClient.getApiServiceGateway(it).getAllEvents()
-                    .enqueue(object : Callback<List<Event>> {
-                        override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
-                            if (response.isSuccessful) {
-                                val eventList = response.body()!!
-                                adapter = EventAdapter(eventList, context)
-                                (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListener {
-                                    override fun onClick(pos: Int, aView: View) {
-                                        Toast.makeText(activity, eventList[pos].title, Toast.LENGTH_LONG).show()
-                                    }
-                                })
-                            }else{
+                sessionManager.fetchIdAbbonamento()?.let { it1 ->
+                    apiClient.getApiServiceGateway(it).getEventsForUserInDate(it1,
+                        sessionManager.fetchUserId()!!, eventsDate)
+                        .enqueue(object : Callback<List<Event>> {
+                            override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
+                                if (response.isSuccessful) {
+                                    val eventList = response.body()!!
+                                    adapter = EventAdapter(eventList, context)
+                                    (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListener {
+                                        override fun onClick(pos: Int, aView: View) {
+                                            Toast.makeText(activity, eventList[pos].title, Toast.LENGTH_LONG).show()
+                                        }
+                                    })
+                                }else{
+                                    Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
                                 Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
                             }
-                        }
-                        override fun onFailure(call: Call<List<Event>>, t: Throwable) {
-                            Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
-                        }
-                    })
+                        })
+                }
             }
         }
     }
-
 
 }
