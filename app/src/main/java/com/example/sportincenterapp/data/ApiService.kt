@@ -1,6 +1,7 @@
 package com.example.sportincenterapp.data
 
 import com.example.sportincenterapp.data.models.Activity
+import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.requests.SignUpRequest
 import com.example.sportincenterapp.data.responses.LoginResponse
@@ -30,5 +31,8 @@ interface ApiService {
 
     @GET(Constant.ACTIVITY_SERVICE + "/all/activities")
     fun getSportActivities(): Call <List<Activity>>
+
+    @GET(Constant.CALENDAR_SERVICE + "/user/user_events")
+    fun getAllEvents(): Call <List<Event>>
 
 }

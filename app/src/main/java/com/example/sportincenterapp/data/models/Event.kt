@@ -9,11 +9,14 @@ data class Event(
     @SerializedName("title")
     var title: String,
 
-    @SerializedName("dataFine")
-    var dataFine: String,
+    @SerializedName("data")
+    var data: String,
 
-    @SerializedName("inizio")
-    var inizio: String,
+    @SerializedName("oraInizio")
+    var oraInizio: String,
+
+    @SerializedName("oraFine")
+    var oraFine: String,
 
     @SerializedName("number")
     var number: Long

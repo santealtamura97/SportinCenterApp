@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.utils.CalendarCollectionAdapter
@@ -14,8 +15,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class CalendarCollectionFragment : Fragment() {
 
-    // When requested, this adapter returns a DemoObjectFragment,
-    // representing an object in the collection.
     private lateinit var calendarCollectionAdapter: CalendarCollectionAdapter
     private lateinit var viewPager: ViewPager2
     private val tabTitles = arrayOf("CALENDARIO", "PRENOTAZIONI")
@@ -43,4 +42,5 @@ class CalendarCollectionFragment : Fragment() {
                 tab.setIcon(tabIcons[position])
         }.attach()
     }
+
 }
