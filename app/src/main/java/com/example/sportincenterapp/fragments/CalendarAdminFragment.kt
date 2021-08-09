@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.utils.ApplicationContextProvider
+import kotlinx.android.synthetic.main.fragment_admin_calendar.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CalendarAdminFragment : Fragment() {
 
@@ -19,36 +23,52 @@ class CalendarAdminFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val v =  inflater.inflate(R.layout.fragment_admin_calendar, container, false)
-        val add_button = v.findViewById<ImageButton>(R.id.add_calendar)
+        val calendar_button = v.findViewById<ImageButton>(R.id.add_calendar)
         val calendar = v.findViewById<LinearLayout>(R.id.calendar_body)
         val listView = v.findViewById<ListView>(R.id.simpleListView)
+        val listTitle = v.findViewById<TextView>(R.id.listTitle)
+        val dateSelected = v.findViewById<TextView>(R.id.dateSelected)
+        val datapicker = v.findViewById<DatePicker>(R.id.calendar)
 
-        add_button.setOnClickListener{
+        calendar_button.setOnClickListener{
             calendar.visibility = View.VISIBLE
-            add_button.visibility = View.GONE
+            calendar_button.visibility = View.GONE
             listView.visibility = View.GONE
+            listTitle.visibility = View.GONE
+            dateSelected.visibility = View.GONE
         }
         v.setOnClickListener{
             calendar.visibility = View.GONE
-            add_button.visibility = View.VISIBLE
+            calendar_button.visibility = View.VISIBLE
             listView.visibility = View.VISIBLE
+            listView.visibility = View.VISIBLE
+            listTitle.visibility = View.VISIBLE
+            dateSelected.visibility = View.VISIBLE
         }
 
-
-
         //Fill the list with default data
-        arrayList.add(MyData(1, " Mashu", "987576443"))
-        arrayList.add(MyData(2, " Azhar", "8787576768"))
-        arrayList.add(MyData(3, " Niyaz", "65757657657"))
-        arrayList.add(MyData(1, " Mashu", "987576443"))
-        arrayList.add(MyData(2, " Azhar", "8787576768"))
-        arrayList.add(MyData(3, " Niyaz", "65757657657"))
-        arrayList.add(MyData(1, " Mashu", "987576443"))
-        arrayList.add(MyData(2, " Azhar", "8787576768"))
-        arrayList.add(MyData(3, " Niyaz", "65757657657"))
-        arrayList.add(MyData(1, " Mashu", "987576443"))
-        arrayList.add(MyData(2, " Azhar", "8787576768"))
-        arrayList.add(MyData(3, " Niyaz", "65757657657"))
+        arrayList.add(MyData("NUOTO", "10:00 - 11:00"))
+        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
+        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
+        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
+        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
+        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
+        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
+
+        val today = Calendar.getInstance()
+        datapicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+
+        ) { view, year, month, day ->
+            val month = month + 1
+            dateSelected.setText(day.toString() +"/"+month.toString()+"/"+year.toString());
+            calendar.visibility = View.GONE
+            calendar_button.visibility = View.VISIBLE
+            listView.visibility = View.VISIBLE
+            listView.visibility = View.VISIBLE
+            listTitle.visibility = View.VISIBLE
+            dateSelected.visibility = View.VISIBLE
+        }
 
         //Assign the adapter
         adapter = MyAdapter(ApplicationContextProvider.getContext(), arrayList)
@@ -60,9 +80,8 @@ class CalendarAdminFragment : Fragment() {
 }
 
 class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<MyData>) : BaseAdapter() {
-    private lateinit var serialNum: TextView
-    private lateinit var name: TextView
-    private lateinit var contactNum: TextView
+    private lateinit var activityName: TextView
+    private lateinit var activityHour: TextView
 
     override fun getCount(): Int {
         return arrayList.size
@@ -76,14 +95,12 @@ class MyAdapter(private val context: Context, private val arrayList: java.util.A
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         var convertView = convertView
         convertView = LayoutInflater.from(context).inflate(R.layout.listview, parent, false)
-        serialNum = convertView.findViewById(R.id.serialNumber)
-        name = convertView.findViewById(R.id.studentName)
-        contactNum = convertView.findViewById(R.id.mobileNum)
-        serialNum.text = " " + arrayList[position].num
-        name.text = arrayList[position].name
-        contactNum.text = arrayList[position].mobileNumber
+        activityName = convertView.findViewById(R.id.title)
+        activityHour = convertView.findViewById(R.id.hour)
+        activityName.text = arrayList[position].activityName
+        activityHour.text = arrayList[position].activityHour
         return convertView
     }
 }
 
-class MyData(var num: Int, var name: String, var mobileNumber: String)
+class MyData(var activityName: String, var activityHour: String)

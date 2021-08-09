@@ -6,7 +6,7 @@
 
     <ImageButton
         android:id="@+id/add_calendar"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -14,11 +14,23 @@
         android:src="@drawable/calendar">
     </ImageButton>
 
+    <TextView
+        android:id="@+id/dateSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="02/04/1995"
+        android:textStyle="bold"
+        android:textSize="35dp"
+        android:layout_marginLeft="140dp">
+    </TextView>
+
     <LinearLayout
         android:id="@+id/calendar_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginTop="60dp"
         android:visibility="gone"
         android:layout_centerHorizontal="true">
 
@@ -31,15 +43,34 @@
 
     </LinearLayout>
 
-        <ListView
-            android:id="@+id/simpleListView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:divider="@color/primary_color"
-            android:dividerHeight="1dp"
-            android:scrollbars="vertical"
-            android:layout_marginTop="130dp"
-            />
+    <TextView
+        android:id="@+id/listTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lista delle attività:"
+        android:layout_marginTop="165dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp">
+    </TextView>
+
+    <ListView
+        android:id="@+id/simpleListView"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:divider="@color/primary_color"
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical"
+        android:layout_marginTop="200dp"/>
+
+    <ImageButton
+        android:layout_marginTop="500dp"
+        android:layout_marginLeft="300dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/circle_add"
+        android:src="@drawable/add_icon">
+    </ImageButton>
 
 
 </RelativeLayout>

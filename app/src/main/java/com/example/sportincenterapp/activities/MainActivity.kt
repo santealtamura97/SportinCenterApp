@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             newsItem.isVisible = true
             logoutItem.isVisible = false
             activitiesItem.isVisible = false
+            calendarAdminItem.isVisible = true
         }
 
         navigationView.setNavigationItemSelectedListener(this)
