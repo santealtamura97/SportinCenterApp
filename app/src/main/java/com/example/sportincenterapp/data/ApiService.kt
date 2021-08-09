@@ -9,6 +9,7 @@ import com.example.sportincenterapp.data.responses.SignUpResponse
 import com.example.sportincenterapp.data.responses.SubscriptionResponse
 import com.example.sportincenterapp.data.responses.UserCodeResponse
 import com.example.sportincenterapp.utils.Constant
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -37,5 +38,8 @@ interface ApiService {
 
     @PUT(Constant.CALENDAR_SERVICE + "/user/user_date_events/{subId}/{userId}/{date}")
     fun getEventsForUserInDate(@Path(value = "subId") subId: String, @Path(value = "userId") userId : String, @Path(value = "date") date: String): Call <List<Event>>
+
+    @PUT(Constant.CALENDAR_SERVICE + "/user/book_event/{userId}/{eventId}")
+    fun bookEvent(@Path(value = "userId") userId: String, @Path(value = "eventId") eventId: String) : Call<ResponseBody>
 
 }

@@ -9,14 +9,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Event
 import kotlinx.android.synthetic.main.event_item.view.*
-import java.lang.StringBuilder
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class EventAdapter(val modelList: List<Event>, val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var sessionManager: SessionManager
+    private lateinit var apiClient: ApiClient
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolder).bind(modelList.get(position));
@@ -66,6 +72,7 @@ class EventAdapter(val modelList: List<Event>, val context: Context) :
         override fun onClick(p0: View?) {
             mClickListener.onClick(adapterPosition, itemView)
         }
+
     }
 
     private fun bookEvent(eventId: String, userId: String, eventTitle: String, date: String, oraInizio: String, oraFine: String) {
@@ -82,9 +89,7 @@ class EventAdapter(val modelList: List<Event>, val context: Context) :
 
         builder.setPositiveButton(R.string.book_yes) {
                 dialog, which -> // Do nothing but close the dialog
-                //TO-DO
-                //...
-                //..
+                callBookEvent(userId, eventId)
         }
 
         builder.setNegativeButton(R.string.book_no) {
@@ -94,5 +99,21 @@ class EventAdapter(val modelList: List<Event>, val context: Context) :
 
         val alert = builder.create()
         alert.show()
+    }
+
+    private fun callBookEvent(userId : String, eventId: String) {
+        apiClient = ApiClient()
+
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+
+        apiClient.getApiServiceGateway(context).bookEvent(userId, eventId)
+            .enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                Toast.makeText(ApplicationContextProvider.getContext(), "PRENOTAZIONE EFFETTUATA!", Toast.LENGTH_LONG).show()
+            }
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                Toast.makeText(ApplicationContextProvider.getContext(), "PRENOTAZIONE NON EFFETTUATA!", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }

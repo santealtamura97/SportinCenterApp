@@ -15,4 +15,5 @@
     <color name="primary_color_2">#FF0000</color>
     <!-- third theme colors -->
     <color name="primary_color_3">#1E731B</color>
+    <color name="orange_tab_selected">#FF6F00</color>
 </resources>

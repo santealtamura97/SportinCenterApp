@@ -2,7 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:theme="@style/Theme.SportingCenterApp">
+    android:theme="@style/Theme.SportingCenterApp"
+    android:layout_marginTop="15dp">
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -10,9 +12,7 @@
         android:layout_height="wrap_content"
         app:tabMinWidth="50dp"
         android:clipToPadding="false"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:background="@color/primary_color"/>
+        app:tabBackground="@drawable/tab_selector"/>
 
 
     <androidx.viewpager2.widget.ViewPager2
