@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import kotlinx.android.synthetic.main.fragment_admin_calendar.view.*
 import java.util.*
@@ -16,6 +17,7 @@ import kotlin.collections.ArrayList
 
 class CalendarAdminFragment : Fragment() {
 
+    private lateinit var communicator: Communicator
     var arrayList: ArrayList<MyData> = ArrayList()
     var adapter: MyAdapter? = null
 
@@ -29,6 +31,14 @@ class CalendarAdminFragment : Fragment() {
         val listTitle = v.findViewById<TextView>(R.id.listTitle)
         val dateSelected = v.findViewById<TextView>(R.id.dateSelected)
         val datapicker = v.findViewById<DatePicker>(R.id.calendar)
+        val addactivity = v.findViewById<ImageButton>(R.id.add_activity_button)
+
+        communicator  = activity as Communicator
+
+
+        addactivity.setOnClickListener{
+            communicator.createActivity()
+        }
 
         calendar_button.setOnClickListener{
             calendar.visibility = View.VISIBLE
@@ -73,6 +83,12 @@ class CalendarAdminFragment : Fragment() {
         //Assign the adapter
         adapter = MyAdapter(ApplicationContextProvider.getContext(), arrayList)
         listView.adapter = adapter
+
+        /* RETURN VALUE */
+        val title = arguments?.getString("title")
+        val booking = arguments?.getString("booking")
+        val initial = arguments?.getString("initial")
+        val final = arguments?.getString("final")
 
         return v;
     }

@@ -1,10 +1,12 @@
 package com.example.sportincenterapp.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -38,12 +40,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
     private val fragmentActivities: Fragment = ActivitiesFragment()
+    private val fragmentCalendarAdmin: Fragment = CalendarAdminFragment()
     //Bundles
     private val bundleUser : Bundle = Bundle()
     private val bundleHome : Bundle = Bundle()
     private val bundleAdvertisment: Bundle = Bundle()
     private val bundleFaq: Bundle = Bundle()
     private val bundleContacts: Bundle = Bundle()
+    private val bundleCalendarAdmin: Bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -93,7 +97,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             newsItem.isVisible = true
             logoutItem.isVisible = false
             activitiesItem.isVisible = false
-            calendarAdminItem.isVisible = true
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -354,6 +357,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))
             menu.getItem(6).subMenu.getItem(3).setTitle(getResources().getString(R.string.logout_en))
         }
+    }
+
+    override fun createActivity() {
+        val builder = android.app.AlertDialog.Builder(this,taskId)
+        val customlayout = layoutInflater.inflate(R.layout.add_activity_dialog, null)
+
+        builder.setView(customlayout)
+        builder.setPositiveButton("Conferma") {
+                dialog, which ->
+            val edittitle = customlayout.findViewById<EditText>(R.id.edit_activity_text)
+            val editbooking= customlayout.findViewById<EditText>(R.id.edit_booking_text)
+            val editinitial = customlayout.findViewById<EditText>(R.id.edit_initial_text)
+            val editfinal= customlayout.findViewById<EditText>(R.id.edit_final_text)
+
+            bundleCalendarAdmin.putString("title", edittitle.text.toString())
+            bundleCalendarAdmin.putString("booking", editbooking.text.toString())
+            bundleCalendarAdmin.putString("initial", editinitial.text.toString())
+            bundleCalendarAdmin.putString("final", editfinal.text.toString())
+
+            fragmentCalendarAdmin.arguments = bundleCalendarAdmin
+
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Annulla") {
+                dialog, which -> dialog.dismiss()
+        }
+
+        val alert = builder.create()
+        alert.show()
     }
 
 }

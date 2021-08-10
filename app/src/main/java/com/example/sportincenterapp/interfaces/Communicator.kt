@@ -11,4 +11,5 @@ interface Communicator {
     fun um_update(um_1: String, um_2: String)
     fun theme(index : Int)
     fun language(index : Int)
+    fun createActivity()
 }
