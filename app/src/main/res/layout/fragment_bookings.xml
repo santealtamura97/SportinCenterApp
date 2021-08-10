@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
-        android:text="Nessun evento disponibile in questa data!"
+        android:text="Ancora nessuna prenotazione effettuata!"
         android:textColor="#000"
         android:textSize="18sp"
         android:visibility="gone"/>

@@ -17,14 +17,12 @@ class CalendarCollectionAdapter(fragment: CalendarCollectionFragment) : Fragment
         if (position == 0) {
             val fragment = CalendarUserFragment()
             fragment.arguments = Bundle().apply {
-                // Our object is just an integer :-P
                 putInt(ARG_OBJECT, position + 1)
             }
             return fragment
         }else{
-            val fragment = ActivitiesFragment() //è DI ESEMPIO, BISOGNA MODIFICARE
+            val fragment = BookingsFragment()
             fragment.arguments = Bundle().apply {
-                // Our object is just an integer :-P
                 putInt(ARG_OBJECT, position + 1)
             }
             return fragment

@@ -161,11 +161,15 @@
     <string name="book_time">Orario: </string>
     <string name="book_yes">Si</string>
     <string name="book_no">No</string>
+    <string name="booked">PRENOTAZIONE EFFETTUATA!</string>
+    <string name="not_booked">PRENOTAZIONE NON EFFETTUATA!</string>
 
     <!-- Logout -->
     <string name="logout_confirm">Conferma</string>
     <string name="logout_message">Sei sicuro/a di voler uscire?</string>
     <string name="logout_yes">Si</string>
     <string name="logout_no">No</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

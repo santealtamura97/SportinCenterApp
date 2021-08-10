@@ -10,7 +10,10 @@
     android:layout_height="wrap_content"
     card_view:cardUseCompatPadding="true"
     card_view:cardElevation="5dp"
-    card_view:contentPadding="10dp">
+    card_view:cardCornerRadius="10dp"
+    card_view:cardPreventCornerOverlap="true"
+    android:layout_marginBottom="1dp"
+    card_view:contentPadding="5dp">
 
 
     <RelativeLayout
@@ -35,7 +38,8 @@
             android:layout_marginTop="5dp"
             android:text="10:00 - 11:00"
             android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/txt"
@@ -45,7 +49,8 @@
             android:layout_toEndOf="@+id/img"
             android:text="Title"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/sub_txt"
@@ -61,26 +66,26 @@
         <Button
             android:id="@+id/book_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="175dp"
-            android:layout_toEndOf="@+id/img"
+            android:layout_height="40dp"
+            android:layout_marginStart="255dp"
             android:background="@color/green"
             android:elevation="10dp"
             android:text="Prenota"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/info_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@+id/book_button"
-            android:layout_marginStart="75dp"
-            android:layout_marginTop="3dp"
-            android:layout_toEndOf="@+id/time"
+            android:layout_marginStart="255dp"
+            android:layout_marginTop="5dp"
             android:background="@color/purple_700"
+            android:elevation="10dp"
             android:text="INFO"
             android:textColor="@color/white"
-            android:elevation="10dp"/>
+            android:textStyle="bold"/>
 
 
     </RelativeLayout>
