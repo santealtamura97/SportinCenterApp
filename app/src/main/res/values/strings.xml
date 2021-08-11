@@ -165,6 +165,8 @@
     <string name="not_booked">PRENOTAZIONE NON EFFETTUATA!</string>
     <!-- Booking User Calendar -->
     <string name="booking_delete_confirm">Sei sicuro di voler eliminare la prenotazione?</string>
+    <string name="booking_deleted_succesfully">PRENOTAZIONE ANNULLATA!</string>
+    <string name="booking_not_deleted_succesfully">PRENOTAZIONE ANNULLATA!</string>
 
     <!-- Logout -->
     <string name="logout_confirm">Conferma</string>

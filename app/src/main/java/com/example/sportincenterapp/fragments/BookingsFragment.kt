@@ -68,6 +68,10 @@ class BookingsFragment : Fragment() {
                                                 bookingList[pos].oraInizio, bookingList[pos].oraFine,
                                                 adapter as EventAdapter, pos)
                                         }
+
+                                        override fun onClick(pos: Int, aView: View) {
+                                            Toast.makeText(activity, bookingList[pos].data, Toast.LENGTH_LONG).show()
+                                        }
                                     })
                                 }else
                                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
@@ -117,13 +121,13 @@ class BookingsFragment : Fragment() {
                     override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
                         if (response.isSuccessful) {
                             adapter.deleteItem(pos)
-                            Toast.makeText(ApplicationContextProvider.getContext(), "PRENOTAZIONE ANNULLATA!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_deleted_succesfully), Toast.LENGTH_LONG).show()
                         }else{
-                            Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE NELL'ANNULLAMENTO", Toast.LENGTH_LONG).show()
+                            Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_not_deleted_succesfully), Toast.LENGTH_LONG).show()
                         }
                     }
                     override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
-                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE NELL'ANNULLAMENTO", Toast.LENGTH_LONG).show()
+                        Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_not_deleted_succesfully), Toast.LENGTH_LONG).show()
                     }
                 })
         }
@@ -131,7 +135,6 @@ class BookingsFragment : Fragment() {
 
 
     private fun orderEvents(eventList: MutableList<Event>) : MutableList<Event> {
-        println(eventList)
         val sdf = SimpleDateFormat("dd-MM-yyyy")
         for (i in 0 until eventList.size) {
             var minDate = eventList[i]
@@ -142,6 +145,13 @@ class BookingsFragment : Fragment() {
                 if (date1.before(date2)) {
                     minDate = eventList[j]
                     minJ = j
+                }else if(date1.equals(date2)) {
+                    var time1 = eventList[j].oraInizio.split(":")[0]
+                    var time2 = eventList[i].oraInizio.split(":")[0]
+                    if (Integer.parseInt(time1) < Integer.parseInt(time2)) {
+                        minDate = eventList[j]
+                        minJ = j
+                    }
                 }
             }
             if (eventList[i] != minDate) {
@@ -149,7 +159,6 @@ class BookingsFragment : Fragment() {
                 eventList[i] = minDate
             }
         }
-        println(eventList)
         return eventList
     }
 

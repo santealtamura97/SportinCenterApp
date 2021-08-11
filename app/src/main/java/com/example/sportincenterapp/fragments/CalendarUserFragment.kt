@@ -61,7 +61,7 @@ class CalendarUserFragment : Fragment() {
         val dateFormat: DateFormat = SimpleDateFormat("dd-MM-yyyy")
 
         for (i in 0 until DATES_NUMBER) {
-            tabDates.add(dateFormat.format(day) + " " + weekdays[intDay])
+            tabDates.add(dateFormat.format(day) + " | " + weekdays[intDay])
             calendar.add(Calendar.DAY_OF_YEAR, 1)
             intDay = calendar.get(Calendar.DAY_OF_WEEK)
             day = calendar.time

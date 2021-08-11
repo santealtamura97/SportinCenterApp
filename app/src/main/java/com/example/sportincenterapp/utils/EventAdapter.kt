@@ -5,11 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportincenterapp.R
-import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Event
 import kotlinx.android.synthetic.main.book_item.view.*
 import kotlinx.android.synthetic.main.event_item.view.*
@@ -17,10 +14,10 @@ import kotlinx.android.synthetic.main.event_item.view.img
 import kotlinx.android.synthetic.main.event_item.view.sub_txt
 import kotlinx.android.synthetic.main.event_item.view.time
 import kotlinx.android.synthetic.main.event_item.view.txt
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.text.DateFormat
+import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String) :
@@ -55,11 +52,11 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
     }
 
     interface Listener {
-
+        fun onClick(pos: Int, aView: View)
     }
 
     interface ClickListenerEvent: Listener {
-        fun onClick(pos: Int, aView: View)
+
         fun onBookClick(pos: Int)
         //fun onInfoClick(pos: Int)
     }
@@ -92,7 +89,16 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 itemView.date.visibility = View.GONE
                 itemView.line.visibility = View.GONE
             } else if (itemType == BOOKING) {
-                itemView.date.text = model.data
+                val dateFormat: DateFormat = SimpleDateFormat("dd-MM-yyyy")
+                val myDate: Date = dateFormat.parse(model.data)
+                val c = Calendar.getInstance()
+                c.time = myDate
+                val dayOfWeek = c[Calendar.DAY_OF_WEEK]
+                val usersLocale = Locale.getDefault()
+                val dfs = DateFormatSymbols(usersLocale)
+                val weekdays: Array<String> = dfs.weekdays
+                val stringDayOfWeek = weekdays[dayOfWeek]
+                itemView.date.text = model.data + " | " + stringDayOfWeek
             }
             itemView.txt.text = model.title
             itemView.sub_txt.text = itemView.sub_txt.text.toString() + model.number.toString()
@@ -102,7 +108,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
         }
 
         override fun onClick(p0: View?) {
-            (mClickListener as ClickListenerEvent).onClick(adapterPosition, itemView)
+            (mClickListener as Listener).onClick(adapterPosition, itemView)
         }
 
     }

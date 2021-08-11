@@ -67,7 +67,8 @@ class EventFragment : Fragment() {
                                     if (eventList.isEmpty()) {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                     }
-                                    adapter = EventAdapter(eventList as MutableList<Event>, context, ITEM_TYPE)
+                                    val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
+                                    adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
                                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                         override fun onClick(pos: Int, aView: View) {
                                             Toast.makeText(activity, eventList[pos].data, Toast.LENGTH_LONG).show()
@@ -143,29 +144,26 @@ class EventFragment : Fragment() {
         }
     }
 
-    /*class InfoPopUpClass {
-        public fun showInfoPopUpWindow(view: View) {
-            val layoutInflater = LayoutInflater.from(view.context)
-            val popupView: View = layoutInflater.inflate(R.layout.activity_item, null)
-
-            //Specify the length and width through constants
-            //Specify the length and width through constants
-            val width = LinearLayout.LayoutParams.MATCH_PARENT
-            val height = LinearLayout.LayoutParams.WRAP_CONTENT
-
-            //Make Inactive Items Outside Of PopupWindow
-            //Make Inactive Items Outside Of PopupWindow
-            val focusable = true
-
-            //Create a window with our parameters
-            //Create a window with our parameters
-            val popupWindow = PopupWindow(popupView, width, height, focusable)
-
-            popupView.findViewById<TextView>(R.id.txt).text = "CIAOOOOO"
-
-            //Set the location of the window on the screen
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
+    private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
+        println(eventList)
+        for (i in 0 until eventList.size) {
+            var minDate = eventList[i]
+            var minJ = i
+            for (j in i + 1 until eventList.size) {
+                var time1 = eventList[j].oraInizio.split(":")[0]
+                var time2 = eventList[i].oraInizio.split(":")[0]
+                if (Integer.parseInt(time1) < Integer.parseInt(time2)) {
+                    minDate = eventList[j]
+                    minJ = j
+                }
+            }
+            if (eventList[i] != minDate) {
+                eventList[minJ] = eventList[i]
+                eventList[i] = minDate
+            }
         }
-    }*/
+        println(eventList)
+        return eventList
+    }
+
 }
