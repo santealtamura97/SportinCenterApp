@@ -19,7 +19,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class BookingsFragment : Fragment() {
@@ -36,6 +35,7 @@ class BookingsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bookings, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,6 +73,7 @@ class BookingsFragment : Fragment() {
             }
         }
     }
+
 
     private fun orderEvents(eventList: MutableList<Event>) : MutableList<Event> {
         println(eventList)

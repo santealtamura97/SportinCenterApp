@@ -25,9 +25,6 @@ import retrofit2.Response
 
 class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private lateinit var sessionManager: SessionManager
-    private lateinit var apiClient: ApiClient
     private val EVENT = "EVENT"
     private val BOOKING = "BOOKING"
 
@@ -38,7 +35,6 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        sessionManager = SessionManager(ApplicationContextProvider.getContext()) //initialize session manager in this class
 
         if (itemType == EVENT)
             return ViewHolder(layoutInflater.inflate(R.layout.event_item, parent, false))
@@ -52,29 +48,40 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
         return modelList.size;
     }
 
-    lateinit var mClickListener: ClickListener
+    lateinit var mClickListener: Listener
 
-    fun setOnClickListener(aClickListener: ClickListener) {
+    fun setOnClickListener(aClickListener: Listener) {
         mClickListener = aClickListener
     }
 
-    interface ClickListener {
+    interface Listener {
+
+    }
+
+    interface ClickListener: Listener {
         fun onClick(pos: Int, aView: View)
+        fun onBookClick(pos: Int)
+        //fun onInfoClick(pos: Int)
+    }
+
+    interface ClickListenerBooking: Listener{
+        fun onDeleteClick(pos: Int)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
-
         init {
             itemView.setOnClickListener(this)
             if (itemType == EVENT) {
                 itemView.findViewById<Button>(R.id.book_button).setOnClickListener() {
-                    bookEvent(modelList[position].id, sessionManager.fetchUserId()!!, modelList[position].title, modelList[position].data,
-                        modelList[position].oraInizio, modelList[position].oraFine, adapterPosition)
+                    (mClickListener as ClickListener).onBookClick(adapterPosition)
                 }
+                /*itemView.findViewById<Button>(R.id.info_button).setOnClickListener() {
+                    mClickListener.onInfoClick(adapterPosition)
+                }*/
             }else if (itemType == BOOKING) {
-                //TO-DO
+
             }
         }
 
@@ -93,55 +100,12 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
         }
 
         override fun onClick(p0: View?) {
-            mClickListener.onClick(adapterPosition, itemView)
+            (mClickListener as ClickListener).onClick(adapterPosition, itemView)
         }
 
     }
 
-    private fun bookEvent(eventId: String, userId: String, eventTitle: String, date: String, oraInizio: String, oraFine: String, position: Int ) {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-        builder.setTitle(eventTitle);
-
-        val strBuilder = StringBuilder()
-        strBuilder.appendln(context.resources.getString(R.string.book_event_confirm))
-        strBuilder.appendln(" ")
-        strBuilder.appendln(context.resources.getString(R.string.book_date) + date)
-        strBuilder.appendln(context.resources.getString(R.string.book_time) + oraInizio + " - " + oraFine)
-
-        builder.setMessage(strBuilder);
-
-        builder.setPositiveButton(R.string.book_yes) {
-                dialog, which -> // Do nothing but close the dialog
-                callBookEvent(userId, eventId)
-                deleteItem(position)
-        }
-
-        builder.setNegativeButton(R.string.book_no) {
-                dialog, which -> // Do nothing but close the dialog
-            dialog.dismiss()
-        }
-
-        val alert = builder.create()
-        alert.show()
-    }
-
-    private fun callBookEvent(userId : String, eventId: String) {
-        apiClient = ApiClient()
-
-        sessionManager = SessionManager(ApplicationContextProvider.getContext())
-
-        apiClient.getApiServiceGateway(context).bookEvent(userId, eventId)
-            .enqueue(object : Callback<ResponseBody?> {
-            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
-                Toast.makeText(ApplicationContextProvider.getContext(), context.resources.getString(R.string.booked), Toast.LENGTH_LONG).show()
-            }
-            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
-                Toast.makeText(ApplicationContextProvider.getContext(), context.resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
-            }
-        })
-    }
-
-    private fun deleteItem(position: Int) {
+    fun deleteItem(position: Int) {
         modelList.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, modelList.size)

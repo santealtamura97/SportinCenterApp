@@ -1,6 +1,5 @@
 package com.example.sportincenterapp.fragments
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,12 +32,19 @@ class CalendarCollectionFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        calendarCollectionAdapter = CalendarCollectionAdapter(this)
+
         viewPager = view.findViewById(R.id.pager)
+        viewPager.isUserInputEnabled = false;
+        calendarCollectionAdapter = CalendarCollectionAdapter(this)
         viewPager.adapter = calendarCollectionAdapter
         val tabLayout = view.findViewById(R.id.tab_layout) as TabLayout
-
-
+        tabLayout.setOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.adapter = calendarCollectionAdapter
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
         TabLayoutMediator(tabLayout, viewPager) {
                 tab, position -> tab.text = tabTitles[position];
                 tab.setIcon(tabIcons[position])

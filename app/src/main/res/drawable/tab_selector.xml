@@ -5,6 +5,6 @@
         android:state_selected="true">
     </item>
     <item
-        android:drawable="@color/white">
+        android:drawable="@color/primary_color">
     </item>
 </selector>

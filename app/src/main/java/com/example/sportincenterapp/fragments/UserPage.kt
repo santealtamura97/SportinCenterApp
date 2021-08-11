@@ -69,8 +69,6 @@ class UserPage : Fragment() {
         val tall_text = v.findViewById<TextView>(R.id.height_text) //view
         var tall_view = v.findViewById<TextView>(R.id.user_tall_view) //view
         val tall_edit = v.findViewById<EditText>(R.id.user_tall_edit) //edit
-        //subscription
-        val sub =  v.findViewById<TextView>(R.id.user_subscription)
         //unit misure
         var um_1 =  v.findViewById<TextView>(R.id.um_1)
         var um_2 =  v.findViewById<TextView>(R.id.um_2)
