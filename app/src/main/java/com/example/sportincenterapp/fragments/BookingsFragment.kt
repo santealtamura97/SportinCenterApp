@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportincenterapp.R
@@ -15,6 +16,7 @@ import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.EventAdapter
 import com.example.sportincenterapp.utils.SessionManager
 import kotlinx.android.synthetic.main.fragment_bookings.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +27,7 @@ class BookingsFragment : Fragment() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+    private lateinit var bookingList: List<Event>
     private val ITEM_TYPE = "BOOKING"
 
 
@@ -53,13 +56,19 @@ class BookingsFragment : Fragment() {
                         .enqueue(object : Callback<List<Event>> {
                             override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                 if (response.isSuccessful) {
-                                    val eventList = response.body()!!
-                                    if (eventList.isEmpty()) {
+                                    bookingList = response.body()!!
+                                    if (bookingList.isEmpty()) {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                     }
-                                    val orderedEventList = orderEvents(eventList as MutableList<Event>)
+                                    val orderedEventList = orderEvents(bookingList as MutableList<Event>)
                                     adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
-
+                                    (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
+                                        override fun onDeleteClick(pos: Int) {
+                                            deleteBooking(bookingList[pos].id, sessionManager.fetchUserId()!!, bookingList[pos].title,bookingList[pos].data,
+                                                bookingList[pos].oraInizio, bookingList[pos].oraFine,
+                                                adapter as EventAdapter, pos)
+                                        }
+                                    })
                                 }else
                                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
                             }
@@ -67,10 +76,56 @@ class BookingsFragment : Fragment() {
                             override fun onFailure(call: Call<List<Event>>, t: Throwable) {
                                 Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
                             }
-
                         })
                 }
             }
+        }
+    }
+
+    private fun deleteBooking(eventId: String, userId: String, eventTitle: String, date: String, oraInizio: String, oraFine: String, adapter: EventAdapter, pos: Int){
+        val builder: AlertDialog.Builder? = activity?.let { AlertDialog.Builder(it) }
+        builder?.setTitle(eventTitle);
+
+        val strBuilder = StringBuilder()
+        strBuilder.appendln(activity?.resources?.getString(R.string.booking_delete_confirm))
+        strBuilder.appendln(" ")
+        strBuilder.appendln(activity?.resources?.getString(R.string.book_date) + date)
+        strBuilder.appendln(activity?.resources?.getString(R.string.book_time) + oraInizio + " - " + oraFine)
+
+        builder?.setMessage(strBuilder);
+
+        builder?.setPositiveButton(R.string.book_yes) {
+                dialog, which -> // Do nothing but close the dialog
+            callDeleteBooking(userId,eventId,adapter,pos)
+        }
+
+        builder?.setNegativeButton(R.string.book_no) {
+                dialog, which -> // Do nothing but close the dialog
+            dialog.dismiss()
+        }
+
+        val alert = builder?.create()
+        alert?.show()
+    }
+
+    private fun callDeleteBooking(userId : String, eventId: String, adapter: EventAdapter, pos: Int) {
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        activity?.let {
+            apiClient.getApiServiceGateway(it).deleteBooking(userId, eventId)
+                .enqueue(object : Callback<ResponseBody?> {
+                    override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                        if (response.isSuccessful) {
+                            adapter.deleteItem(pos)
+                            Toast.makeText(ApplicationContextProvider.getContext(), "PRENOTAZIONE ANNULLATA!", Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE NELL'ANNULLAMENTO", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE NELL'ANNULLAMENTO", Toast.LENGTH_LONG).show()
+                    }
+                })
         }
     }
 

@@ -30,7 +30,7 @@ class EventFragment : Fragment() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
 
-    private lateinit var modelList: List<Event>
+    private lateinit var eventList: List<Event>
     private lateinit var eventsDate: String
     private val ITEM_TYPE = "EVENT"
 
@@ -63,18 +63,18 @@ class EventFragment : Fragment() {
                         .enqueue(object : Callback<List<Event>> {
                             override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                 if (response.isSuccessful) {
-                                    modelList = response.body()!!
-                                    if (modelList.isEmpty()) {
+                                    eventList = response.body()!!
+                                    if (eventList.isEmpty()) {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                     }
-                                    adapter = EventAdapter(modelList as MutableList<Event>, context, ITEM_TYPE)
-                                    (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListener {
+                                    adapter = EventAdapter(eventList as MutableList<Event>, context, ITEM_TYPE)
+                                    (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                         override fun onClick(pos: Int, aView: View) {
-                                            Toast.makeText(activity, modelList[pos].data, Toast.LENGTH_LONG).show()
+                                            Toast.makeText(activity, eventList[pos].data, Toast.LENGTH_LONG).show()
                                         }
                                         override fun onBookClick(pos: Int) {
-                                            bookEvent(modelList[pos].id, sessionManager.fetchUserId()!!, modelList[pos].title,modelList[pos].data,
-                                                modelList[pos].oraInizio, modelList[pos].oraFine,
+                                            bookEvent(eventList[pos].id, sessionManager.fetchUserId()!!, eventList[pos].title,eventList[pos].data,
+                                                eventList[pos].oraInizio, eventList[pos].oraFine,
                                                 adapter as EventAdapter, pos)
                                         }
 

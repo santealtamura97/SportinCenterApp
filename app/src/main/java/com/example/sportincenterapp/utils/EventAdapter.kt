@@ -58,7 +58,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
 
     }
 
-    interface ClickListener: Listener {
+    interface ClickListenerEvent: Listener {
         fun onClick(pos: Int, aView: View)
         fun onBookClick(pos: Int)
         //fun onInfoClick(pos: Int)
@@ -75,13 +75,15 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
             itemView.setOnClickListener(this)
             if (itemType == EVENT) {
                 itemView.findViewById<Button>(R.id.book_button).setOnClickListener() {
-                    (mClickListener as ClickListener).onBookClick(adapterPosition)
+                    (mClickListener as ClickListenerEvent).onBookClick(adapterPosition)
                 }
                 /*itemView.findViewById<Button>(R.id.info_button).setOnClickListener() {
                     mClickListener.onInfoClick(adapterPosition)
                 }*/
             }else if (itemType == BOOKING) {
-
+                itemView.findViewById<Button>(R.id.delete_button).setOnClickListener() {
+                    (mClickListener as ClickListenerBooking).onDeleteClick(adapterPosition)
+                }
             }
         }
 
@@ -100,7 +102,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
         }
 
         override fun onClick(p0: View?) {
-            (mClickListener as ClickListener).onClick(adapterPosition, itemView)
+            (mClickListener as ClickListenerEvent).onClick(adapterPosition, itemView)
         }
 
     }
