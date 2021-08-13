@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
+import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.EventAdapter
@@ -21,6 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class BookingsFragment : Fragment() {
@@ -43,7 +46,34 @@ class BookingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         rcv.apply {
+            val checkAllButton: View = view.findViewById(R.id.check_all_button)
+            checkAllButton.setOnClickListener {
+                checkAllButton.visibility = View.GONE
+                for(booking in bookingList) {booking.isSelectable = true}
+                adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE)
+
+                val deleteButton: View = view.findViewById(R.id.confirm_delete_button)
+                deleteButton.visibility = View.VISIBLE
+                deleteButton.setOnClickListener{
+                    deleteButton.visibility = View.GONE
+                    val cancelDelete: View = view.findViewById(R.id.cancel_delete)
+                    cancelDelete.visibility = View.GONE
+                    checkAllButton.visibility = View.VISIBLE
+                }
+
+                val cancelDelete: View = view.findViewById(R.id.cancel_delete)
+                cancelDelete.visibility = View.VISIBLE
+                cancelDelete.setOnClickListener{
+                    deleteButton.visibility = View.GONE
+                    cancelDelete.visibility = View.GONE
+                    checkAllButton.visibility = View.VISIBLE
+                    for(booking in bookingList) {booking.isSelectable = false}
+                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE)
+                }
+            }
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
@@ -61,16 +91,16 @@ class BookingsFragment : Fragment() {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                     }
                                     val orderedEventList = orderEvents(bookingList as MutableList<Event>)
+                                    bookingList = orderedEventList
                                     adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
+
                                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
-                                        override fun onDeleteClick(pos: Int) {
-                                            deleteBooking(bookingList[pos].id, sessionManager.fetchUserId()!!, bookingList[pos].title,bookingList[pos].data,
-                                                bookingList[pos].oraInizio, bookingList[pos].oraFine,
-                                                adapter as EventAdapter, pos)
+                                        override fun onInfoClick(pos: Int) {
+                                            infoEventDialog(orderedEventList[pos].title, orderedEventList[pos].activityId)
                                         }
 
                                         override fun onClick(pos: Int, aView: View) {
-                                            Toast.makeText(activity, bookingList[pos].data, Toast.LENGTH_LONG).show()
+                                            Toast.makeText(activity, orderedEventList[pos].data, Toast.LENGTH_LONG).show()
                                         }
                                     })
                                 }else
@@ -86,31 +116,6 @@ class BookingsFragment : Fragment() {
         }
     }
 
-    private fun deleteBooking(eventId: String, userId: String, eventTitle: String, date: String, oraInizio: String, oraFine: String, adapter: EventAdapter, pos: Int){
-        val builder: AlertDialog.Builder? = activity?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(eventTitle);
-
-        val strBuilder = StringBuilder()
-        strBuilder.appendln(activity?.resources?.getString(R.string.booking_delete_confirm))
-        strBuilder.appendln(" ")
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_date) + date)
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_time) + oraInizio + " - " + oraFine)
-
-        builder?.setMessage(strBuilder);
-
-        builder?.setPositiveButton(R.string.book_yes) {
-                dialog, which -> // Do nothing but close the dialog
-            callDeleteBooking(userId,eventId,adapter,pos)
-        }
-
-        builder?.setNegativeButton(R.string.book_no) {
-                dialog, which -> // Do nothing but close the dialog
-            dialog.dismiss()
-        }
-
-        val alert = builder?.create()
-        alert?.show()
-    }
 
     private fun callDeleteBooking(userId : String, eventId: String, adapter: EventAdapter, pos: Int) {
         apiClient = ApiClient()
@@ -135,31 +140,59 @@ class BookingsFragment : Fragment() {
 
 
     private fun orderEvents(eventList: MutableList<Event>) : MutableList<Event> {
+        println(eventList)
         val sdf = SimpleDateFormat("dd-MM-yyyy")
         for (i in 0 until eventList.size) {
-            var minDate = eventList[i]
             var minJ = i
+            var date1 = sdf.parse(eventList[i].data)
+            var minDate = sdf.parse("10-12-2100")
             for (j in i + 1 until eventList.size) {
-                var date1 = sdf.parse(eventList[j].data)
-                var date2 = sdf.parse(eventList[i].data)
-                if (date1.before(date2)) {
-                    minDate = eventList[j]
+                var date2 = sdf.parse(eventList[j].data)
+                if (date2.before(minDate)) {
+                    minDate = date2
                     minJ = j
-                }else if(date1.equals(date2)) {
-                    var time1 = eventList[j].oraInizio.split(":")[0]
-                    var time2 = eventList[i].oraInizio.split(":")[0]
-                    if (Integer.parseInt(time1) < Integer.parseInt(time2)) {
-                        minDate = eventList[j]
-                        minJ = j
-                    }
                 }
             }
-            if (eventList[i] != minDate) {
+            if (date1 != minDate) {
+                var tr = eventList[minJ]
                 eventList[minJ] = eventList[i]
-                eventList[i] = minDate
+                eventList[i] = tr
             }
         }
+        println(eventList)
         return eventList
+    }
+
+    private fun infoEventDialog(eventTitle: String, activityId: String) {
+        val builder = activity?.let { android.app.AlertDialog.Builder(context, it.taskId) }
+        val customlayout = layoutInflater.inflate(R.layout.info_event_dialog, null)
+        customlayout.findViewById<TextView>(R.id.txt).text = eventTitle
+        val id = context?.resources?.getIdentifier(eventTitle.toLowerCase(), "drawable", context?.packageName)
+        if (id != null) {
+            customlayout.findViewById<ImageView>(R.id.img).setBackgroundResource(id)
+        }
+
+        apiClient = ApiClient()
+        activity?.let {
+            apiClient.getApiServiceGateway(it).getActivityFromId(activityId)
+                .enqueue(object : Callback<Activity?> {
+                    override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
+                        customlayout.findViewById<TextView>(R.id.sub_txt).text = response.body()?.descr
+                    }
+                    override fun onFailure(call: Call<Activity?>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+
+        builder?.setView(customlayout)
+        builder?.setPositiveButton("OK") {
+                dialog, which ->
+            dialog.dismiss()
+        }
+
+        val alert = builder?.create()
+        alert?.show()
     }
 
 }

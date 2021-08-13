@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="10dp"
@@ -8,21 +9,53 @@
     android:orientation="vertical"
     android:background="@drawable/background_fade">
 
-    <TextView
-        android:id="@+id/no_event"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:text="Ancora nessuna prenotazione effettuata!"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/no_event"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="Ancora nessuna prenotazione effettuata!"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:id="@+id/rcv"
-        />
 
-</LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:id="@+id/rcv"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cancel_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_baseline_close_24"
+            android:layout_marginBottom="75dp"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/check_all_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_baseline_check_circle_24"
+            android:layout_margin="10dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/confirm_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/delete_icon"
+            android:layout_margin="10dp"
+            android:visibility="gone"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+

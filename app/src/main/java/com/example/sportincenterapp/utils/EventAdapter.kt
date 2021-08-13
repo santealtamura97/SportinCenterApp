@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.models.Event
@@ -18,6 +19,10 @@ import java.text.DateFormat
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.CompoundButton
+
+
+
 
 
 class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String) :
@@ -58,11 +63,11 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
     interface ClickListenerEvent: Listener {
 
         fun onBookClick(pos: Int)
-        //fun onInfoClick(pos: Int)
+        fun onInfoClick(pos: Int)
     }
 
     interface ClickListenerBooking: Listener{
-        fun onDeleteClick(pos: Int)
+        fun onInfoClick(pos: Int)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -74,21 +79,22 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 itemView.findViewById<Button>(R.id.book_button).setOnClickListener() {
                     (mClickListener as ClickListenerEvent).onBookClick(adapterPosition)
                 }
-                /*itemView.findViewById<Button>(R.id.info_button).setOnClickListener() {
-                    mClickListener.onInfoClick(adapterPosition)
-                }*/
+                itemView.findViewById<Button>(R.id.info_button).setOnClickListener() {
+                    (mClickListener as ClickListenerEvent).onInfoClick(adapterPosition)
+                }
             }else if (itemType == BOOKING) {
-                itemView.findViewById<Button>(R.id.delete_button).setOnClickListener() {
-                    (mClickListener as ClickListenerBooking).onDeleteClick(adapterPosition)
+                itemView.findViewById<CheckBox>(R.id.checkbox_meat).setOnClickListener { view ->
+                    modelList[adapterPosition].selected = (view as CompoundButton).isChecked
+                    deleteItem(adapterPosition)
+                }
+                itemView.findViewById<Button>(R.id.info_icon).setOnClickListener() {
+                    (mClickListener as ClickListenerBooking).onInfoClick(adapterPosition)
                 }
             }
         }
 
         fun bind(model: Event): Unit {
-            if (adapterPosition != 0 &&  itemType == BOOKING && modelList[adapterPosition - 1].data == model.data) {
-                itemView.date.visibility = View.GONE
-                itemView.line.visibility = View.GONE
-            } else if (itemType == BOOKING) {
+            if ((itemType == BOOKING)) {
                 val dateFormat: DateFormat = SimpleDateFormat("dd-MM-yyyy")
                 val myDate: Date = dateFormat.parse(model.data)
                 val c = Calendar.getInstance()
@@ -99,9 +105,20 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 val weekdays: Array<String> = dfs.weekdays
                 val stringDayOfWeek = weekdays[dayOfWeek]
                 itemView.date.text = model.data + " | " + stringDayOfWeek
+                if (adapterPosition != 0 && modelList[adapterPosition - 1].data == model.data) {
+                    itemView.date.visibility = View.GONE
+                    itemView.line.visibility = View.GONE
+                }
+                if (model.isSelectable){
+                    itemView.info_icon.visibility = View.GONE
+                    itemView.checkbox_meat.visibility = View.VISIBLE
+                }else{
+                    itemView.info_icon.visibility = View.VISIBLE
+                    itemView.checkbox_meat.visibility = View.GONE
+                }
             }
             itemView.txt.text = model.title
-            itemView.sub_txt.text = itemView.sub_txt.text.toString() + model.number.toString()
+            itemView.sub_txt.text = "Posti \ndisponibili: " + model.number.toString()
             itemView.time.text = model.oraInizio + " - " + model.oraFine
             val id = context.resources.getIdentifier(model.title.toLowerCase(), "drawable", context.packageName)
             itemView.img.setBackgroundResource(id)
@@ -110,6 +127,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
         override fun onClick(p0: View?) {
             (mClickListener as Listener).onClick(adapterPosition, itemView)
         }
+
 
     }
 

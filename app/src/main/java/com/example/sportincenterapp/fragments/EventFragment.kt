@@ -5,19 +5,19 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
+import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.EventAdapter
 import com.example.sportincenterapp.utils.SessionManager
+import kotlinx.android.synthetic.main.event_item.view.*
 import kotlinx.android.synthetic.main.fragment_activities.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -79,10 +79,9 @@ class EventFragment : Fragment() {
                                                 adapter as EventAdapter, pos)
                                         }
 
-                                        /*override fun onInfoClick(pos: Int) {
-                                            val popUpClass = InfoPopUpClass()
-                                            popUpClass.showInfoPopUpWindow(view)
-                                        }*/
+                                        override fun onInfoClick(pos: Int) {
+                                            infoEventDialog(eventList[pos].title, eventList[pos].activityId)
+                                        }
                                     })
                                 }else{
                                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
@@ -125,7 +124,6 @@ class EventFragment : Fragment() {
 
     private fun callBookEvent(userId : String, eventId: String, adapter: EventAdapter, pos: Int) {
         apiClient = ApiClient()
-        sessionManager = SessionManager(ApplicationContextProvider.getContext())
         activity?.let {
             apiClient.getApiServiceGateway(it).bookEvent(userId, eventId)
                 .enqueue(object : Callback<ResponseBody?> {
@@ -145,7 +143,6 @@ class EventFragment : Fragment() {
     }
 
     private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
-        println(eventList)
         for (i in 0 until eventList.size) {
             var minDate = eventList[i]
             var minJ = i
@@ -162,8 +159,39 @@ class EventFragment : Fragment() {
                 eventList[i] = minDate
             }
         }
-        println(eventList)
         return eventList
+    }
+
+    private fun infoEventDialog(eventTitle: String, activityId: String) {
+        val builder = activity?.let { android.app.AlertDialog.Builder(context, it.taskId) }
+        val customlayout = layoutInflater.inflate(R.layout.info_event_dialog, null)
+        customlayout.findViewById<TextView>(R.id.txt).text = eventTitle
+        val id = context?.resources?.getIdentifier(eventTitle.toLowerCase(), "drawable", context?.packageName)
+        if (id != null) {
+            customlayout.findViewById<ImageView>(R.id.img).setBackgroundResource(id)
+        }
+
+        apiClient = ApiClient()
+        activity?.let {
+            apiClient.getApiServiceGateway(it).getActivityFromId(activityId)
+                .enqueue(object : Callback<Activity?> {
+                    override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
+                        customlayout.findViewById<TextView>(R.id.sub_txt).text = response.body()?.descr
+                    }
+                    override fun onFailure(call: Call<Activity?>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+
+        builder?.setView(customlayout)
+        builder?.setPositiveButton("OK") {
+                dialog, which ->
+            dialog.dismiss()
+        }
+
+        val alert = builder?.create()
+        alert?.show()
     }
 
 }

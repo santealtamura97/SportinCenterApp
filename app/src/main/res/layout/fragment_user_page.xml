@@ -119,7 +119,8 @@
                              android:layout_marginLeft="105dp"
                              android:textColor="@color/primary_color"
                              android:background="@color/white"
-                             android:textSize="13dp" />
+                             android:textSize="13dp"
+                             style="?android:attr/borderlessButtonStyle"/>
                      </LinearLayout>
 
                      <LinearLayout
@@ -315,7 +316,8 @@
                              android:text="@string/edit"
                              android:textColor="@color/primary_color"
                              android:background="@color/white"
-                             android:textSize="13dp" />
+                             android:textSize="13dp"
+                             style="?android:attr/borderlessButtonStyle"/>
                      </LinearLayout>
 
                      <LinearLayout

@@ -366,7 +366,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         builder.setView(customlayout)
         builder.setPositiveButton("Conferma") {
                 dialog, which ->
-            val edittitle = customlayout.findViewById<EditText>(R.id.edit_activity_text)
+            /*val edittitle = customlayout.findViewById<EditText>(R.id.edit_activity_text)
             val editbooking= customlayout.findViewById<EditText>(R.id.edit_booking_text)
             val editinitial = customlayout.findViewById<EditText>(R.id.edit_initial_text)
             val editfinal= customlayout.findViewById<EditText>(R.id.edit_final_text)
@@ -374,7 +374,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleCalendarAdmin.putString("title", edittitle.text.toString())
             bundleCalendarAdmin.putString("booking", editbooking.text.toString())
             bundleCalendarAdmin.putString("initial", editinitial.text.toString())
-            bundleCalendarAdmin.putString("final", editfinal.text.toString())
+            bundleCalendarAdmin.putString("final", editfinal.text.toString())*/
 
             fragmentCalendarAdmin.arguments = bundleCalendarAdmin
 

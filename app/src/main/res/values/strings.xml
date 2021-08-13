@@ -133,7 +133,7 @@
     <string name="advertisment_newyear_en">31/12 - Happy new year with Sporting Center</string>
 
     <!-- Log in -->
-    <string name="login_button">Login</string>
+    <string name="login_button"><u>Login</u></string>
     <string name="email_login">Email</string>
     <string name="password_login">Password</string>
     <string name="missing_email_message">Per favore inserire la email</string>

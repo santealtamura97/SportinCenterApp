@@ -46,6 +46,7 @@ class CalendarAdminFragment : Fragment() {
             listView.visibility = View.GONE
             listTitle.visibility = View.GONE
             dateSelected.visibility = View.GONE
+            addactivity.visibility = View.GONE
         }
         v.setOnClickListener{
             calendar.visibility = View.GONE
@@ -54,6 +55,7 @@ class CalendarAdminFragment : Fragment() {
             listView.visibility = View.VISIBLE
             listTitle.visibility = View.VISIBLE
             dateSelected.visibility = View.VISIBLE
+            addactivity.visibility = View.VISIBLE
         }
 
         //Fill the list with default data

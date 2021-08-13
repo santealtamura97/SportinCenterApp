@@ -3,34 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <EditText
-        android:id="@+id/edit_activity_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Inserisci attività sportiva"/>
-
-    <EditText
-        android:id="@+id/edit_booking_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Inserisci il numero dei posti disponibili"/>
-
-    <EditText
-        android:id="@+id/edit_initial_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Inserisci orario di inizio"/>
-
-
-    <EditText
-        android:id="@+id/edit_final_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Inserisci orario di fine"/>
+    <DatePicker
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="5dp"
+        android:gravity="center_horizontal"></DatePicker>
 
 </LinearLayout>

@@ -19,5 +19,14 @@ data class Event(
     var oraFine: String,
 
     @SerializedName("number")
-    var number: Long
+    var number: Long,
+
+    @SerializedName("activityId")
+    var activityId: String,
+
+    @SerializedName("isSelectable")
+    var isSelectable: Boolean = false,
+
+    @SerializedName("selected")
+    var selected: Boolean = false
 )

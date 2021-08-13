@@ -74,6 +74,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"/>
 
+        <!--
         <Button
             android:id="@+id/info_button"
             android:layout_width="wrap_content"
@@ -85,7 +86,20 @@
             android:elevation="10dp"
             android:text="INFO"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold"/>-->
+        <Button
+            android:id="@+id/info_button"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_below="@+id/book_button"
+            android:layout_marginStart="255dp"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableTop="@drawable/ic_baseline_info_24"
+            android:elevation="10dp"
+            android:textColor="@color/black">
+
+        </Button>
 
 
     </RelativeLayout>
