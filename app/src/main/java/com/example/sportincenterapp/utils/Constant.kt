@@ -3,8 +3,8 @@ package com.example.sportincenterapp.utils
 object Constant {
 
     //Base URL
-    const val AUTH_BASE_URL = "http://192.168.80.55:8080"
-    const val GATEWAY_BASE_URL = "http://192.168.80.55:5555"
+    const val AUTH_BASE_URL = "http://192.168.1.8:8080"
+    const val GATEWAY_BASE_URL = "http://192.168.1.8:5555"
 
     //Authentication's endpoints
     const val LOGIN_URL = "/api/auth/signin"

@@ -31,8 +31,9 @@ class BookingsFragment : Fragment() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private lateinit var bookingList: List<Event>
-    private val ITEM_TYPE = "BOOKING"
+    private var bookingToRemove : MutableList<Int> = mutableListOf()
 
+    private val ITEM_TYPE = "BOOKING"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,14 +47,18 @@ class BookingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         rcv.apply {
             val checkAllButton: View = view.findViewById(R.id.check_all_button)
             checkAllButton.setOnClickListener {
                 checkAllButton.visibility = View.GONE
                 for(booking in bookingList) {booking.isSelectable = true}
                 adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE)
+                (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerDeleteBooking {
+                    override fun onChecked(pos: Int) {
+                        bookingToRemove.add(pos)
+                    }
+                    override fun onClick(pos: Int, aView: View) {}
+                })
 
                 val deleteButton: View = view.findViewById(R.id.confirm_delete_button)
                 deleteButton.visibility = View.VISIBLE
@@ -62,6 +67,15 @@ class BookingsFragment : Fragment() {
                     val cancelDelete: View = view.findViewById(R.id.cancel_delete)
                     cancelDelete.visibility = View.GONE
                     checkAllButton.visibility = View.VISIBLE
+                    for (position in bookingToRemove) {
+                        callDeleteBooking(sessionManager.fetchUserId()!!, bookingList[position].id)
+                    }
+                    for (position in bookingToRemove){
+                        (bookingList as MutableList<Event>).removeAt(position)
+                    }
+                    for(booking in bookingList) {booking.isSelectable = false}
+                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE)
+                    bookingToRemove.clear()
                 }
 
                 val cancelDelete: View = view.findViewById(R.id.cancel_delete)
@@ -93,7 +107,6 @@ class BookingsFragment : Fragment() {
                                     val orderedEventList = orderEvents(bookingList as MutableList<Event>)
                                     bookingList = orderedEventList
                                     adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
-
                                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
                                         override fun onInfoClick(pos: Int) {
                                             infoEventDialog(orderedEventList[pos].title, orderedEventList[pos].activityId)
@@ -117,7 +130,7 @@ class BookingsFragment : Fragment() {
     }
 
 
-    private fun callDeleteBooking(userId : String, eventId: String, adapter: EventAdapter, pos: Int) {
+    private fun callDeleteBooking(userId : String, eventId: String) {
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
         activity?.let {
@@ -125,7 +138,6 @@ class BookingsFragment : Fragment() {
                 .enqueue(object : Callback<ResponseBody?> {
                     override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
                         if (response.isSuccessful) {
-                            adapter.deleteItem(pos)
                             Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_deleted_succesfully), Toast.LENGTH_LONG).show()
                         }else{
                             Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_not_deleted_succesfully), Toast.LENGTH_LONG).show()
@@ -138,25 +150,23 @@ class BookingsFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Bubble sort
+     */
     private fun orderEvents(eventList: MutableList<Event>) : MutableList<Event> {
         println(eventList)
+
         val sdf = SimpleDateFormat("dd-MM-yyyy")
-        for (i in 0 until eventList.size) {
-            var minJ = i
-            var date1 = sdf.parse(eventList[i].data)
-            var minDate = sdf.parse("10-12-2100")
-            for (j in i + 1 until eventList.size) {
-                var date2 = sdf.parse(eventList[j].data)
-                if (date2.before(minDate)) {
-                    minDate = date2
-                    minJ = j
+        var change: Boolean = true
+        while (change) {
+            change = false
+            for (i in 0 until eventList.size - 1) {
+                if (sdf.parse(eventList[i].data).after(sdf.parse(eventList[i+1].data))) {
+                    var temp = eventList[i]
+                    eventList[i+1] = temp
+                    eventList[i] = eventList[i+1]
+                    change = false
                 }
-            }
-            if (date1 != minDate) {
-                var tr = eventList[minJ]
-                eventList[minJ] = eventList[i]
-                eventList[i] = tr
             }
         }
         println(eventList)

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.models.Event
 import kotlinx.android.synthetic.main.book_item.view.*
-import kotlinx.android.synthetic.main.event_item.view.*
 import kotlinx.android.synthetic.main.event_item.view.img
 import kotlinx.android.synthetic.main.event_item.view.sub_txt
 import kotlinx.android.synthetic.main.event_item.view.time
@@ -61,13 +60,16 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
     }
 
     interface ClickListenerEvent: Listener {
-
         fun onBookClick(pos: Int)
         fun onInfoClick(pos: Int)
     }
 
     interface ClickListenerBooking: Listener{
         fun onInfoClick(pos: Int)
+    }
+
+    interface ClickListenerDeleteBooking: Listener {
+        fun onChecked(pos: Int)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -83,9 +85,11 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                     (mClickListener as ClickListenerEvent).onInfoClick(adapterPosition)
                 }
             }else if (itemType == BOOKING) {
-                itemView.findViewById<CheckBox>(R.id.checkbox_meat).setOnClickListener { view ->
+                itemView.findViewById<CheckBox>(R.id.checkbox_meat).setOnClickListener() { view ->
                     modelList[adapterPosition].selected = (view as CompoundButton).isChecked
-                    deleteItem(adapterPosition)
+                    if(modelList[adapterPosition].selected){
+                         (mClickListener as ClickListenerDeleteBooking).onChecked(adapterPosition)
+                    }
                 }
                 itemView.findViewById<Button>(R.id.info_icon).setOnClickListener() {
                     (mClickListener as ClickListenerBooking).onInfoClick(adapterPosition)
@@ -127,10 +131,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
         override fun onClick(p0: View?) {
             (mClickListener as Listener).onClick(adapterPosition, itemView)
         }
-
-
     }
-
     fun deleteItem(position: Int) {
         modelList.removeAt(position)
         notifyItemRemoved(position)
