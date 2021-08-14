@@ -21,9 +21,6 @@ import java.util.*
 import android.widget.CompoundButton
 
 
-
-
-
 class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val EVENT = "EVENT"
@@ -66,6 +63,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
 
     interface ClickListenerBooking: Listener{
         fun onInfoClick(pos: Int)
+        fun onQrCodeClick(pos: Int)
     }
 
     interface ClickListenerDeleteBooking: Listener {
@@ -94,6 +92,9 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 itemView.findViewById<Button>(R.id.info_icon).setOnClickListener() {
                     (mClickListener as ClickListenerBooking).onInfoClick(adapterPosition)
                 }
+                itemView.findViewById<Button>(R.id.qr_code_icon).setOnClickListener() {
+                    (mClickListener as ClickListenerBooking).onQrCodeClick(adapterPosition)
+                }
             }
         }
 
@@ -115,9 +116,11 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 }
                 if (model.isSelectable){
                     itemView.info_icon.visibility = View.GONE
+                    itemView.qr_code_icon.visibility = View.GONE
                     itemView.checkbox_meat.visibility = View.VISIBLE
                 }else{
                     itemView.info_icon.visibility = View.VISIBLE
+                    itemView.qr_code_icon.visibility = View.VISIBLE
                     itemView.checkbox_meat.visibility = View.GONE
                 }
             }

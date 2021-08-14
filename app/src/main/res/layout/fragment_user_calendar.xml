@@ -8,9 +8,9 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabBackground="@drawable/background_fade"
-        app:tabTextColor="@color/white"
-        app:tabIndicatorColor="@android:color/white"
+        app:tabBackground="@color/white"
+        app:tabTextColor="@color/black"
+        app:tabIndicatorColor="@android:color/black"
         >
 
     </com.google.android.material.tabs.TabLayout>

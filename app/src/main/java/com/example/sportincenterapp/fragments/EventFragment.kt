@@ -23,6 +23,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 
 class EventFragment : Fragment() {
@@ -143,22 +144,25 @@ class EventFragment : Fragment() {
     }
 
     private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
-        for (i in 0 until eventList.size) {
-            var minDate = eventList[i]
-            var minJ = i
-            for (j in i + 1 until eventList.size) {
-                var time1 = eventList[j].oraInizio.split(":")[0]
-                var time2 = eventList[i].oraInizio.split(":")[0]
-                if (Integer.parseInt(time1) < Integer.parseInt(time2)) {
-                    minDate = eventList[j]
-                    minJ = j
+        println(eventList)
+
+        var change: Boolean = true
+        while (change) {
+            change = false
+            for (i in 0 until eventList.size - 1) {
+                var timeih = eventList[i].oraInizio.split(":")[0]
+                var timei1h = eventList[i+1].oraInizio.split(":")[0]
+                var timeim = eventList[i].oraInizio.split(":")[1]
+                var timei1m = eventList[i+1].oraInizio.split(":")[1]
+                if (timeih.toInt() + timeim.toInt() > timei1h.toInt() + timei1m.toInt()) { //controllo le ore
+                    var temp = eventList[i]
+                    eventList[i] = eventList[i+1]
+                    eventList[i+1] = temp
+                    change = true
                 }
             }
-            if (eventList[i] != minDate) {
-                eventList[minJ] = eventList[i]
-                eventList[i] = minDate
-            }
         }
+        println(eventList)
         return eventList
     }
 

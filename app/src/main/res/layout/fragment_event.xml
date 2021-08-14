@@ -6,7 +6,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:orientation="vertical"
-    android:background="@drawable/background_fade">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/no_event"
@@ -14,7 +14,7 @@
         android:layout_height="fill_parent"
         android:gravity="center"
         android:text="Nessun evento disponibile in questa data!"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:visibility="gone"/>
 

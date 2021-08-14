@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentAdvertisment : Fragment = Advertisment()
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
-    private val fragmentActivities: Fragment = ActivitiesFragment()
+    //private val fragmentActivities: Fragment = ActivitiesFragment()
     private val fragmentCalendarAdmin: Fragment = CalendarAdminFragment()
     //Bundles
     private val bundleUser : Bundle = Bundle()
@@ -71,11 +71,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val userPageItem = menu.getItem(0)
         val newsItem = menu.getItem(1)
         val calendarItem = menu.getItem(2)
-        val activitiesItem = menu.getItem(3)
+        //val activitiesItem = menu.getItem(3)
         val calendarAdminItem = menu.getItem(4)
-        val faqItem = menu.getItem(6).subMenu.getItem(1)
-        val contactsItem = menu.getItem(6).subMenu.getItem(2)
-        val logoutItem = menu.getItem(6).subMenu.getItem(3)
+        val faqItem = menu.getItem(5).subMenu.getItem(1)
+        val contactsItem = menu.getItem(5).subMenu.getItem(2)
+        val logoutItem = menu.getItem(5).subMenu.getItem(3)
 
         if (!sessionManager.fetchUserName().isNullOrEmpty()) {
             userName?.text = sessionManager.fetchUserName()
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 userPageItem.isVisible = false
                 newsItem.isVisible = false
                 calendarItem.isVisible = false
-                activitiesItem.isVisible = false
+                //activitiesItem.isVisible = false
                 calendarAdminItem.isVisible = true
                 faqItem.isVisible = false
                 contactsItem.isVisible = false
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             userPageItem.isVisible = false
             newsItem.isVisible = true
             logoutItem.isVisible = false
-            activitiesItem.isVisible = false
+           //activitiesItem.isVisible = false
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -144,8 +144,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.news -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentAdvertisment).commit()
 
-            R.id.activities -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentActivities).commit()
+            /*R.id.activities -> supportFragmentManager.beginTransaction()
+                .replace(R.id.Fragment_container, fragmentActivities).commit()*/
 
             R.id.settings -> supportFragmentManager.beginTransaction()
                     .replace(R.id.Fragment_container, fragmentSettings).commit()
@@ -313,10 +313,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(0).setTitle(getResources().getString(R.string.profile))
             menu.getItem(1).setTitle(getResources().getString(R.string.advertisment_title))
             menu.getItem(2).setTitle(getResources().getString(R.string.calendar))
-            menu.getItem(3).setTitle(getResources().getString(R.string.activities))
-            menu.getItem(6).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings))
-            menu.getItem(6).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ))
-            menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts))
+            //menu.getItem(3).setTitle(getResources().getString(R.string.activities))
+            menu.getItem(5).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings))
+            menu.getItem(5).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ))
+            menu.getItem(5).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts))
         } else if (index == 1) {
             bundleHome.putInt("string_home_1", R.string.first_title_home_en)
             bundleHome.putInt("string_home_2", R.string.first_text_home_en)
@@ -351,11 +351,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(0).setTitle(getResources().getString(R.string.profile_en))
             menu.getItem(1).setTitle(getResources().getString(R.string.advertisment_title_en))
             menu.getItem(2).setTitle(getResources().getString(R.string.calendar_en))
-            menu.getItem(3).setTitle(getResources().getString(R.string.activities_en))
-            menu.getItem(6).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings_en))
-            menu.getItem(6).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ_en))
-            menu.getItem(6).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))
-            menu.getItem(6).subMenu.getItem(3).setTitle(getResources().getString(R.string.logout_en))
+            //menu.getItem(3).setTitle(getResources().getString(R.string.activities_en))
+            menu.getItem(5).subMenu.getItem(0).setTitle(getResources().getString(R.string.settings_en))
+            menu.getItem(5).subMenu.getItem(1).setTitle(getResources().getString(R.string.FAQ_en))
+            menu.getItem(5).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts_en))
+            menu.getItem(5).subMenu.getItem(3).setTitle(getResources().getString(R.string.logout_en))
         }
     }
 
