@@ -33,9 +33,6 @@ interface ApiService {
     @GET(Constant.ACTIVITY_SERVICE + "/all/activities")
     fun getSportActivities(): Call <List<Activity>>
 
-    @GET(Constant.CALENDAR_SERVICE + "/user/user_events")
-    fun getAllEvents(): Call <List<Event>>
-
     @PUT(Constant.CALENDAR_SERVICE + "/user/user_date_events/{subId}/{userId}/{date}")
     fun getEventsForUserInDate(@Path(value = "subId") subId: String, @Path(value = "userId") userId : String, @Path(value = "date") date: String): Call <List<Event>>
 
@@ -50,5 +47,8 @@ interface ApiService {
 
     @GET(Constant.ACTIVITY_SERVICE + "/all/get_activity/{activityId}")
     fun getActivityFromId(@Path(value = "activityId") activityId: String) : Call<Activity>
+
+    @GET("/all/date_events/{date}")
+    fun getEventsInDate(@Path(value = "date") date: String): Call <List<Event>>
 
 }

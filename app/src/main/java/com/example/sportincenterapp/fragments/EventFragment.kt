@@ -58,9 +58,8 @@ class EventFragment : Fragment() {
             apiClient = ApiClient()
             sessionManager = SessionManager(ApplicationContextProvider.getContext())
             activity?.let {
-                sessionManager.fetchIdAbbonamento()?.let { it1 ->
-                    apiClient.getApiServiceGateway(it).getEventsForUserInDate(it1,
-                        sessionManager.fetchUserId()!!, eventsDate)
+                if (sessionManager.fetchUserId().isNullOrEmpty()) {
+                    apiClient.getApiServiceCalendar(it).getEventsInDate(eventsDate)
                         .enqueue(object : Callback<List<Event>> {
                             override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                 if (response.isSuccessful) {
@@ -71,27 +70,61 @@ class EventFragment : Fragment() {
                                     val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
                                     adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
                                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
-                                        override fun onClick(pos: Int, aView: View) {
-                                            Toast.makeText(activity, eventList[pos].data, Toast.LENGTH_LONG).show()
-                                        }
                                         override fun onBookClick(pos: Int) {
-                                            bookEvent(eventList[pos].id, sessionManager.fetchUserId()!!, eventList[pos].title,eventList[pos].data,
-                                                eventList[pos].oraInizio, eventList[pos].oraFine,
-                                                adapter as EventAdapter, pos)
                                         }
 
                                         override fun onInfoClick(pos: Int) {
-                                            infoEventDialog(eventList[pos].title, eventList[pos].activityId)
+                                            infoEventDialog(orderedEventList[pos].title, orderedEventList[pos].activityId)
+                                        }
+
+                                        override fun onClick(pos: Int, aView: View) {
+                                            Toast.makeText(activity, orderedEventList[pos].data, Toast.LENGTH_LONG).show()
                                         }
                                     })
-                                }else{
+                                }else
                                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
-                                }
                             }
+
                             override fun onFailure(call: Call<List<Event>>, t: Throwable) {
                                 Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
                             }
                         })
+                }else{
+                    sessionManager.fetchIdAbbonamento()?.let { it1 ->
+                        apiClient.getApiServiceGateway(it).getEventsForUserInDate(it1,
+                            sessionManager.fetchUserId()!!, eventsDate)
+                            .enqueue(object : Callback<List<Event>> {
+                                override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
+                                    if (response.isSuccessful) {
+                                        eventList = response.body()!!
+                                        if (eventList.isEmpty()) {
+                                            view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
+                                        }
+                                        val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
+                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
+                                        (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
+                                            override fun onClick(pos: Int, aView: View) {
+                                                Toast.makeText(activity, eventList[pos].data, Toast.LENGTH_LONG).show()
+                                            }
+                                            override fun onBookClick(pos: Int) {
+                                                bookEvent(eventList[pos].id, sessionManager.fetchUserId()!!, eventList[pos].title,eventList[pos].data,
+                                                    eventList[pos].oraInizio, eventList[pos].oraFine,
+                                                    adapter as EventAdapter, pos)
+                                            }
+
+                                            override fun onInfoClick(pos: Int) {
+                                                infoEventDialog(eventList[pos].title, eventList[pos].activityId)
+                                            }
+                                        })
+                                    }else{
+                                        Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
+                                    }
+                                }
+                                override fun onFailure(call: Call<List<Event>>, t: Throwable) {
+                                    Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
+                                }
+                            })
+                }
                 }
             }
         }
@@ -121,6 +154,7 @@ class EventFragment : Fragment() {
 
         val alert = builder?.create()
         alert?.show()
+
     }
 
     private fun callBookEvent(userId : String, eventId: String, adapter: EventAdapter, pos: Int) {

@@ -25,6 +25,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val EVENT = "EVENT"
     private val BOOKING = "BOOKING"
+    private lateinit var sessionManager: SessionManager
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -33,6 +34,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
         if (itemType == EVENT)
             return ViewHolder(layoutInflater.inflate(R.layout.event_item, parent, false))
@@ -76,9 +78,14 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
         init {
             itemView.setOnClickListener(this)
             if (itemType == EVENT) {
-                itemView.findViewById<Button>(R.id.book_button).setOnClickListener() {
-                    (mClickListener as ClickListenerEvent).onBookClick(adapterPosition)
+                if (!sessionManager.fetchUserId().isNullOrEmpty()) {
+                    itemView.findViewById<Button>(R.id.book_button).setOnClickListener() {
+                        (mClickListener as ClickListenerEvent).onBookClick(adapterPosition)
+                    }
+                }else{
+                    itemView.findViewById<Button>(R.id.book_button).visibility = View.GONE
                 }
+
                 itemView.findViewById<Button>(R.id.info_button).setOnClickListener() {
                     (mClickListener as ClickListenerEvent).onInfoClick(adapterPosition)
                 }

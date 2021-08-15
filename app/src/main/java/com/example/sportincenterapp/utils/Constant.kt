@@ -5,6 +5,7 @@ object Constant {
     //Base URL
     const val AUTH_BASE_URL = "http://192.168.1.8:8080"
     const val GATEWAY_BASE_URL = "http://192.168.1.8:5555"
+    const val CALENDAR_BASE_URL = "http://192.168.1.8:9003"
 
     //Authentication's endpoints
     const val LOGIN_URL = "/api/auth/signin"

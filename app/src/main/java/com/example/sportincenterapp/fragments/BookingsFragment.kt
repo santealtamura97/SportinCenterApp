@@ -132,45 +132,46 @@ class BookingsFragment : Fragment() {
             apiClient = ApiClient()
             sessionManager = SessionManager(ApplicationContextProvider.getContext())
             activity?.let {
-                sessionManager.fetchUserId()?.let { it1 ->
-                    apiClient.getApiServiceGateway(context).getBookingsForUser(it1)
-                        .enqueue(object : Callback<List<Event>> {
-                            override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
-                                if (response.isSuccessful) {
-                                    bookingList = response.body()!!
-                                    if (bookingList.isEmpty()) {
-                                        view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
-                                    }
-                                    val orderedEventList = orderEvents(bookingList as MutableList<Event>)
-                                    bookingList = orderedEventList
-                                    adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
-                                    (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
-                                        override fun onInfoClick(pos: Int) {
-                                            infoEventDialog(orderedEventList[pos].title, orderedEventList[pos].activityId)
+                if (!sessionManager.fetchUserId().isNullOrEmpty()) {
+                    sessionManager.fetchUserId()?.let { it1 ->
+                        apiClient.getApiServiceGateway(context).getBookingsForUser(it1)
+                            .enqueue(object : Callback<List<Event>> {
+                                override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
+                                    if (response.isSuccessful) {
+                                        bookingList = response.body()!!
+                                        if (bookingList.isEmpty()) {
+                                            view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
+                                        val orderedEventList = orderEvents(bookingList as MutableList<Event>)
+                                        bookingList = orderedEventList
+                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
+                                        (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
+                                            override fun onInfoClick(pos: Int) {
+                                                infoEventDialog(orderedEventList[pos].title, orderedEventList[pos].activityId)
+                                            }
 
-                                        override fun onQrCodeClick(pos: Int) {
-                                            qrCodeEventDialog(orderedEventList[pos].title, orderedEventList[pos].id, orderedEventList[pos].data, orderedEventList[pos].oraInizio,
-                                                orderedEventList[pos].oraFine, sessionManager.fetchUserId()!!)
-                                        }
+                                            override fun onQrCodeClick(pos: Int) {
+                                                qrCodeEventDialog(orderedEventList[pos].title, orderedEventList[pos].id, orderedEventList[pos].data, orderedEventList[pos].oraInizio,
+                                                    orderedEventList[pos].oraFine, sessionManager.fetchUserId()!!)
+                                            }
 
-                                        override fun onClick(pos: Int, aView: View) {
-                                            Toast.makeText(activity, orderedEventList[pos].data, Toast.LENGTH_LONG).show()
-                                        }
-                                    })
-                                }else
+                                            override fun onClick(pos: Int, aView: View) {
+                                                Toast.makeText(activity, orderedEventList[pos].data, Toast.LENGTH_LONG).show()
+                                            }
+                                        })
+                                    }else
+                                        Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
+                                }
+
+                                override fun onFailure(call: Call<List<Event>>, t: Throwable) {
                                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
-                            }
-
-                            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
-                                Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
-                            }
-                        })
+                                }
+                            })
+                    }
                 }
             }
         }
     }
-
 
     private fun callDeleteBooking(userId : String, eventId: String) {
         apiClient = ApiClient()
