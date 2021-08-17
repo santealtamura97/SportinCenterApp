@@ -29,6 +29,8 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var apiClient: ApiClient
     private lateinit var displayName: String
     private lateinit var idSubscriptionUser: String
+    private lateinit var scadenzaAbbonamento: String
+    private var ingressi: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +59,7 @@ class RegistrationActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<UserCodeResponse>, response: Response<UserCodeResponse>) {
                                 if (response.isSuccessful) {
                                     val userCodeResponse = response.body()
+                                    println(userCodeResponse)
                                     displayName = userCodeResponse!!.displayName
                                     idSubscriptionUser = userCodeResponse!!.idAbbonamento
                                     var newUserCodeString = userCode!!.text.toString() + " (" + displayName + ")"
@@ -67,6 +70,9 @@ class RegistrationActivity : AppCompatActivity() {
                                     userCode!!.isEnabled = false
                                     registerPassword!!.isEnabled = true
                                     registerConfirmPassword!!.isEnabled = true
+                                    scadenzaAbbonamento = userCodeResponse!!.scadenzaAbbonamento
+                                    ingressi = userCodeResponse!!.ingressi
+
                                 }else {
                                     userCode!!.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_person, 0, R.drawable.ic_baseline_error_24, 0);
                                 }
@@ -102,7 +108,8 @@ class RegistrationActivity : AppCompatActivity() {
         }
 
         apiClient = ApiClient()
-        apiClient.getApiServiceAuth(this).signUp(SignUpRequest(displayName,email,password,confirmPassword,enabled = false, abbonamento = idSubscriptionUser))
+        apiClient.getApiServiceAuth(this).signUp(SignUpRequest(displayName,email,password,confirmPassword,enabled = false, abbonamento = idSubscriptionUser,
+            dataScadenza = scadenzaAbbonamento, ingressi = ingressi))
                 .enqueue(object : Callback<SignUpResponse> {
                     override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
                         Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.signup_error), Toast.LENGTH_LONG).show()

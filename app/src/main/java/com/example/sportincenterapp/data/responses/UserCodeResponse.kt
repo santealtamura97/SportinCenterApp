@@ -7,7 +7,13 @@ data class UserCodeResponse(
     var displayName : String,
 
     @SerializedName("idAbbonamento")
-    var idAbbonamento : String
+    var idAbbonamento : String,
+
+    @SerializedName("scadenzaAbbonamento")
+    var scadenzaAbbonamento: String,
+
+    @SerializedName("ingressi")
+    var ingressi: Long
 
     )
 

@@ -2,6 +2,7 @@ package com.example.sportincenterapp.data
 
 import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
+import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.requests.SignUpRequest
 import com.example.sportincenterapp.data.responses.LoginResponse
@@ -26,6 +27,9 @@ interface ApiService {
 
     @POST(Constant.VALIDATE_USER_CODE_URL)
     fun validateUserCode(@Body request: String) : Call<UserCodeResponse>
+
+    @GET(Constant.USER_INFO_URL + "/{userId}")
+    fun getMyUserInfo(@Path(value = "userId") userId: String) : Call<User>
 
     @GET(Constant.SUBSCRIPTION_SERVICE + "/user/getSubfromid/{idAbbonamento}")
     fun getSubfromid(@Path(value = "idAbbonamento") idAbbonamento: String) : Call<SubscriptionResponse>

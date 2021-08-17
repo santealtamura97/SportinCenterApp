@@ -1,13 +1,13 @@
 package com.example.sportincenterapp.fragments
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportincenterapp.R
@@ -15,15 +15,15 @@ import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.utils.BookingProgressChangeEvent
 import com.example.sportincenterapp.utils.EventAdapter
 import com.example.sportincenterapp.utils.SessionManager
-import kotlinx.android.synthetic.main.event_item.view.*
 import kotlinx.android.synthetic.main.fragment_activities.*
 import okhttp3.ResponseBody
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
 
 
 class EventFragment : Fragment() {
@@ -166,6 +166,9 @@ class EventFragment : Fragment() {
                         if (response.isSuccessful) {
                             adapter.deleteItem(pos)
                             Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booked), Toast.LENGTH_LONG).show()
+                            val bus = EventBus.getDefault()
+                            val progress = 1
+                            bus.post(BookingProgressChangeEvent(progress));
                         }else{
                             Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
                         }

@@ -20,5 +20,12 @@ data class SignUpRequest (
         var enabled: Boolean,
 
         @SerializedName("abbonamento")
-        var abbonamento: String
+        var abbonamento: String,
+
+        @SerializedName("dataScadenza")
+        var dataScadenza: String,
+
+        @SerializedName("ingressi")
+        var ingressi: Long
+
 )

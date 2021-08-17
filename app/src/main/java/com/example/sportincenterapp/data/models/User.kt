@@ -17,7 +17,15 @@ data class User (
     private var roles: MutableList<String?>? = null,
 
     @SerializedName("idAbbonamento")
-    var idAbbonamento: String
+    var idAbbonamento: String,
 
+    @SerializedName("scadenzaAbbonamento")
+    var scadenzaAbbonamento: String,
+
+    @SerializedName("ingressi")
+    var ingressi: Long,
+
+    @SerializedName("exipred")
+    var expired: Boolean
 
 )

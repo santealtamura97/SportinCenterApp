@@ -49,6 +49,7 @@ class CalendarCollectionFragment : Fragment() {
                 tab, position -> tab.text = tabTitles[position];
                 tab.setIcon(tabIcons[position])
         }.attach()
+
     }
 
 }

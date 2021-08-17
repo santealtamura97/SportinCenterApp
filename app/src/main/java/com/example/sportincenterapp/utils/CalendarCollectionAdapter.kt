@@ -17,4 +17,5 @@ class CalendarCollectionAdapter(fragment: CalendarCollectionFragment) : Fragment
             return BookingsFragment()
         }
     }
+
 }

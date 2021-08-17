@@ -36,7 +36,6 @@
             app:cpb_round_border="false"
             android:layout_gravity="end|bottom"
             android:layout_margin="10dp"
-            app:cpb_progress="10"
             app:cpb_progress_max="12"
             android:background="@drawable/progress_bar_background" />
 

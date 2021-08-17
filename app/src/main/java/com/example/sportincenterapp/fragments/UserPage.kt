@@ -1,6 +1,6 @@
 package com.example.sportincenterapp.fragments
 
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,16 +10,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
-import com.example.sportincenterapp.activities.MainActivity
 import com.example.sportincenterapp.data.ApiClient
-import com.example.sportincenterapp.data.models.Activity
-import com.example.sportincenterapp.data.requests.LoginRequest
-import com.example.sportincenterapp.data.responses.LoginResponse
+import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.data.responses.SubscriptionResponse
-import com.example.sportincenterapp.utils.ActivityAdapter
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
-import org.w3c.dom.Text
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +23,12 @@ import retrofit2.Response
 
 class UserPage : Fragment() {
 
-    private var userSubscriptionView: TextView? = null
+    private var userSubscriptionType: TextView? = null
+    private var userSubscriptionDeadline: TextView? = null
+    private var userSubscriptionStatus: TextView? = null
+    private var userSubscriptionStatusIconActive: ImageView? = null
+    private var userSubscriptionStatusIconExpired: ImageView? = null
+    private var userEntries: TextView? = null
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
 
@@ -47,16 +48,19 @@ class UserPage : Fragment() {
         var telephone_view = v.findViewById<TextView>(R.id.user_phonenumber_view) //view
         var telephone_edit = v.findViewById<EditText>(R.id.user_phonenumber_edit) //set
         // Subscription
-        userSubscriptionView = v.findViewById<TextView>(R.id.user_subscription_view) //View
+        userSubscriptionType = v.findViewById<TextView>(R.id.subscription_type) //View
+        userSubscriptionDeadline = v.findViewById<TextView>(R.id.subscription_deadline)
+        userSubscriptionStatus = v.findViewById<TextView>(R.id.subscription_status)
+        userSubscriptionStatusIconActive = v.findViewById(R.id.subscription_active)
+        userSubscriptionStatusIconExpired = v.findViewById(R.id.subscription_expired)
+        userEntries = v.findViewById<TextView>(R.id.remaining_entries)
+
+
         setSubscriptionName()
+        setUserSubscriptionInfo()
 
         //Email
         var email = v.findViewById<TextView>(R.id.user_emailaddress) //view
-        //Birthday date
-        var birth = v.findViewById<TextView>(R.id.user_birthday) //view
-        //Address
-        val address_view = v.findViewById<TextView>(R.id.user_address_view) //view
-        val address_set = v.findViewById<TextView>(R.id.user_address_edit) //set
         //Age
         val age_text = v.findViewById<TextView>(R.id.age_text) //view
         val age_view = v.findViewById<TextView>(R.id.user_age_view) //view
@@ -117,15 +121,6 @@ class UserPage : Fragment() {
             }
         })
 
-        //Address edit text listener
-        address_set.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                address_view.text = address_set.text
-            }
-        })
 
         //Age edit text listener
         age_set.addTextChangedListener(object : TextWatcher {
@@ -172,8 +167,6 @@ class UserPage : Fragment() {
         editbtn_1.setOnClickListener {
             editbtn_1.visibility = View.GONE
             editbtn_1_save.visibility = View.VISIBLE
-            address_view.visibility = View.GONE
-            address_set.visibility = View.VISIBLE
             telephone_view.visibility = View.GONE
             telephone_edit.visibility = View.VISIBLE
         }
@@ -181,8 +174,6 @@ class UserPage : Fragment() {
         editbtn_1_save.setOnClickListener {
             editbtn_1.visibility = View.VISIBLE
             editbtn_1_save.visibility = View.GONE
-            address_view.visibility = View.VISIBLE
-            address_set.visibility = View.GONE
             telephone_view.visibility = View.VISIBLE
             telephone_edit.visibility = View.GONE
         }
@@ -238,11 +229,41 @@ class UserPage : Fragment() {
                             call: Call<SubscriptionResponse>,
                             response: Response<SubscriptionResponse>
                         ) {
-                            userSubscriptionView!!.text = response.body()!!.name
+                            userSubscriptionType!!.text = userSubscriptionType!!.text.toString() + response.body()!!.name
                         }
                         override fun onFailure(call: Call<SubscriptionResponse>, t: Throwable) {
 
                         }
+                    })
+            }
+        }
+    }
+
+    private fun setUserSubscriptionInfo() {
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        println(sessionManager.fetchUserId())
+        context?.let {
+            sessionManager.fetchUserId()?.let { it1 ->
+                apiClient.getApiServiceAuth(it).getMyUserInfo(it1)
+                    .enqueue(object : Callback<User>{
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            println(response.body()!!.scadenzaAbbonamento)
+                            userSubscriptionDeadline!!.text =  userSubscriptionDeadline!!.text.toString() + response.body()!!.scadenzaAbbonamento
+                            userEntries!!.text = userEntries!!.text.toString() + response.body()!!.ingressi.toString()
+                            view?.findViewById<CircularProgressBar>(R.id.circularProgressBar)?.progress = response.body()!!.ingressi.toString().toFloat()
+                            if (!response.body()!!.expired) {
+                                userSubscriptionStatus!!.text = "Attivo"
+                                userSubscriptionStatus!!.setTextColor(Color.parseColor("#00FF00"))
+                                userSubscriptionStatusIconExpired?.visibility = View.GONE
+                                userSubscriptionStatusIconActive?.visibility = View.VISIBLE
+                            }
+                        }
+
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+
+                        }
+
                     })
             }
         }

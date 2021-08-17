@@ -51,8 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         super.onCreate(savedInstanceState)
         sessionManager = SessionManager(ApplicationContextProvider.getContext()) //initialize session manager in this class
-
-        //Main navigation settings
+        //Main navigation setting
         setContentView(R.layout.activity_main)
         drawerLayout = findViewById(R.id.nav_view)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
