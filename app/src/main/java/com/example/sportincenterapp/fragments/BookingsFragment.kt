@@ -24,7 +24,6 @@ import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.EventAdapter
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.zxing.WriterException
-import kotlinx.android.synthetic.main.book_item.view.*
 import kotlinx.android.synthetic.main.fragment_bookings.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -139,10 +138,10 @@ class BookingsFragment : Fragment() {
                                 override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                     if (response.isSuccessful) {
                                         bookingList = response.body()!!
-                                        if (bookingList.isEmpty()) {
+                                        val orderedEventList = orderEvents(bookingList as MutableList<Event>)
+                                        if (orderedEventList.isEmpty()) {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
-                                        val orderedEventList = orderEvents(bookingList as MutableList<Event>)
                                         bookingList = orderedEventList
                                         adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
@@ -197,6 +196,9 @@ class BookingsFragment : Fragment() {
      * Bubble sort
      */
     private fun orderEvents(eventList: MutableList<Event>) : MutableList<Event> {
+
+        removePastEvents(eventList)
+
         val sdf = SimpleDateFormat("dd-MM-yyyy")
         var change: Boolean = true
         while (change) {
@@ -221,6 +223,20 @@ class BookingsFragment : Fragment() {
                 }
             }
         }
+        return eventList
+    }
+
+    private fun removePastEvents(eventList: MutableList<Event>) : MutableList<Event> {
+        var toRemove : MutableList<Event> = mutableListOf()
+        val sdf = SimpleDateFormat("dd-MM-yyyy")
+        val todayDate = sdf.parse(sdf.format(Date()))
+        for (event in eventList) {
+            var eventDate = sdf.parse(event.data)
+            if (eventDate.before(todayDate)) {
+                toRemove.add(event)
+            }
+        }
+        eventList.removeAll(toRemove)
         return eventList
     }
 

@@ -1,15 +1,19 @@
 package com.example.sportincenterapp.utils
 
 import android.content.Context
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.CompoundButton
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.models.Event
 import kotlinx.android.synthetic.main.book_item.view.*
+import kotlinx.android.synthetic.main.event_item.view.*
 import kotlinx.android.synthetic.main.event_item.view.img
 import kotlinx.android.synthetic.main.event_item.view.sub_txt
 import kotlinx.android.synthetic.main.event_item.view.time
@@ -18,7 +22,7 @@ import java.text.DateFormat
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
-import android.widget.CompoundButton
+import java.util.concurrent.TimeUnit
 
 
 class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String) :
@@ -26,7 +30,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
     private val EVENT = "EVENT"
     private val BOOKING = "BOOKING"
     private lateinit var sessionManager: SessionManager
-
+    private lateinit var lastDatePickedForFragment: Date
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolder).bind(modelList.get(position));
@@ -85,10 +89,10 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 }else{
                     itemView.findViewById<Button>(R.id.book_button).visibility = View.GONE
                 }
-
                 itemView.findViewById<Button>(R.id.info_button).setOnClickListener() {
                     (mClickListener as ClickListenerEvent).onInfoClick(adapterPosition)
                 }
+
             }else if (itemType == BOOKING) {
                 itemView.findViewById<CheckBox>(R.id.checkbox_meat).setOnClickListener() { view ->
                     modelList[adapterPosition].selected = (view as CompoundButton).isChecked
@@ -130,7 +134,47 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                     itemView.qr_code_icon.visibility = View.VISIBLE
                     itemView.checkbox_meat.visibility = View.GONE
                 }
+            }else if (itemType == EVENT) {
+                val dfr = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+                val currentDate = Date();
+                val eventDate = dfr.parse(model.data + " " + model.oraInizio + ":00")
+
+                val duration: Long = eventDate.time - currentDate.time
+
+                //val diffInSeconds: Long = TimeUnit.MILLISECONDS.toSeconds(duration)
+                val diffInSeconds = ((duration / 1000) % 60)
+                //val diffInMinutes: Long = TimeUnit.MILLISECONDS.toMinutes(duration)
+                val diffInMinutes = ((duration / (1000 * 60)) % 60)
+                val diffInHours: Long = TimeUnit.MILLISECONDS.toHours(duration)
+
+                var millsInFutures = (diffInMinutes * 60000) + (diffInSeconds * 1000)
+
+                if (diffInHours.toInt() == 0 && diffInMinutes.toInt() <= 15) {
+                    itemView.timer.visibility = View.VISIBLE
+
+                    val _tv = itemView.timer as TextView
+                    object : CountDownTimer(millsInFutures, 1000) {
+                        // adjust the milli seconds here
+                        override fun onTick(millisUntilFinished: Long) {
+                            _tv.text = "" + String.format(
+                                "%d min, %d sec",
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                        TimeUnit.MINUTES.toSeconds(
+                                            TimeUnit.MILLISECONDS.toMinutes(
+                                                millisUntilFinished
+                                            )
+                                        )
+                            )
+                        }
+                        override fun onFinish() {
+                            deleteItem(adapterPosition)
+                        }
+                    }.start()
+                 }
             }
+
+            //DEFAULT
             itemView.txt.text = model.title
             itemView.sub_txt.text = "Posti \ndisponibili: " + model.number.toString()
             itemView.time.text = model.oraInizio + " - " + model.oraFine

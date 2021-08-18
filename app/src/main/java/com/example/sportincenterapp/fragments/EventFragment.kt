@@ -24,6 +24,8 @@ import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class EventFragment : Fragment() {
@@ -64,10 +66,10 @@ class EventFragment : Fragment() {
                             override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                 if (response.isSuccessful) {
                                     eventList = response.body()!!
-                                    if (eventList.isEmpty()) {
+                                    val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
+                                    if (orderedEventList.isEmpty()) {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                     }
-                                    val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
                                     adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
                                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                         override fun onBookClick(pos: Int) {
@@ -97,10 +99,10 @@ class EventFragment : Fragment() {
                                 override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                     if (response.isSuccessful) {
                                         eventList = response.body()!!
-                                        if (eventList.isEmpty()) {
+                                        val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
+                                        if (orderedEventList.isEmpty()) {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
-                                        val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
                                         adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                             override fun onClick(pos: Int, aView: View) {
@@ -161,19 +163,16 @@ class EventFragment : Fragment() {
         apiClient = ApiClient()
         activity?.let {
             apiClient.getApiServiceGateway(it).bookEvent(userId, eventId)
-                .enqueue(object : Callback<ResponseBody?> {
-                    override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                .enqueue(object : Callback<Event?> {
+                    override fun onResponse(call: Call<Event?>, response: Response<Event?>) {
                         if (response.isSuccessful) {
                             adapter.deleteItem(pos)
                             Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booked), Toast.LENGTH_LONG).show()
-                            val bus = EventBus.getDefault()
-                            val progress = 1
-                            bus.post(BookingProgressChangeEvent(progress));
                         }else{
                             Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
                         }
                     }
-                    override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                    override fun onFailure(call: Call<Event?>, t: Throwable) {
                         Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
                     }
                 })
@@ -183,6 +182,7 @@ class EventFragment : Fragment() {
     private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
         println(eventList)
 
+        removePastEventsByTime(eventList)
         var change: Boolean = true
         while (change) {
             change = false
@@ -200,6 +200,20 @@ class EventFragment : Fragment() {
             }
         }
         println(eventList)
+        return eventList
+    }
+
+    private fun removePastEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
+        var toRemove : MutableList<Event> = mutableListOf()
+        val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm")
+        val todayDate = sdf.parse(sdf.format(Date()))
+        for (event in eventList) {
+            var eventDate = sdf.parse(event.data + " " + event.oraInizio)
+            if (eventDate.before(todayDate) || eventDate.equals(todayDate)) {
+                toRemove.add(event)
+            }
+        }
+        eventList.removeAll(toRemove)
         return eventList
     }
 

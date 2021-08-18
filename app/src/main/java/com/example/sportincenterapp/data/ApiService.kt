@@ -41,7 +41,7 @@ interface ApiService {
     fun getEventsForUserInDate(@Path(value = "subId") subId: String, @Path(value = "userId") userId : String, @Path(value = "date") date: String): Call <List<Event>>
 
     @PUT(Constant.CALENDAR_SERVICE + "/user/book_event/{userId}/{eventId}")
-    fun bookEvent(@Path(value = "userId") userId: String, @Path(value = "eventId") eventId: String) : Call<ResponseBody>
+    fun bookEvent(@Path(value = "userId") userId: String, @Path(value = "eventId") eventId: String) : Call<Event>
 
     @GET(Constant.CALENDAR_SERVICE + "/user/user_bookings/{userId}")
     fun getBookingsForUser(@Path(value = "userId") userId: String) : Call<List<Event>>
