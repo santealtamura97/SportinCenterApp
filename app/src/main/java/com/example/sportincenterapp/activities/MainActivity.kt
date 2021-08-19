@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.fragments.AddActivityFragment
 import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentContacts : Fragment = Contacts()
     //private val fragmentActivities: Fragment = ActivitiesFragment()
     private val fragmentCalendarAdmin: Fragment = CalendarAdminFragment()
+    private val fragmentAddActivity: Fragment = AddActivityFragment()
     //Bundles
     private val bundleUser : Bundle = Bundle()
     private val bundleHome : Bundle = Bundle()
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val newsItem = menu.getItem(1)
         val calendarItem = menu.getItem(2)
         //val activitiesItem = menu.getItem(3)
-        val calendarAdminItem = menu.getItem(4)
+        val calendarAdminItem = menu.getItem(3)
         val faqItem = menu.getItem(5).subMenu.getItem(1)
         val contactsItem = menu.getItem(5).subMenu.getItem(2)
         val logoutItem = menu.getItem(5).subMenu.getItem(3)
@@ -88,11 +90,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             userName?.visibility = View.VISIBLE
             loginButton.visibility = View.GONE
-        } else{
-            //calendarItem.isVisible = false
+        } else {
+            //calendarItem.isVisible = true
             userPageItem.isVisible = false
             newsItem.isVisible = true
             logoutItem.isVisible = false
+            calendarAdminItem.isVisible = true
            //activitiesItem.isVisible = false
         }
 
@@ -357,35 +360,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun createActivity() {
-        val builder = android.app.AlertDialog.Builder(this,taskId)
-        val customlayout = layoutInflater.inflate(R.layout.add_activity_dialog, null)
+       /* val builder = android.app.AlertDialog.Builder(this,taskId)
+        //val customlayout = layoutInflater.inflate(R.layout.fragment_admin_calendar_dialog, null)
 
         builder.setView(customlayout)
-        builder.setPositiveButton("Conferma") {
-                dialog, which ->
-            /*val edittitle = customlayout.findViewById<EditText>(R.id.edit_activity_text)
-            val editbooking= customlayout.findViewById<EditText>(R.id.edit_booking_text)
-            val editinitial = customlayout.findViewById<EditText>(R.id.edit_initial_text)
-            val editfinal= customlayout.findViewById<EditText>(R.id.edit_final_text)
-
-            bundleCalendarAdmin.putString("title", edittitle.text.toString())
-            bundleCalendarAdmin.putString("booking", editbooking.text.toString())
-            bundleCalendarAdmin.putString("initial", editinitial.text.toString())
-            bundleCalendarAdmin.putString("final", editfinal.text.toString())*/
-
-            fragmentCalendarAdmin.arguments = bundleCalendarAdmin
-
-            dialog.dismiss()
+        builder.setPositiveButton("Conferma")
+        {
+            dialog, which -> dialog.dismiss()
         }
 
-        builder.setNegativeButton("Annulla") {
+        builder.setNegativeButton("Annulla")
+        {
                 dialog, which -> dialog.dismiss()
         }
 
         val alert = builder.create()
-        alert.show()
+        alert.show()*/
     }
 
+    override fun openAddActivity() {
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentAddActivity).commit()
+    }
 
-
+    override fun closeAddActivity() {
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin).commit()
+    }
 }

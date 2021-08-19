@@ -12,4 +12,6 @@ interface Communicator {
     fun theme(index : Int)
     fun language(index : Int)
     fun createActivity()
+    fun openAddActivity()
+    fun closeAddActivity()
 }

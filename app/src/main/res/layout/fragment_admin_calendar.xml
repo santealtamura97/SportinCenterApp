@@ -14,12 +14,20 @@
         android:src="@drawable/calendar">
     </ImageButton>
 
+    <DatePicker
+        android:id="@+id/calendar"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+    </DatePicker>
+
     <TextView
         android:id="@+id/dateSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="02/04/1995"
         android:textStyle="bold"
         android:textSize="35dp"
         android:layout_marginLeft="140dp"
@@ -34,13 +42,6 @@
         android:layout_marginTop="60dp"
         android:visibility="gone"
         android:layout_centerHorizontal="true">
-
-        <DatePicker
-            android:id="@+id/calendar"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal" />
 
     </LinearLayout>
 
@@ -63,7 +64,7 @@
         android:divider="@color/primary_color"
         android:dividerHeight="1dp"
         android:scrollbars="vertical"
-        android:layout_marginTop="200dp"/>
+        android:layout_marginTop="200dp" />
 
     <ImageButton
         android:id="@+id/add_activity_button"
