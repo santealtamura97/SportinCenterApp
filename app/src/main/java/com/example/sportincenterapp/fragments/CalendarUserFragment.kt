@@ -43,7 +43,6 @@ class CalendarUserFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private val DATES_NUMBER = 5
     private val tabDates = ArrayList<String>(DATES_NUMBER)
-    var bus = EventBus.getDefault()
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
 
@@ -53,7 +52,6 @@ class CalendarUserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        bus.register(this)
         return inflater.inflate(R.layout.fragment_user_calendar, container, false)
     }
 
@@ -94,16 +92,6 @@ class CalendarUserFragment : Fragment() {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: BookingProgressChangeEvent) {
-        var progressState = (view?.findViewById<TextView>(R.id.progress_bar_number)?.text).toString()
-        if (event.progress != null) {
-            var newProgressState = progressState.toInt() - event.progress!!
-            view?.findViewById<TextView>(R.id.progress_bar_number)?.text = newProgressState.toString()
-            view?.findViewById<CircularProgressBar>(R.id.circularProgressBar)?.progress = newProgressState.toFloat()
-        }
-    }
-
     private fun setUserEntries() {
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
@@ -115,12 +103,10 @@ class CalendarUserFragment : Fragment() {
                             println(response.body()!!.ingressi.toString().toFloat())
                             view?.findViewById<CircularProgressBar>(R.id.circularProgressBar)?.progress = response.body()!!.ingressi.toString().toFloat()
                             view?.findViewById<TextView>(R.id.progress_bar_number)?.text = response.body()!!.ingressi.toString()
-
                         }
-
                         override fun onFailure(call: Call<User>, t: Throwable) {
-                        }
 
+                        }
                     })
             }
         }

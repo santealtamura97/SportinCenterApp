@@ -333,9 +333,9 @@
                                  android:id="@+id/remaining_entries"
                                  android:layout_width="wrap_content"
                                  android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
+                                 android:layout_marginLeft="16dp"
                                  android:textColor="@color/black"
-                                 android:text="Ingressi: "
+                                 android:text="Ingressi rimanenti: "
                                  android:textSize="15dp" />
 
                          </LinearLayout>
