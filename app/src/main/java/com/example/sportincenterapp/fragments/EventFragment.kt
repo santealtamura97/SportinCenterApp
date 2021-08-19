@@ -139,8 +139,8 @@ class EventFragment : Fragment() {
         val strBuilder = StringBuilder()
         strBuilder.appendln(activity?.resources?.getString(R.string.book_event_confirm))
         strBuilder.appendln(" ")
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_date) + date)
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_time) + oraInizio + " - " + oraFine)
+        strBuilder.appendln(activity?.resources?.getString(R.string.book_date) + " " +  date)
+        strBuilder.appendln(activity?.resources?.getString(R.string.book_time) + " " +  oraInizio + " - " + oraFine)
 
         builder?.setMessage(strBuilder);
 
@@ -191,7 +191,14 @@ class EventFragment : Fragment() {
                 var timei1h = eventList[i+1].oraInizio.split(":")[0]
                 var timeim = eventList[i].oraInizio.split(":")[1]
                 var timei1m = eventList[i+1].oraInizio.split(":")[1]
-                if (timeih.toInt() + timeim.toInt() > timei1h.toInt() + timei1m.toInt()) { //controllo le ore
+                if (timeih.toInt() == timei1h.toInt()) {
+                    if (timeim.toInt() > timei1m.toInt()) {
+                        var temp = eventList[i]
+                        eventList[i] = eventList[i+1]
+                        eventList[i+1] = temp
+                        change = true
+                    }
+                }else if (timeih.toInt() > timei1h.toInt()) {
                     var temp = eventList[i]
                     eventList[i] = eventList[i+1]
                     eventList[i+1] = temp

@@ -156,9 +156,9 @@
     <string name="failed_to_load_activities">Impossibile caricare le attività sportive</string>
 
     <!-- Event User Calendar -->
-    <string name="book_event_confirm">Sei sicuro di voler prenotare?</string>
-    <string name="book_date">Data: </string>
-    <string name="book_time">Orario: </string>
+    <string name="book_event_confirm"><b>Sei sicuro di voler prenotare?</b></string>
+    <string name="book_date"><b>Data:</b> </string>
+    <string name="book_time"><b>Orario:</b></string>
     <string name="book_yes">Si</string>
     <string name="book_no">No</string>
     <string name="booked">PRENOTAZIONE EFFETTUATA!</string>

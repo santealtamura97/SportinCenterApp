@@ -139,11 +139,18 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 val currentDate = Date();
                 val eventDate = dfr.parse(model.data + " " + model.oraInizio + ":00")
 
-                val duration: Long = eventDate.time - currentDate.time
+                // Convert Date to Calendar
+                // Convert Date to Calendar
+                val c = Calendar.getInstance()
+                c.time = eventDate
 
-                //val diffInSeconds: Long = TimeUnit.MILLISECONDS.toSeconds(duration)
+                // Perform subtraction
+                c.add(Calendar.MINUTE, -15)
+                val eventDateMinusFifteen = c.time
+
+                val duration: Long = eventDateMinusFifteen.time - currentDate.time
+
                 val diffInSeconds = ((duration / 1000) % 60)
-                //val diffInMinutes: Long = TimeUnit.MILLISECONDS.toMinutes(duration)
                 val diffInMinutes = ((duration / (1000 * 60)) % 60)
                 val diffInHours: Long = TimeUnit.MILLISECONDS.toHours(duration)
 
@@ -156,8 +163,9 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                     object : CountDownTimer(millsInFutures, 1000) {
                         // adjust the milli seconds here
                         override fun onTick(millisUntilFinished: Long) {
-                            _tv.text = "" + String.format(
-                                "%d min, %d sec",
+                            _tv.text = ""
+                            _tv.text = "Hai a disposizone: " + "" + String.format(
+                                "%d min, %d sec" + " per prenotarti",
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                                 TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                         TimeUnit.MINUTES.toSeconds(
@@ -168,7 +176,9 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                             )
                         }
                         override fun onFinish() {
-                            deleteItem(adapterPosition)
+                            itemView.book_button.visibility = View.INVISIBLE
+                            itemView.expired.visibility = View.VISIBLE
+                            _tv.visibility = View.GONE
                         }
                     }.start()
                  }

@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="17dp">
+        android:padding="20dp">
 
         <ImageView
             android:id="@+id/img"
@@ -74,19 +74,19 @@
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-        <!--
         <Button
-            android:id="@+id/info_button"
+            android:id="@+id/expired"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_below="@+id/book_button"
             android:layout_marginStart="255dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/purple_700"
+            android:background="@color/white"
             android:elevation="10dp"
-            android:text="INFO"
-            android:textColor="@color/white"
-            android:textStyle="bold"/>-->
+            android:text="SCADUTO!"
+            android:visibility="invisible"
+            android:textColor="@color/primary_color_2"
+            android:textStyle="bold" />
+
+
         <Button
             android:id="@+id/info_button"
             android:layout_width="wrap_content"
@@ -106,9 +106,8 @@
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_below="@id/info_button"
-            android:layout_marginStart="255dp"
-            android:layout_marginTop="5dp"
-            android:visibility="visible"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
             android:textColor="@color/primary_color_2">
 
         </TextView>

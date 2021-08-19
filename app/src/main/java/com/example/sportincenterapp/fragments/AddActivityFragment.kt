@@ -44,7 +44,6 @@ class AddActivityFragment : Fragment() {
         val separator_5 = v.findViewById<LinearLayout>(R.id.separator_5)
         val editFreeBooking = v.findViewById<EditText>(R.id.edit_free_booking)
         val spinnerActivity = v.findViewById<Spinner>(R.id.spinner_activity_add)
-        val buttonBack = v.findViewById<Button>(R.id.button_back)
         val buttonSave = v.findViewById<Button>(R.id.button_save)
         val check_1 = v.findViewById<CheckBox>(R.id.check_1)
         val check_2 = v.findViewById<CheckBox>(R.id.check_2)
@@ -119,9 +118,6 @@ class AddActivityFragment : Fragment() {
             datapickerStart.visibility = View.GONE
         }
 
-        buttonBack.setOnClickListener{
-            communicator.closeAddActivity()
-        }
 
         /* Calendar */
         val today = Calendar.getInstance()
