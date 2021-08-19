@@ -55,4 +55,10 @@ interface ApiService {
     @GET("/all/date_events/{date}")
     fun getEventsInDate(@Path(value = "date") date: String): Call <List<Event>>
 
+    /*@POST(Constant.VALIDATE_USER_CODE_URL)
+    fun setPhoneNumber(@Body phoneNumber: String) : Call<ResponseBody>
+
+    @GET(Constant.VALIDATE_USER_CODE_URL)
+    fun getPhoneNumber() : Call<ResponseBody>*/
+
 }

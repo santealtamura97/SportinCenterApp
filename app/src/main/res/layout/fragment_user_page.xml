@@ -149,7 +149,8 @@
                                  android:layout_marginLeft="20dp"
                                  android:textSize="15dp"
                                  android:visibility="gone"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                              <TextView
                                  android:id="@+id/user_phonenumber_view"
@@ -157,7 +158,9 @@
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="20dp"
                                  android:textSize="15dp"
-                                 android:textColor="@color/black"/>
+                                 android:text="Aiutaci a contattarti!"
+                                 android:textColor="@color/grey"
+                                 android:inputType="number"/>
                          </LinearLayout>
 
                          <LinearLayout
@@ -411,7 +414,8 @@
                                  android:text="@string/age"
                                  android:textStyle="bold"
                                  android:textSize="15dp"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                              <EditText
                                  android:id="@+id/user_age_edit"
@@ -419,7 +423,8 @@
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="55dp"
                                  android:textSize="20dp"
-                                 android:visibility="gone"/>
+                                 android:visibility="gone"
+                                 android:inputType="number"/>
 
                              <TextView
                                  android:id="@+id/user_age_view"
@@ -427,7 +432,8 @@
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="55dp"
                                  android:textSize="20dp"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                          </LinearLayout>
 
@@ -445,7 +451,8 @@
                                  android:text="@string/weight"
                                  android:textStyle="bold"
                                  android:textSize="15dp"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                              <EditText
                                  android:id="@+id/user_weight_edit"
@@ -454,7 +461,8 @@
                                  android:layout_marginLeft="25dp"
                                  android:textSize="20dp"
                                  android:visibility="gone"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                              <TextView
                                  android:id="@+id/user_tall_view"
@@ -470,7 +478,8 @@
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="20dp"
                                  android:textSize="15dp"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                          </LinearLayout>
 
@@ -488,7 +497,8 @@
                                  android:text="@string/height"
                                  android:textStyle="bold"
                                  android:textSize="15dp"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                              <EditText
                                  android:id="@+id/user_tall_edit"
@@ -497,7 +507,8 @@
                                  android:layout_marginLeft="40dp"
                                  android:textSize="20dp"
                                  android:visibility="gone"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                              <TextView
                                  android:id="@+id/user_weight_view"
@@ -505,7 +516,8 @@
                                  android:layout_height="wrap_content"
                                  android:layout_marginLeft="40dp"
                                  android:textSize="20dp"
-                                 android:textColor="@color/black"/>
+                                 android:textColor="@color/black"
+                                 android:inputType="number"/>
 
                              <TextView
                                  android:id="@+id/um_2"

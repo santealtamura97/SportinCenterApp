@@ -56,8 +56,8 @@ class UserPage : Fragment() {
         userEntries = v.findViewById<TextView>(R.id.remaining_entries)
 
 
-        setSubscriptionName()
-        setUserSubscriptionInfo()
+        getSubscriptionName()
+        getUserSubscriptionInfo()
 
         //Email
         var email = v.findViewById<TextView>(R.id.user_emailaddress) //view
@@ -217,7 +217,11 @@ class UserPage : Fragment() {
         return bmi
     }
 
-    private fun setSubscriptionName() {
+    private fun setPhoneNumber() {
+
+    }
+
+    private fun getSubscriptionName() {
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
         activity?.let {
@@ -239,7 +243,7 @@ class UserPage : Fragment() {
         }
     }
 
-    private fun setUserSubscriptionInfo() {
+    private fun getUserSubscriptionInfo() {
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
         println(sessionManager.fetchUserId())
