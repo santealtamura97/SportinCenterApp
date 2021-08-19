@@ -20,11 +20,11 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:layout_width="200dp"
+            android:layout_width="230dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
-            android:text="Nuova Attività"
+            android:text="Programma Eventi"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="25dp">
@@ -39,31 +39,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <DatePicker
-                android:id="@+id/calendar_start"
-                android:layout_width="300dp"
-                android:layout_height="400dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="100dp"
-                android:visibility="gone">
-            </DatePicker>
-
-            <DatePicker
-                android:id="@+id/calendar_end"
-                android:layout_width="300dp"
-                android:layout_height="400dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="100dp"
-                android:visibility="gone">
-            </DatePicker>
-
             <!-- date -->
             <LinearLayout
                 android:id="@+id/date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="#292727">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/separator_1"
@@ -83,8 +64,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Data inizio"
-                        android:textColor="@color/white"
+                        android:text="Data inizio:"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -94,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="45dp"
                         android:text=""
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="20dp" />
 
                     <ImageButton
@@ -118,8 +99,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Data inizio"
-                        android:textColor="@color/white"
+                        android:text="Data fine:"
+                        android:textColor="@color/black"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -127,9 +108,9 @@
                         android:id="@+id/date_end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="45dp"
+                        android:layout_marginLeft="60dp"
                         android:text=""
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="20dp" />
 
                     <ImageButton
@@ -145,7 +126,7 @@
                 <LinearLayout
                     android:id="@+id/separator_2"
                     android:layout_width="420dp"
-                    android:layout_height="5dp"
+                    android:layout_height="2dp"
                     android:layout_marginTop="15dp"
                     android:background="@color/primary_color"
                     android:gravity="center_horizontal"
@@ -186,7 +167,7 @@
             <LinearLayout
                 android:id="@+id/separator_3"
                 android:layout_width="500dp"
-                android:layout_height="5dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:background="@color/primary_color"
                 android:gravity="center_horizontal"
@@ -222,7 +203,7 @@
             <LinearLayout
                 android:id="@+id/separator_4"
                 android:layout_width="500dp"
-                android:layout_height="5dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:background="@color/primary_color"
                 android:gravity="center_horizontal"
@@ -264,7 +245,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="L"
                             android:textColor="@color/black"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:textStyle="bold" />
 
                         <CheckBox
@@ -288,7 +269,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="M"
                             android:textColor="@color/black"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:textStyle="bold" />
 
                         <CheckBox
@@ -311,7 +292,7 @@
                             android:layout_height="wrap_content"
                             android:text="Me"
                             android:textColor="@color/black"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:textStyle="bold" />
 
                         <CheckBox
@@ -336,7 +317,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="G"
                             android:textColor="@color/black"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:textStyle="bold" />
 
                         <CheckBox
@@ -360,7 +341,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="V"
                             android:textColor="@color/black"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:textStyle="bold" />
 
                         <CheckBox
@@ -384,7 +365,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="S"
                             android:textColor="@color/black"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:textStyle="bold" />
 
                         <CheckBox
@@ -408,7 +389,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="D"
                             android:textColor="@color/black"
-                            android:textSize="30dp"
+                            android:textSize="25dp"
                             android:textStyle="bold" />
 
                         <CheckBox
@@ -427,7 +408,7 @@
             <LinearLayout
                 android:id="@+id/separator_5"
                 android:layout_width="500dp"
-                android:layout_height="5dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:background="@color/primary_color"
                 android:gravity="center_horizontal"
@@ -449,7 +430,8 @@
                     android:background="@color/white"
                     android:text="Salva"
                     android:textColor="@color/primary_color"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
         </LinearLayout>
