@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
     implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'com.nex3z:toggle-button-group:1.2.3'
 
     // Network
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'

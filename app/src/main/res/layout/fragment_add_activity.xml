@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -66,25 +67,47 @@
                         android:layout_marginLeft="10dp"
                         android:text="Data inizio:"
                         android:textColor="@color/black"
-                        android:textSize="20dp"
+                        android:textSize="17dp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/date_start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="45dp"
-                        android:text=""
+                        android:layout_marginLeft="10dp"
+                        android:text=" "
                         android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:textSize="15dp"
+                        android:drawableRight="@drawable/ic_baseline_date"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Ora di inizio:"
+                        android:textColor="@color/black"
+                        android:textSize="17dp"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/time_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text=" "
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:drawableRight="@drawable/ic_baseline_time"/>
+
+                    <!--
                     <ImageButton
                         android:id="@+id/add_calendar_start"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginLeft="50dp"
                         android:background="@drawable/circle_calendar"
-                        android:src="@drawable/calendar"/>
+                        android:src="@drawable/calendar"/>-->
+
 
                 </LinearLayout>
 
@@ -101,25 +124,46 @@
                         android:layout_marginLeft="10dp"
                         android:text="Data fine:"
                         android:textColor="@color/black"
-                        android:textSize="20dp"
+                        android:textSize="17dp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/date_end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="60dp"
-                        android:text=""
+                        android:layout_marginLeft="23dp"
+                        android:text=" "
                         android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:textSize="15dp"
+                        android:drawableRight="@drawable/ic_baseline_date"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Ora di fine:"
+                        android:textColor="@color/black"
+                        android:textSize="17dp"
+                        android:textStyle="bold"/>
+
+                    <EditText
+                        android:id="@+id/time_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="23dp"
+                        android:text=" "
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:drawableRight="@drawable/ic_baseline_time"/>
+
+                    <!--
                     <ImageButton
                         android:id="@+id/add_calendar_end"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginLeft="50dp"
                         android:background="@drawable/circle_calendar"
-                        android:src="@drawable/calendar"></ImageButton>
+                        android:src="@drawable/calendar"></ImageButton>-->
 
                 </LinearLayout>
 
@@ -194,7 +238,7 @@
                 <Spinner
                     android:id="@+id/spinner_activity_add"
                     android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="45dp" />
 
@@ -231,175 +275,62 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <com.nex3z.togglebuttongroup.MultiSelectToggleGroup
+                        android:id="@+id/group_weekdays"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        app:tbgChildSpacing="auto">
 
-                        <TextView
+                        <com.nex3z.togglebuttongroup.button.CircularToggle
+                            android:id="@+id/sun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="L"
-                            android:textColor="@color/black"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
+                            android:text="Dom"
+                            app:tbgMarkerColor="@color/primary_color" />
 
-                        <CheckBox
-                            android:id="@+id/check_1"
+                        <com.nex3z.togglebuttongroup.button.CircularToggle
+                            android:id="@+id/mon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical" />
+                            android:text="Lun"
+                            app:tbgMarkerColor="@color/primary_color" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:orientation="vertical">
-
-                        <TextView
+                        <com.nex3z.togglebuttongroup.button.CircularToggle
+                            android:id="@+id/tue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="M"
-                            android:textColor="@color/black"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
-
-                        <CheckBox
-                            android:id="@+id/check_2"
+                            android:text="Mar"
+                            app:tbgMarkerColor="@color/primary_color"/>
+                        <com.nex3z.togglebuttongroup.button.CircularToggle
+                            android:id="@+id/wed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:orientation="vertical">
-
-                        <TextView
+                            android:text="Mer"
+                            app:tbgMarkerColor="@color/primary_color"/>
+                        <com.nex3z.togglebuttongroup.button.CircularToggle
+                            android:id="@+id/thu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Me"
-                            android:textColor="@color/black"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
-
-                        <CheckBox
-                            android:id="@+id/check_3"
+                            android:text="Gio"
+                            app:tbgMarkerColor="@color/primary_color"/>
+                        <com.nex3z.togglebuttongroup.button.CircularToggle
+                            android:id="@+id/fri"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:orientation="vertical">
-
-                        <TextView
+                            android:text="Ven"
+                            app:tbgMarkerColor="@color/primary_color"/>
+                        <com.nex3z.togglebuttongroup.button.CircularToggle
+                            android:id="@+id/sat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="G"
-                            android:textColor="@color/black"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
+                            android:text="Sab"
+                            app:tbgMarkerColor="@color/primary_color"/>
 
-                        <CheckBox
-                            android:id="@+id/check_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="V"
-                            android:textColor="@color/black"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
-
-                        <CheckBox
-                            android:id="@+id/check_5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="S"
-                            android:textColor="@color/black"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
-
-                        <CheckBox
-                            android:id="@+id/check_6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="D"
-                            android:textColor="@color/black"
-                            android:textSize="25dp"
-                            android:textStyle="bold" />
-
-                        <CheckBox
-                            android:id="@+id/check_7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_vertical" />
-
-                    </LinearLayout>
+                    </com.nex3z.togglebuttongroup.MultiSelectToggleGroup>
 
                 </LinearLayout>
 
@@ -414,6 +345,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal" />
 
+
             <LinearLayout
                 android:id="@+id/button_layout"
                 android:layout_width="match_parent"
@@ -426,12 +358,13 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/primary_color"
                     android:text="Salva"
-                    android:textColor="@color/primary_color"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:elevation="10dp"/>
             </LinearLayout>
 
         </LinearLayout>

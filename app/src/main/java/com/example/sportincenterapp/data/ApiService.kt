@@ -9,10 +9,12 @@ import com.example.sportincenterapp.data.responses.LoginResponse
 import com.example.sportincenterapp.data.responses.SignUpResponse
 import com.example.sportincenterapp.data.responses.SubscriptionResponse
 import com.example.sportincenterapp.data.responses.UserCodeResponse
+import com.example.sportincenterapp.fragments.AddActivityFragment
 import com.example.sportincenterapp.utils.Constant
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
 
 /**
  * Interface for defining REST request functions
@@ -42,6 +44,9 @@ interface ApiService {
 
     @PUT(Constant.CALENDAR_SERVICE + "/user/book_event/{userId}/{eventId}")
     fun bookEvent(@Path(value = "userId") userId: String, @Path(value = "eventId") eventId: String) : Call<Event>
+
+    @POST(Constant.CALENDAR_SERVICE + "/admin/add_events")
+    fun addEvents(@Body eventList: List<AddActivityFragment.EventObject>) : Call<ResponseBody>
 
     @GET(Constant.CALENDAR_SERVICE + "/user/user_bookings/{userId}")
     fun getBookingsForUser(@Path(value = "userId") userId: String) : Call<List<Event>>
