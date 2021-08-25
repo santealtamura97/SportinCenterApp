@@ -60,6 +60,12 @@ interface ApiService {
     @GET("/all/date_events/{date}")
     fun getEventsInDate(@Path(value = "date") date: String): Call <List<Event>>
 
+    @POST(Constant.CALENDAR_SERVICE + "/admin/date_events")
+    fun getEventsInDateForAdmin(@Body date: String) : Call<List<Event>>
+
+    @POST(Constant.CALENDAR_SERVICE + "/admin/delete_events")
+    fun deleteEvents(@Body events: List<Event>) : Call<ResponseBody>
+
     /*@POST(Constant.VALIDATE_USER_CODE_URL)
     fun setPhoneNumber(@Body phoneNumber: String) : Call<ResponseBody>
 

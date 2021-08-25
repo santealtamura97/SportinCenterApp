@@ -1,5 +1,6 @@
 package com.example.sportincenterapp.fragments
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,125 +9,227 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.data.ApiClient
+import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.utils.SessionManager
 import kotlinx.android.synthetic.main.fragment_admin_calendar.*
-import java.net.DatagramPacket
+import kotlinx.android.synthetic.main.listview.view.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
-class CalendarAdminFragment : Fragment() {
+
+class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var communicator: Communicator
-    var arrayList: ArrayList<MyData> = ArrayList()
     var adapter: MyAdapter? = null
+    private lateinit var calendarDate: EditText
+    private lateinit var listView: ListView
+    private val formatDate = SimpleDateFormat("dd-MM-yyyy")
+    private val todayDate = formatDate.parse(formatDate.format(Date()))
+    private lateinit var apiClient: ApiClient
+    private lateinit var eventList: MutableList<Event>
+    private lateinit var checkAllButton: View
+    private lateinit var confirmDeleteButton: View
+    private var allChecked: Boolean = false
+    private var checkedList: List<Int> = arrayListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val v =  inflater.inflate(R.layout.fragment_admin_calendar, container, false)
-        val calendar_button = v.findViewById<ImageButton>(R.id.add_calendar)
-        val datapicker = v.findViewById<DatePicker>(R.id.calendar)
-        val listView = v.findViewById<ListView>(R.id.simpleListView)
-        val listTitle = v.findViewById<TextView>(R.id.listTitle)
-        val dateSelected = v.findViewById<TextView>(R.id.dateSelected)
+        listView = v.findViewById<ListView>(R.id.simpleListView)
         val addactivity = v.findViewById<ImageButton>(R.id.add_activity_button)
 
+        calendarDate = v.findViewById<EditText>(R.id.date)
+        calendarDate.isFocusable = false
+        calendarDate.isClickable = true
+        calendarDate.setText(formatDate.format(todayDate))
+        calendarDate.setOnClickListener{
+            showDatePickerDialog()
+        }
+        getEvents()
+
         communicator  = activity as Communicator
-
-        //Calendar pop-up
-        /*calendar_button.setOnClickListener{
-            //communicator.createActivity() //For use calendar as pop up
-        }*/
-
-        calendar_button.setOnClickListener {
-            datapicker.visibility = View.VISIBLE
-            calendar_button.visibility = View.GONE
-            dateSelected.visibility = View.GONE
-            addactivity.visibility = View.GONE
-            listTitle.visibility = View.GONE
-            listView.visibility = View.GONE
-        }
-
-        v.setOnClickListener {
-            datapicker.visibility = View.GONE
-            calendar_button.visibility = View.VISIBLE
-            dateSelected.visibility = View.VISIBLE
-            addactivity.visibility = View.VISIBLE
-            listTitle.visibility = View.VISIBLE
-            listView.visibility = View.VISIBLE
-        }
 
         addactivity.setOnClickListener{
             communicator.openAddActivity()
         }
-
-
-        //Fill the list with default data
-        arrayList.add(MyData("NUOTO", "10:00 - 11:00"))
-        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
-        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
-        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
-        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
-        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
-        arrayList.add(MyData("SALA PESI", "16:30 - 17:30"))
-
-        /* Calendar */
-        val today = Calendar.getInstance()
-
-        /*Check the date*/
-        var day = today.get(Calendar.DAY_OF_MONTH).toString()
-        var month = (today.get(Calendar.MONTH) + 1).toString()
-        var year = today.get(Calendar.YEAR).toString()
-
-        if (month.toInt() < 10) {
-            month = "0" + month
+        checkAllButton = v.findViewById(R.id.check_all_button)
+        checkAllButton.setOnClickListener {
+            allChecked = true
+            refreshAdapter()
+            confirm_delete_button.visibility = View.VISIBLE
         }
-
-        if (day.toInt() < 10) {
-            day = "0" + day
-        }
-
-        dateSelected.setText(day + "/" + month + "/" + year) //Today date
-
-        //Init the calendar
-        datapicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)
-
-        ) { view, year, month, day ->
-
-            var sel_day = day.toString()
-            var sel_month = (month + 1).toString()
-            var sel_year = year
-
-            if (month.toInt() < 10) {
-                sel_month = "0" + sel_month
+        confirmDeleteButton = v.findViewById(R.id.confirm_delete_button)
+        confirmDeleteButton.setOnClickListener{
+            var v: View
+            var et: CheckBox
+            val toRemoveEvents: MutableList<Event> = mutableListOf()
+            for (i in 0 until listView.count) {
+                v = listView.getChildAt(i)
+                et = v.findViewById<View>(R.id.checkbox_meat) as CheckBox
+                if (et.isChecked) {
+                    toRemoveEvents.add(eventList[i])
+                }
             }
-
-            if (day.toInt() < 10) {
-                sel_day = "0" + sel_day
-            }
-            dateSelected.setText(sel_day +"/"+ sel_month +"/"+ sel_year);
-
-            datapicker.visibility = View.GONE
-            calendar_button.visibility = View.VISIBLE
-            dateSelected.visibility = View.VISIBLE
-            addactivity.visibility = View.VISIBLE
-            listTitle.visibility = View.VISIBLE
-            listView.visibility = View.VISIBLE
+            println("da rimuovere: " + toRemoveEvents)
+            callDeleteEvents(toRemoveEvents)
+            eventList.removeAll(toRemoveEvents)
+            allChecked = false
+            refreshAdapter()
+            confirmDeleteButton.visibility = View.GONE
+            toRemoveEvents.clear()
         }
-
-        //Assign the adapter
-        adapter = MyAdapter(ApplicationContextProvider.getContext(), arrayList)
-        listView.adapter = adapter
-
         return v;
     }
 
+    private fun refreshAdapter() {
+        adapter = MyAdapter(ApplicationContextProvider.getContext(),
+            eventList as java.util.ArrayList<Event>, allChecked
+        )
+        listView.adapter = adapter
+    }
+
+    private fun showDatePickerDialog() {
+        val datePickerDialog = context?.let {
+            DatePickerDialog(
+                it,
+                this,
+                Calendar.getInstance()[Calendar.YEAR],
+                Calendar.getInstance()[Calendar.MONTH],
+                Calendar.getInstance()[Calendar.DAY_OF_MONTH]
+            )
+        }
+        datePickerDialog?.datePicker?.minDate = System.currentTimeMillis() - 1000;
+        datePickerDialog?.show()
+    }
+
+    private fun callDeleteEvents(eventList: List<Event>) {
+        apiClient = ApiClient()
+        activity?.let {
+            apiClient.getApiServiceGateway(it).deleteEvents(eventList)
+                .enqueue(object : Callback<ResponseBody?> {
+                    override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(ApplicationContextProvider.getContext(), "EVENTI ELIMINATI CON SUCCESSO!", Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+    }
+
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        var date = ""
+        println("month " + month)
+        if (month < 9){
+            if (dayOfMonth < 10)
+                date = "0" + dayOfMonth.toString() + "-" + "0" + (month + 1).toString() + "-" + year.toString()
+            else
+                date = dayOfMonth.toString() + "-" + "0" + (month + 1).toString() + "-" + year.toString()
+        }else{
+            if (dayOfMonth < 10)
+                date = "0" + dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString()
+            else
+                date = dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString()
+        }
+        calendarDate.setText(date)
+        getEvents()
+    }
+
+
+    private fun getEvents(){
+        apiClient = ApiClient()
+        activity?.let {
+            apiClient.getApiServiceGateway(it).getEventsInDateForAdmin(calendarDate.text.toString())
+                .enqueue(object : Callback<List<Event>> {
+                    override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
+                        if (response.isSuccessful) {
+                            eventList = (response.body() as MutableList<Event>?)!!
+                            val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
+                            if (orderedEventList.isEmpty()) {
+                                view?.findViewById<TextView>(R.id.no_event)?.visibility = View.VISIBLE
+                            }else{
+                                view?.findViewById<TextView>(R.id.no_event)?.visibility = View.GONE
+                            }
+                            //Assign the adapter
+                            adapter = MyAdapter(ApplicationContextProvider.getContext(),
+                                orderedEventList as java.util.ArrayList<Event>, allChecked
+                            )
+                            listView.adapter = adapter
+                        }
+                    }
+                    override fun onFailure(call: Call<List<Event>>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "SI E' VERIFICATO UN ERRORE!", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+    }
+
+    private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
+
+        removePastEventsByTime(eventList)
+        var change: Boolean = true
+        while (change) {
+            change = false
+            for (i in 0 until eventList.size - 1) {
+                var timeih = eventList[i].oraInizio.split(":")[0]
+                var timei1h = eventList[i+1].oraInizio.split(":")[0]
+                var timeim = eventList[i].oraInizio.split(":")[1]
+                var timei1m = eventList[i+1].oraInizio.split(":")[1]
+                if (timeih.toInt() == timei1h.toInt()) {
+                    if (timeim.toInt() > timei1m.toInt()) {
+                        var temp = eventList[i]
+                        eventList[i] = eventList[i+1]
+                        eventList[i+1] = temp
+                        change = true
+                    }
+                }else if (timeih.toInt() > timei1h.toInt()) {
+                    var temp = eventList[i]
+                    eventList[i] = eventList[i+1]
+                    eventList[i+1] = temp
+                    change = true
+                }
+            }
+        }
+        return eventList
+    }
+
+    private fun removePastEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
+        var toRemove : MutableList<Event> = mutableListOf()
+        val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm")
+        val todayDate = sdf.parse(sdf.format(Date()))
+        for (event in eventList) {
+            var eventDate = sdf.parse(event.data + " " + event.oraInizio)
+            if (eventDate.before(todayDate) || eventDate.equals(todayDate)) {
+                toRemove.add(event)
+            }
+        }
+        eventList.removeAll(toRemove)
+        return eventList
+    }
 }
 
-class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<MyData>) : BaseAdapter() {
+
+
+class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<Event>, allChecked: Boolean) : BaseAdapter() {
     private lateinit var activityName: TextView
     private lateinit var activityHour: TextView
+    private lateinit var activityentries: TextView
+    private lateinit var checkBox: CheckBox
+    private var checked = allChecked
 
     override fun getCount(): Int {
         return arrayList.size
@@ -142,10 +245,14 @@ class MyAdapter(private val context: Context, private val arrayList: java.util.A
         convertView = LayoutInflater.from(context).inflate(R.layout.listview, parent, false)
         activityName = convertView.findViewById(R.id.title)
         activityHour = convertView.findViewById(R.id.hour)
-        activityName.text = arrayList[position].activityName
-        activityHour.text = arrayList[position].activityHour
+        activityentries = convertView.findViewById(R.id.entries_number)
+        checkBox = convertView.findViewById(R.id.checkbox_meat)
+        activityName.text = arrayList[position].title
+        activityHour.text = arrayList[position].oraInizio + " - " + arrayList[position].oraFine
+        activityentries.text = activityentries.text.toString() + arrayList[position].number
+        if (checked) {
+            checkBox.visibility = View.VISIBLE
+        }
         return convertView
     }
 }
-
-class MyData(var activityName: String, var activityHour: String)

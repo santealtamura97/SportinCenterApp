@@ -1,8 +1,11 @@
 package com.example.sportincenterapp.fragments
 
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +15,6 @@ import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Activity
-import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.google.gson.annotations.SerializedName
@@ -37,6 +39,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
     private var timeType: String? = null
     private lateinit var calendarStart: EditText
     private lateinit var calendarEnd: EditText
+    private lateinit var entriesNumber: EditText
 
     private lateinit var timeStart: EditText
     private lateinit var timeEnd: EditText
@@ -44,12 +47,20 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
     private lateinit var activityTitleSelected: String
     private lateinit var activityIdSelected: String
 
-    private var selectedDaysList: ArrayList<String> = arrayListOf()
-    val daysMap = mapOf(2131296743 to "Sun", 2131296567 to "Mon", 2131296815 to "tue", 2131296839 to "Wed", 2131296784 to "Thu", 2131296481 to "Fri", 2131296662 to "Sat")
+    private var selectedDaysList: MutableSet<String> = mutableSetOf()
+    val daysMap = mutableMapOf<Int, String>()
+
+    private lateinit var multi2: MultiSelectToggleGroup
+    private lateinit var multi1: MultiSelectToggleGroup
 
     private lateinit var apiClient: ApiClient
     var spinnerActivity: Spinner? = null
     private var daysSelected: String? = null
+
+    private val formatDate = SimpleDateFormat("dd-MM-yyyy")
+    private val todayDate = formatDate.parse(formatDate.format(Date()))
+    private val formatTime = SimpleDateFormat("dd-MM-yyyy HH:mm")
+    private val now = formatTime.parse(formatTime.format(Date()))
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -67,10 +78,13 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         calendarEnd.isFocusable = false
         calendarEnd.isClickable = true
 
+
+        calendarStart.setText(formatDate.format(todayDate))
         calendarStart.setOnClickListener{
             dateType = "START"
             showDatePickerDialog()
         }
+        calendarEnd.setText(formatDate.format(todayDate))
         calendarEnd.setOnClickListener{
             dateType = "END"
             showDatePickerDialog()
@@ -84,11 +98,14 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         timeEnd.isFocusable = false
         timeEnd.isClickable = true
 
+
+        timeStart.setText(formatTime.format(now).split(" ")[1])
         timeStart.setOnClickListener {
             timeType = "START"
             showTimePickerDialog()
         }
 
+        timeEnd.setText(formatTime.format(now).split(" ")[1])
         timeEnd.setOnClickListener {
             timeType = "END"
             showTimePickerDialog()
@@ -99,9 +116,23 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         getActivities()
 
         //DAYS of week
-        val multi: MultiSelectToggleGroup = v.findViewById(R.id.group_weekdays)
-        multi.setOnCheckedChangeListener { group, checkedId, isChecked ->
-            selectedDaysList.clear()
+        multi1 = v.findViewById(R.id.group_weekdays)
+        daysMap[multi1.getChildAt(0).id] = "Sun"
+        daysMap[multi1.getChildAt(1).id] = "Mon"
+        daysMap[multi1.getChildAt(2).id] = "Tue"
+        daysMap[multi1.getChildAt(3).id] = "Wed"
+        multi1.setOnCheckedChangeListener { group, checkedId, isChecked ->
+            //selectedDaysList.clear()
+            for (id in group.checkedIds) {
+                daysMap[id]?.let { selectedDaysList.add(it) }
+            }
+        }
+        multi2 = v.findViewById(R.id.group_weekdays2)
+        daysMap[multi2.getChildAt(0).id] = "Thu"
+        daysMap[multi2.getChildAt(1).id] = "Fri"
+        daysMap[multi2.getChildAt(2).id] = "Sat"
+        multi2.setOnCheckedChangeListener { group, checkedId, isChecked ->
+            //selectedDaysList.clear()
             for (id in group.checkedIds) {
                 daysMap[id]?.let { selectedDaysList.add(it) }
             }
@@ -109,21 +140,32 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
 
         //SAVE BUTTON
         val buttonSave = v.findViewById<Button>(R.id.button_save)
+        val buttonClear = v.findViewById<Button>(R.id.button_clear)
 
-
-        val entriesNumber = v.findViewById<EditText>(R.id.edit_free_booking)
-
-        buttonSave.setOnClickListener{
-            saveEvents(calendarStart.text.toString(), calendarEnd.text.toString(),
-                        timeStart.text.toString(), timeEnd.text.toString(),
-                        entriesNumber.text.toString().toInt(), activityTitleSelected, selectedDaysList)
+        entriesNumber = v.findViewById<EditText>(R.id.edit_free_booking)
+        entriesNumber.isFocusable = false
+        entriesNumber.isClickable = true
+        entriesNumber.setOnClickListener{
+            numberPicker()
         }
 
+        buttonSave.setOnClickListener{
+            try{
+                saveEvents(calendarStart.text.toString(), calendarEnd.text.toString(),
+                    timeStart.text.toString(), timeEnd.text.toString(),
+                    entriesNumber.text.toString().toInt(), activityTitleSelected, selectedDaysList)
+            }catch(e: java.lang.Exception){
+                Toast.makeText(ApplicationContextProvider.getContext(), e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+        buttonClear.setOnClickListener{
+            clearAll()
+        }
         return v
     }
 
 
-    private fun saveEvents(startDateString: String, endDateString: String, startTime: String, endTime: String, entriesNumber: Int, title: String, selectedDaysList: List<String>) {
+    private fun saveEvents(startDateString: String, endDateString: String, startTime: String, endTime: String, entriesNumber: Int, title: String, selectedDaysList: MutableSet<String>) {
 
         println(selectedDaysList)
 
@@ -133,11 +175,22 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         val startDate = sdf.parse(startDateString)
         val endDate = sdf.parse(endDateString)
 
+        if (startDate.after(endDate) || startDate.equals(endDate)){
+            throw  NotValidDateException("La data di inizio deve essere maggiore di quella finale!")
+        }else if (startTime.split(":")[0].toInt() >= endTime.split(":")[0].toInt()) {
+            throw  NotValidTimeException("L'orario di inizio deve essere maggiore e superiore di ALMENO 1 ora a quello di fine!")
+        }else if (entriesNumber <= 0 || entriesNumber !is Int) {
+            throw  NotValidEntriesException("Inserire un numero di partecipanti valido!")
+        }else if (selectedDaysList.isEmpty()){
+            throw NotValidDaysException("Selezionare almeno un giorno della settimana valido!")
+        }
+
         val dates: MutableList<Date> = ArrayList(25)
         val cal = Calendar.getInstance()
         cal.time = startDate
-        while (cal.time.before(endDate)) {
+        while (cal.time.before(endDate) || cal.time.equals(endDate)) {
             val currentDate = cal.time
+            println(dayFormat.format(currentDate).take(3))
             if (selectedDaysList.contains(dayFormat.format(currentDate).take(3))) {
                 dates.add(cal.time)
             }
@@ -159,6 +212,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
                         call: Call<ResponseBody>,
                         response: Response<ResponseBody>
                     ) {
+                        clearAll()
                         Toast.makeText(ApplicationContextProvider.getContext(), "EVENTI SALVATI CORRETTAMENTE!", Toast.LENGTH_LONG).show()
                     }
 
@@ -169,6 +223,30 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
                 })
         }
     }
+
+    private fun clearAll() {
+        calendarStart.setText(formatDate.format(todayDate))
+
+        calendarEnd.setText(formatDate.format(todayDate))
+        calendarEnd.setTextColor(Color.parseColor("#808080")) //grey color
+
+        timeStart.setText(formatTime.format(now).split(" ")[1])
+
+        timeEnd.setText(formatTime.format(now).split(" ")[1])
+        timeEnd.setTextColor(Color.parseColor("#808080")) //grey color
+
+        entriesNumber.setText("0")
+
+        multi1.clearCheck()
+
+        multi2.clearCheck()
+
+    }
+
+    class NotValidDateException(message:String): Exception(message)
+    class NotValidTimeException(message:String): Exception(message)
+    class NotValidEntriesException(message:String): Exception(message)
+    class NotValidDaysException(message:String): Exception(message)
 
     public data class EventObject(
         @SerializedName("title")
@@ -200,13 +278,15 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
                 Calendar.getInstance()[Calendar.DAY_OF_MONTH]
             )
         }
+        datePickerDialog?.datePicker?.minDate = System.currentTimeMillis() - 1000;
         datePickerDialog?.show()
     }
 
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         var date = ""
-        if (month < 11){
+        println("month " + month)
+        if (month < 9){
             if (dayOfMonth < 10)
                 date = "0" + dayOfMonth.toString() + "-" + "0" + (month + 1).toString() + "-" + year.toString()
             else
@@ -217,11 +297,12 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
             else
                 date = dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString()
         }
-        if (dateType == "START")
+        if (dateType == "START"){
             calendarStart.setText(date)
-        else
+        }else{
+            calendarEnd.setTextColor(Color.parseColor("#000000"))
             calendarEnd.setText(date)
-
+        }
     }
 
     private fun showTimePickerDialog() {
@@ -236,6 +317,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
 
             time = timeEnd
         }
+        time.setTextColor(Color.parseColor("#000000"))
         mTimePicker = TimePickerDialog(context,
             { timePicker, selectedHour, selectedMinute -> time.setText("$selectedHour:$selectedMinute") },
             hour,
@@ -243,8 +325,29 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
             true
         ) //Yes 24 hour time
 
-        mTimePicker.setTitle("Selezione l'orario")
+        mTimePicker.setTitle("Seleziona l'orario")
         mTimePicker.show()
+    }
+
+    fun numberPicker() {
+        val numberPicker = NumberPicker(activity)
+
+        numberPicker.maxValue = 360 //Maximum value to select
+        numberPicker.minValue = 0 //Minimum value to select
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        builder.setView(numberPicker)
+        builder.setTitle("Partecipanti")
+        builder.setMessage("Scegli il numero massimo di partecipanti :")
+        builder.setPositiveButton("OK",
+            DialogInterface.OnClickListener { dialog, which ->
+                entriesNumber.setText(numberPicker.value.toString())
+            })
+        builder.setNegativeButton("CANCEL",
+            DialogInterface.OnClickListener { dialog, which ->
+                Toast.makeText(context, "Non hai selezionato nulla", Toast.LENGTH_LONG).show()
+                dialog.dismiss()
+            })
+        builder.show()
     }
 
     private fun getActivities() {

@@ -13,12 +13,13 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="270dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="15dp"
             android:layout_height="wrap_content"
-            android:text="TITOLO DELL'ATTIVITà"
+            android:text="CROSSFIT"
             android:gravity="center_vertical"
             android:textColor="@color/primary_color"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/hour"
@@ -31,16 +32,26 @@
             android:textStyle="bold"
             android:textColor="@color/black"/>
 
+        <TextView
+            android:id="@+id/entries_number"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:text="Posti Disponibili: "
+            android:textSize="15dp"
+            android:layout_marginLeft="17dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/delete_button"
+    <CheckBox android:id="@+id/checkbox_meat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="70dp"
         android:background="@color/white"
         android:src="@drawable/delete_icon"
-        android:layout_marginTop="10dp" />
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
 
 </LinearLayout>
