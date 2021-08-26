@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.AdapterView.OnItemClickListener
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
-import com.example.sportincenterapp.utils.SessionManager
 import kotlinx.android.synthetic.main.fragment_admin_calendar.*
 import kotlinx.android.synthetic.main.listview.view.*
 import okhttp3.ResponseBody
@@ -27,7 +27,7 @@ import java.util.*
 class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var communicator: Communicator
-    var adapter: MyAdapter? = null
+    var adapter: EventAdminAdapter? = null
     private lateinit var calendarDate: EditText
     private lateinit var listView: ListView
     private val formatDate = SimpleDateFormat("dd-MM-yyyy")
@@ -61,6 +61,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         addactivity.setOnClickListener{
             communicator.openAddActivity()
         }
+
         checkAllButton = v.findViewById(R.id.check_all_button)
         checkAllButton.setOnClickListener {
             allChecked = true
@@ -79,7 +80,6 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     toRemoveEvents.add(eventList[i])
                 }
             }
-            println("da rimuovere: " + toRemoveEvents)
             callDeleteEvents(toRemoveEvents)
             eventList.removeAll(toRemoveEvents)
             allChecked = false
@@ -87,11 +87,17 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             confirmDeleteButton.visibility = View.GONE
             toRemoveEvents.clear()
         }
+
+        listView.setOnItemClickListener { parent: AdapterView<*> , view: View, position: Int, id: Long ->
+            communicator.openPartecipantsForEvent(eventList[position].id)
+        }
+
+
         return v;
     }
 
     private fun refreshAdapter() {
-        adapter = MyAdapter(ApplicationContextProvider.getContext(),
+        adapter = EventAdminAdapter(ApplicationContextProvider.getContext(),
             eventList as java.util.ArrayList<Event>, allChecked
         )
         listView.adapter = adapter
@@ -165,7 +171,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                                 view?.findViewById<TextView>(R.id.no_event)?.visibility = View.GONE
                             }
                             //Assign the adapter
-                            adapter = MyAdapter(ApplicationContextProvider.getContext(),
+                            adapter = EventAdminAdapter(ApplicationContextProvider.getContext(),
                                 orderedEventList as java.util.ArrayList<Event>, allChecked
                             )
                             listView.adapter = adapter
@@ -224,7 +230,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
 
 
-class MyAdapter(private val context: Context, private val arrayList: java.util.ArrayList<Event>, allChecked: Boolean) : BaseAdapter() {
+class EventAdminAdapter(private val context: Context, private val arrayList: ArrayList<Event>, allChecked: Boolean) : BaseAdapter() {
     private lateinit var activityName: TextView
     private lateinit var activityHour: TextView
     private lateinit var activityentries: TextView

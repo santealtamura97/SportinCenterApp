@@ -1,6 +1,7 @@
 package com.example.sportincenterapp.interfaces
 
 import android.widget.EditText
+import com.example.sportincenterapp.data.models.Event
 
 /*
 Interface for communication between fragment
@@ -11,7 +12,7 @@ interface Communicator {
     fun um_update(um_1: String, um_2: String)
     fun theme(index : Int)
     fun language(index : Int)
-    fun createActivity()
     fun openAddActivity()
     fun closeAddActivity()
+    fun openPartecipantsForEvent(eventId: String)
 }

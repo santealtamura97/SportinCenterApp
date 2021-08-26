@@ -33,6 +33,9 @@ interface ApiService {
     @GET(Constant.USER_INFO_URL + "/{userId}")
     fun getMyUserInfo(@Path(value = "userId") userId: String) : Call<User>
 
+    @GET(Constant.CALENDAR_SERVICE + "/admin/getusers/{eventId}")
+    fun getUsersForEvent(@Path(value = "eventId") eventId: Long) : Call<List<User>>
+
     @GET(Constant.SUBSCRIPTION_SERVICE + "/user/getSubfromid/{idAbbonamento}")
     fun getSubfromid(@Path(value = "idAbbonamento") idAbbonamento: String) : Call<SubscriptionResponse>
 
@@ -65,6 +68,8 @@ interface ApiService {
 
     @POST(Constant.CALENDAR_SERVICE + "/admin/delete_events")
     fun deleteEvents(@Body events: List<Event>) : Call<ResponseBody>
+
+
 
     /*@POST(Constant.VALIDATE_USER_CODE_URL)
     fun setPhoneNumber(@Body phoneNumber: String) : Call<ResponseBody>

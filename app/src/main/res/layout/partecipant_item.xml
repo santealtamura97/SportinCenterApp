@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_height="wrap_content"
+            android:text="SANTE ALTAMURA"
+            android:gravity="center_vertical"
+            android:textColor="@color/primary_color"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/entries_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entrate rimanenti: "
+            android:textSize="15dp"
+            android:layout_marginLeft="17dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

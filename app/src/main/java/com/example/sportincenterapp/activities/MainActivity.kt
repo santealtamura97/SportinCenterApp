@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.fragments.AddActivityFragment
 import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
@@ -38,15 +39,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentAdvertisment : Fragment = Advertisment()
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
-    //private val fragmentActivities: Fragment = ActivitiesFragment()
     private val fragmentCalendarAdmin: Fragment = CalendarAdminFragment()
     private val fragmentAddActivity: Fragment = AddActivityFragment()
+    private val fragmentEventPartecipants: Fragment = EventPartecipantsFragment()
     //Bundles
     private val bundleUser : Bundle = Bundle()
     private val bundleHome : Bundle = Bundle()
     private val bundleAdvertisment: Bundle = Bundle()
     private val bundleFaq: Bundle = Bundle()
     private val bundleContacts: Bundle = Bundle()
+    private val bundleEventPartecipants: Bundle = Bundle()
     private val bundleCalendarAdmin: Bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -143,9 +145,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.news -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentAdvertisment).commit()
-
-            /*R.id.activities -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentActivities).commit()*/
 
             R.id.settings -> supportFragmentManager.beginTransaction()
                     .replace(R.id.Fragment_container, fragmentSettings).commit()
@@ -359,30 +358,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun createActivity() {
-       /* val builder = android.app.AlertDialog.Builder(this,taskId)
-        //val customlayout = layoutInflater.inflate(R.layout.fragment_admin_calendar_dialog, null)
-
-        builder.setView(customlayout)
-        builder.setPositiveButton("Conferma")
-        {
-            dialog, which -> dialog.dismiss()
-        }
-
-        builder.setNegativeButton("Annulla")
-        {
-                dialog, which -> dialog.dismiss()
-        }
-
-        val alert = builder.create()
-        alert.show()*/
-    }
-
     override fun openAddActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentAddActivity).commit()
     }
 
     override fun closeAddActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin).commit()
+    }
+
+    override fun openPartecipantsForEvent(eventId: String) {
+        bundleEventPartecipants.putString("eventId", eventId)
+        fragmentEventPartecipants.arguments = bundleEventPartecipants
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventPartecipants).commit()
     }
 }
