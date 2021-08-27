@@ -15,7 +15,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
-import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.fragments.AddActivityFragment
 import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
@@ -23,137 +22,144 @@ import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
 
-
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, Communicator {
 
+    // DECLARATIONS
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var sessionManager: SessionManager
 
-    //User informations
+    //User information
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
     //Fragments
     private val fragmentUser : Fragment = UserPage()
     private val fragmentSettings : Fragment = Settings()
     private val fragmentHome : Fragment = HomeFragment()
-    private val fragmentAdvertisment : Fragment = Advertisment()
+    private val fragmentAdvertisement : Fragment = Advertisment()
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
     private val fragmentCalendarAdmin: Fragment = CalendarAdminFragment()
     private val fragmentAddActivity: Fragment = AddActivityFragment()
-    private val fragmentEventPartecipants: Fragment = EventPartecipantsFragment()
+    private val fragmentEventParticipants: Fragment = EventPartecipantsFragment()
     //Bundles
     private val bundleUser : Bundle = Bundle()
     private val bundleHome : Bundle = Bundle()
-    private val bundleAdvertisment: Bundle = Bundle()
+    private val bundleAdvertisement: Bundle = Bundle()
     private val bundleFaq: Bundle = Bundle()
     private val bundleContacts: Bundle = Bundle()
-    private val bundleEventPartecipants: Bundle = Bundle()
-    private val bundleCalendarAdmin: Bundle = Bundle()
+    private val bundleEventParticipants: Bundle = Bundle()
 
+    /* ON CREATE CLASS */
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        sessionManager = SessionManager(ApplicationContextProvider.getContext()) //initialize session manager in this class
-        //Main navigation setting
+
+        //Session manager
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        //Main activity
         setContentView(R.layout.activity_main)
+        //Drawer
         drawerLayout = findViewById(R.id.nav_view)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
-
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         userEmail = header.findViewById<TextView>(R.id.email_nav_header)
 
+        //Login button
         val loginButton = header.findViewById<Button>(R.id.login_button)
-        loginButton.setOnClickListener { intent = Intent(ApplicationContextProvider.getContext(), LoginActivity::class.java)
-            startActivity(intent) }
+        loginButton.setOnClickListener {
+            intent = Intent(ApplicationContextProvider.getContext(), LoginActivity::class.java)
+            startActivity(intent)
+        }
 
+        //Elements of the menu
         val menu = navigationView.menu
         val userPageItem = menu.getItem(0)
         val newsItem = menu.getItem(1)
         val calendarItem = menu.getItem(2)
-        //val activitiesItem = menu.getItem(3)
         val calendarAdminItem = menu.getItem(3)
         val faqItem = menu.getItem(5).subMenu.getItem(1)
         val contactsItem = menu.getItem(5).subMenu.getItem(2)
         val logoutItem = menu.getItem(5).subMenu.getItem(3)
 
         if (!sessionManager.fetchUserName().isNullOrEmpty()) {
-            userName?.text = sessionManager.fetchUserName()
+            userName.text = sessionManager.fetchUserName()
             userEmail.text = sessionManager.fetchUserEmail()
-            if (sessionManager.fetchUserName() == "Admin" ) {
+            userName.visibility = View.VISIBLE
+            loginButton.visibility = View.GONE
+
+            if (sessionManager.fetchUserName() == "Admin" ) { //Admin section
                 userPageItem.isVisible = false
                 newsItem.isVisible = false
                 calendarItem.isVisible = false
-                //activitiesItem.isVisible = false
-                calendarAdminItem.isVisible = true
                 faqItem.isVisible = false
                 contactsItem.isVisible = false
+                calendarAdminItem.isVisible = true
             }
-            userName?.visibility = View.VISIBLE
-            loginButton.visibility = View.GONE
-        } else {
-            //calendarItem.isVisible = true
+
+        } else { //if we don't have done the logout
             userPageItem.isVisible = false
-            newsItem.isVisible = true
             logoutItem.isVisible = false
-            calendarAdminItem.isVisible = true
-           //activitiesItem.isVisible = false
+            calendarItem.isVisible = false
         }
 
         navigationView.setNavigationItemSelectedListener(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome)
+        //INITIALIZATIONS
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome, "HomeFragment")
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_draw_open, R.string.navigation_draw_close)
 
-        //Home button settings
+        //Home button management (on the toolbar)
         val homeButton : ImageButton = findViewById(R.id.home_button)
-        homeButton.setOnClickListener {supportFragmentManager.beginTransaction()
-            .replace(R.id.Fragment_container, fragmentHome).commit()}
+        homeButton.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome, "HomeFragment").commit()
+        }
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentHome).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome, "HomeFragment").commit()
             navigationView.setCheckedItem(R.id.home)
         }
         initializeFragments()
     }
 
+    /* BACK BUTTON PRESSED MANAGEMENT */
     override fun onBackPressed() {
-        if (drawerLayout!!.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout!!.closeDrawer(GravityCompat.START)
+        //if the current fragment is the add activity return to the calendar admin fragment
+        //else back to home fragment
+        val addActivityFragment = supportFragmentManager.findFragmentByTag("AddActivityFragment")
+
+        if (addActivityFragment != null && addActivityFragment.isVisible) {
+            supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin).commit()
         } else {
-            super.onBackPressed()
+            supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome).commit()
         }
     }
 
+    /* NAVIGATION TAB MANAGEMENT */
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-
+        //When i press the correspondent id we load the fragment
         when (menuItem.itemId) {
-
             R.id.calendar -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, CalendarCollectionFragment()).commit()
-
+                .replace(R.id.Fragment_container, CalendarCollectionFragment(), "CalendarFragment").commit() //Calendar fragment
             R.id.admin_calendar -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, CalendarAdminFragment()).commit()
+                .replace(R.id.Fragment_container, CalendarAdminFragment(), "AdminCalendarFragment").commit()
 
             R.id.profile -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentUser).commit()
+                .replace(R.id.Fragment_container, fragmentUser, "UserFragment").commit()
 
             R.id.news -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentAdvertisment).commit()
+                .replace(R.id.Fragment_container, fragmentAdvertisement, "NewsFragment").commit()
 
             R.id.settings -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.Fragment_container, fragmentSettings).commit()
+                    .replace(R.id.Fragment_container, fragmentSettings, "SettingsFragment").commit()
 
             R.id.help -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentFaq).commit()
+                .replace(R.id.Fragment_container, fragmentFaq, "FaqFragment").commit()
 
             R.id.contacts -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, fragmentContacts).commit()
+                .replace(R.id.Fragment_container, fragmentContacts, "ContactsFragment").commit()
 
             R.id.logout -> logout()
         }
@@ -161,22 +167,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    /* LOGOUT */
     private fun logout() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.logout_confirm);
-        builder.setMessage(R.string.logout_message);
+        builder.setTitle(R.string.logout_confirm).setMessage(R.string.logout_message)
 
         builder.setPositiveButton(R.string.logout_yes) {
-            dialog, which -> // Do nothing but close the dialog
-            sessionManager.logout()
-            finish();
+            dialog, _ -> sessionManager.logout()
+            finish()
             startActivity(intent)
             dialog.dismiss()
         }
 
         builder.setNegativeButton(R.string.logout_no) {
-            dialog, which -> // Do nothing but close the dialog
-            dialog.dismiss()
+                dialog, _ -> dialog.dismiss()
         }
 
         val alert = builder.create()
@@ -184,6 +188,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 
+    /* INITIALIZE THE FRAGMENTS */
     private fun initializeFragments() {
         //Strings
         bundleUser.putString("username", userName.text.toString())
@@ -191,22 +196,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleUser.putString("um1", "Kg")
         bundleUser.putString("um2", "Cm")
         //Color
-        bundleUser.putInt("color", R.color.primary_color)
-        bundleHome.putInt("color", R.color.primary_color)
-        bundleAdvertisment.putInt("color", R.color.primary_color)
-        bundleFaq.putInt("color", R.color.primary_color)
-        bundleContacts.putInt("color", R.color.primary_color)
+        bundleUser.putInt("color", R.color.orange)
+        bundleHome.putInt("color", R.color.orange)
+        bundleAdvertisement.putInt("color", R.color.orange)
+        bundleFaq.putInt("color", R.color.orange)
+        bundleContacts.putInt("color", R.color.orange)
         //Language
         bundleHome.putInt("string_home_1", R.string.first_title_home)
         bundleHome.putInt("string_home_2", R.string.first_text_home)
         bundleHome.putInt("string_home_3", R.string.second_title_home)
         bundleHome.putInt("string_home_4", R.string.second_text_home)
-        bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
-        bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower)
-        bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter)
-        bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary)
-        bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween)
-        bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)
+        bundleAdvertisement.putInt("string_title", R.string.advertisment_title)
+        bundleAdvertisement.putInt("string_girl", R.string.advertisment_girlpower)
+        bundleAdvertisement.putInt("string_easter", R.string.advertisment_easter)
+        bundleAdvertisement.putInt("string_anniversary", R.string.advertisment_anniversary)
+        bundleAdvertisement.putInt("string_halloween", R.string.advertisment_halloween)
+        bundleAdvertisement.putInt("string_newyear", R.string.advertisment_newyear)
         bundleFaq.putInt("string_faq_1", R.string.faq_question_1)
         bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1)
         bundleFaq.putInt("string_faq_2", R.string.faq_question_2)
@@ -230,7 +235,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //Assignments
         fragmentUser.arguments = bundleUser
         fragmentHome.arguments = bundleHome
-        fragmentAdvertisment.arguments = bundleAdvertisment
+        fragmentAdvertisement.arguments = bundleAdvertisement
         fragmentFaq.arguments = bundleFaq
         fragmentContacts.arguments = bundleContacts
     }
@@ -245,37 +250,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val homeBtn = findViewById<ImageButton>(R.id.home_button)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
-        val tlbar: Toolbar = findViewById(R.id.toolbar)
+        val tools: Toolbar = findViewById(R.id.toolbar)
 
-        if (index == 0) {
-            header.setBackgroundResource(R.color.primary_color)
-            tlbar.setBackgroundResource(R.color.primary_color)
-            homeBtn.setBackgroundResource(R.color.primary_color)
-            bundleUser.putInt("color", R.color.primary_color)
-            bundleHome.putInt("color", R.color.primary_color)
-            bundleAdvertisment.putInt("color", R.color.primary_color)
-            bundleFaq.putInt("color", R.color.primary_color)
-            bundleContacts.putInt("color", R.color.primary_color)
-
-        } else if (index == 1) {
-            header.setBackgroundResource(R.color.primary_color_2)
-            tlbar.setBackgroundResource(R.color.primary_color_2)
-            homeBtn.setBackgroundResource(R.color.primary_color_2)
-            bundleUser.putInt("color", R.color.primary_color_2)
-            bundleHome.putInt("color", R.color.primary_color_2)
-            bundleAdvertisment.putInt("color", R.color.primary_color_2)
-            bundleFaq.putInt("color", R.color.primary_color_2)
-            bundleContacts.putInt("color", R.color.primary_color_2)
-
-        } else if (index == 2) {
-            header.setBackgroundResource(R.color.primary_color_3)
-            tlbar.setBackgroundResource(R.color.primary_color_3)
-            homeBtn.setBackgroundResource(R.color.primary_color_3)
-            bundleUser.putInt("color", R.color.primary_color_3)
-            bundleHome.putInt("color", R.color.primary_color_3)
-            bundleAdvertisment.putInt("color", R.color.primary_color_3)
-            bundleFaq.putInt("color", R.color.primary_color_3)
-            bundleContacts.putInt("color", R.color.primary_color_3)
+        when (index) {
+            0 -> {
+                header.setBackgroundResource(R.color.orange)
+                tools.setBackgroundResource(R.color.orange)
+                homeBtn.setBackgroundResource(R.color.orange)
+                bundleUser.putInt("color", R.color.orange)
+                bundleHome.putInt("color", R.color.orange)
+                bundleAdvertisement.putInt("color", R.color.orange)
+                bundleFaq.putInt("color", R.color.orange)
+                bundleContacts.putInt("color", R.color.orange)
+    
+            }
+            1 -> {
+                header.setBackgroundResource(R.color.orange)
+                tools.setBackgroundResource(R.color.orange)
+                homeBtn.setBackgroundResource(R.color.orange)
+                bundleUser.putInt("color", R.color.orange)
+                bundleHome.putInt("color", R.color.orange)
+                bundleAdvertisement.putInt("color", R.color.orange)
+                bundleFaq.putInt("color", R.color.orange)
+                bundleContacts.putInt("color", R.color.orange)
+    
+            }
         }
     }
 
@@ -289,12 +288,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleHome.putInt("string_home_2", R.string.first_text_home)
             bundleHome.putInt("string_home_3", R.string.second_title_home)
             bundleHome.putInt("string_home_4", R.string.second_text_home)
-            bundleAdvertisment.putInt("string_title", R.string.advertisment_title)
-            bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower)
-            bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter)
-            bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary)
-            bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween)
-            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear)
+            bundleAdvertisement.putInt("string_title", R.string.advertisment_title)
+            bundleAdvertisement.putInt("string_girl", R.string.advertisment_girlpower)
+            bundleAdvertisement.putInt("string_easter", R.string.advertisment_easter)
+            bundleAdvertisement.putInt("string_anniversary", R.string.advertisment_anniversary)
+            bundleAdvertisement.putInt("string_halloween", R.string.advertisment_halloween)
+            bundleAdvertisement.putInt("string_newyear", R.string.advertisment_newyear)
             bundleFaq.putInt("string_faq_1", R.string.faq_question_1)
             bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1)
             bundleFaq.putInt("string_faq_2", R.string.faq_question_2)
@@ -321,12 +320,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleHome.putInt("string_home_2", R.string.first_text_home_en)
             bundleHome.putInt("string_home_3", R.string.second_title_home_en)
             bundleHome.putInt("string_home_4", R.string.second_text_home_en)
-            bundleAdvertisment.putInt("string_title", R.string.advertisment_title_en)
-            bundleAdvertisment.putInt("string_girl", R.string.advertisment_girlpower_en)
-            bundleAdvertisment.putInt("string_easter", R.string.advertisment_easter_en)
-            bundleAdvertisment.putInt("string_anniversary", R.string.advertisment_anniversary_en)
-            bundleAdvertisment.putInt("string_halloween", R.string.advertisment_halloween_en)
-            bundleAdvertisment.putInt("string_newyear", R.string.advertisment_newyear_en)
+            bundleAdvertisement.putInt("string_title", R.string.advertisment_title_en)
+            bundleAdvertisement.putInt("string_girl", R.string.advertisment_girlpower_en)
+            bundleAdvertisement.putInt("string_easter", R.string.advertisment_easter_en)
+            bundleAdvertisement.putInt("string_anniversary", R.string.advertisment_anniversary_en)
+            bundleAdvertisement.putInt("string_halloween", R.string.advertisment_halloween_en)
+            bundleAdvertisement.putInt("string_newyear", R.string.advertisment_newyear_en)
             bundleFaq.putInt("string_faq_1", R.string.faq_question_1_en)
             bundleFaq.putInt("string_faq_1a", R.string.faq_respose_1_en)
             bundleFaq.putInt("string_faq_2", R.string.faq_question_2_en)
@@ -359,16 +358,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun openAddActivity() {
-        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentAddActivity).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentAddActivity, "AddActivityFragment").commit()
     }
 
     override fun closeAddActivity() {
-        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin, "AddActivityFragment").commit()
     }
 
     override fun openPartecipantsForEvent(eventId: String) {
-        bundleEventPartecipants.putString("eventId", eventId)
-        fragmentEventPartecipants.arguments = bundleEventPartecipants
-        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventPartecipants).commit()
+        bundleEventParticipants.putString("eventId", eventId)
+        fragmentEventParticipants.arguments = bundleEventParticipants
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventParticipants, "EventPartecipantsFragment").commit()
     }
 }

@@ -6,7 +6,7 @@
     android:id="@+id/relative_layout_user"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
-     android:background="@color/primary_color"
+     android:background="@color/orange"
      android:orientation="vertical">
 
      <!--Top Header Layout-->
@@ -106,7 +106,7 @@
                              android:layout_height="30dp"
                              android:text="@string/save"
                              android:layout_marginLeft="105dp"
-                             android:textColor="@color/primary_color"
+                             android:textColor="@color/orange"
                              android:background="@color/white"
                              android:textSize="13dp"
                              android:visibility="gone"/>
@@ -117,7 +117,7 @@
                              android:layout_height="30dp"
                              android:text="@string/edit"
                              android:layout_marginLeft="105dp"
-                             android:textColor="@color/primary_color"
+                             android:textColor="@color/orange"
                              android:background="@color/white"
                              android:textSize="13dp"
                              style="?android:attr/borderlessButtonStyle"/>
@@ -376,7 +376,7 @@
                              android:layout_height="30dp"
                              android:text="@string/save"
                              android:layout_marginLeft="105dp"
-                             android:textColor="@color/primary_color"
+                             android:textColor="@color/orange"
                              android:background="@color/white"
                              android:textSize="13dp"
                              android:visibility="gone"/>
@@ -388,7 +388,7 @@
                              android:layout_marginLeft="85dp"
                              android:layout_gravity="center_vertical"
                              android:text="@string/edit"
-                             android:textColor="@color/primary_color"
+                             android:textColor="@color/orange"
                              android:background="@color/white"
                              android:textSize="13dp"
                              style="?android:attr/borderlessButtonStyle"/>
@@ -541,7 +541,7 @@
                                  android:layout_height="wrap_content"
                                  android:layout_gravity="center_vertical"
                                  android:text="@string/bmi"
-                                 android:textColor="@color/primary_color"
+                                 android:textColor="@color/orange"
                                  android:textSize="30dp"
                                  android:textStyle="bold"
                                  android:padding="10dp">

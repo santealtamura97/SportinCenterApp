@@ -83,7 +83,7 @@
             android:elevation="10dp"
             android:text="SCADUTO!"
             android:visibility="invisible"
-            android:textColor="@color/primary_color_2"
+            android:textColor="@color/red"
             android:textStyle="bold" />
 
 
@@ -108,7 +108,7 @@
             android:layout_below="@id/info_button"
             android:layout_marginTop="15dp"
             android:visibility="gone"
-            android:textColor="@color/primary_color_2">
+            android:textColor="@color/red">
 
         </TextView>
 

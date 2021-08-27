@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
-            android:background="@color/primary_color">
+            android:background="@color/orange">
 
             <TextView
                 android:id="@+id/text_title_settings"
@@ -42,7 +42,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/settings_language"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
 
@@ -79,7 +79,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/settings_theme"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
 
@@ -117,7 +117,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/um"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
 
@@ -178,7 +178,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
                 android:text="@string/settings_version"
-                android:textColor="@color/primary_color"
+                android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
 

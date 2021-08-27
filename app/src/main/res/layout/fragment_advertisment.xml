@@ -15,7 +15,7 @@
             android:id="@+id/title_advertisment"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/primary_color"
+            android:background="@color/orange"
             android:orientation="horizontal"
             android:gravity="center_horizontal">
 
@@ -62,7 +62,7 @@
                         android:layout_marginTop="200dp"
                         android:gravity="center"
                         android:text="@string/advertisment_girlpower"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
                 </com.google.android.material.card.MaterialCardView>
@@ -86,7 +86,7 @@
                         android:layout_marginTop="200dp"
                         android:gravity="center"
                         android:text="@string/advertisment_easter"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
                 </com.google.android.material.card.MaterialCardView>
@@ -110,7 +110,7 @@
                         android:layout_marginTop="200dp"
                         android:gravity="center"
                         android:text="@string/advertisment_anniversary"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
                 </com.google.android.material.card.MaterialCardView>
@@ -134,7 +134,7 @@
                         android:layout_marginTop="200dp"
                         android:gravity="center"
                         android:text="@string/advertisment_halloween"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
                 </com.google.android.material.card.MaterialCardView>
@@ -159,7 +159,7 @@
                         android:layout_marginTop="200dp"
                         android:gravity="center"
                         android:text="@string/advertisment_newyear"
-                        android:textColor="@color/primary_color"
+                        android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
                 </com.google.android.material.card.MaterialCardView>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:override="true">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:override="true">
+
+    <!-- general colors -->
     <color name="purple_700">#FF3700B3</color>
     <color name="black">#232222</color>
     <color name="white">#FFFFFFFF</color>
@@ -8,12 +9,12 @@
     <color name="transparent">#00000000</color>
     <color name="view_line">#F7F7F9</color>
     <color name="green">#008000	</color>
+    <color name="red">#D10000</color>
+    <color name="orange">#FF4500</color>
+
     <!-- first theme colors -->
-    <color name="primary_color">#FF4500</color>
-    <color name="background_color">#DCC7C7</color>
+    <color name="background_primary_color">#FFFFFFFF</color>
+
     <!-- second theme colors -->
-    <color name="primary_color_2">#FF0000</color>
-    <!-- third theme colors -->
-    <color name="primary_color_3">#1E731B</color>
-    <color name="orange_tab_selected">#FF6F00</color>
+    <color name="background_primary_color_2">#FF303030</color>
 </resources>

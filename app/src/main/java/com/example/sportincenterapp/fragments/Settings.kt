@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.ArrayAdapter
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.interfaces.Communicator
@@ -22,6 +20,7 @@ class Settings : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
 
         //settings view
         val v = inflater.inflate(R.layout.fragment_settings, container, false)
@@ -50,7 +49,7 @@ class Settings : Fragment() {
         val radioButton_2 = v.findViewById<RadioButton>(R.id.radioButton_2)
 
         //Communicator
-        communicator  = activity as Communicator
+        communicator = activity as Communicator
 
         /* DEFAULT VALUE ASSIGN */
         version.text = default_version
@@ -59,89 +58,89 @@ class Settings : Fragment() {
         theme_text.text = (getResources().getString(R.string.settings_theme))
 
         /* DEFAULT COLOR ASSIGN */
-        lrLayout.setBackgroundResource(R.color.primary_color)
-        language_text.setTextColor(getResources().getColor(R.color.primary_color))
-        theme_text.setTextColor(getResources().getColor(R.color.primary_color))
-        measure_text.setTextColor(getResources().getColor(R.color.primary_color))
-        version_text.setTextColor(getResources().getColor(R.color.primary_color))
+        lrLayout.setBackgroundResource(R.color.orange)
+        language_text.setTextColor(getResources().getColor(R.color.orange))
+        theme_text.setTextColor(getResources().getColor(R.color.orange))
+        measure_text.setTextColor(getResources().getColor(R.color.orange))
+        version_text.setTextColor(getResources().getColor(R.color.orange))
 
-        spinner_theme?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner_theme?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 when (position) {
                     0 -> {
                         communicator.theme(0)
-                        lrLayout.setBackgroundResource(R.color.primary_color)
-                        language_text.setTextColor(getResources().getColor(R.color.primary_color))
-                        theme_text.setTextColor(getResources().getColor(R.color.primary_color))
-                        measure_text.setTextColor(getResources().getColor(R.color.primary_color))
-                        version_text.setTextColor(getResources().getColor(R.color.primary_color))
+                        lrLayout.setBackgroundResource(R.color.orange)
+                        language_text.setTextColor(getResources().getColor(R.color.orange))
+                        theme_text.setTextColor(getResources().getColor(R.color.orange))
+                        measure_text.setTextColor(getResources().getColor(R.color.orange))
+                        version_text.setTextColor(getResources().getColor(R.color.orange))
                     }
                     1 -> {
                         communicator.theme(1)
-                        lrLayout.setBackgroundResource(R.color.primary_color_2)
-                        language_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                        theme_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                        measure_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                        version_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                    }
-                    2 -> {
-                        communicator.theme(2)
-                        lrLayout.setBackgroundResource(R.color.primary_color_3)
-                        language_text.setTextColor(getResources().getColor(R.color.primary_color_3))
-                        theme_text.setTextColor(getResources().getColor(R.color.primary_color_3))
-                        measure_text.setTextColor(getResources().getColor(R.color.primary_color_3))
-                        version_text.setTextColor(getResources().getColor(R.color.primary_color_3))
+                        lrLayout.setBackgroundResource(R.color.orange)
+                        language_text.setTextColor(getResources().getColor(R.color.orange))
+                        theme_text.setTextColor(getResources().getColor(R.color.orange))
+                        measure_text.setTextColor(getResources().getColor(R.color.orange))
+                        version_text.setTextColor(getResources().getColor(R.color.orange))
                     }
                 }
             }
         }
 
-        spinner_theme_en?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner_theme_en?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 when (position) {
                     0 -> {
                         communicator.theme(0)
-                        lrLayout.setBackgroundResource(R.color.primary_color)
-                        language_text.setTextColor(getResources().getColor(R.color.primary_color))
-                        theme_text.setTextColor(getResources().getColor(R.color.primary_color))
-                        measure_text.setTextColor(getResources().getColor(R.color.primary_color))
-                        version_text.setTextColor(getResources().getColor(R.color.primary_color))
+                        lrLayout.setBackgroundResource(R.color.orange)
+                        language_text.setTextColor(getResources().getColor(R.color.orange))
+                        theme_text.setTextColor(getResources().getColor(R.color.orange))
+                        measure_text.setTextColor(getResources().getColor(R.color.orange))
+                        version_text.setTextColor(getResources().getColor(R.color.orange))
                     }
                     1 -> {
                         communicator.theme(1)
-                        lrLayout.setBackgroundResource(R.color.primary_color_2)
-                        language_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                        theme_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                        measure_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                        version_text.setTextColor(getResources().getColor(R.color.primary_color_2))
-                    }
-                    2 -> {
-                        communicator.theme(2)
-                        lrLayout.setBackgroundResource(R.color.primary_color_3)
-                        language_text.setTextColor(getResources().getColor(R.color.primary_color_3))
-                        theme_text.setTextColor(getResources().getColor(R.color.primary_color_3))
-                        measure_text.setTextColor(getResources().getColor(R.color.primary_color_3))
-                        version_text.setTextColor(getResources().getColor(R.color.primary_color_3))
+                        lrLayout.setBackgroundResource(R.color.orange)
+                        language_text.setTextColor(getResources().getColor(R.color.orange))
+                        theme_text.setTextColor(getResources().getColor(R.color.orange))
+                        measure_text.setTextColor(getResources().getColor(R.color.orange))
+                        version_text.setTextColor(getResources().getColor(R.color.orange))
                     }
                 }
             }
         }
 
-        spinner_language?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner_language?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 when (position) {
                     0 -> {
                         communicator.language(0)
-                        title_setting_text.text = (getResources().getString(R.string.settings_title))
+                        title_setting_text.text =
+                            (getResources().getString(R.string.settings_title))
                         language_text.text = (getResources().getString(R.string.settings_language))
                         theme_text.text = (getResources().getString(R.string.settings_theme))
                         measure_text.text = (getResources().getString(R.string.um))
@@ -149,8 +148,10 @@ class Settings : Fragment() {
                     }
                     1 -> {
                         communicator.language(1)
-                        title_setting_text.text = (getResources().getString(R.string.settings_title_en))
-                        language_text.text = (getResources().getString(R.string.settings_language_en))
+                        title_setting_text.text =
+                            (getResources().getString(R.string.settings_title_en))
+                        language_text.text =
+                            (getResources().getString(R.string.settings_language_en))
                         theme_text.text = (getResources().getString(R.string.settings_theme_en))
                         measure_text.text = (getResources().getString(R.string.um_en))
                         version_text.text = (getResources().getString(R.string.settings_version_en))
@@ -165,15 +166,21 @@ class Settings : Fragment() {
             }
         }
 
-        spinner_language_en?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner_language_en?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 when (position) {
                     0 -> {
                         communicator.language(0)
-                        title_setting_text.text = (getResources().getString(R.string.settings_title))
+                        title_setting_text.text =
+                            (getResources().getString(R.string.settings_title))
                         language_text.text = (getResources().getString(R.string.settings_language))
                         theme_text.text = (getResources().getString(R.string.settings_theme))
                         measure_text.text = (getResources().getString(R.string.um))
@@ -187,8 +194,10 @@ class Settings : Fragment() {
                     }
                     1 -> {
                         communicator.language(1)
-                        title_setting_text.text = (getResources().getString(R.string.settings_title_en))
-                        language_text.text = (getResources().getString(R.string.settings_language_en))
+                        title_setting_text.text =
+                            (getResources().getString(R.string.settings_title_en))
+                        language_text.text =
+                            (getResources().getString(R.string.settings_language_en))
                         theme_text.text = (getResources().getString(R.string.settings_theme_en))
                         measure_text.text = (getResources().getString(R.string.um_en))
                         version_text.text = (getResources().getString(R.string.settings_version_en))
@@ -204,19 +213,18 @@ class Settings : Fragment() {
             communicator.um_update("Lib", "In")
         }
 
-                //Listener for radioGroup
+        //Listener for radioGroup
         um_radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
-                R.id.radioButton_1 ->  { communicator.um_update("Kg", "Cm") } //Case RadioButton 1
+                R.id.radioButton_1 -> {
+                    communicator.um_update("Kg", "Cm")
+                } //Case RadioButton 1
 
-                R.id.radioButton_2 -> { communicator.um_update("Lib", "In") } //Case RadioButton 2
+                R.id.radioButton_2 -> {
+                    communicator.um_update("Lib", "In")
+                } //Case RadioButton 2
             }
         })
-
-
-
-
-return v
-}
-
+        return v
+    }
 }
