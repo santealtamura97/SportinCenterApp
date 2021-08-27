@@ -1,5 +1,6 @@
 package com.example.sportincenterapp.interfaces
 
+import android.net.Uri
 import android.widget.EditText
 import com.example.sportincenterapp.data.models.Event
 
@@ -15,4 +16,5 @@ interface Communicator {
     fun openAddActivity()
     fun closeAddActivity()
     fun openPartecipantsForEvent(eventId: String)
+    fun changeProfileImageNavHeader(dataImage: Uri)
 }

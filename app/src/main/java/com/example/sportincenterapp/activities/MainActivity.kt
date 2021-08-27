@@ -1,6 +1,7 @@
 package com.example.sportincenterapp.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +22,7 @@ import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
+import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, Communicator {
 
@@ -31,6 +33,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //User information
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
+    private lateinit var profileImage: CircleImageView
+
+
     //Fragments
     private val fragmentUser : Fragment = UserPage()
     private val fragmentSettings : Fragment = Settings()
@@ -61,6 +66,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout = findViewById(R.id.nav_view)
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
+
+        profileImage = header.findViewById<CircleImageView>(R.id.profileimage_container)
+
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         userEmail = header.findViewById<TextView>(R.id.email_nav_header)
 
@@ -369,5 +377,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleEventParticipants.putString("eventId", eventId)
         fragmentEventParticipants.arguments = bundleEventParticipants
         supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventParticipants, "EventPartecipantsFragment").commit()
+    }
+
+    override fun changeProfileImageNavHeader(dataImage: Uri) {
+        profileImage.setImageURI(dataImage)
     }
 }

@@ -76,7 +76,8 @@
                         android:src="@drawable/ic_baseline_add_a_photo_24"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        android:elevation="30dp"/>
+                        android:elevation="30dp"
+                        app:backgroundTint="@color/orange"/>
 
 
                 </RelativeLayout>
@@ -385,7 +386,7 @@
                             android:id="@+id/physycal_car_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Calcola il tuo BMI:"
+                            android:text="Caratteristiche fisiche:"
                             android:textSize="17sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"/>

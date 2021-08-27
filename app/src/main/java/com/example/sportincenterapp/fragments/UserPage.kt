@@ -246,7 +246,6 @@ class UserPage : Fragment() {
 
         if (resultCode == RESULT_OK){
             val dataImage: Uri = data?.data!!
-            imageProfile.setImageURI(dataImage)
             uploadProfileImage(dataImage)
         }
     }
@@ -265,6 +264,8 @@ class UserPage : Fragment() {
                             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                                 if (response.isSuccessful) {
                                     Toast.makeText(ApplicationContextProvider.getContext(), response.body()?.message, Toast.LENGTH_LONG).show()
+                                    imageProfile.setImageURI(dataImage)
+                                    communicator.changeProfileImageNavHeader(dataImage)
                                 }
                             }
                             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {

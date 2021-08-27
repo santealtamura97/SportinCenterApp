@@ -49,6 +49,8 @@ dependencies {
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
     implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.nex3z:toggle-button-group:1.2.3'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 
     // Network
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
