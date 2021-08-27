@@ -206,7 +206,6 @@ class EventFragment : Fragment() {
                 }
             }
         }
-        println(eventList)
         return eventList
     }
 

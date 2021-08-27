@@ -5,12 +5,10 @@ import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.requests.SignUpRequest
-import com.example.sportincenterapp.data.responses.LoginResponse
-import com.example.sportincenterapp.data.responses.SignUpResponse
-import com.example.sportincenterapp.data.responses.SubscriptionResponse
-import com.example.sportincenterapp.data.responses.UserCodeResponse
+import com.example.sportincenterapp.data.responses.*
 import com.example.sportincenterapp.fragments.AddActivityFragment
 import com.example.sportincenterapp.utils.Constant
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -69,6 +67,9 @@ interface ApiService {
     @POST(Constant.CALENDAR_SERVICE + "/admin/delete_events")
     fun deleteEvents(@Body events: List<Event>) : Call<ResponseBody>
 
+    @Multipart
+    @POST(Constant.PROFILE_IMAGE_URL)
+    fun uploadImageProfile(@Part img: MultipartBody.Part): Call<ApiResponse>
 
 
     /*@POST(Constant.VALIDATE_USER_CODE_URL)

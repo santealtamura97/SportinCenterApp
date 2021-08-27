@@ -12,6 +12,7 @@ object Constant {
     const val SIGN_UP_URL = "/api/auth/signup"
     const val VALIDATE_USER_CODE_URL = "/api/auth/validateUserCode"
     const val USER_INFO_URL = "/api/auth/userbyid"
+    const val PROFILE_IMAGE_URL = "/api/auth/profileImage"
 
     //Services endpoints
     const val CALENDAR_SERVICE = "/calendar-service"

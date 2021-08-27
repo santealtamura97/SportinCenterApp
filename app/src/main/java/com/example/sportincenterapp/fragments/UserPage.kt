@@ -1,7 +1,11 @@
 package com.example.sportincenterapp.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -12,13 +16,23 @@ import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.User
+import com.example.sportincenterapp.data.responses.ApiResponse
 import com.example.sportincenterapp.data.responses.SubscriptionResponse
+import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 
 class UserPage : Fragment() {
@@ -31,11 +45,18 @@ class UserPage : Fragment() {
     private var userEntries: TextView? = null
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+    private lateinit var result: TextView
+    private lateinit var bmi: TextView
+    private lateinit var imageProfile: ImageView
+    private lateinit var changeProfileImage: FloatingActionButton
+    private lateinit var communicator: Communicator
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         //Fragment view
         val v = inflater.inflate(R.layout.fragment_user_page, container, false)
+
+        communicator  = activity as Communicator
 
         // Component of the view //
         // RelativeLayout
@@ -47,6 +68,7 @@ class UserPage : Fragment() {
         // Telephone
         var telephone_view = v.findViewById<TextView>(R.id.user_phonenumber_view) //view
         var telephone_edit = v.findViewById<EditText>(R.id.user_phonenumber_edit) //set
+
         // Subscription
         userSubscriptionType = v.findViewById<TextView>(R.id.subscription_type) //View
         userSubscriptionDeadline = v.findViewById<TextView>(R.id.subscription_deadline)
@@ -77,8 +99,9 @@ class UserPage : Fragment() {
         var um_1 =  v.findViewById<TextView>(R.id.um_1)
         var um_2 =  v.findViewById<TextView>(R.id.um_2)
         //bmi
-        val bmi = v.findViewById<TextView>(R.id.bmi_text) //bmi value
+        bmi = v.findViewById<TextView>(R.id.bmi_text) //bmi value
         val bmi_text = v.findViewById<TextView>(R.id.bmi) //bmi text
+        result = v.findViewById<TextView>(R.id.result)
         //Edit/Save buttons
         val editbtn_1 = v.findViewById<Button>(R.id.button_infouser)
         val editbtn_1_save = v.findViewById<Button>(R.id.button_infouser_save)
@@ -94,7 +117,7 @@ class UserPage : Fragment() {
         println(arguments?.getString("email"))
 
         /* ASSIGN DEFAULT COLOR */
-        rLayout.setBackgroundResource(arguments!!.getInt("color"))
+        //rLayout.setBackgroundResource(arguments!!.getInt("color"))
         bmi_text.setTextColor(getResources().getColor(arguments!!.getInt("color")))
         editbtn_1.setTextColor(getResources().getColor(arguments!!.getInt("color")))
         editbtn_1_save.setTextColor(getResources().getColor(arguments!!.getInt("color")))
@@ -110,6 +133,20 @@ class UserPage : Fragment() {
 
 
         /* LISTENERS */
+
+        imageProfile = v.findViewById(R.id.image_profile)
+        changeProfileImage = v.findViewById(R.id.change_photo)
+
+        changeProfileImage.setOnClickListener(View.OnClickListener {
+            ImagePicker.with(this)
+                .galleryOnly()
+                .crop()
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)*/
+                .start()
+        })
+
+
 
         //Telephone edit text listener
         telephone_edit.addTextChangedListener(object : TextWatcher {
@@ -199,22 +236,81 @@ class UserPage : Fragment() {
             tall_view.visibility = View.VISIBLE
             tall_edit.visibility = View.GONE
         }
+
+
         return v
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK){
+            val dataImage: Uri = data?.data!!
+            imageProfile.setImageURI(dataImage)
+            uploadProfileImage(dataImage)
+        }
+    }
+
+    private fun uploadProfileImage(dataImage: Uri) {
+        val imageFile = File(dataImage.path)
+        val reqBody: RequestBody =
+            imageFile.asRequestBody("multipart/form-file".toMediaTypeOrNull())
+        val partImage: MultipartBody.Part = MultipartBody.Part.createFormData("img", imageFile.name, reqBody)
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        activity?.let {
+            context?.let { it1 ->
+                    apiClient.getApiServiceAuth(it1).uploadImageProfile(partImage)
+                        .enqueue(object : Callback<ApiResponse> {
+                            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                                if (response.isSuccessful) {
+                                    Toast.makeText(ApplicationContextProvider.getContext(), response.body()?.message, Toast.LENGTH_LONG).show()
+                                }
+                            }
+                            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                                println("errore gnaaaaaaaaa")
+                            }
+                        })
+            }
+        }
+
+    }
+
 
     /*
     Function used for calculate the BMI
      */
     private fun calculateBMI(weight: String, tall: String): String {
-        var bmi = ""
+        var bmi = 0.0
         if (weight.length > 1 && tall.length > 1) {
             val numerator = weight.toDouble()
-            val denominator = tall.toDouble() * tall.toDouble()
-            bmi = (numerator / denominator).toString()
-        } else {
-            bmi = "-.--"
+            val denominator = (tall.toDouble() / 100) * (tall.toDouble() / 100)
+            bmi = (numerator / denominator)
+            if (bmi < 18.5){
+                result.text = "SOTTOPESO"
+                result.setTextColor(Color.parseColor("#2E2EFF"))
+                this.bmi.setTextColor(Color.parseColor("#2E2EFF"))
+            }else if (bmi in 18.5..24.9) {
+                result.text = "PESO NORMALE"
+                result.setTextColor(Color.parseColor("#00D100"))
+                this.bmi.setTextColor(Color.parseColor("#00D100"))
+            }else if (bmi in 25.0..29.9) {
+                result.text = "SOVRAPPESO"
+                result.setTextColor(Color.parseColor("#FF7518"))
+                this.bmi.setTextColor(Color.parseColor("#FF7518"))
+            }else if (bmi in 30.0..34.9) {
+                result.text = "OBESO!"
+                result.setTextColor(Color.parseColor("#FF0000"))
+                this.bmi.setTextColor(Color.parseColor("#FF0000"))
+            }else if (bmi > 35) {
+                result.text = "ESTREMAMENTE OBESO!"
+                result.setTextColor(Color.parseColor("#800000"))
+                this.bmi.setTextColor(Color.parseColor("#800000"))
+            }else if (bmi < 18.5) {
+                result.text = "PESO E ALTEZZA NON VALIDI!"
+            }
         }
-        return bmi
+        return bmi.toString()
     }
 
     private fun setPhoneNumber() {
