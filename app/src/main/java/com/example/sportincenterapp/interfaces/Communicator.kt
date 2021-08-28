@@ -16,5 +16,6 @@ interface Communicator {
     fun openAddActivity()
     fun closeAddActivity()
     fun openPartecipantsForEvent(eventId: String)
-    fun changeProfileImageNavHeader(dataImage: Uri)
+    //fun changeProfileImageNavHeader(dataImage: Uri)
+    fun changeProfileImageNavHeader()
 }

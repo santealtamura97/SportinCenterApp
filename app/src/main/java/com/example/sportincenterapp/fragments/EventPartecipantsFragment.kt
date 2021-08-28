@@ -8,16 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.view.isVisible
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.PartecipantsEventAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -32,12 +31,26 @@ class EventPartecipantsFragment : Fragment() {
     var adapter: PartecipantsEventAdapter? = null
     private lateinit var apiClient: ApiClient
     private var userList: MutableList<User> = arrayListOf()
+    private lateinit var presence: FloatingActionButton
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val v =  inflater.inflate(R.layout.fragment_event_partecipants, container, false)
         listView = v.findViewById(R.id.event_partecipants_list)
+
+        val checkAll: FloatingActionButton = v.findViewById(R.id.check_all_button)
+
+        checkAll.setOnClickListener(View.OnClickListener {
+            for (i in 0 until listView.count) {
+                var view = listView.getChildAt(i)
+                (view.findViewById<View>(R.id.presence) as CheckBox).visibility = View.VISIBLE
+            }
+            /*presence = v.findViewById(R.id.presence)
+            presence.visibility = View.VISIBLE*/
+            checkAll.visibility = View.GONE
+        })
+
 
         eventId = arguments?.getString("eventId")!!
         getPartecipants()

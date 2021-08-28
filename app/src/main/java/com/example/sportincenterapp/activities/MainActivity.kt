@@ -426,7 +426,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventParticipants, "EventPartecipantsFragment").commit()
     }
 
-    override fun changeProfileImageNavHeader(dataImage: Uri) {
-        profileImage.setImageURI(dataImage)
+    override fun changeProfileImageNavHeader() {
+        getProfileImage()
     }
 }

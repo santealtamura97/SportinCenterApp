@@ -268,7 +268,7 @@ class UserPage : Fragment() {
                                 if (response.isSuccessful) {
                                     Toast.makeText(ApplicationContextProvider.getContext(), response.body()?.message, Toast.LENGTH_LONG).show()
                                     imageProfile.setImageURI(dataImage)
-                                    communicator.changeProfileImageNavHeader(dataImage)
+                                    communicator.changeProfileImageNavHeader()
                                 }
                             }
 

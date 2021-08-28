@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:background = "@color/white">
+
+    <LinearLayout
+        android:id="@+id/title_event_partecipants"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/orange"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp"
+            android:text="Partecipanti"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="25dp">
+        </TextView>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/event_partecipants_list"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:dividerHeight="1dp"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:layout_marginTop="60dp">
     </ListView>
 
     <TextView
@@ -22,8 +44,32 @@
         android:textColor="@color/black"
         android:visibility="gone"
         android:text="Non ci sono prenotati per questo evento">
-
     </TextView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/check_all_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_check_circle_24"
+        android:layout_alignBottom="@+id/event_partecipants_list"
+        android:layout_marginLeft="340dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="30dp"
+        app:backgroundTint="@color/green" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/presence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/event_partecipants_list"
+        android:src="@drawable/ic_baseline_presence"
+        android:layout_marginLeft="340dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="30dp"
+        app:backgroundTint="@color/green"
+        android:visibility="gone">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 </RelativeLayout>
