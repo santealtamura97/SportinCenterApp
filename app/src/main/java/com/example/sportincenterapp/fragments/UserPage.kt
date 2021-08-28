@@ -2,12 +2,14 @@ package com.example.sportincenterapp.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +26,6 @@ import com.example.sportincenterapp.utils.SessionManager
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -77,9 +78,9 @@ class UserPage : Fragment() {
         userSubscriptionStatusIconExpired = v.findViewById(R.id.subscription_expired)
         userEntries = v.findViewById<TextView>(R.id.remaining_entries)
 
-
         getSubscriptionName()
         getUserSubscriptionInfo()
+
 
         //Email
         var email = v.findViewById<TextView>(R.id.user_emailaddress) //view
@@ -135,6 +136,7 @@ class UserPage : Fragment() {
         /* LISTENERS */
 
         imageProfile = v.findViewById(R.id.image_profile)
+        imageProfile.setImageBitmap(decodeBase64(sessionManager.fetchImage()))
         changeProfileImage = v.findViewById(R.id.change_photo)
 
         changeProfileImage.setOnClickListener(View.OnClickListener {
@@ -259,7 +261,8 @@ class UserPage : Fragment() {
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
         activity?.let {
             context?.let { it1 ->
-                    apiClient.getApiServiceAuth(it1).uploadImageProfile(partImage)
+                sessionManager.fetchUserId()?.let { it2 ->
+                    apiClient.getApiServiceAuth(it1).uploadImageProfile(partImage, it2)
                         .enqueue(object : Callback<ApiResponse> {
                             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                                 if (response.isSuccessful) {
@@ -268,13 +271,14 @@ class UserPage : Fragment() {
                                     communicator.changeProfileImageNavHeader(dataImage)
                                 }
                             }
+
                             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                                println("errore gnaaaaaaaaa")
+                                Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE DI CARICAMENTO!", Toast.LENGTH_LONG).show()
                             }
                         })
+                }
             }
         }
-
     }
 
 
@@ -316,6 +320,14 @@ class UserPage : Fragment() {
 
     private fun setPhoneNumber() {
 
+    }
+
+
+    // method for base64 to bitmap
+    private fun decodeBase64(input: String?): Bitmap? {
+        val decodedByte: ByteArray = Base64.decode(input, 0)
+        return BitmapFactory
+            .decodeByteArray(decodedByte, 0, decodedByte.size)
     }
 
     private fun getSubscriptionName() {

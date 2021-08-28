@@ -1,6 +1,10 @@
 package com.example.sportincenterapp.data.models
 
+import android.content.res.TypedArray
 import com.google.gson.annotations.SerializedName
+import okhttp3.RequestBody
+import java.io.ByteArrayInputStream
+import java.io.InputStream
 
 data class User (
 
@@ -27,5 +31,4 @@ data class User (
 
     @SerializedName("exipred")
     var expired: Boolean
-
 )

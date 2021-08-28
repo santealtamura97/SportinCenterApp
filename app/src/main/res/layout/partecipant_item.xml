@@ -5,6 +5,17 @@
     android:orientation="horizontal"
     android:padding="4dp">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profileimage_container"
+        android:layout_width="70dp"
+
+        android:layout_height="70dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email: "
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"/>
@@ -37,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Entrate rimanenti: "
             android:textSize="15dp"
-            android:layout_marginLeft="17dp"
+            android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"/>
 

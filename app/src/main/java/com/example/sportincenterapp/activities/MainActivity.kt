@@ -1,13 +1,17 @@
 package com.example.sportincenterapp.activities
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,13 +20,19 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
-import com.example.sportincenterapp.fragments.AddActivityFragment
+import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
 import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, Communicator {
 
@@ -54,6 +64,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val bundleContacts: Bundle = Bundle()
     private val bundleEventParticipants: Bundle = Bundle()
 
+    //API
+    private lateinit var apiClient: ApiClient
+
     /* ON CREATE CLASS */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +81,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val header = navigationView.getHeaderView(0)
 
         profileImage = header.findViewById<CircleImageView>(R.id.profileimage_container)
-
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         userEmail = header.findViewById<TextView>(R.id.email_nav_header)
 
@@ -94,6 +106,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             userEmail.text = sessionManager.fetchUserEmail()
             userName.visibility = View.VISIBLE
             loginButton.visibility = View.GONE
+            getProfileImage()//get from API profile image
 
             if (sessionManager.fetchUserName() == "Admin" ) { //Admin section
                 userPageItem.isVisible = false
@@ -193,6 +206,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val alert = builder.create()
         alert.show()
+    }
+
+    private fun getProfileImage() {
+        //var bitmap: Bitmap? = null
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        sessionManager.fetchUserId()?.let {
+            apiClient.getApiServiceAuth(this).getImageProfile(it)
+                .enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                        if (response.isSuccessful) {
+                            val body = response.body()?.byteStream()
+                            val bitmap = BitmapFactory.decodeStream(body)
+                            profileImage.setImageBitmap(bitmap)
+                            if (bitmap != null) {
+                                sessionManager.saveImage(encodeTobase64(bitmap))
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE DI CARICAMENTO!", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+    }
+
+    // method for bitmap to base64
+    private fun encodeTobase64(image: Bitmap): String? {
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val b: ByteArray = baos.toByteArray()
+        val imageEncoded: String = Base64.encodeToString(b, Base64.DEFAULT)
+        return imageEncoded
     }
 
 

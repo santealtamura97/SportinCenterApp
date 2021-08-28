@@ -68,8 +68,11 @@ interface ApiService {
     fun deleteEvents(@Body events: List<Event>) : Call<ResponseBody>
 
     @Multipart
-    @POST(Constant.PROFILE_IMAGE_URL)
-    fun uploadImageProfile(@Part img: MultipartBody.Part): Call<ApiResponse>
+    @POST(Constant.UPLOAD_PROFILE_IMAGE_URL + "/{userId}")
+    fun uploadImageProfile(@Part img: MultipartBody.Part, @Path(value = "userId") userId: String): Call<ApiResponse>
+
+    @GET(Constant.GET_PROFILE_IMAGE_URL + "/{userId}")
+    fun getImageProfile(@Path(value = "userId") userId: String): Call<ResponseBody>
 
 
     /*@POST(Constant.VALIDATE_USER_CODE_URL)
