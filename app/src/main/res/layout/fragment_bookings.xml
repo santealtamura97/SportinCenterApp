@@ -36,7 +36,8 @@
             android:src="@drawable/ic_baseline_close_24"
             android:layout_marginBottom="75dp"
             android:layout_marginRight="10dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:backgroundTint="@color/orange"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/check_all_button"
@@ -44,7 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:src="@drawable/ic_baseline_check_circle_24"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            app:backgroundTint="@color/orange"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/confirm_delete_button"
@@ -53,7 +55,8 @@
             android:layout_gravity="end|bottom"
             android:src="@drawable/delete_icon"
             android:layout_margin="10dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:backgroundTint="@color/orange"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

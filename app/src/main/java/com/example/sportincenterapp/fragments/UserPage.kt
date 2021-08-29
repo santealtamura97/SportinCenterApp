@@ -1,9 +1,15 @@
 package com.example.sportincenterapp.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +18,22 @@ import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.User
+import com.example.sportincenterapp.data.responses.ApiResponse
 import com.example.sportincenterapp.data.responses.SubscriptionResponse
+import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 
 class UserPage : Fragment() {
@@ -31,6 +46,11 @@ class UserPage : Fragment() {
     private var userEntries: TextView? = null
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+    private lateinit var result: TextView
+    private lateinit var bmi: TextView
+    private lateinit var imageProfile: ImageView
+    private lateinit var changeProfileImage: FloatingActionButton
+    private lateinit var communicator: Communicator
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -94,6 +114,23 @@ class UserPage : Fragment() {
                 user_informationSectionTelephoneText.text = user_informationSectionTelephoneEdit.text
             }
         })
+
+        imageProfile = v.findViewById(R.id.image_profile)
+        if (!sessionManager.fetchImage().isNullOrEmpty()) {
+            imageProfile.setImageBitmap(decodeBase64(sessionManager.fetchImage()))
+        }
+        changeProfileImage = v.findViewById(R.id.change_photo)
+
+        changeProfileImage.setOnClickListener(View.OnClickListener {
+            ImagePicker.with(this)
+                .galleryOnly()
+                .crop()
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)*/
+                .start()
+        })
+
+
 
         //Telephone edit text listener
         user_informationSectionEmailEdit.addTextChangedListener(object : TextWatcher {
@@ -259,23 +296,91 @@ class UserPage : Fragment() {
         return v
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK){
+            val dataImage: Uri = data?.data!!
+            uploadProfileImage(dataImage)
+        }
+    }
+
+    private fun uploadProfileImage(dataImage: Uri) {
+        val imageFile = File(dataImage.path)
+        val reqBody: RequestBody =
+            imageFile.asRequestBody("multipart/form-file".toMediaTypeOrNull())
+        val partImage: MultipartBody.Part = MultipartBody.Part.createFormData("img", imageFile.name, reqBody)
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        activity?.let {
+            context?.let { it1 ->
+                sessionManager.fetchUserId()?.let { it2 ->
+                    apiClient.getApiServiceAuth(it1).uploadImageProfile(partImage, it2)
+                        .enqueue(object : Callback<ApiResponse> {
+                            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                                if (response.isSuccessful) {
+                                    Toast.makeText(ApplicationContextProvider.getContext(), response.body()?.message, Toast.LENGTH_LONG).show()
+                                    imageProfile.setImageURI(dataImage)
+                                    communicator.changeProfileImageNavHeader()
+                                }
+                            }
+
+                            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                                Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE DI CARICAMENTO!", Toast.LENGTH_LONG).show()
+                            }
+                        })
+                }
+            }
+        }
+    }
+
+
     /*
     Function used for calculate the BMI
      */
     private fun calculateBMI(weight: String, tall: String): String {
-        var bmi = ""
+        var bmi = 0.0
         if (weight.length > 1 && tall.length > 1) {
             val numerator = weight.toDouble()
-            val denominator = (tall.toDouble()/100) * (tall.toDouble()/100)
-            bmi = (numerator / denominator).toString()
-        } else {
-            bmi = "-.--"
+            val denominator = (tall.toDouble() / 100) * (tall.toDouble() / 100)
+            bmi = (numerator / denominator)
+            if (bmi < 18.5){
+                result.text = "SOTTOPESO"
+                result.setTextColor(Color.parseColor("#2E2EFF"))
+                this.bmi.setTextColor(Color.parseColor("#2E2EFF"))
+            }else if (bmi in 18.5..24.9) {
+                result.text = "PESO NORMALE"
+                result.setTextColor(Color.parseColor("#00D100"))
+                this.bmi.setTextColor(Color.parseColor("#00D100"))
+            }else if (bmi in 25.0..29.9) {
+                result.text = "SOVRAPPESO"
+                result.setTextColor(Color.parseColor("#FF7518"))
+                this.bmi.setTextColor(Color.parseColor("#FF7518"))
+            }else if (bmi in 30.0..34.9) {
+                result.text = "OBESO!"
+                result.setTextColor(Color.parseColor("#FF0000"))
+                this.bmi.setTextColor(Color.parseColor("#FF0000"))
+            }else if (bmi > 35) {
+                result.text = "ESTREMAMENTE OBESO!"
+                result.setTextColor(Color.parseColor("#800000"))
+                this.bmi.setTextColor(Color.parseColor("#800000"))
+            }else if (bmi < 18.5) {
+                result.text = "PESO E ALTEZZA NON VALIDI!"
+            }
         }
-        return bmi
+        return bmi.toString()
     }
 
     private fun setPhoneNumber() {
 
+    }
+
+
+    // method for base64 to bitmap
+    private fun decodeBase64(input: String?): Bitmap? {
+        val decodedByte: ByteArray = Base64.decode(input, 0)
+        return BitmapFactory
+            .decodeByteArray(decodedByte, 0, decodedByte.size)
     }
 
     private fun getSubscriptionName() {

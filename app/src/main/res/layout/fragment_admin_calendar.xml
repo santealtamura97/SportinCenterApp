@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:background = "@color/white" >
+
+    <LinearLayout
+        android:id="@+id/title_admin_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/orange"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:layout_marginTop="15dp"
+            android:text="Calendario"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="25dp">
+        </TextView>
+
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/date"
@@ -10,7 +32,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:drawableLeft="@drawable/ic_baseline_date"
         android:paddingLeft="15dp"
         android:textColor="@color/black"
@@ -18,14 +40,14 @@
         android:textSize="20dp"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:background="@drawable/select_date_style"/>
+        android:background="@drawable/select_date_style" />
 
     <ImageButton
         android:id="@+id/add_activity_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="270dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:background="@drawable/circle_add"
         android:elevation="30dp"
         android:src="@drawable/add_icon"></ImageButton>
@@ -35,7 +57,7 @@
         android:id="@+id/simpleListView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="140dp"
         android:divider="@color/orange"
         android:dividerHeight="1dp"
         android:scrollbars="vertical">
@@ -48,8 +70,10 @@
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_baseline_check_circle_24"
         android:layout_marginLeft="335dp"
-        android:layout_marginTop="10dp"
-        android:elevation="30dp"/>
+        android:layout_marginTop="70dp"
+        android:elevation="30dp"
+        app:backgroundTint="@color/orange"
+        />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -59,9 +83,11 @@
         android:layout_gravity="end|bottom"
         android:src="@drawable/delete_icon"
         android:layout_marginLeft="335dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="70dp"
         android:elevation="30dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:backgroundTint="@color/orange"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
     <TextView
         android:id="@+id/no_event"

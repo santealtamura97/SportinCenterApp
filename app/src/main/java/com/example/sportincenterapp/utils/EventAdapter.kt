@@ -9,9 +9,12 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.activities.MainActivity
 import com.example.sportincenterapp.data.models.Event
+import com.example.sportincenterapp.interfaces.Communicator
 import kotlinx.android.synthetic.main.book_item.view.*
 import kotlinx.android.synthetic.main.event_item.view.*
 import kotlinx.android.synthetic.main.event_item.view.img
@@ -30,7 +33,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
     private val EVENT = "EVENT"
     private val BOOKING = "BOOKING"
     private lateinit var sessionManager: SessionManager
-    private lateinit var lastDatePickedForFragment: Date
+    private lateinit var communicator: Communicator
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ViewHolder).bind(modelList.get(position));
@@ -39,6 +42,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        communicator  = context as Communicator
 
         if (itemType == EVENT)
             return ViewHolder(layoutInflater.inflate(R.layout.event_item, parent, false))
@@ -94,6 +98,11 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 }
 
             }else if (itemType == BOOKING) {
+
+                itemView.findViewById<CardView>(R.id.card_booking).setOnClickListener(View.OnClickListener {
+                    communicator.openPartecipantsForEvent(modelList[adapterPosition].id)
+                })
+
                 itemView.findViewById<CheckBox>(R.id.checkbox_meat).setOnClickListener() { view ->
                     modelList[adapterPosition].selected = (view as CompoundButton).isChecked
                     if(modelList[adapterPosition].selected){

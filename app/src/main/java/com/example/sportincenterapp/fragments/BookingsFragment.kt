@@ -17,9 +17,11 @@ import androidmads.library.qrgenearator.QRGEncoder
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportincenterapp.R
+import com.example.sportincenterapp.activities.MainActivity
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
+import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.EventAdapter
 import com.example.sportincenterapp.utils.SessionManager
@@ -40,13 +42,16 @@ class BookingsFragment : Fragment() {
     private lateinit var bookingList: List<Event>
     private var bookingToRemove : MutableList<Int> = mutableListOf()
 
+
     private val ITEM_TYPE = "BOOKING"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
+        //Session manager
         return inflater.inflate(R.layout.fragment_bookings, container, false)
     }
 
@@ -64,7 +69,9 @@ class BookingsFragment : Fragment() {
                     override fun onChecked(pos: Int) {
                         bookingToRemove.add(pos)
                     }
-                    override fun onClick(pos: Int, aView: View) {}
+                    override fun onClick(pos: Int, aView: View) {
+
+                    }
                 })
 
                 val deleteButton: View = view.findViewById(R.id.confirm_delete_button)
@@ -94,7 +101,6 @@ class BookingsFragment : Fragment() {
                         }
 
                         override fun onClick(pos: Int, aView: View) {
-                            Toast.makeText(activity, bookingList[pos].data, Toast.LENGTH_LONG).show()
                         }
                     })
                 }
@@ -119,7 +125,7 @@ class BookingsFragment : Fragment() {
                         }
 
                         override fun onClick(pos: Int, aView: View) {
-                            Toast.makeText(activity, bookingList[pos].data, Toast.LENGTH_LONG).show()
+
                         }
                     })
                 }
@@ -155,7 +161,7 @@ class BookingsFragment : Fragment() {
                                             }
 
                                             override fun onClick(pos: Int, aView: View) {
-                                                Toast.makeText(activity, orderedEventList[pos].data, Toast.LENGTH_LONG).show()
+
                                             }
                                         })
                                     }else
@@ -220,6 +226,35 @@ class BookingsFragment : Fragment() {
                         eventList[i+1] = temp
                         change = true
                     }
+                }
+            }
+        }
+        orderEventsByTime(eventList)
+        return eventList
+    }
+
+    private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
+
+        var change: Boolean = true
+        while (change) {
+            change = false
+            for (i in 0 until eventList.size - 1) {
+                var timeih = eventList[i].oraInizio.split(":")[0]
+                var timei1h = eventList[i+1].oraInizio.split(":")[0]
+                var timeim = eventList[i].oraInizio.split(":")[1]
+                var timei1m = eventList[i+1].oraInizio.split(":")[1]
+                if (timeih.toInt() == timei1h.toInt()) {
+                    if (timeim.toInt() > timei1m.toInt()) {
+                        var temp = eventList[i]
+                        eventList[i] = eventList[i+1]
+                        eventList[i+1] = temp
+                        change = true
+                    }
+                }else if (timeih.toInt() > timei1h.toInt()) {
+                    var temp = eventList[i]
+                    eventList[i] = eventList[i+1]
+                    eventList[i+1] = temp
+                    change = true
                 }
             }
         }

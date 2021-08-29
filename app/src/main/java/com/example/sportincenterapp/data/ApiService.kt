@@ -5,12 +5,10 @@ import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.data.requests.LoginRequest
 import com.example.sportincenterapp.data.requests.SignUpRequest
-import com.example.sportincenterapp.data.responses.LoginResponse
-import com.example.sportincenterapp.data.responses.SignUpResponse
-import com.example.sportincenterapp.data.responses.SubscriptionResponse
-import com.example.sportincenterapp.data.responses.UserCodeResponse
+import com.example.sportincenterapp.data.responses.*
 import com.example.sportincenterapp.fragments.AddActivityFragment
 import com.example.sportincenterapp.utils.Constant
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -33,7 +31,7 @@ interface ApiService {
     @GET(Constant.USER_INFO_URL + "/{userId}")
     fun getMyUserInfo(@Path(value = "userId") userId: String) : Call<User>
 
-    @GET(Constant.CALENDAR_SERVICE + "/admin/getusers/{eventId}")
+    @GET(Constant.CALENDAR_SERVICE + "/all/getusers/{eventId}")
     fun getUsersForEvent(@Path(value = "eventId") eventId: Long) : Call<List<User>>
 
     @GET(Constant.SUBSCRIPTION_SERVICE + "/user/getSubfromid/{idAbbonamento}")
@@ -69,7 +67,18 @@ interface ApiService {
     @POST(Constant.CALENDAR_SERVICE + "/admin/delete_events")
     fun deleteEvents(@Body events: List<Event>) : Call<ResponseBody>
 
+    @Multipart
+    @POST(Constant.UPLOAD_PROFILE_IMAGE_URL + "/{userId}")
+    fun uploadImageProfile(@Part img: MultipartBody.Part, @Path(value = "userId") userId: String): Call<ApiResponse>
 
+    @GET(Constant.GET_PROFILE_IMAGE_URL + "/{userId}")
+    fun getImageProfile(@Path(value = "userId") userId: String): Call<ResponseBody>
+
+    @POST(Constant.SET_ENTRIES)
+    fun setEntries(@Body userIds: List<String>): Call<ApiResponse>
+
+    @PUT(Constant.CALENDAR_SERVICE + "/admin/remove/{eventId}/bookings")
+    fun removeBookings(@Body userIds: List<String>, @Path(value = "eventId") eventId: String): Call<ResponseBody>
 
     /*@POST(Constant.VALIDATE_USER_CODE_URL)
     fun setPhoneNumber(@Body phoneNumber: String) : Call<ResponseBody>
