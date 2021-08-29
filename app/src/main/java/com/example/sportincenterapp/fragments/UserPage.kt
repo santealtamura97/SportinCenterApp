@@ -136,7 +136,9 @@ class UserPage : Fragment() {
         /* LISTENERS */
 
         imageProfile = v.findViewById(R.id.image_profile)
-        imageProfile.setImageBitmap(decodeBase64(sessionManager.fetchImage()))
+        if (!sessionManager.fetchImage().isNullOrEmpty()) {
+            imageProfile.setImageBitmap(decodeBase64(sessionManager.fetchImage()))
+        }
         changeProfileImage = v.findViewById(R.id.change_photo)
 
         changeProfileImage.setOnClickListener(View.OnClickListener {

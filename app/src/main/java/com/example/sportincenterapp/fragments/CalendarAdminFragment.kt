@@ -14,6 +14,7 @@ import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.utils.SessionManager
 import kotlinx.android.synthetic.main.fragment_admin_calendar.*
 import kotlinx.android.synthetic.main.listview.view.*
 import okhttp3.ResponseBody
@@ -37,7 +38,6 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var checkAllButton: View
     private lateinit var confirmDeleteButton: View
     private var allChecked: Boolean = false
-    private var checkedList: List<Int> = arrayListOf()
 
 
     override fun onCreateView(

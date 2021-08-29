@@ -14,6 +14,7 @@ import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
+import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.BookingProgressChangeEvent
 import com.example.sportincenterapp.utils.EventAdapter
@@ -32,6 +33,7 @@ class EventFragment : Fragment() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+    private lateinit var communicator: Communicator
 
     private lateinit var eventList: List<Event>
     private lateinit var eventsDate: String
@@ -41,7 +43,6 @@ class EventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event, container, false)
     }
@@ -51,6 +52,7 @@ class EventFragment : Fragment() {
 
         //la data che rappresenta il fragment corrente
         eventsDate = arguments!!.getString("date").toString().split(" ")[0]
+        communicator  = activity as Communicator
 
         rcv.apply {
             // set a LinearLayoutManager to handle Android
@@ -80,7 +82,7 @@ class EventFragment : Fragment() {
                                         }
 
                                         override fun onClick(pos: Int, aView: View) {
-                                            Toast.makeText(activity, orderedEventList[pos].data, Toast.LENGTH_LONG).show()
+
                                         }
                                     })
                                 }else
@@ -106,7 +108,7 @@ class EventFragment : Fragment() {
                                         adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                             override fun onClick(pos: Int, aView: View) {
-                                                Toast.makeText(activity, eventList[pos].data, Toast.LENGTH_LONG).show()
+                                                communicator.openPartecipantsForEvent(eventList[pos].id)
                                             }
                                             override fun onBookClick(pos: Int) {
                                                 bookEvent(eventList[pos].id, sessionManager.fetchUserId()!!, eventList[pos].title,eventList[pos].data,

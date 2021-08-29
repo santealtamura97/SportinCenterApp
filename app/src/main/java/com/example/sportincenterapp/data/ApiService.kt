@@ -31,7 +31,7 @@ interface ApiService {
     @GET(Constant.USER_INFO_URL + "/{userId}")
     fun getMyUserInfo(@Path(value = "userId") userId: String) : Call<User>
 
-    @GET(Constant.CALENDAR_SERVICE + "/admin/getusers/{eventId}")
+    @GET(Constant.CALENDAR_SERVICE + "/all/getusers/{eventId}")
     fun getUsersForEvent(@Path(value = "eventId") eventId: Long) : Call<List<User>>
 
     @GET(Constant.SUBSCRIPTION_SERVICE + "/user/getSubfromid/{idAbbonamento}")
@@ -74,6 +74,11 @@ interface ApiService {
     @GET(Constant.GET_PROFILE_IMAGE_URL + "/{userId}")
     fun getImageProfile(@Path(value = "userId") userId: String): Call<ResponseBody>
 
+    @POST(Constant.SET_ENTRIES)
+    fun setEntries(@Body userIds: List<String>): Call<ApiResponse>
+
+    @PUT(Constant.CALENDAR_SERVICE + "/admin/remove/{eventId}/bookings")
+    fun removeBookings(@Body userIds: List<String>, @Path(value = "eventId") eventId: String): Call<ResponseBody>
 
     /*@POST(Constant.VALIDATE_USER_CODE_URL)
     fun setPhoneNumber(@Body phoneNumber: String) : Call<ResponseBody>

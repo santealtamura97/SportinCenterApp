@@ -14,8 +14,10 @@ import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.models.User
+import com.example.sportincenterapp.data.responses.ApiResponse
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.PartecipantsEventAdapter
+import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.ResponseBody
@@ -31,7 +33,10 @@ class EventPartecipantsFragment : Fragment() {
     var adapter: PartecipantsEventAdapter? = null
     private lateinit var apiClient: ApiClient
     private var userList: MutableList<User> = arrayListOf()
-    private lateinit var presence: FloatingActionButton
+    private var userToRemove: MutableList<User> = arrayListOf()
+    private lateinit var setPresence: FloatingActionButton
+    private lateinit var checkAll: FloatingActionButton
+    private lateinit var sessionManager: SessionManager
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,18 +44,41 @@ class EventPartecipantsFragment : Fragment() {
         val v =  inflater.inflate(R.layout.fragment_event_partecipants, container, false)
         listView = v.findViewById(R.id.event_partecipants_list)
 
-        val checkAll: FloatingActionButton = v.findViewById(R.id.check_all_button)
+        checkAll = v.findViewById(R.id.check_all_button)
+        setPresence = v.findViewById(R.id.presence)
+
+        //Session manager
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        //check if is not admin
+
+        if (!sessionManager.fetchUserName().equals("Admin")) {
+            checkAll.visibility = View.GONE
+        }
+
 
         checkAll.setOnClickListener(View.OnClickListener {
             for (i in 0 until listView.count) {
                 var view = listView.getChildAt(i)
                 (view.findViewById<View>(R.id.presence) as CheckBox).visibility = View.VISIBLE
             }
-            /*presence = v.findViewById(R.id.presence)
-            presence.visibility = View.VISIBLE*/
+            setPresence.visibility = View.VISIBLE
             checkAll.visibility = View.GONE
         })
 
+        setPresence.setOnClickListener(View.OnClickListener {
+            checkAll.visibility = View.VISIBLE
+            setPresence.visibility = View.GONE
+            val userIds : ArrayList<String> = arrayListOf()
+            for (i in 0 until listView.count) {
+                var view = listView.getChildAt(i)
+                if ((view.findViewById<View>(R.id.presence) as CheckBox).isChecked){
+                    userIds.add(userList[i].id)
+                    userToRemove.add(userList[i])
+                }
+                (view.findViewById<View>(R.id.presence) as CheckBox).visibility = View.GONE
+            }
+            setEntries(userIds)
+        })
 
         eventId = arguments?.getString("eventId")!!
         getPartecipants()
@@ -58,6 +86,52 @@ class EventPartecipantsFragment : Fragment() {
         // Inflate the layout for this fragment
         return v
     }
+
+    private fun setEntries(userIds: List<String>) {
+        apiClient = ApiClient()
+        context?.let {
+            apiClient.getApiServiceAuth(context!!).setEntries(userIds)
+                .enqueue(object : Callback<ApiResponse> {
+                    override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                        if (response.isSuccessful) {
+                            removeBookings(userIds)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "SI E' VERIFICATO UN ERRORE!", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+    }
+
+    private fun refreshAdapter() {
+        adapter = PartecipantsEventAdapter(ApplicationContextProvider.getContext(),
+            userList as java.util.ArrayList<User>, sessionManager.fetchUserName())
+        listView.adapter = adapter
+    }
+
+    private fun removeBookings(userIds: List<String>) {
+        apiClient = ApiClient()
+        context?.let {
+            apiClient.getApiServiceGateway(context!!).removeBookings(userIds, eventId)
+                .enqueue(object : Callback<ResponseBody> {
+                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                        if (response.isSuccessful){
+                            Toast.makeText(ApplicationContextProvider.getContext(), "PRESENZE SALVATE CORRETTAMENTE", Toast.LENGTH_LONG).show()
+                            userList.removeAll(userToRemove)
+                            refreshAdapter()
+                            getProfileImages()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(ApplicationContextProvider.getContext(), "SI E' VERIFICATO UN ERRORE!", Toast.LENGTH_LONG).show()
+                    }
+                })
+        }
+    }
+
 
     private fun getPartecipants() {
         apiClient = ApiClient()
@@ -73,11 +147,10 @@ class EventPartecipantsFragment : Fragment() {
                                 }else{
                                     view?.findViewById<TextView>(R.id.no_partecipants)?.visibility = View.GONE
                                 }
-                                println(userList)
                                 //Assign the adapter
                                 adapter = PartecipantsEventAdapter(
                                     ApplicationContextProvider.getContext(),
-                                    userList as java.util.ArrayList<User>)
+                                    userList as java.util.ArrayList<User>, sessionManager.fetchUserName())
                                 listView.adapter = adapter
 
                                 getProfileImages()

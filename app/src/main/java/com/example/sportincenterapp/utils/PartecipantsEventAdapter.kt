@@ -11,7 +11,7 @@ import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.models.User
 import java.util.ArrayList
 
-class PartecipantsEventAdapter(private val context: Context, private val arrayList: ArrayList<User>) : BaseAdapter() {
+class PartecipantsEventAdapter(private val context: Context, private val arrayList: ArrayList<User>, private val userType: String?) : BaseAdapter() {
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
     private lateinit var userEntries: TextView
@@ -31,6 +31,11 @@ class PartecipantsEventAdapter(private val context: Context, private val arrayLi
         userName = convertView.findViewById(R.id.name)
         userEmail = convertView.findViewById(R.id.email)
         userEntries = convertView.findViewById(R.id.entries_number)
+
+        if (!userType.equals("Admin")) {
+            userEmail.visibility = View.GONE
+            userEntries.visibility = View.GONE
+        }
 
         userName.text = arrayList[position].displayName
         userEmail.text = userEmail.text.toString() + arrayList[position].email
