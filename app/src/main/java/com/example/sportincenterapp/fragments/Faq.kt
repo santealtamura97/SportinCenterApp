@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
+import kotlinx.android.synthetic.main.fragment_faq.*
 
 class Faq : Fragment() {
 
@@ -20,63 +21,65 @@ class Faq : Fragment() {
 
         val v = inflater.inflate(R.layout.fragment_faq, container, false)
 
-        //layout
-        val rlLayout = v.findViewById<LinearLayout>(R.id.title_faq_layout)
-        //text
-        var text_1 = v.findViewById<TextView>(R.id.first_faq_text)
-        var text_1a = v.findViewById<TextView>(R.id.first_faq_body)
-        var text_2 = v.findViewById<TextView>(R.id.second_faq_text)
-        var text_2a = v.findViewById<TextView>(R.id.second_faq_body)
-        var text_3 = v.findViewById<TextView>(R.id.third_faq_text)
-        var text_3a = v.findViewById<TextView>(R.id.third_faq_body)
+        val faq_mainLayout = v.findViewById<LinearLayout>(R.id.faq_mainLayout)
+        var faq_questionText1 = v.findViewById<TextView>(R.id.faq_QuestionText1)
+        var faq_answerText1 = v.findViewById<TextView>(R.id.faq_answerText1)
+        var faq_questionText2 = v.findViewById<TextView>(R.id.faq_QuestionText2)
+        var faq_answerText2 = v.findViewById<TextView>(R.id.faq_answerText2)
+        var faq_questionText3 = v.findViewById<TextView>(R.id.faq_QuestionText3)
+        var faq_answerText3 = v.findViewById<TextView>(R.id.faq_answerText3)
 
-        text_1.setOnClickListener{
+        faq_questionText1.setOnClickListener{
 
             if(open1) {
-                text_1a.visibility = View.GONE
+                faq_answerText1.visibility = View.GONE
                 open1 = false;
             }else{
-                text_1a.visibility = View.VISIBLE
+                faq_answerText1.visibility = View.VISIBLE
                 open1 = true;
             }
         }
 
-        text_2.setOnClickListener{
+        faq_questionText2.setOnClickListener{
 
             if(open2) {
-                text_2a.visibility = View.GONE
+                faq_answerText2.visibility = View.GONE
                 open2 = false;
             }else{
-                text_2a.visibility = View.VISIBLE
+                faq_answerText2.visibility = View.VISIBLE
                 open2 = true;
             }
         }
 
-        text_3.setOnClickListener{
+        faq_questionText3.setOnClickListener{
 
             if(open3) {
-                text_3a.visibility = View.GONE
+                faq_answerText3.visibility = View.GONE
                 open3 = false;
             }else{
-                text_3a.visibility = View.VISIBLE
+                faq_answerText3.visibility = View.VISIBLE
                 open3 = true;
             }
 
         }
 
         /* DEFAULT VALUE COLOR */
-        rlLayout.setBackgroundResource(arguments!!.getInt("color"))
-        text_1.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        text_2.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        text_3.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+        faq_mainLayout.setBackgroundResource(arguments!!.getInt("cl_faq_background"))
+        faq_answerText1.setBackgroundResource(arguments!!.getInt("cl_faq_background"))
+        faq_answerText2.setBackgroundResource(arguments!!.getInt("cl_faq_background"))
+        faq_answerText3.setBackgroundResource(arguments!!.getInt("cl_faq_background"))
+        faq_answerText1.setTextColor(getResources().getColor(arguments!!.getInt("cl_faq_text")))
+        faq_answerText2.setTextColor(getResources().getColor(arguments!!.getInt("cl_faq_text")))
+        faq_answerText3.setTextColor(getResources().getColor(arguments!!.getInt("cl_faq_text")))
+
 
         /* STRING VALUE */
-        text_1.setText(getResources().getString(arguments!!.getInt("string_faq_1")))
-        text_1a.setText(getResources().getString(arguments!!.getInt("string_faq_1a")))
-        text_2.setText(getResources().getString(arguments!!.getInt("string_faq_2")))
-        text_2a.setText(getResources().getString(arguments!!.getInt("string_faq_2a")))
-        text_3.setText(getResources().getString(arguments!!.getInt("string_faq_3")))
-        text_3a.setText(getResources().getString(arguments!!.getInt("string_faq_3a")))
+        faq_questionText1.setText(getResources().getString(arguments!!.getInt("st_faq_question1")))
+        faq_questionText2.setText(getResources().getString(arguments!!.getInt("st_faq_question2")))
+        faq_questionText3.setText(getResources().getString(arguments!!.getInt("st_faq_question3")))
+        faq_answerText1.setText(getResources().getString(arguments!!.getInt("st_faq_answer1")))
+        faq_answerText2.setText(getResources().getString(arguments!!.getInt("st_faq_answer2")))
+        faq_answerText3.setText(getResources().getString(arguments!!.getInt("st_faq_answer3")))
 
         return v
     }

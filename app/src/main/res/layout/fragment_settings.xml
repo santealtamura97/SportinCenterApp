@@ -3,31 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Settings"
-    android:background="@color/white">
+    tools:context=".fragments.Settings">
 
     <LinearLayout
+        android:id="@+id/setting_mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background_primary_color">
 
         <LinearLayout
-            android:id="@+id/title_settings_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:background="@color/orange">
 
             <TextView
-                android:id="@+id/text_title_settings"
+                android:id="@+id/settings_title"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:text="@string/fr_settings_title_it"
                 android:textSize="25dp">
             </TextView>
+
         </LinearLayout>
 
         <LinearLayout
@@ -36,12 +38,12 @@
             android:layout_marginTop="30dp">
 
             <TextView
-                android:id="@+id/language_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/settings_language"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/settings_language"
+                android:text="@string/fr_settings_language_it"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
@@ -49,15 +51,15 @@
             </TextView>
 
             <Spinner
-                android:id="@+id/spinner_language"
+                android:id="@+id/settings_spinnerLanguage_it"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="35dp"
                 android:layout_gravity="center_vertical"
                 android:entries="@array/lingua" />
 
             <Spinner
-                android:id="@+id/spinner_language_en"
+                android:id="@+id/settings_spinnerLanguage_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -73,12 +75,12 @@
             android:layout_marginTop="30dp">
 
             <TextView
-                android:id="@+id/theme_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/settings_theme"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/settings_theme"
+                android:text="@string/fr_settings_theme_it"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
@@ -86,7 +88,7 @@
             </TextView>
 
             <Spinner
-                android:id="@+id/spinner_theme"
+                android:id="@+id/settings_spinnerTheme_it"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
@@ -94,7 +96,7 @@
                 android:entries="@array/temi"/>
 
             <Spinner
-                android:id="@+id/spinner_theme_en"
+                android:id="@+id/settings_spinnerTheme_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
@@ -111,12 +113,12 @@
             android:layout_marginTop="30dp">
 
             <TextView
-                android:id="@+id/misure_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/settings_measure"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/um"
+                android:text="@string/fr_settings_measure_it"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
@@ -124,7 +126,7 @@
             </TextView>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/settings_UMRadiogroup"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
@@ -135,28 +137,30 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/um_1"
+                    android:text="@string/fr_settings_unitMeasure1"
                     android:textSize="15dp"></TextView>
 
                 <RadioButton
-                    android:id="@+id/radioButton_1"
+                    android:id="@+id/settings_radioButton1"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:checked="true"
-                    android:buttonTint="@color/black"></RadioButton>
+                    android:buttonTint="@color/black">
+
+                </RadioButton>
 
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="30dp"
-                    android:text="@string/um_2"
+                    android:text="@string/fr_settings_unitMeasure2"
                     android:textSize="15dp"></TextView>
 
                 <RadioButton
-                    android:id="@+id/radioButton_2"
+                    android:id="@+id/settings_radioButton2"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -172,12 +176,12 @@
             android:layout_marginTop="30dp">
 
             <TextView
-                android:id="@+id/version_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/settings_version"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/settings_version"
+                android:text="@string/fr_settings_version_it"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="25dp">
@@ -185,11 +189,12 @@
             </TextView>
 
             <TextView
-                android:id="@+id/settings_version"
-                android:layout_width="170dp"
-                android:layout_height="30dp"
+                android:id="@+id/settings_versionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
+                android:text="@string/fr_settings_version"
                 android:textSize="25dp">
 
             </TextView>

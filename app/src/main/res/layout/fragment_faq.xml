@@ -7,12 +7,12 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/faq_mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/title_faq_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:text="@string/faq_title"
+                android:text="@string/fr_faq_title"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="25dp">
@@ -42,30 +42,30 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/first_faq_text"
+                    android:id="@+id/faq_QuestionText1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/orange"
-                    android:text="@string/faq_question_1"
+                    android:text="@string/fr_faq_question1_it"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:background="#DFD2D2" />
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/first_faq_body"
+                    android:id="@+id/faq_answerText1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/faq_respose_1"
+                    android:text="@string/fr_faq_answer1_it"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:visibility="gone">
                 </TextView>
 
                 <TextView
-                    android:id="@+id/second_faq_text"
+                    android:id="@+id/faq_QuestionText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -73,24 +73,24 @@
                     android:layout_marginTop="20dp"
                     android:textColor="@color/orange"
                     android:textSize="20dp"
-                    android:text="@string/faq_question_2"
-                    android:textStyle="bold"
-                    android:background="#DFD2D2">
+                    android:text="@string/fr_faq_question2_it"
+                    android:textStyle="bold">
                 </TextView>
 
                 <TextView
-                    android:id="@+id/second_faq_body"
+                    android:id="@+id/faq_answerText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="@string/faq_respose_2"
+                    android:text="@string/fr_faq_answer2_it"
                     android:textSize="20dp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:visibility="gone">
                 </TextView>
 
                 <TextView
-                    android:id="@+id/third_faq_text"
+                    android:id="@+id/faq_QuestionText3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -98,18 +98,18 @@
                     android:layout_marginTop="20dp"
                     android:textColor="@color/orange"
                     android:textSize="20dp"
-                    android:text="@string/faq_question_3"
-                    android:textStyle="bold"
-                    android:background="#DFD2D2">
+                    android:text="@string/fr_faq_question3_it"
+                    android:textStyle="bold">
                 </TextView>
 
                 <TextView
-                    android:id="@+id/third_faq_body"
+                    android:id="@+id/faq_answerText3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:text="@string/faq_respose_3"
+                    android:text="@string/fr_faq_answer3_it"
                     android:textStyle="bold"
                     android:visibility="gone">
                 </TextView>

@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/home_generalLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/background_primary_color">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/home_mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/white">
+            android:background="@color/background_primary_color">
 
+            <!-- Title -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="50dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/logo_small_icon_only">
-
-                </ImageView>
+                    android:src="@drawable/logo_small_icon_only"
+                    android:visibility="gone"/>
 
                 <TextView
-                    android:id="@+id/app_name"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:gravity= "center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textColor ="@color/orange"
+                    android:layout_gravity="center"
                     android:textSize="30dp"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="5dp"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif-light"
-                    android:text="@string/home_title">
-                </TextView>
-
+                    android:text="@string/fr_home_title"/>
             </LinearLayout>
 
+            <!-- first separator -->
             <LinearLayout
-                android:id="@+id/first_separator"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/orange"
-                android:orientation="vertical">
-            </LinearLayout>
-
+                android:orientation="vertical" />
+            <!-- image switcher -->
             <ImageSwitcher
-                android:id = "@+id/imageswitcher_home"
+                android:id="@+id/home_imageSwitcher"
                 android:layout_width="350dp"
                 android:layout_height="150dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center">
-            </ImageSwitcher>
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="350dp"
@@ -64,68 +64,67 @@
                 android:layout_marginLeft="30dp"
                 android:background="@color/white">
 
-                      <ImageButton
-                           android:id="@+id/prev"
-                           android:layout_width="50dp"
-                           android:layout_height="30dp"
-                           android:background="@color/orange"
-                           android:layout_gravity="left"
-                           android:src="@drawable/ic_baseline_navigate_before_24">
-                      </ImageButton>
+                <ImageButton
+                    android:id="@+id/home_imagePrevious"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:background="@color/orange"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_baseline_navigate_before_24" />
 
+                <ImageButton
+                    android:id="@+id/home_imageFollowing"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:background="@color/orange"
+                    android:layout_marginLeft="251dp"
+                    android:src="@drawable/ic_baseline_navigate_next_24" />
 
-                      <ImageButton
-                         android:id="@+id/next"
-                         android:layout_width="50dp"
-                         android:layout_height="30dp"
-                         android:background="@color/orange"
-                         android:layout_marginLeft="250dp"
-                         android:src="@drawable/ic_baseline_navigate_next_24">
+            </LinearLayout>
 
-                     </ImageButton>
-
-                   </LinearLayout>
-
+            <!-- main body -->
             <TextView
-                android:id="@+id/firststring_home"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:id="@+id/home_firstQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="5dp"
                 android:textSize="30dp"
-                android:text="@string/first_title_home">
-            </TextView>
+                android:textColor="@color/orange"
+                android:text="@string/fr_home_firstQuestion_it" />
 
             <TextView
-                android:id="@+id/first_text_home"
-                android:layout_width="350dp"
-                android:layout_height="170dp"
-                android:layout_marginLeft="20dp"
+                android:id="@+id/home_firstAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
-                android:text="@string/first_text_home">
-            </TextView>
+                android:textColor="@color/black"
+                android:text="@string/fr_home_firstAnswer_it" />
 
             <TextView
-                android:id="@+id/secondstring_home"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:id="@+id/home_secondQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/orange"
                 android:textSize="30dp"
-                android:text="@string/second_title_home">
-            </TextView>
+                android:text="@string/fr_home_secondQuestion_it" />
 
             <TextView
-                android:id="@+id/second_text_home"
-                android:layout_width="350dp"
-                android:layout_height="200dp"
-                android:layout_marginLeft="20dp"
+                android:id="@+id/home_secondAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
-                android:text="@string/second_text_home">
-            </TextView>
+                android:textColor="@color/black"
+                android:text="@string/fr_home_secondAnswer_it" />
+
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

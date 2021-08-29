@@ -21,26 +21,23 @@ class HomeFragment : Fragment() {
         //Extract the view
         val v = inflater.inflate(R.layout.fragment_home, container, false)
 
-        //Exctract component of the view
-        //Strings
-        val firstString = v.findViewById<TextView>(R.id.firststring_home)
-        val first_text_home = v.findViewById<TextView>(R.id.first_text_home)
-        val secondString = v.findViewById<TextView>(R.id.secondstring_home)
-        val second_text_home = v.findViewById<TextView>(R.id.second_text_home)
-        val app_name = v.findViewById<TextView>(R.id.app_name)
-        //Separator
-        val firstSeparator = v.findViewById<LinearLayout>(R.id.first_separator)
-        //Button next/prev
-        val prev = v.findViewById<ImageButton>(R.id.prev)
-        val next = v.findViewById<ImageButton>(R.id.next)
-        //Image switcher
-        val imgSwitcher = v.findViewById<ImageSwitcher>(R.id.imageswitcher_home)
+        val generalLayout = v.findViewById<RelativeLayout>(R.id.home_generalLayout)
+        val mainLayout = v.findViewById<LinearLayout>(R.id.home_mainLayout)
+        val firstAnswer = v.findViewById<TextView>(R.id.home_firstAnswer)
+        val firstQuestion = v.findViewById<TextView>(R.id.home_firstQuestion)
+        val secondAnswer = v.findViewById<TextView>(R.id.home_secondAnswer)
+        val secondQuestion = v.findViewById<TextView>(R.id.home_secondQuestion)
 
-        //Image switcher settings
-        imgSwitcher?.setFactory({
+        //Image switcher
+        val imgSwitcher = v.findViewById<ImageSwitcher>(R.id.home_imageSwitcher)
+        val prev = v.findViewById<ImageButton>(R.id.home_imagePrevious)
+        val next = v.findViewById<ImageButton>(R.id.home_imageFollowing)
+
+        /* Image switcher settings */
+        imgSwitcher?.setFactory {
             val imgView = ImageView(ApplicationContextProvider.getContext())
             imgView
-        })
+        }
         //Set first image
         imgSwitcher?.setImageResource(nameList[index])
         //Animation
@@ -52,23 +49,7 @@ class HomeFragment : Fragment() {
                 ApplicationContextProvider.getContext(), android.R.anim.slide_out_right)
         imgSwitcher?.outAnimation = imgOut
 
-        /* DEFAULT COLORS */
-        prev.setBackgroundResource(arguments!!.getInt("color"))
-        next.setBackgroundResource(arguments!!.getInt("color"))
-        firstSeparator.setBackgroundResource(arguments!!.getInt("color"))
-        firstString.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        secondString.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        app_name.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        
-        /* STRING VALUE */
-        firstString.setText(getResources().getString(arguments!!.getInt("string_home_1")))
-        first_text_home.setText(getResources().getString(arguments!!.getInt("string_home_2")))
-        secondString.setText(getResources().getString(arguments!!.getInt("string_home_3")))
-        second_text_home.setText(getResources().getString(arguments!!.getInt("string_home_4")))
-
-        /* LISTENER */
-
-        //Previous/Next button listener
+        //Previous/Follow buttons listeners
         prev.setOnClickListener {
             index = if (index - 1 >= 0) index - 1 else 2
             imgSwitcher?.setImageResource(nameList[index])
@@ -78,6 +59,19 @@ class HomeFragment : Fragment() {
             index = if (index + 1 < nameList.size) index +1 else 0
             imgSwitcher?.setImageResource(nameList[index])
         }
+
+
+        /* DEFAULT COLORS */
+        mainLayout.setBackgroundResource(arguments!!.getInt("cl_home_background"))
+        generalLayout.setBackgroundResource(arguments!!.getInt("cl_home_background"))
+        firstAnswer.setTextColor(getResources().getColor(arguments!!.getInt("cl_home_text")))
+        secondAnswer.setTextColor(getResources().getColor(arguments!!.getInt("cl_home_text")))
+        
+        /* STRING VALUE */
+        firstQuestion.setText(getResources().getString(arguments!!.getInt("st_home_firstQuestion")))
+        firstAnswer.setText(getResources().getString(arguments!!.getInt("st_home_firstAnswer")))
+        secondQuestion.setText(getResources().getString(arguments!!.getInt("st_home_secondQuestion")))
+        secondAnswer.setText(getResources().getString(arguments!!.getInt("st_home_secondAnswer")))
 
         return v
     }

@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relative_layout_user"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:background="@color/orange"
-     android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange"
+    android:orientation="vertical">
 
-     <!--Top Header Layout-->
+     <!-- Title of the page -->
      <LinearLayout
-         android:id="@+id/topbar"
+         android:id="@+id/user_topBar"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_alignParentTop="true"
-         android:orientation="horizontal"
          android:gravity="center_horizontal"
          android:padding="16dp">
 
          <TextView
-             android:id="@+id/profile_title_user"
+             android:id="@+id/user_pageTitle"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:gravity="center_horizontal"
              android:textColor="@color/white"
-             android:text="@string/profile"
-             android:textSize="20dp"
-             android:textStyle="bold" />
+             android:text="@string/fr_user_pageTitle_it"
+             android:textSize="30dp"
+             android:textStyle="bold"/>
 
      </LinearLayout>
 
@@ -35,7 +31,7 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:scrollbars="none"
-         android:layout_below="@+id/topbar">
+         android:layout_below="@+id/user_topBar">
 
          <LinearLayout
              android:layout_width="match_parent"
@@ -45,527 +41,512 @@
              android:paddingTop="10dp"
              android:paddingRight="20dp">
 
-             <!--Top Profile Section -->
+             <!-- first profile section -->
              <LinearLayout
+                 android:id="@+id/user_firstProfileSection"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:background="@drawable/circularbordersolid"
+                 android:background="@drawable/circular_white_bordersolid"
                  android:gravity="center"
                  android:orientation="vertical"
                  android:padding="16dp">
 
-                 <ImageView
+                <ImageView
                      android:layout_width="130dp"
                      android:layout_height="130dp"
                      android:background="@drawable/profileimage_container"
-                     android:src="@drawable/ic_launcher_foreground">
-                 </ImageView>
+                     android:src="@drawable/ic_launcher_foreground" />
 
-                     <TextView
-                         android:id="@+id/user_text"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginTop="5dp"
-                         android:textSize="20dp"
-                         android:textColor="@color/black"/>
+                <TextView
+                android:id="@+id/user_profileNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="20dp"
+                android:textColor="@color/black"/>
+
              </LinearLayout>
 
-             <!--Bottom Cards with sections-->
+             <!-- second profile section -->
              <LinearLayout
-                 android:id="@+id/personalinfo"
+                 android:id="@+id/user_informationSection"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:orientation="vertical">
-
-                 <!--Contact Details-->
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="5dp"
-                     android:background="@drawable/circularbordersolid"
-                     android:orientation="vertical"
-                     android:padding="16dp">
-
-                     <LinearLayout
-                         android:id="@+id/a"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content">
-
-                         <TextView
-                             android:id="@+id/info_user_text"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="@string/user_information_title"
-                             android:textSize="17dp"
-                             android:textStyle="bold"
-                             android:textColor="@color/black"/>
-
-                         <Button
-                             android:id="@+id/button_infouser_save"
-                             android:layout_width="80dp"
-                             android:layout_height="30dp"
-                             android:text="@string/save"
-                             android:layout_marginLeft="105dp"
-                             android:textColor="@color/orange"
-                             android:background="@color/white"
-                             android:textSize="13dp"
-                             android:visibility="gone"/>
-
-                         <Button
-                             android:id="@+id/button_infouser"
-                             android:layout_width="80dp"
-                             android:layout_height="30dp"
-                             android:text="@string/edit"
-                             android:layout_marginLeft="105dp"
-                             android:textColor="@color/orange"
-                             android:background="@color/white"
-                             android:textSize="13dp"
-                             style="?android:attr/borderlessButtonStyle"/>
-                     </LinearLayout>
-
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_marginTop="10dp"
-                         android:orientation="vertical">
-
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
-
-                             <ImageView
-                                 android:layout_width="40dp"
-                                 android:layout_height="40dp"
-                                 android:background="@drawable/circular_white_bordersolid"
-                                 android:padding="10dp"
-                                 android:src="@drawable/ic_baseline_call_24" />
-
-                             <EditText
-                                 android:id="@+id/user_phonenumber_edit"
-                                 android:layout_width="150dp"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textSize="15dp"
-                                 android:visibility="gone"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
-
-                             <TextView
-                                 android:id="@+id/user_phonenumber_view"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textSize="15dp"
-                                 android:text="Aiutaci a contattarti!"
-                                 android:textColor="@color/grey"
-                                 android:inputType="number"/>
-                         </LinearLayout>
-
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:layout_marginTop="10dp"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
-
-                             <ImageView
-                                 android:layout_width="40dp"
-                                 android:layout_height="40dp"
-                                 android:background="@drawable/circular_white_bordersolid"
-                                 android:padding="10dp"
-                                 android:src="@drawable/ic_baseline_email_24" />
-
-                             <TextView
-                                 android:id="@+id/user_emailaddress"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textSize="15sp"
-                                 android:textColor="@color/black"/>
-                         </LinearLayout>
-
-
-
-                     </LinearLayout>
-                 </LinearLayout>
+                 android:layout_marginTop="5dp"
+                 android:background="@drawable/circular_white_bordersolid"
+                 android:orientation="vertical"
+                 android:padding="16dp">
 
                  <LinearLayout
                      android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="5dp"
-                     android:background="@drawable/circularbordersolid"
-                     android:orientation="vertical"
-                     android:padding="16dp">
+                     android:layout_height="wrap_content">
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content">
-
-                         <TextView
-                             android:id="@+id/subscription_details"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="Abbonamento:"
-                             android:textSize="17sp"
-                             android:textStyle="bold"
-                             android:textColor="@color/black"/>
-                     </LinearLayout>
-
-                     <LinearLayout
-                         android:layout_width="match_parent"
+                     <TextView
+                         android:id="@+id/user_informationSectionText"
+                         android:layout_width="200dp"
                          android:layout_height="wrap_content"
-                         android:layout_marginTop="10dp"
-                         android:orientation="vertical">
+                         android:text="@string/fr_user_informationSectionTitle_it"
+                         android:textSize="17dp"
+                         android:textStyle="bold"
+                         android:textColor="@color/black"/>
 
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
+                     <Button
+                         android:id="@+id/user_informationSectionButton"
+                         android:layout_width="80dp"
+                         android:layout_height="30dp"
+                         android:text="@string/fr_user_informationSectionButton_it"
+                         android:layout_marginLeft="50dp"
+                         android:textColor="@color/orange"
+                         android:background="@color/white"
+                         android:textSize="13dp"
+                         style="?android:attr/borderlessButtonStyle"/>
 
-                             <RelativeLayout
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 >
-
-                                 <ImageView
-                                     android:id="@+id/subscription_active"
-                                     android:layout_width="40dp"
-                                     android:layout_height="40dp"
-                                     android:background="@drawable/circular_white_bordersolid"
-                                     android:padding="10dp"
-                                     android:src="@drawable/ic_subscription_active"
-                                     android:visibility="gone" />
-                                 <ImageView
-                                     android:id="@+id/subscription_expired"
-                                     android:layout_width="40dp"
-                                     android:layout_height="40dp"
-                                     android:background="@drawable/circular_white_bordersolid"
-                                     android:padding="10dp"
-                                     android:src="@drawable/ic_subscription_expired"
-                                     android:visibility="visible"/>
-
-                             </RelativeLayout>
-
-                             <TextView
-                                 android:id="@+id/subscription_status"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textColor="@color/black"
-                                 android:textSize="15dp"
-                                 android:textStyle="bold"/>
-
-                         </LinearLayout>
-
-
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
-
-                             <ImageView
-                                 android:layout_width="40dp"
-                                 android:layout_height="40dp"
-                                 android:background="@drawable/circular_white_bordersolid"
-                                 android:padding="10dp"
-                                 android:src="@drawable/ic_subscription" />
-
-                             <TextView
-                                 android:id="@+id/subscription_type"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textColor="@color/black"
-                                 android:text="Tipologia: "
-                                 android:textSize="15dp" />
-
-                         </LinearLayout>
-
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
-
-                             <ImageView
-                                 android:layout_width="40dp"
-                                 android:layout_height="40dp"
-                                 android:background="@drawable/circular_white_bordersolid"
-                                 android:padding="10dp"
-                                 android:src="@drawable/ic_baseline_date_range_24" />
-
-                             <TextView
-                                 android:id="@+id/subscription_deadline"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textColor="@color/black"
-                                 android:text="Scadenza: "
-                                 android:textSize="15dp" />
-
-                         </LinearLayout>
-
-
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
-
-                             <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                                 android:id="@+id/circularProgressBar"
-                                 android:layout_width="24dp"
-                                 android:layout_height="24dp"
-                                 android:layout_gravity="end|bottom"
-                                 android:layout_margin="10dp"
-                                 android:background="@drawable/progress_bar_background"
-                                 app:cpb_background_progressbar_color="#000000"
-                                 app:cpb_background_progressbar_width="5dp"
-                                 app:cpb_progress="10"
-                                 app:cpb_progress_direction="to_right"
-                                 app:cpb_progress_max="12"
-                                 app:cpb_progressbar_color="#FF5722"
-                                 app:cpb_progressbar_width="5dp"
-                                 app:cpb_round_border="false" />
-
-                             <TextView
-                                 android:id="@+id/remaining_entries"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="16dp"
-                                 android:textColor="@color/black"
-                                 android:text="Ingressi rimanenti: "
-                                 android:textSize="15dp" />
-
-                         </LinearLayout>
-
-                     </LinearLayout>
-
+                     <Button
+                         android:id="@+id/user_informationSectionButtonSave"
+                         android:layout_width="80dp"
+                         android:layout_height="30dp"
+                         android:text="@string/fr_user_informationSectionButtonSave_it"
+                         android:layout_marginLeft="50dp"
+                         android:textColor="@color/orange"
+                         android:background="@color/white"
+                         android:visibility="gone"
+                         android:textSize="13dp"
+                         style="?android:attr/borderlessButtonStyle"/>
 
                  </LinearLayout>
 
-                 <!--Physics Details-->
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginTop="5dp"
-                     android:background="@drawable/circularbordersolid"
-                     android:orientation="vertical"
-                     android:padding="16dp">
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
+
+                     <ImageView
+                         android:id="@+id/user_informationSectionTelephoneIcon"
+                         android:layout_width="40dp"
+                         android:layout_height="40dp"
+                         android:background="@color/white"
+                         android:padding="10dp"
+                         android:src="@drawable/ic_baseline_call_24" />
+
+                     <EditText
+                         android:id="@+id/user_informationSectionTelephoneEdit"
+                         android:layout_width="150dp"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textSize="15dp"
+                         android:textColor="@color/black"
+                         android:visibility="gone"
+                         android:inputType="number"/>
+
+                     <TextView
+                         android:id="@+id/user_informationSectionTelephoneText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:textSize="15dp" />
+
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
+
+                     <ImageView
+                         android:id="@+id/user_informationSectionEmailIcon"
+                         android:layout_width="40dp"
+                         android:layout_height="40dp"
+                         android:background="@color/white"
+                         android:padding="10dp"
+                         android:src="@drawable/ic_baseline_email_24" />
+
+                     <EditText
+                         android:id="@+id/user_informationSectionEmailEdit"
+                         android:layout_width="150dp"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textSize="15dp"
+                         android:visibility="gone"
+                         android:textColor="@color/black" />
+
+                     <TextView
+                         android:id="@+id/user_informationSectionEmailText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:textSize="15dp" />
+
+                 </LinearLayout>
+
+
+             </LinearLayout>
+
+             <!-- subscription section -->
+             <LinearLayout
+                 android:id="@+id/user_subscriptionSection"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:background="@drawable/circular_white_bordersolid"
+                 android:orientation="vertical"
+                 android:padding="16dp">
+
+                 <TextView
+                     android:id="@+id/user_subscriptionSectionTitle"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/fr_user_subscriptionSectionTitle_it"
+                     android:textSize="17sp"
+                     android:textStyle="bold"
+                     android:textColor="@color/black"/>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
+
+                     <RelativeLayout
+                         android:layout_width="wrap_content"
                          android:layout_height="wrap_content">
 
-                         <TextView
-                             android:id="@+id/physycal_car_title"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="Caratteristiche fisiche:"
-                             android:textSize="17sp"
-                             android:textStyle="bold"
-                             android:textColor="@color/black"/>
+                        <ImageView
+                             android:id="@+id/user_subscriptionSectionActive"
+                             android:layout_width="40dp"
+                             android:layout_height="40dp"
+                            android:background= "@color/white"
+                             android:padding="10dp"
+                             android:src="@drawable/ic_subscription_active"
+                             android:visibility="gone" />
 
-                         <Button
-                             android:id="@+id/button_physics_save"
-                             android:layout_width="80dp"
-                             android:layout_height="30dp"
-                             android:text="@string/save"
-                             android:layout_marginLeft="105dp"
-                             android:textColor="@color/orange"
+                         <ImageView
+                             android:id="@+id/user_subscriptionSectionExpired"
+                             android:layout_width="40dp"
+                             android:layout_height="40dp"
                              android:background="@color/white"
-                             android:textSize="13dp"
-                             android:visibility="gone"/>
+                             android:padding="10dp"
+                             android:src="@drawable/ic_subscription_expired"
+                             android:visibility="visible" />
 
-                         <Button
-                             android:id="@+id/button_physics"
-                             android:layout_width="80dp"
-                             android:layout_height="30dp"
-                             android:layout_marginLeft="85dp"
-                             android:layout_gravity="center_vertical"
-                             android:text="@string/edit"
-                             android:textColor="@color/orange"
-                             android:background="@color/white"
-                             android:textSize="13dp"
-                             style="?android:attr/borderlessButtonStyle"/>
-                     </LinearLayout>
+                     </RelativeLayout>
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
+                     <TextView
+                         android:id="@+id/user_subscriptionSectionStatus"
+                         android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:layout_marginTop="10dp"
-                         android:orientation="vertical">
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:textSize="15dp"
+                         android:textStyle="bold"/>
 
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
+                 </LinearLayout>
 
-                             <TextView
-                                 android:id="@+id/age_text"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:padding="10dp"
-                                 android:text="@string/age"
-                                 android:textStyle="bold"
-                                 android:textSize="15dp"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
 
-                             <EditText
-                                 android:id="@+id/user_age_edit"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="55dp"
-                                 android:textSize="20dp"
-                                 android:visibility="gone"
-                                 android:inputType="number"/>
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
 
-                             <TextView
-                                 android:id="@+id/user_age_view"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="55dp"
-                                 android:textSize="20dp"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
+                     <ImageView
+                         android:id="@+id/user_subscriptionSectionTipologyIcon"
+                         android:layout_width="40dp"
+                         android:layout_height="40dp"
+                         android:background= "@color/white"
+                         android:padding="10dp"
+                         android:src="@drawable/ic_subscription" />
 
-                         </LinearLayout>
+                     <TextView
+                         android:id="@+id/user_subscriptionSectionTipologyText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:text="@string/fr_user_subscriptionSectionTipologyText_it"
+                         android:textSize="15dp" />
 
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
+                 </LinearLayout>
 
-                             <TextView
-                                 android:id="@+id/weight_text"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:padding="10dp"
-                                 android:text="@string/weight"
-                                 android:textStyle="bold"
-                                 android:textSize="15dp"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
 
-                             <EditText
-                                 android:id="@+id/user_weight_edit"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="25dp"
-                                 android:textSize="20dp"
-                                 android:visibility="gone"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
+                     <ImageView
+                         android:id="@+id/user_subscriptionSectionExpiredIcon"
+                         android:layout_width="40dp"
+                         android:layout_height="40dp"
+                         android:background="@color/white"
+                         android:padding="10dp"
+                         android:src="@drawable/ic_baseline_date_range_24" />
 
-                             <TextView
-                                 android:id="@+id/user_tall_view"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="25dp"
-                                 android:textSize="20dp"
-                                 android:textColor="@color/black"/>
+                     <TextView
+                         android:id="@+id/user_subscriptionSectionExpiredText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:text="@string/fr_user_subscriptionSectionExpiredText_it"
+                         android:textSize="15dp" />
 
-                             <TextView
-                                 android:id="@+id/um_1"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textSize="15dp"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
+                 </LinearLayout>
 
-                         </LinearLayout>
 
-                         <LinearLayout
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:gravity="center_vertical"
-                             android:paddingRight="8dp">
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
 
-                             <TextView
-                                 android:id="@+id/height_text"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:padding="10dp"
-                                 android:text="@string/height"
-                                 android:textStyle="bold"
-                                 android:textSize="15dp"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
+                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                         android:id="@+id/user_subscriptionSectionCircularProgressIcon"
+                         android:layout_width="24dp"
+                         android:layout_height="24dp"
+                         android:layout_gravity="end|bottom"
+                         android:layout_margin="10dp"
+                         android:background="@drawable/progress_bar_background"
+                         app:cpb_background_progressbar_color="#000000"
+                         app:cpb_background_progressbar_width="5dp"
+                         app:cpb_progress="10"
+                         app:cpb_progress_direction="to_right"
+                         app:cpb_progress_max="12"
+                         app:cpb_progressbar_color="#FF5722"
+                         app:cpb_progressbar_width="5dp"
+                         app:cpb_round_border="false" />
 
-                             <EditText
-                                 android:id="@+id/user_tall_edit"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="40dp"
-                                 android:textSize="20dp"
-                                 android:visibility="gone"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
-
-                             <TextView
-                                 android:id="@+id/user_weight_view"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="40dp"
-                                 android:textSize="20dp"
-                                 android:textColor="@color/black"
-                                 android:inputType="number"/>
-
-                             <TextView
-                                 android:id="@+id/um_2"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_marginLeft="20dp"
-                                 android:textSize="15dp"
-                                 android:textColor="@color/black"/>
-
-                         </LinearLayout>
-
-                         <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="wrap_content"
-                             android:layout_marginTop="5dp"
-                             android:background="@drawable/circularbordersolid">
-
-                             <TextView
-                                 android:id="@+id/bmi"
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:layout_gravity="center_vertical"
-                                 android:text="@string/bmi"
-                                 android:textColor="@color/orange"
-                                 android:textSize="30dp"
-                                 android:textStyle="bold"
-                                 android:padding="10dp">
-
-                             </TextView>
-
-                             <TextView
-                                 android:id="@+id/bmi_text"
-                                 android:layout_width="80dp"
-                                 android:layout_height="60dp"
-                                 android:layout_gravity="center_vertical"
-                                 android:padding="10dp"
-                                 android:textSize="30dp"
-                                 android:textColor="@color/black"></TextView>
-
-                         </LinearLayout>
-
-                     </LinearLayout>
+                     <TextView
+                         android:id="@+id/user_subscriptionSectionCircularProgressText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="16dp"
+                         android:textColor="@color/black"
+                         android:text="@string/fr_user_subscriptionSectionCircularProgressText_it"
+                         android:textSize="15dp" />
 
                  </LinearLayout>
 
              </LinearLayout>
 
-         </LinearLayout>
+             <!--Physics section-->
+             <LinearLayout
+                 android:id="@+id/user_physicsSection"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:background="@drawable/circular_white_bordersolid"
+                 android:orientation="vertical"
+                 android:padding="16dp">
+
+                 <LinearLayout
+
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionTitle"
+                         android:layout_width="200dp"
+                         android:layout_height="wrap_content"
+                         android:text="@string/fr_user_physicalSectionTitle_it"
+                         android:textSize="17sp"
+                         android:textStyle="bold"
+                         android:textColor="@color/black"/>
+
+                     <Button
+                         android:id="@+id/user_physicsSectionButton"
+                         android:layout_width="80dp"
+                         android:layout_height="30dp"
+                         android:layout_marginLeft="50dp"
+                         android:layout_gravity="center_vertical"
+                         android:text="@string/fr_user_informationSectionButton_it"
+                         android:textColor="@color/orange"
+                         android:background="@color/white"
+                         android:textSize="13dp"
+                         style="?android:attr/borderlessButtonStyle"/>
+
+                     <Button
+                         android:id="@+id/user_physicsSectionButtonSave"
+                         android:layout_width="80dp"
+                         android:layout_height="30dp"
+                         android:text="@string/fr_user_informationSectionButtonSave_it"
+                         android:layout_marginLeft="50dp"
+                         android:textColor="@color/orange"
+                         android:background="@color/white"
+                         android:visibility="gone"
+                         android:textSize="13dp"
+                         style="?android:attr/borderlessButtonStyle"/>
+
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionAgeText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:padding="10dp"
+                         android:text="@string/fr_user_physicalSectionAge_it"
+                         android:textStyle="bold"
+                         android:textSize="15dp"
+                         android:textColor="@color/black" />
+
+                     <EditText
+                         android:id="@+id/user_physicsSectionAgeEdit"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dp"
+                         android:textSize="20dp"
+                         android:textColor="@color/black"
+                         android:visibility="gone"
+                         android:inputType="number"/>
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionAgeTextValue"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:textSize="15dp" />
+
+
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionWeightText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:padding="10dp"
+                         android:text="@string/fr_user_physicalSectionWeight_it"
+                         android:textStyle="bold"
+                         android:textSize="15dp"
+                         android:textColor="@color/black"
+                         android:inputType="number"/>
+
+                     <EditText
+                         android:id="@+id/user_physicsSectionWeightEdit"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dp"
+                         android:textSize="20dp"
+                         android:textColor="@color/black"
+                         android:visibility="gone"
+                         android:inputType="number"/>
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionWeightTextValue"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:textSize="15dp" />
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionUM1"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textSize="15dp"
+                         android:textColor="@color/black"
+                         android:inputType="number"/>
+
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_vertical"
+                     android:paddingRight="8dp">
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionHeightText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:padding="10dp"
+                         android:text="@string/fr_user_physicalSectionHeight_it"
+                         android:textStyle="bold"
+                         android:textSize="15dp"
+                         android:textColor="@color/black"
+                         android:inputType="number"/>
+
+                     <EditText
+                         android:id="@+id/user_physicsSectionHeightEdit"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dp"
+                         android:textSize="20dp"
+                         android:textColor="@color/black"
+                         android:visibility="gone"
+                         android:inputType="number"/>
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionHeightTextValue"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textColor="@color/black"
+                         android:visibility="gone"
+                         android:textSize="15dp" />
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionUM2"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="20dp"
+                         android:textSize="15dp"
+                         android:textColor="@color/black"/>
+
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:id="@+id/user_BMISection"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="5dp"
+                     android:background="@color/white">
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionBMIText"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="center_vertical"
+                         android:text="@string/fr_user_physicalSectionBMI"
+                         android:textColor="@color/orange"
+                         android:textSize="30dp"
+                         android:textStyle="bold"
+                         android:padding="10dp">
+
+                     </TextView>
+
+                     <TextView
+                         android:id="@+id/user_physicsSectionBMIValue"
+                         android:layout_width="80dp"
+                         android:layout_height="60dp"
+                         android:layout_gravity="center_vertical"
+                         android:padding="10dp"
+                         android:textSize="30dp"
+                         android:textColor="@color/black" />
+
+                 </LinearLayout>
+
+             </LinearLayout>
+
+        </LinearLayout>
 
      </ScrollView>
 

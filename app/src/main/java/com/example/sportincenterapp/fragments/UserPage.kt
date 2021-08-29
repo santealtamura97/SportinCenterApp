@@ -37,168 +37,225 @@ class UserPage : Fragment() {
         //Fragment view
         val v = inflater.inflate(R.layout.fragment_user_page, container, false)
 
-        // Component of the view //
-        // RelativeLayout
-        val rLayout = v.findViewById<RelativeLayout>(R.id.relative_layout_user)
-        //User name
-        var user_title = v.findViewById<TextView>(R.id.info_user_text)
-        var physycall_title = v.findViewById<TextView>(R.id.physycal_car_title)
-        var user = v.findViewById<TextView>(R.id.user_text)
-        // Telephone
-        var telephone_view = v.findViewById<TextView>(R.id.user_phonenumber_view) //view
-        var telephone_edit = v.findViewById<EditText>(R.id.user_phonenumber_edit) //set
-        // Subscription
-        userSubscriptionType = v.findViewById<TextView>(R.id.subscription_type) //View
-        userSubscriptionDeadline = v.findViewById<TextView>(R.id.subscription_deadline)
-        userSubscriptionStatus = v.findViewById<TextView>(R.id.subscription_status)
-        userSubscriptionStatusIconActive = v.findViewById(R.id.subscription_active)
-        userSubscriptionStatusIconExpired = v.findViewById(R.id.subscription_expired)
-        userEntries = v.findViewById<TextView>(R.id.remaining_entries)
+        var user_pageTitle = v.findViewById<TextView>(R.id.user_pageTitle)
+        var user_firstSection = v.findViewById<LinearLayout>(R.id.user_firstProfileSection)
+        var user_profileNameText = v.findViewById<TextView>(R.id.user_profileNameText)
+        var user_informationSection = v.findViewById<LinearLayout>(R.id.user_informationSection)
+        var user_informationSectionTitle = v.findViewById<TextView>(R.id.user_informationSectionText)
+        var user_informationSectionButton = v.findViewById<Button>(R.id.user_informationSectionButton)
+        var user_informationSectionButtonSave = v.findViewById<Button>(R.id.user_informationSectionButtonSave)
+        var user_informationSectionTelephoneIcon = v.findViewById<ImageView>(R.id.user_informationSectionTelephoneIcon)
+        var user_informationSectionTelephoneEdit = v.findViewById<EditText>(R.id.user_informationSectionTelephoneEdit)
+        var user_informationSectionTelephoneText = v.findViewById<TextView>(R.id.user_informationSectionTelephoneText)
+        var user_informationSectionEmailIcon = v.findViewById<ImageView>(R.id.user_informationSectionEmailIcon)
+        var user_informationSectionEmailEdit = v.findViewById<EditText>(R.id.user_informationSectionEmailEdit)
+        var user_informationSectionEmailText = v.findViewById<TextView>(R.id.user_informationSectionEmailText)
+        var user_subscriptionSection = v.findViewById<LinearLayout>(R.id.user_subscriptionSection)
+        var user_subscriptionSectionTitle = v.findViewById<TextView>(R.id.user_subscriptionSectionTitle)
+        var user_subscriptionSectionActive = v.findViewById<ImageView>(R.id.user_subscriptionSectionActive)
+        var user_subscriptionSectionExpired = v.findViewById<ImageView>(R.id.user_subscriptionSectionExpired)
+        var user_subscriptionSectionStatus = v.findViewById<TextView>(R.id.user_subscriptionSectionStatus)
+        var user_subscriptionSectionTipologyIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionTipologyIcon)
+        var user_subscriptionSectionTipologyText = v.findViewById<TextView>(R.id.user_subscriptionSectionTipologyText)
+        var user_subscriptionSectionExpiredIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionExpiredIcon)
+        var user_subscriptionSectionExpiredText = v.findViewById<TextView>(R.id.user_subscriptionSectionExpiredText)
+        var user_subscriptionSectionCircularProgressIcon = v.findViewById<CircularProgressBar>(R.id.user_subscriptionSectionCircularProgressIcon)
+        var user_subscriptionSectionCircularProgressText = v.findViewById<TextView>(R.id.user_subscriptionSectionCircularProgressText)
+        var user_physichsSection = v.findViewById<LinearLayout>(R.id.user_physicsSection)
+        var user_physicsSectionTitle = v.findViewById<TextView>(R.id.user_physicsSectionTitle)
+        var user_physicsSectionAgeText = v.findViewById<TextView>(R.id.user_physicsSectionAgeText)
+        var user_physicsSectionAgeEdit = v.findViewById<EditText>(R.id.user_physicsSectionAgeEdit)
+        var user_physicsSectionAgeTextValue = v.findViewById<TextView>(R.id.user_physicsSectionAgeTextValue)
+        var user_physicsSectionWeightText = v.findViewById<TextView>(R.id.user_physicsSectionWeightText)
+        var user_physicsSectionWeightEdit = v.findViewById<EditText>(R.id.user_physicsSectionWeightEdit)
+        var user_physicsSectionWeightTextValue = v.findViewById<TextView>(R.id.user_physicsSectionWeightTextValue)
+        var user_physicsSectionHeightText = v.findViewById<TextView>(R.id.user_physicsSectionHeightText)
+        var user_physicsSectionHeightEdit = v.findViewById<EditText>(R.id.user_physicsSectionHeightEdit)
+        var user_physicsSectionHeightTextValue = v.findViewById<TextView>(R.id.user_physicsSectionHeightTextValue)
+        var user_physicsSectionUM1 = v.findViewById<TextView>(R.id.user_physicsSectionUM1)
+        var user_physicsSectionUM2 = v.findViewById<TextView>(R.id.user_physicsSectionUM2)
+        var user_physicsSectionButton = v.findViewById<Button>(R.id.user_physicsSectionButton)
+        var user_physicsSectionButtonSave = v.findViewById<Button>(R.id.user_physicsSectionButtonSave)
+        var user_BMISection = v.findViewById<LinearLayout>(R.id.user_BMISection)
+        var user_physicsSectionBMIValue= v.findViewById<TextView>(R.id.user_physicsSectionBMIValue)
 
-
+        /* User's functions */
         getSubscriptionName()
         getUserSubscriptionInfo()
-
-        //Email
-        var email = v.findViewById<TextView>(R.id.user_emailaddress) //view
-        //Age
-        val age_text = v.findViewById<TextView>(R.id.age_text) //view
-        val age_view = v.findViewById<TextView>(R.id.user_age_view) //view
-        val age_set = v.findViewById<EditText>(R.id.user_age_edit) //set
-        //Weight
-        val weight_text = v.findViewById<TextView>(R.id.weight_text) //view
-        val weight_view = v.findViewById<TextView>(R.id.user_weight_view) //view
-        val weight_set = v.findViewById<EditText>(R.id.user_weight_edit)
-        //Tall
-        val tall_text = v.findViewById<TextView>(R.id.height_text) //view
-        var tall_view = v.findViewById<TextView>(R.id.user_tall_view) //view
-        val tall_edit = v.findViewById<EditText>(R.id.user_tall_edit) //edit
-        //unit misure
-        var um_1 =  v.findViewById<TextView>(R.id.um_1)
-        var um_2 =  v.findViewById<TextView>(R.id.um_2)
-        //bmi
-        val bmi = v.findViewById<TextView>(R.id.bmi_text) //bmi value
-        val bmi_text = v.findViewById<TextView>(R.id.bmi) //bmi text
-        //Edit/Save buttons
-        val editbtn_1 = v.findViewById<Button>(R.id.button_infouser)
-        val editbtn_1_save = v.findViewById<Button>(R.id.button_infouser_save)
-        val editbtn_2 = v.findViewById<Button>(R.id.button_physics)
-        val editbtn_2_save = v.findViewById<Button>(R.id.button_physics_save)
-
-        /* ASSIGN DEFAULT VALUE */
-        bmi.text = calculateBMI(weight_view.text.toString(), tall_view.text.toString())
-        user.text = arguments?.getString("username")
-        email.text = arguments?.getString("email")
-        um_1.text = arguments?.getString("um1")
-        um_2.text = arguments?.getString("um2")
-        println(arguments?.getString("email"))
-
-        /* ASSIGN DEFAULT COLOR */
-        rLayout.setBackgroundResource(arguments!!.getInt("color"))
-        bmi_text.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        editbtn_1.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        editbtn_1_save.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        editbtn_2.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        editbtn_2_save.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-
-        /* ASSIGN DEFAULT STRING */
-        user_title.setText(getResources().getString(arguments!!.getInt("string_user_1")))
-        physycall_title.setText(getResources().getString(arguments!!.getInt("string_user_2")))
-        age_text.setText(getResources().getString(arguments!!.getInt("string_user_3")))
-        weight_text.setText(getResources().getString(arguments!!.getInt("string_user_4")))
-        tall_text.setText(getResources().getString(arguments!!.getInt("string_user_5")))
-
 
         /* LISTENERS */
 
         //Telephone edit text listener
-        telephone_edit.addTextChangedListener(object : TextWatcher {
+        user_informationSectionTelephoneEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                telephone_view.text = telephone_edit.text
+                user_informationSectionTelephoneText.text = user_informationSectionTelephoneEdit.text
+            }
+        })
+
+        //Telephone edit text listener
+        user_informationSectionEmailEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                user_informationSectionEmailText.text = user_informationSectionEmailEdit.text
             }
         })
 
 
         //Age edit text listener
-        age_set.addTextChangedListener(object : TextWatcher {
+        user_physicsSectionAgeEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                age_view.text = age_set.text
+                user_physicsSectionAgeTextValue.text = user_physicsSectionAgeEdit.text
             }
         })
 
         //Weight edit text listener
-        weight_set.addTextChangedListener(object : TextWatcher {
+        user_physicsSectionWeightEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.length > 0 && tall_view.text.length > 0) {
-                    bmi.text = calculateBMI(s.toString(), tall_view.text.toString())
+                if (s.length > 0 && user_physicsSectionHeightTextValue.text.length > 0) {
+                    user_physicsSectionBMIValue.text = calculateBMI(s.toString(), user_physicsSectionHeightTextValue.text.toString())
                 } else {
-                    bmi.text = "-.--"
+                    user_physicsSectionBMIValue.text = "-.--"
                 }
-                weight_view.text = weight_set.text
+                user_physicsSectionWeightTextValue.text = user_physicsSectionWeightEdit.text
             }
         })
 
         //Tall edit text listener
-        tall_edit.addTextChangedListener(object : TextWatcher {
+        user_physicsSectionHeightEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.length > 0 && weight_view.text.length > 0) {
-                    bmi.text = calculateBMI(weight_view.text.toString(), s.toString())
+                if (s.length > 0 && user_physicsSectionWeightTextValue.text.length > 0) {
+                    user_physicsSectionBMIValue.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), s.toString())
                 } else {
-                    bmi.text = "-.--"
+                    user_physicsSectionBMIValue.text = "-.--"
                 }
-                tall_view.text = tall_edit.text
+                user_physicsSectionHeightTextValue.text = user_physicsSectionHeightEdit.text
             }
         })
 
         //Edit/save button listener
         //Edit1
-        editbtn_1.setOnClickListener {
-            editbtn_1.visibility = View.GONE
-            editbtn_1_save.visibility = View.VISIBLE
-            telephone_view.visibility = View.GONE
-            telephone_edit.visibility = View.VISIBLE
+        user_informationSectionButton.setOnClickListener {
+            user_informationSectionButton.visibility = View.GONE
+            user_informationSectionButtonSave.visibility = View.VISIBLE
+            user_informationSectionTelephoneText.visibility = View.GONE
+            user_informationSectionTelephoneEdit.visibility = View.VISIBLE
+            user_informationSectionEmailText.visibility = View.GONE
+            user_informationSectionEmailEdit.visibility = View.VISIBLE
         }
+
         //Save1
-        editbtn_1_save.setOnClickListener {
-            editbtn_1.visibility = View.VISIBLE
-            editbtn_1_save.visibility = View.GONE
-            telephone_view.visibility = View.VISIBLE
-            telephone_edit.visibility = View.GONE
+        user_informationSectionButtonSave.setOnClickListener {
+            user_informationSectionButton.visibility = View.VISIBLE
+            user_informationSectionButtonSave.visibility = View.GONE
+            user_informationSectionTelephoneText.visibility = View.VISIBLE
+            user_informationSectionTelephoneEdit.visibility = View.GONE
+            user_informationSectionEmailText.visibility = View.VISIBLE
+            user_informationSectionEmailEdit.visibility = View.GONE
         }
+
         //Edit2
-        editbtn_2.setOnClickListener {
-            editbtn_2.visibility = View.GONE
-            editbtn_2_save.visibility = View.VISIBLE
-            age_view.visibility = View.GONE
-            age_set.visibility = View.VISIBLE
-            weight_view.visibility = View.GONE
-            weight_set.visibility = View.VISIBLE
-            tall_view.visibility = View.GONE
-            tall_edit.visibility = View.VISIBLE
+        user_physicsSectionButton.setOnClickListener {
+            user_physicsSectionButton.visibility = View.GONE
+            user_physicsSectionButtonSave.visibility = View.VISIBLE
+            user_physicsSectionAgeTextValue.visibility = View.GONE
+            user_physicsSectionAgeEdit.visibility = View.VISIBLE
+            user_physicsSectionWeightTextValue.visibility = View.GONE
+            user_physicsSectionWeightEdit.visibility = View.VISIBLE
+            user_physicsSectionHeightTextValue.visibility = View.GONE
+            user_physicsSectionHeightEdit.visibility = View.VISIBLE
         }
+
         //Save2
-        editbtn_2_save.setOnClickListener {
-            editbtn_2.visibility = View.VISIBLE
-            editbtn_2_save.visibility = View.GONE
-            age_view.visibility = View.VISIBLE
-            age_set.visibility = View.GONE
-            weight_view.visibility = View.VISIBLE
-            weight_set.visibility = View.GONE
-            tall_view.visibility = View.VISIBLE
-            tall_edit.visibility = View.GONE
+        user_physicsSectionButtonSave.setOnClickListener {
+            user_physicsSectionButton.visibility = View.VISIBLE
+            user_physicsSectionButtonSave.visibility = View.GONE
+            user_physicsSectionAgeTextValue.visibility = View.VISIBLE
+            user_physicsSectionAgeEdit.visibility = View.GONE
+            user_physicsSectionWeightTextValue.visibility = View.VISIBLE
+            user_physicsSectionWeightEdit.visibility = View.GONE
+            user_physicsSectionHeightTextValue.visibility = View.VISIBLE
+            user_physicsSectionHeightEdit.visibility = View.GONE
         }
+
+        /* ASSIGN DEFAULT VALUE */
+        user_physicsSectionBMIValue.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), user_physicsSectionHeightTextValue.text.toString())
+        user_profileNameText.text = arguments?.getString("username")
+        user_informationSectionEmailText.text = arguments?.getString("email")
+        user_physicsSectionUM1.text = arguments?.getString("um1")
+        user_physicsSectionUM2.text = arguments?.getString("um2")
+
+        /* ASSIGN DEFAULT COLOR */
+        user_firstSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_profileNameText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_informationSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_informationSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_informationSectionButton.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_informationSectionButtonSave.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_informationSectionTelephoneEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_informationSectionTelephoneText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_informationSectionTelephoneIcon.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_informationSectionEmailEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_informationSectionEmailText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_informationSectionEmailIcon.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_subscriptionSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_subscriptionSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_subscriptionSectionStatus.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_subscriptionSectionTipologyText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_subscriptionSectionExpiredText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_subscriptionSectionCircularProgressText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_subscriptionSectionTipologyIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_subscriptionSectionExpiredIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_subscriptionSectionActive.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_subscriptionSectionExpired.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_physichsSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_physicsSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionAgeText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionAgeTextValue.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionAgeEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionWeightText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionWeightTextValue.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionWeightEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionHeightText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionHeightTextValue.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionHeightEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionUM1.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionUM2.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_physicsSectionButton.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_physicsSectionButtonSave.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_BMISection.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_physicsSectionBMIValue.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+
+
+        /* ASSIGN DEFAULT STRING */
+        user_pageTitle.setText(getResources().getString(arguments!!.getInt("st_user_pageTitle")))
+        user_informationSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionTitle")))
+        user_informationSectionButton.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionButton")))
+        user_informationSectionButtonSave.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionButtonSave")))
+        user_subscriptionSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTitle")))
+        user_subscriptionSectionTipologyText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTipology")))
+        user_subscriptionSectionExpiredText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionExpired")))
+        user_subscriptionSectionCircularProgressText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionCircularProgress")))
+        user_physicsSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionTitle")))
+        user_physicsSectionAgeText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionAge")))
+        user_physicsSectionWeightText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionWeight")))
+        user_physicsSectionHeightText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionHeight")))
+        user_physicsSectionButton.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionButton")))
+        user_physicsSectionButtonSave.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionButtonSave")))
+
         return v
     }
 
@@ -209,7 +266,7 @@ class UserPage : Fragment() {
         var bmi = ""
         if (weight.length > 1 && tall.length > 1) {
             val numerator = weight.toDouble()
-            val denominator = tall.toDouble() * tall.toDouble()
+            val denominator = (tall.toDouble()/100) * (tall.toDouble()/100)
             bmi = (numerator / denominator).toString()
         } else {
             bmi = "-.--"

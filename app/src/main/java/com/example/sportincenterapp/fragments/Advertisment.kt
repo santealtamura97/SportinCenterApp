@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import com.example.sportincenterapp.R
+import com.google.android.material.card.MaterialCardView
 
 class Advertisment : Fragment() {
     
@@ -17,29 +19,35 @@ class Advertisment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_advertisment, container, false)
 
         //Extract the component of the view
-        val title_layout = v.findViewById<LinearLayout>(R.id.title_advertisment)
-        val title_string = v.findViewById<TextView>(R.id.ad_title)
-        val first_string = v.findViewById<TextView>(R.id.text_first_event)
-        val second_string = v.findViewById<TextView>(R.id.text_second_event)
-        val third_string = v.findViewById<TextView>(R.id.text_third_event)
-        val fourth_string = v.findViewById<TextView>(R.id.text_fourth_event)
-        val fifth_string = v.findViewById<TextView>(R.id.text_fifth_event)
+        val advertisment_mainLayout = v.findViewById<LinearLayout>(R.id.advertisment_mainLayout)
+        val advertisment_title = v.findViewById<TextView>(R.id.advertisment_title)
+        val advertisment_event1 = v.findViewById<MaterialCardView>(R.id.advertisment_event1)
+        val advertisment_textEvent1 = v.findViewById<TextView>(R.id.advertisment_textEvent1)
+        val advertisment_event2 = v.findViewById<MaterialCardView>(R.id.advertisment_event2)
+        val advertisment_textEvent2 = v.findViewById<TextView>(R.id.advertisment_textEvent2)
+        val advertisment_event3 = v.findViewById<MaterialCardView>(R.id.advertisment_event3)
+        val advertisment_textEvent3 = v.findViewById<TextView>(R.id.advertisment_textEvent3)
+        val advertisment_event4 = v.findViewById<MaterialCardView>(R.id.advertisment_event4)
+        val advertisment_textEvent4 = v.findViewById<TextView>(R.id.advertisment_textEvent4)
+        val advertisment_event5 = v.findViewById<MaterialCardView>(R.id.advertisment_event5)
+        val advertisment_textEvent5 = v.findViewById<TextView>(R.id.advertisment_textEvent5)
 
         /* SET DEFAULT COLOR */
-        title_layout.setBackgroundResource(arguments!!.getInt("color"))
-        first_string.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        second_string.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        third_string.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        fourth_string.setTextColor(getResources().getColor(arguments!!.getInt("color")))
-        fifth_string.setTextColor(getResources().getColor(arguments!!.getInt("color")))
+        advertisment_mainLayout.setBackgroundResource(arguments!!.getInt("cl_advertisment_background"))
+        advertisment_event1.setBackgroundResource(arguments!!.getInt("cl_advertisment_background"))
+        advertisment_event2.setBackgroundResource(arguments!!.getInt("cl_advertisment_background"))
+        advertisment_event3.setBackgroundResource(arguments!!.getInt("cl_advertisment_background"))
+        advertisment_event4.setBackgroundResource(arguments!!.getInt("cl_advertisment_background"))
+        advertisment_event5.setBackgroundResource(arguments!!.getInt("cl_advertisment_background"))
+
 
         /* SET TEXT */
-        title_string.setText(getResources().getString(arguments!!.getInt("string_title")))
-        first_string.setText(getResources().getString(arguments!!.getInt("string_girl")))
-        second_string.setText(getResources().getString(arguments!!.getInt("string_easter")))
-        third_string.setText(getResources().getString(arguments!!.getInt("string_anniversary")))
-        fourth_string.setText(getResources().getString(arguments!!.getInt("string_halloween")))
-        fifth_string.setText(getResources().getString(arguments!!.getInt("string_newyear")))
+        advertisment_title.setText(getResources().getString(arguments!!.getInt("st_advertisment_title")))
+        advertisment_textEvent1.setText(getResources().getString(arguments!!.getInt("st_advertisment_event1")))
+        advertisment_textEvent2.setText(getResources().getString(arguments!!.getInt("st_advertisment_event2")))
+        advertisment_textEvent3.setText(getResources().getString(arguments!!.getInt("st_advertisment_event3")))
+        advertisment_textEvent4.setText(getResources().getString(arguments!!.getInt("st_advertisment_event4")))
+        advertisment_textEvent5.setText(getResources().getString(arguments!!.getInt("st_advertisment_event5")))
 
         return v
     }

@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
-    android:background="@color/white">
+    tools:context=".activities.MainActivity">
 
     <LinearLayout
+        android:id="@+id/advertisment_mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background_primary_color">
 
         <LinearLayout
-            android:id="@+id/title_advertisment"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/orange"
@@ -20,11 +20,11 @@
             android:gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/ad_title"
+                android:id="@+id/advertisment_title"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:text="@string/advertisment_title"
+                android:text="@string/fr_advertisment_title_it"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:gravity="center_horizontal"
@@ -44,7 +44,9 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/advertisment_event1"
                     android:layout_width="match_parent"
+                    android:background="@color/background_primary_color"
                     android:layout_height="250dp"
                     android:layout_margin="10dp"
                     android:theme="@style/Theme.MaterialComponents.Light">
@@ -56,21 +58,23 @@
                         android:background="@drawable/girlpover_event"></ImageView>
 
                     <TextView
-                        android:id="@+id/text_first_event"
+                        android:id="@+id/advertisment_textEvent1"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
                         android:gravity="center"
-                        android:text="@string/advertisment_girlpower"
+                        android:text= "@string/fr_advertisment_event1_it"
                         android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/advertisment_event2"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_margin="10dp"
+                    android:background="@color/background_primary_color"
                     android:theme="@style/Theme.MaterialComponents.Light">
 
                     <ImageView
@@ -80,21 +84,29 @@
                         android:background="@drawable/easter_event"></ImageView>
 
                     <TextView
-                        android:id="@+id/text_second_event"
+                        android:id="@+id/advertisment_textEvent2"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
                         android:gravity="center"
-                        android:text="@string/advertisment_easter"
+                        android:text="@string/fr_advertisment_event2_it"
                         android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
+
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/easter_event"></ImageView>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/advertisment_event3"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_margin="10dp"
+                    android:background="@color/background_primary_color"
                     android:theme="@style/Theme.MaterialComponents.Light">
 
                     <ImageView
@@ -104,21 +116,23 @@
                         android:background="@drawable/anniversary_event"></ImageView>
 
                     <TextView
-                        android:id="@+id/text_third_event"
+                        android:id="@+id/advertisment_textEvent3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
                         android:gravity="center"
-                        android:text="@string/advertisment_anniversary"
+                        android:text="@string/fr_advertisment_event3_it"
                         android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/advertisment_event4"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_margin="10dp"
+                    android:background="@color/background_primary_color"
                     android:theme="@style/Theme.MaterialComponents.Light">
 
                     <ImageView
@@ -128,12 +142,12 @@
                         android:background="@drawable/halloween_event"></ImageView>
 
                     <TextView
-                        android:id="@+id/text_fourth_event"
+                        android:id="@+id/advertisment_textEvent4"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
                         android:gravity="center"
-                        android:text="@string/advertisment_halloween"
+                        android:text="@string/fr_advertisment_event4_it"
                         android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
@@ -141,9 +155,11 @@
 
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/advertisment_event5"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_margin="10dp"
+                    android:background="@color/background_primary_color"
                     android:theme="@style/Theme.MaterialComponents.Light">
 
                     <ImageView
@@ -153,12 +169,12 @@
                         android:background="@drawable/newyear_event"></ImageView>
 
                     <TextView
-                        android:id="@+id/text_fifth_event"
+                        android:id="@+id/advertisment_textEvent5"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="200dp"
                         android:gravity="center"
-                        android:text="@string/advertisment_newyear"
+                        android:text="@string/fr_advertisment_event5_it"
                         android:textColor="@color/orange"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
