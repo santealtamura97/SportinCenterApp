@@ -7,12 +7,13 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/contacts_mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background_primary_color">
 
         <LinearLayout
-            android:id="@+id/title_contacts_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
@@ -24,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:text="@string/contacts_title"
+                android:text="@string/fr_contacts_title_it"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="25dp">
@@ -40,12 +41,12 @@
             android:layout_marginTop="50dp">
 
             <TextView
-                android:id="@+id/hour_contats_text"
+                android:id="@+id/contacts_timeTableText"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/contacts_hours"
+                android:text="@string/fr_contacts_timetable_it"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="30dp">
@@ -57,22 +58,24 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/hour_contacts_1"
+                    android:id="@+id/contacts_timeTableTextValue1"
                     android:layout_width="200dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="25dp"
-                    android:text="@string/contacts_hours_string"
+                    android:text="@string/fr_contacts_openingTimetable1_it"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/black"
                     android:textSize="15dp">
                 </TextView>
 
                 <TextView
-                    android:id="@+id/hour_contacts_2"
+                    android:id="@+id/contacts_timeTableTextValue2"
                     android:layout_width="200dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="25dp"
-                    android:text="@string/contacts_hours_string_2"
+                    android:text="@string/fr_contacts_openingTimetable2_it"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/black"
                     android:textSize="15dp">
                 </TextView>
 
@@ -88,12 +91,12 @@
             android:layout_marginTop="50dp">
 
             <TextView
-                android:id="@+id/address_contats_text"
+                android:id="@+id/contacts_addressText"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/contacts_address"
+                android:text="@string/fr_contacts_addressText_it"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="30dp">
@@ -101,11 +104,12 @@
             </TextView>
 
             <TextView
-                android:id="@+id/address_contacts_1"
+                android:id="@+id/contacts_addressValue"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="25dp"
-                android:text="@string/contacts_address_string"
+                android:text="@string/fr_contacts_addressValue_it"
+                android:textColor="@color/black"
                 android:layout_gravity="center_vertical"
                 android:textSize="15dp">
 
@@ -121,12 +125,12 @@
             android:layout_marginTop="50dp">
 
             <TextView
-                android:id="@+id/telephone_contats_text"
+                android:id="@+id/contacts_telephoneText"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/contacts_telephone"
+                android:text="@string/fr_contacts_telephoneText_it"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="30dp">
@@ -139,33 +143,39 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/contacts_telephoneValue1"
                     android:layout_width="200dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="5dp"
-                    android:text="@string/contacts_telephone_string"
+                    android:text="@string/fr_contacts_telephoneValue1"
                     android:layout_gravity="center_vertical"
+                    android:textColor="@color/black"
                     android:textSize="15dp">
 
                 </TextView>
 
                 <TextView
+                    android:id="@+id/contacts_telephoneValue2"
                     android:layout_width="200dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop= "5dp"
-                    android:text="@string/contacts_telephone_string_2"
+                    android:text="@string/fr_contacts_telephoneValue2"
+                    android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
                     android:textSize="15dp">
 
                 </TextView>
 
                 <TextView
+                    android:id="@+id/contacts_telephoneValue3"
                     android:layout_width="200dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="5dp"
-                    android:text="@string/contacts_telephone_string_3"
+                    android:text="@string/fr_contacts_telephoneValue3"
+                    android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
                     android:textSize="15dp">
 
@@ -183,12 +193,12 @@
             android:layout_marginTop="50dp">
 
             <TextView
-                android:id="@+id/email_contats_text"
+                android:id="@+id/contacts_emailText"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/contacts_email"
+                android:text="@string/fr_contacts_emailText"
                 android:textColor="@color/orange"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textSize="30dp">
@@ -196,10 +206,12 @@
             </TextView>
 
             <TextView
+                android:id="@+id/contacts_emailValue"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="25dp"
-                android:text="@string/contacts_email_string"
+                android:textColor="@color/black"
+                android:text="@string/fr_contacts_emailValue"
                 android:layout_gravity="center_vertical"
                 android:textSize="15dp">
 

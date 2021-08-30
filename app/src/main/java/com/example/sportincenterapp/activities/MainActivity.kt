@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val bundleUser : Bundle = Bundle()
     private val bundleAdvertisement: Bundle = Bundle()
     private val bundleFaq: Bundle = Bundle()
-
     private val bundleContacts: Bundle = Bundle()
     private val bundleEventParticipants: Bundle = Bundle()
 
@@ -102,6 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val faqItem = menu.getItem(5).subMenu.getItem(1)
         val contactsItem = menu.getItem(5).subMenu.getItem(2)
         val logoutItem = menu.getItem(5).subMenu.getItem(3)
+
 
         if (!sessionManager.fetchUserName().isNullOrEmpty()) {
             userName.text = sessionManager.fetchUserName()
@@ -261,8 +261,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleAdvertisement.putInt("cl_advertisment_background", R.color.background_primary_color)
         bundleFaq.putInt("cl_faq_background", R.color.background_primary_color)
         bundleFaq.putInt("cl_faq_text", R.color.black)
-
-        bundleContacts.putInt("color", R.color.orange)
+        bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color)
+        bundleContacts.putInt("cl_contacts_text", R.color.black)
 
         //Language
         bundleHome.putInt("st_home_firstQuestion", R.string.fr_home_firstQuestion_it)
@@ -295,15 +295,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleFaq.putInt("st_faq_answer1", R.string.fr_faq_answer1_it)
         bundleFaq.putInt("st_faq_answer2", R.string.fr_faq_answer2_it)
         bundleFaq.putInt("st_faq_answer3", R.string.fr_faq_answer3_it)
-
-        bundleContacts.putInt("string_contact_1", R.string.contacts_address)
-        bundleContacts.putInt("string_contact_2", R.string.contacts_telephone)
-        bundleContacts.putInt("string_contact_3", R.string.contacts_hours)
-        bundleContacts.putInt("string_contact_4", R.string.contacts_email)
-        bundleContacts.putInt("string_contact_5", R.string.contacts_title)
-        bundleContacts.putInt("string_contact_6", R.string.contacts_hours_string)
-        bundleContacts.putInt("string_contact_7", R.string.contacts_hours_string_2)
-        bundleContacts.putInt("string_contact_8", R.string.contacts_address_string)
+        bundleContacts.putInt("st_contacts_title", R.string.fr_contacts_title_it)
+        bundleContacts.putInt("st_contacts_timetableText", R.string.fr_contacts_timetable_it)
+        bundleContacts.putInt("st_contacts_timetableValue1", R.string.fr_contacts_openingTimetable1_it)
+        bundleContacts.putInt("st_contacts_timetableValue2", R.string.fr_contacts_openingTimetable2_it)
+        bundleContacts.putInt("st_contacts_addressText", R.string.fr_contacts_addressText_it)
+        bundleContacts.putInt("st_contacts_addressValue", R.string.fr_contacts_addressValue_it)
+        bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_it)
 
         //Assignments
         fragmentUser.arguments = bundleUser
@@ -339,8 +337,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleAdvertisement.putInt("cl_advertisment_background", R.color.background_primary_color)
                 bundleFaq.putInt("cl_faq_background", R.color.background_primary_color)
                 bundleFaq.putInt("cl_faq_text", R.color.black)
-
-                bundleContacts.putInt("color", R.color.orange)
+                bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color)
+                bundleContacts.putInt("cl_contacts_text", R.color.black)
     
             }
             1 -> {
@@ -355,8 +353,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleAdvertisement.putInt("cl_advertisment_background", R.color.background_primary_color_2)
                 bundleFaq.putInt("cl_faq_background", R.color.background_primary_color_2)
                 bundleFaq.putInt("cl_faq_text", R.color.white)
-
-                bundleContacts.putInt("color", R.color.orange)
+                bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color_2)
+                bundleContacts.putInt("cl_contacts_text", R.color.white)
     
             }
         }
@@ -398,15 +396,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleFaq.putInt("st_faq_answer1", R.string.fr_faq_answer1_it)
             bundleFaq.putInt("st_faq_answer2", R.string.fr_faq_answer2_it)
             bundleFaq.putInt("st_faq_answer3", R.string.fr_faq_answer3_it)
+            bundleContacts.putInt("st_contacts_title", R.string.fr_contacts_title_it)
+            bundleContacts.putInt("st_contacts_timetableText", R.string.fr_contacts_timetable_it)
+            bundleContacts.putInt("st_contacts_timetableValue1", R.string.fr_contacts_openingTimetable1_it)
+            bundleContacts.putInt("st_contacts_timetableValue2", R.string.fr_contacts_openingTimetable2_it)
+            bundleContacts.putInt("st_contacts_addressText", R.string.fr_contacts_addressText_it)
+            bundleContacts.putInt("st_contacts_addressValue", R.string.fr_contacts_addressValue_it)
+            bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_it)
 
-            bundleContacts.putInt("string_contact_1", R.string.contacts_address)
-            bundleContacts.putInt("string_contact_2", R.string.contacts_telephone)
-            bundleContacts.putInt("string_contact_3", R.string.contacts_hours)
-            bundleContacts.putInt("string_contact_4", R.string.contacts_email)
-            bundleContacts.putInt("string_contact_5", R.string.contacts_title)
-            bundleContacts.putInt("string_contact_6", R.string.contacts_hours_string)
-            bundleContacts.putInt("string_contact_7", R.string.contacts_hours_string_2)
-            bundleContacts.putInt("string_contact_8", R.string.contacts_address_string)
             menu.getItem(0).setTitle(getResources().getString(R.string.fr_user_pageTitle_it))
             menu.getItem(1).setTitle(getResources().getString(R.string.fr_advertisment_title_it))
             menu.getItem(2).setTitle(getResources().getString(R.string.calendar))
@@ -447,17 +444,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleFaq.putInt("st_faq_answer1", R.string.fr_faq_answer1_en)
             bundleFaq.putInt("st_faq_answer2", R.string.fr_faq_answer2_en)
             bundleFaq.putInt("st_faq_answer3", R.string.fr_faq_answer3_en)
-
-
-
-            bundleContacts.putInt("string_contact_1", R.string.contacts_address_en)
-            bundleContacts.putInt("string_contact_2", R.string.contacts_telephone_en)
-            bundleContacts.putInt("string_contact_3", R.string.contacts_hours_en)
-            bundleContacts.putInt("string_contact_4", R.string.contacts_email)
-            bundleContacts.putInt("string_contact_5", R.string.contacts_title_en)
-            bundleContacts.putInt("string_contact_6", R.string.contacts_hours_string_en)
-            bundleContacts.putInt("string_contact_7", R.string.contacts_hours_string_2_en)
-            bundleContacts.putInt("string_contact_8", R.string.contacts_address_string_en)
+            bundleContacts.putInt("st_contacts_title", R.string.fr_contacts_title_en)
+            bundleContacts.putInt("st_contacts_timetableText", R.string.fr_contacts_timetable_en)
+            bundleContacts.putInt("st_contacts_timetableValue1", R.string.fr_contacts_openingTimetable1_en)
+            bundleContacts.putInt("st_contacts_timetableValue2", R.string.fr_contacts_openingTimetable2_en)
+            bundleContacts.putInt("st_contacts_addressText", R.string.fr_contacts_addressText_en)
+            bundleContacts.putInt("st_contacts_addressValue", R.string.fr_contacts_addressValue_en)
+            bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_en)
 
             menu.getItem(0).setTitle(getResources().getString(R.string.fr_user_pageTitle_en))
             menu.getItem(1).setTitle(getResources().getString(R.string.fr_advertisment_title_en))

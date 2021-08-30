@@ -39,7 +39,7 @@
 
             <TextView
                 android:id="@+id/settings_language"
-                android:layout_width="100dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
@@ -53,19 +53,25 @@
             <Spinner
                 android:id="@+id/settings_spinnerLanguage_it"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="35dp"
                 android:layout_gravity="center_vertical"
+                android:theme="@style/SpinnerTheme1"
+                android:background="@color/lightGray"
                 android:entries="@array/lingua" />
 
             <Spinner
                 android:id="@+id/settings_spinnerLanguage_en"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="35dp"
                 android:layout_gravity="center_vertical"
+                android:theme="@style/SpinnerTheme1"
+                android:background="@color/lightGray"
                 android:entries="@array/lingua_en"
                 android:visibility="gone"/>
+
+
 
         </LinearLayout>
 
@@ -76,7 +82,7 @@
 
             <TextView
                 android:id="@+id/settings_theme"
-                android:layout_width="100dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center_vertical"
@@ -90,17 +96,21 @@
             <Spinner
                 android:id="@+id/settings_spinnerTheme_it"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:theme="@style/SpinnerTheme1"
                 android:layout_marginLeft="35dp"
+                android:background="@color/lightGray"
                 android:layout_gravity="center_vertical"
                 android:entries="@array/temi"/>
 
             <Spinner
                 android:id="@+id/settings_spinnerTheme_en"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="35dp"
                 android:layout_gravity="center_vertical"
+                android:theme="@style/SpinnerTheme1"
+                android:background="@color/lightGray"
                 android:entries="@array/temi_en"
                 android:visibility="gone"/>
 
@@ -147,7 +157,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:checked="true"
-                    android:buttonTint="@color/black">
+                    android:buttonTint="@color/lightGray">
 
                 </RadioButton>
 
@@ -165,7 +175,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:buttonTint="@color/black"></RadioButton>
+                    android:buttonTint="@color/lightGray"></RadioButton>
             </RadioGroup>
 
         </LinearLayout>
@@ -194,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
+                android:textColor="@color/lightGray"
                 android:text="@string/fr_settings_version"
                 android:textSize="25dp">
 

@@ -109,25 +109,25 @@
     <string name="title_activity_login">LoginActivity</string>
 
     <!-- Contatti -->
-    <string name="contacts_title">CONTATTI</string>
-    <string name="contacts_title_en">CONTACTS</string>
-    <string name="contacts_hours">Orari:</string>
-    <string name="contacts_hours_en">Timetables:</string>
-    <string name="contacts_hours_string">09:00-20:00 da Lun a Ven</string>
-    <string name="contacts_hours_string_en">09:00-20:00 from Mon to Fri</string>
-    <string name="contacts_hours_string_2">09:00-12:00 Sab</string>
-    <string name="contacts_hours_string_2_en">09:00-12:00 Sat</string>
-    <string name="contacts_address">Indirizzo:</string>
-    <string name="contacts_address_en">Address:</string>
-    <string name="contacts_address_string">Via Verdi, 10 - 10124 Torino</string>
-    <string name="contacts_address_string_en">Verdi Street, 10 - 10124 Turin</string>
-    <string name="contacts_telephone">Telefono:</string>
-    <string name="contacts_telephone_en">Telephone:</string>
-    <string name="contacts_telephone_string">045 6231460</string>
-    <string name="contacts_telephone_string_2">+39 3359329644</string>
-    <string name="contacts_telephone_string_3">+39 3252249678</string>
-    <string name="contacts_email">E-mail:</string>
-    <string name="contacts_email_string">sportingCenter@gmail.com</string>
+    <string name="fr_contacts_title_it">CONTATTI</string>
+    <string name="fr_contacts_title_en">CONTACTS</string>
+    <string name="fr_contacts_timetable_it">Orari:</string>
+    <string name="fr_contacts_timetable_en">Timetables:</string>
+    <string name="fr_contacts_openingTimetable1_it">09:00-20:00 da Lun a Ven</string>
+    <string name="fr_contacts_openingTimetable1_en">09:00-20:00 from Mon to Fri</string>
+    <string name="fr_contacts_openingTimetable2_it">09:00-12:00 Sab</string>
+    <string name="fr_contacts_openingTimetable2_en">09:00-12:00 Sat</string>
+    <string name="fr_contacts_addressText_it">Indirizzo:</string>
+    <string name="fr_contacts_addressText_en">Address:</string>
+    <string name="fr_contacts_addressValue_it">Via Verdi, 10 - 10124 Torino</string>
+    <string name="fr_contacts_addressValue_en">Verdi Street, 10 - 10124 Turin</string>
+    <string name="fr_contacts_telephoneText_it">Telefono:</string>
+    <string name="fr_contacts_telephoneText_en">Telephone:</string>
+    <string name="fr_contacts_telephoneValue1">045 6231460</string>
+    <string name="fr_contacts_telephoneValue2">+39 3359329644</string>
+    <string name="fr_contacts_telephoneValue3">+39 3252249678</string>
+    <string name="fr_contacts_emailText">E-mail:</string>
+    <string name="fr_contacts_emailValue">sportingCenter@gmail.com</string>
 
     <!-- FAQ -->
     <string name="fr_faq_title">FAQ</string>
@@ -143,7 +143,6 @@
     <string name="fr_faq_question3_en">3. The application don\'t allow the submission to an event, what i must do? </string>
     <string name="fr_faq_answer3_it">Controllare nelle informazioni dell\'evento se ci sono ancora posti disponibili, in caso di malfunzionamento dell\'app effettuare un aggiornamento. Se i problemi persistono contattare la segreteria con i recapiti nella sezione Contatti</string>
     <string name="fr_faq_answer3_en">Check in the event information if there are already free places, if there is a malfunction update it. If the problems persist please contact out office with the information in the section Contacts</string>
-
 
     <!-- Log in -->
     <string name="login_button"><u>Login</u></string>

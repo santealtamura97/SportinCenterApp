@@ -2,6 +2,7 @@ package com.example.sportincenterapp.fragments
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.interfaces.Communicator
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 
 class Settings : Fragment() {
@@ -44,7 +46,6 @@ class Settings : Fragment() {
 
         /* DEFAULT COLOR ASSIGN */
         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
-        settings_versionText.setTextColor(getResources().getColor(R.color.black))
 
 
         /* DEFAULT VALUE ASSIGN */
@@ -62,12 +63,10 @@ class Settings : Fragment() {
                     0 -> {
                         communicator.theme(0)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
-                        settings_versionText.setTextColor(getResources().getColor(R.color.black))
                     }
                     1 -> {
                         communicator.theme(1)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color_2)
-                        //settings_versionText.setTextColor(getResources().getColor(R.color.white))
                     }
                 }
             }
