@@ -1,6 +1,7 @@
 package com.example.sportincenterapp.fragments
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class CalendarCollectionFragment : Fragment() {
         R.drawable.ic_baseline_edit_24
     )
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +36,7 @@ class CalendarCollectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewPager = view.findViewById(R.id.pager)
+        viewPager.isSaveEnabled = false
         viewPager.isUserInputEnabled = false;
         calendarCollectionAdapter = CalendarCollectionAdapter(this)
         viewPager.adapter = calendarCollectionAdapter

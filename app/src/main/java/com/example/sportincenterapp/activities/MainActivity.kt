@@ -3,7 +3,6 @@ package com.example.sportincenterapp.activities
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.view.MenuItem
@@ -19,6 +18,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.fragments.*
@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
     private val fragmentCalendarAdmin: Fragment = CalendarAdminFragment()
+    private val fragmentCalendar: Fragment = CalendarCollectionFragment()
     private val fragmentAddActivity: Fragment = AddActivityFragment()
     private val fragmentEventParticipants: Fragment = EventPartecipantsFragment()
     //Bundles
@@ -149,14 +150,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     /* BACK BUTTON PRESSED MANAGEMENT */
     override fun onBackPressed() {
-        //if the current fragment is the add activity return to the calendar admin fragment
-        //else back to home fragment
-        val addActivityFragment = supportFragmentManager.findFragmentByTag("AddActivityFragment")
+        if (sessionManager.fetchUserName().equals("Admin")) {
+            /*
+                GESTIONE DEI FRAGMENT ADMIN
+             */
+            val addActivityFragment = supportFragmentManager.findFragmentByTag("AddActivityFragment")
 
-        if (addActivityFragment != null && addActivityFragment.isVisible) {
-            supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin).commit()
-        } else {
-            supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome).commit()
+            if (addActivityFragment != null && addActivityFragment.isVisible) {
+                supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin).commit()
+            }else{
+                supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome).commit()
+            }
+        }else{
+            /*
+                GESTIONE DEI FRAGMENT USER
+             */
+
         }
     }
 
@@ -473,8 +482,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun openPartecipantsForEvent(eventId: String) {
         bundleEventParticipants.putString("eventId", eventId)
-        fragmentEventParticipants.arguments = bundleEventParticipants
-        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventParticipants, "EventPartecipantsFragment").commit()
+        /*fragmentEventParticipants.arguments = bundleEventParticipants
+        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventParticipants, "EventPartecipantsFragment").commit()*/
+        val eventPartecipantsFragment = EventPartecipantsFragment()
+        eventPartecipantsFragment.arguments = bundleEventParticipants
+        eventPartecipantsFragment.show(supportFragmentManager, "TAG")
     }
 
     override fun changeProfileImageNavHeader() {

@@ -1,23 +1,25 @@
 package com.example.sportincenterapp.fragments
 
 
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.view.isVisible
+import android.widget.CheckBox
+import android.widget.ListView
+import android.widget.TextView
+import android.widget.Toast
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
-import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.models.User
 import com.example.sportincenterapp.data.responses.ApiResponse
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.PartecipantsEventAdapter
 import com.example.sportincenterapp.utils.SessionManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.ResponseBody
@@ -26,7 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class EventPartecipantsFragment : Fragment() {
+class EventPartecipantsFragment : BottomSheetDialogFragment() {
 
     private lateinit var listView: ListView
     private lateinit var eventId: String
@@ -40,7 +42,14 @@ class EventPartecipantsFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        dialog!!.setOnShowListener { dialog ->
+            val d = dialog as BottomSheetDialog
+            val bottomSheetInternal =
+                d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            BottomSheetBehavior.from<View?>(bottomSheetInternal!!)
+                .setState(BottomSheetBehavior.STATE_EXPANDED)
 
+        }
         val v =  inflater.inflate(R.layout.fragment_event_partecipants, container, false)
         listView = v.findViewById(R.id.event_partecipants_list)
 
@@ -86,6 +95,7 @@ class EventPartecipantsFragment : Fragment() {
         // Inflate the layout for this fragment
         return v
     }
+
 
     private fun setEntries(userIds: List<String>) {
         apiClient = ApiClient()
