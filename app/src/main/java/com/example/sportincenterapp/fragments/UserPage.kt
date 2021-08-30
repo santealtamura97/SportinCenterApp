@@ -38,12 +38,12 @@ import java.io.File
 
 class UserPage : Fragment() {
 
-    private var userSubscriptionType: TextView? = null
-    private var userSubscriptionDeadline: TextView? = null
-    private var userSubscriptionStatus: TextView? = null
-    private var userSubscriptionStatusIconActive: ImageView? = null
-    private var userSubscriptionStatusIconExpired: ImageView? = null
-    private var userEntries: TextView? = null
+    private lateinit var userSubscriptionType: TextView
+    private lateinit var userSubscriptionDeadline: TextView
+    private lateinit var userSubscriptionStatus: TextView
+    private lateinit var userSubscriptionStatusIconActive: ImageView
+    private lateinit var userSubscriptionStatusIconExpired: ImageView
+    private lateinit var userEntries: TextView
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private lateinit var result: TextView
@@ -57,6 +57,9 @@ class UserPage : Fragment() {
         //Fragment view
         val v = inflater.inflate(R.layout.fragment_user_page, container, false)
 
+        //Communicator
+        communicator = activity as Communicator
+
         var user_pageTitle = v.findViewById<TextView>(R.id.user_pageTitle)
         var user_firstSection = v.findViewById<LinearLayout>(R.id.user_firstProfileSection)
         var user_profileNameText = v.findViewById<TextView>(R.id.user_profileNameText)
@@ -67,9 +70,8 @@ class UserPage : Fragment() {
         var user_informationSectionTelephoneIcon = v.findViewById<ImageView>(R.id.user_informationSectionTelephoneIcon)
         var user_informationSectionTelephoneEdit = v.findViewById<EditText>(R.id.user_informationSectionTelephoneEdit)
         var user_informationSectionTelephoneText = v.findViewById<TextView>(R.id.user_informationSectionTelephoneText)
-        var user_informationSectionEmailIcon = v.findViewById<ImageView>(R.id.user_informationSectionEmailIcon)
+        /*var user_informationSectionEmailIcon = v.findViewById<ImageView>(R.id.user_informationSectionEmailIcon)
         var user_informationSectionEmailEdit = v.findViewById<EditText>(R.id.user_informationSectionEmailEdit)
-        var user_informationSectionEmailText = v.findViewById<TextView>(R.id.user_informationSectionEmailText)
         var user_subscriptionSection = v.findViewById<LinearLayout>(R.id.user_subscriptionSection)
         var user_subscriptionSectionTitle = v.findViewById<TextView>(R.id.user_subscriptionSectionTitle)
         var user_subscriptionSectionActive = v.findViewById<ImageView>(R.id.user_subscriptionSectionActive)
@@ -77,10 +79,12 @@ class UserPage : Fragment() {
         var user_subscriptionSectionStatus = v.findViewById<TextView>(R.id.user_subscriptionSectionStatus)
         var user_subscriptionSectionTipologyIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionTipologyIcon)
         var user_subscriptionSectionTipologyText = v.findViewById<TextView>(R.id.user_subscriptionSectionTipologyText)
-        var user_subscriptionSectionExpiredIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionExpiredIcon)
         var user_subscriptionSectionExpiredText = v.findViewById<TextView>(R.id.user_subscriptionSectionExpiredText)
         var user_subscriptionSectionCircularProgressIcon = v.findViewById<CircularProgressBar>(R.id.user_subscriptionSectionCircularProgressIcon)
         var user_subscriptionSectionCircularProgressText = v.findViewById<TextView>(R.id.user_subscriptionSectionCircularProgressText)
+        var user_subscriptionSectionExpiredIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionExpiredIcon)*/
+
+        var user_informationSectionEmailText = v.findViewById<TextView>(R.id.user_informationSectionEmailText)
         var user_physichsSection = v.findViewById<LinearLayout>(R.id.user_physicsSection)
         var user_physicsSectionTitle = v.findViewById<TextView>(R.id.user_physicsSectionTitle)
         var user_physicsSectionAgeText = v.findViewById<TextView>(R.id.user_physicsSectionAgeText)
@@ -98,6 +102,18 @@ class UserPage : Fragment() {
         var user_physicsSectionButtonSave = v.findViewById<Button>(R.id.user_physicsSectionButtonSave)
         var user_BMISection = v.findViewById<LinearLayout>(R.id.user_BMISection)
         var user_physicsSectionBMIValue= v.findViewById<TextView>(R.id.user_physicsSectionBMIValue)
+
+
+        bmi = v.findViewById<TextView>(R.id.user_physicsSectionBMIValue)
+        result = v.findViewById(R.id.result)
+
+        // Subscription
+        userSubscriptionType = v.findViewById<TextView>(R.id.user_subscriptionSectionTipologyText) //View
+        userSubscriptionDeadline = v.findViewById<TextView>(R.id.user_subscriptionSectionExpiredText)
+        userSubscriptionStatus = v.findViewById<TextView>(R.id.user_subscriptionSectionStatus)
+        userSubscriptionStatusIconActive = v.findViewById(R.id.user_subscriptionSectionActive)
+        userSubscriptionStatusIconExpired = v.findViewById(R.id.user_subscriptionSectionExpired)
+        userEntries = v.findViewById<TextView>(R.id.user_subscriptionSectionCircularProgressText)
 
         /* User's functions */
         getSubscriptionName()
@@ -131,16 +147,15 @@ class UserPage : Fragment() {
         })
 
 
-
         //Telephone edit text listener
-        user_informationSectionEmailEdit.addTextChangedListener(object : TextWatcher {
+        /*user_informationSectionEmailEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 user_informationSectionEmailText.text = user_informationSectionEmailEdit.text
             }
-        })
+        })*/
 
 
         //Age edit text listener
@@ -160,9 +175,9 @@ class UserPage : Fragment() {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.length > 0 && user_physicsSectionHeightTextValue.text.length > 0) {
-                    user_physicsSectionBMIValue.text = calculateBMI(s.toString(), user_physicsSectionHeightTextValue.text.toString())
+                    bmi.text = calculateBMI(s.toString(), user_physicsSectionHeightTextValue.text.toString())
                 } else {
-                    user_physicsSectionBMIValue.text = "-.--"
+                    bmi.text = "-.--"
                 }
                 user_physicsSectionWeightTextValue.text = user_physicsSectionWeightEdit.text
             }
@@ -175,9 +190,9 @@ class UserPage : Fragment() {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.length > 0 && user_physicsSectionWeightTextValue.text.length > 0) {
-                    user_physicsSectionBMIValue.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), s.toString())
+                    bmi.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), s.toString())
                 } else {
-                    user_physicsSectionBMIValue.text = "-.--"
+                    bmi.text = "-.--"
                 }
                 user_physicsSectionHeightTextValue.text = user_physicsSectionHeightEdit.text
             }
@@ -190,8 +205,8 @@ class UserPage : Fragment() {
             user_informationSectionButtonSave.visibility = View.VISIBLE
             user_informationSectionTelephoneText.visibility = View.GONE
             user_informationSectionTelephoneEdit.visibility = View.VISIBLE
-            user_informationSectionEmailText.visibility = View.GONE
-            user_informationSectionEmailEdit.visibility = View.VISIBLE
+            //user_informationSectionEmailText.visibility = View.GONE
+            //user_informationSectionEmailEdit.visibility = View.VISIBLE
         }
 
         //Save1
@@ -200,8 +215,8 @@ class UserPage : Fragment() {
             user_informationSectionButtonSave.visibility = View.GONE
             user_informationSectionTelephoneText.visibility = View.VISIBLE
             user_informationSectionTelephoneEdit.visibility = View.GONE
-            user_informationSectionEmailText.visibility = View.VISIBLE
-            user_informationSectionEmailEdit.visibility = View.GONE
+            //user_informationSectionEmailText.visibility = View.VISIBLE
+            //user_informationSectionEmailEdit.visibility = View.GONE
         }
 
         //Edit2
@@ -229,7 +244,7 @@ class UserPage : Fragment() {
         }
 
         /* ASSIGN DEFAULT VALUE */
-        user_physicsSectionBMIValue.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), user_physicsSectionHeightTextValue.text.toString())
+        bmi.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), user_physicsSectionHeightTextValue.text.toString())
         user_profileNameText.text = arguments?.getString("username")
         user_informationSectionEmailText.text = arguments?.getString("email")
         user_physicsSectionUM1.text = arguments?.getString("um1")
@@ -245,7 +260,7 @@ class UserPage : Fragment() {
         user_informationSectionTelephoneEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_informationSectionTelephoneText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_informationSectionTelephoneIcon.setBackgroundResource(arguments!!.getInt("cl_user_background"))
-        user_informationSectionEmailEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        /*user_informationSectionEmailEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_informationSectionEmailText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_informationSectionEmailIcon.setBackgroundResource(arguments!!.getInt("cl_user_background"))
         user_subscriptionSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
@@ -255,9 +270,9 @@ class UserPage : Fragment() {
         user_subscriptionSectionExpiredText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_subscriptionSectionCircularProgressText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_subscriptionSectionTipologyIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
-        user_subscriptionSectionExpiredIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_subscriptionSectionActive.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_subscriptionSectionExpired.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_subscriptionSectionExpiredIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))*/
         user_physichsSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_physicsSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_physicsSectionAgeText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
@@ -274,7 +289,7 @@ class UserPage : Fragment() {
         user_physicsSectionButton.setBackgroundResource(arguments!!.getInt("cl_user_background"))
         user_physicsSectionButtonSave.setBackgroundResource(arguments!!.getInt("cl_user_background"))
         user_BMISection.setBackgroundResource(arguments!!.getInt("cl_user_background"))
-        user_physicsSectionBMIValue.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        bmi.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
 
 
         /* ASSIGN DEFAULT STRING */
@@ -282,10 +297,10 @@ class UserPage : Fragment() {
         user_informationSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionTitle")))
         user_informationSectionButton.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionButton")))
         user_informationSectionButtonSave.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionButtonSave")))
-        user_subscriptionSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTitle")))
+        /*user_subscriptionSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTitle")))
         user_subscriptionSectionTipologyText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTipology")))
         user_subscriptionSectionExpiredText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionExpired")))
-        user_subscriptionSectionCircularProgressText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionCircularProgress")))
+        user_subscriptionSectionCircularProgressText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionCircularProgress")))*/
         user_physicsSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionTitle")))
         user_physicsSectionAgeText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionAge")))
         user_physicsSectionWeightText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionWeight")))
