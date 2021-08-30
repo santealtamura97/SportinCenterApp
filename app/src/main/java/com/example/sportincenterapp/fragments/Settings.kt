@@ -40,12 +40,17 @@ class Settings : Fragment() {
         val settings_versionText = v.findViewById<TextView>(R.id.settings_versionText)
         val settings_UMRadiogroup = v.findViewById<RadioGroup>(R.id.settings_UMRadiogroup)
         val settings_radioButton1 = v.findViewById<RadioButton>(R.id.settings_radioButton1)
+        val setting_UM1 = v.findViewById<TextView>(R.id.setting_UM1)
+        val setting_UM2 = v.findViewById<TextView>(R.id.setting_UM2)
 
         //Communicator
         communicator = activity as Communicator
 
         /* DEFAULT COLOR ASSIGN */
         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
+        setting_UM1.setTextColor(getResources().getColor(R.color.black))
+        setting_UM2.setTextColor(getResources().getColor(R.color.black))
+        settings_versionText.setTextColor(getResources().getColor(R.color.black))
 
 
         /* DEFAULT VALUE ASSIGN */
@@ -63,10 +68,16 @@ class Settings : Fragment() {
                     0 -> {
                         communicator.theme(0)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
+                        setting_UM1.setTextColor(getResources().getColor(R.color.black))
+                        setting_UM2.setTextColor(getResources().getColor(R.color.black))
+                        settings_versionText.setTextColor(getResources().getColor(R.color.black))
                     }
                     1 -> {
                         communicator.theme(1)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color_2)
+                        setting_UM1.setTextColor(getResources().getColor(R.color.white))
+                        setting_UM2.setTextColor(getResources().getColor(R.color.white))
+                        settings_versionText.setTextColor(getResources().getColor(R.color.white))
                     }
                 }
             }
@@ -80,12 +91,16 @@ class Settings : Fragment() {
                     0 -> {
                         communicator.theme(0)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
+                        setting_UM1.setTextColor(getResources().getColor(R.color.black))
+                        setting_UM2.setTextColor(getResources().getColor(R.color.black))
                         settings_versionText.setTextColor(getResources().getColor(R.color.black))
                     }
                     1 -> {
                         communicator.theme(1)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color_2)
-                        //settings_versionText.setTextColor(getResources().getColor(R.color.white))
+                        setting_UM1.setTextColor(getResources().getColor(R.color.white))
+                        setting_UM2.setTextColor(getResources().getColor(R.color.white))
+                        settings_versionText.setTextColor(getResources().getColor(R.color.white))
                     }
                 }
             }

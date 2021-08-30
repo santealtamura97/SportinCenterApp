@@ -54,20 +54,20 @@
                 android:id="@+id/settings_spinnerLanguage_it"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginLeft="25dp"
                 android:layout_gravity="center_vertical"
                 android:theme="@style/SpinnerTheme1"
-                android:background="@color/lightGray"
+                android:background="#DADADA"
                 android:entries="@array/lingua" />
 
             <Spinner
                 android:id="@+id/settings_spinnerLanguage_en"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginLeft="25dp"
                 android:layout_gravity="center_vertical"
                 android:theme="@style/SpinnerTheme1"
-                android:background="@color/lightGray"
+                android:background="#DADADA"
                 android:entries="@array/lingua_en"
                 android:visibility="gone"/>
 
@@ -98,8 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:theme="@style/SpinnerTheme1"
-                android:layout_marginLeft="35dp"
-                android:background="@color/lightGray"
+                android:layout_marginLeft="25dp"
+                android:background="#DADADA"
                 android:layout_gravity="center_vertical"
                 android:entries="@array/temi"/>
 
@@ -107,10 +107,10 @@
                 android:id="@+id/settings_spinnerTheme_en"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="35dp"
+                android:layout_marginLeft="25dp"
                 android:layout_gravity="center_vertical"
                 android:theme="@style/SpinnerTheme1"
-                android:background="@color/lightGray"
+                android:background="#DADADA"
                 android:entries="@array/temi_en"
                 android:visibility="gone"/>
 
@@ -143,6 +143,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/setting_UM1"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -162,6 +163,7 @@
                 </RadioButton>
 
                 <TextView
+                    android:id="@+id/setting_UM2"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"

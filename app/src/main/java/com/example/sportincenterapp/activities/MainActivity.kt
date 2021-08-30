@@ -26,7 +26,7 @@ import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
-import de.hdodenhof.circleimageview.CircleImageView
+//import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //User information
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
-    private lateinit var profileImage: CircleImageView
+   // private lateinit var profileImage: CircleImageView
 
 
     //Fragments
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
 
-        profileImage = header.findViewById<CircleImageView>(R.id.profileimage_container)
+       // profileImage = header.findViewById<CircleImageView>(R.id.profileimage_container)
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         userEmail = header.findViewById<TextView>(R.id.email_nav_header)
 
@@ -121,7 +121,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
         } else { //if we don't have done the logout
-            userPageItem.isVisible = false
+            //userPageItem.isVisible = false
+            userPageItem.isVisible = true
             logoutItem.isVisible = false
             calendarItem.isVisible = false
         }
@@ -230,7 +231,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         if (response.isSuccessful) {
                             val body = response.body()?.byteStream()
                             val bitmap = BitmapFactory.decodeStream(body)
-                            profileImage.setImageBitmap(bitmap)
+                            //profileImage.setImageBitmap(bitmap)
                             if (bitmap != null) {
                                 sessionManager.saveImage(encodeTobase64(bitmap))
                             }

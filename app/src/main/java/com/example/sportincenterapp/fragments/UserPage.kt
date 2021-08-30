@@ -23,7 +23,7 @@ import com.example.sportincenterapp.data.responses.SubscriptionResponse
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
-import com.github.dhaval2404.imagepicker.ImagePicker
+//import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -70,20 +70,11 @@ class UserPage : Fragment() {
         var user_informationSectionTelephoneIcon = v.findViewById<ImageView>(R.id.user_informationSectionTelephoneIcon)
         var user_informationSectionTelephoneEdit = v.findViewById<EditText>(R.id.user_informationSectionTelephoneEdit)
         var user_informationSectionTelephoneText = v.findViewById<TextView>(R.id.user_informationSectionTelephoneText)
-        /*var user_informationSectionEmailIcon = v.findViewById<ImageView>(R.id.user_informationSectionEmailIcon)
-        var user_informationSectionEmailEdit = v.findViewById<EditText>(R.id.user_informationSectionEmailEdit)
+        var user_informationSectionEmailIcon = v.findViewById<ImageView>(R.id.user_informationSectionEmailIcon)
+        var user_subscriptionSectionTipologyIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionTipologyIcon)
+        var user_subscriptionSectionExpiredIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionExpiredIcon)
         var user_subscriptionSection = v.findViewById<LinearLayout>(R.id.user_subscriptionSection)
         var user_subscriptionSectionTitle = v.findViewById<TextView>(R.id.user_subscriptionSectionTitle)
-        var user_subscriptionSectionActive = v.findViewById<ImageView>(R.id.user_subscriptionSectionActive)
-        var user_subscriptionSectionExpired = v.findViewById<ImageView>(R.id.user_subscriptionSectionExpired)
-        var user_subscriptionSectionStatus = v.findViewById<TextView>(R.id.user_subscriptionSectionStatus)
-        var user_subscriptionSectionTipologyIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionTipologyIcon)
-        var user_subscriptionSectionTipologyText = v.findViewById<TextView>(R.id.user_subscriptionSectionTipologyText)
-        var user_subscriptionSectionExpiredText = v.findViewById<TextView>(R.id.user_subscriptionSectionExpiredText)
-        var user_subscriptionSectionCircularProgressIcon = v.findViewById<CircularProgressBar>(R.id.user_subscriptionSectionCircularProgressIcon)
-        var user_subscriptionSectionCircularProgressText = v.findViewById<TextView>(R.id.user_subscriptionSectionCircularProgressText)
-        var user_subscriptionSectionExpiredIcon = v.findViewById<ImageView>(R.id.user_subscriptionSectionExpiredIcon)*/
-
         var user_informationSectionEmailText = v.findViewById<TextView>(R.id.user_informationSectionEmailText)
         var user_physichsSection = v.findViewById<LinearLayout>(R.id.user_physicsSection)
         var user_physicsSectionTitle = v.findViewById<TextView>(R.id.user_physicsSectionTitle)
@@ -137,14 +128,14 @@ class UserPage : Fragment() {
         }
         changeProfileImage = v.findViewById(R.id.change_photo)
 
-        changeProfileImage.setOnClickListener(View.OnClickListener {
+       /* changeProfileImage.setOnClickListener(View.OnClickListener {
             ImagePicker.with(this)
                 .galleryOnly()
                 .crop()
                 .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)*/
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                 .start()
-        })
+        })*/
 
 
         //Telephone edit text listener
@@ -259,20 +250,17 @@ class UserPage : Fragment() {
         user_informationSectionButtonSave.setBackgroundResource(arguments!!.getInt("cl_user_background"))
         user_informationSectionTelephoneEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_informationSectionTelephoneText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_informationSectionTelephoneIcon.setBackgroundResource(arguments!!.getInt("cl_user_background"))
-        /*user_informationSectionEmailEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_informationSectionEmailText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_informationSectionEmailIcon.setBackgroundResource(arguments!!.getInt("cl_user_background"))
+        user_informationSectionTelephoneIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        user_informationSectionEmailIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_subscriptionSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        userSubscriptionType.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        userSubscriptionDeadline.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        userSubscriptionStatusIconActive.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        userSubscriptionStatusIconExpired.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
+        userEntries.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_subscriptionSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_subscriptionSectionStatus.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_subscriptionSectionTipologyText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_subscriptionSectionExpiredText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_subscriptionSectionCircularProgressText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_subscriptionSectionTipologyIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
-        user_subscriptionSectionActive.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
-        user_subscriptionSectionExpired.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
-        user_subscriptionSectionExpiredIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))*/
+        user_subscriptionSectionExpiredIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_physichsSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_physicsSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_physicsSectionAgeText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
@@ -297,10 +285,10 @@ class UserPage : Fragment() {
         user_informationSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionTitle")))
         user_informationSectionButton.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionButton")))
         user_informationSectionButtonSave.setText(getResources().getString(arguments!!.getInt("st_user_informationSectionButtonSave")))
-        /*user_subscriptionSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTitle")))
-        user_subscriptionSectionTipologyText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTipology")))
-        user_subscriptionSectionExpiredText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionExpired")))
-        user_subscriptionSectionCircularProgressText.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionCircularProgress")))*/
+        userSubscriptionType.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTipology")))
+        userSubscriptionDeadline.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionExpired")))
+        user_subscriptionSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTitle")))
+        userEntries.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionCircularProgress")))
         user_physicsSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionTitle")))
         user_physicsSectionAgeText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionAge")))
         user_physicsSectionWeightText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionWeight")))
