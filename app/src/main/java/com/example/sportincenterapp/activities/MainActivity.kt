@@ -73,6 +73,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val bundleContacts: Bundle = Bundle()
     private val bundleEventParticipants: Bundle = Bundle()
     private val bundleCalendarCollection: Bundle = Bundle()
+    private val bundleCalendarAdmin: Bundle = Bundle()
+    private val bundleAddActivity: Bundle = Bundle()
 
 
 
@@ -189,7 +191,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .replace(R.id.Fragment_container, fragmentCalendarCollection, "CalendarFragment").commit() //Calendar fragment
 
             R.id.admin_calendar -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, CalendarAdminFragment(), "AdminCalendarFragment").commit()
+                .replace(R.id.Fragment_container, fragmentCalendarAdmin, "AdminCalendarFragment").commit()
 
             R.id.profile -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, fragmentUser, "UserFragment").commit()
@@ -286,6 +288,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color)
         bundleContacts.putInt("cl_contacts_text", R.color.black)
         bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color)
+        bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color )
+        bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color )
+        bundleAddActivity.putInt("cl_addActivity_text",R.color.black )
+
 
         //Language
         bundleHome.putInt("st_home_firstQuestion", R.string.fr_home_firstQuestion_it)
@@ -325,6 +331,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleContacts.putInt("st_contacts_addressText", R.string.fr_contacts_addressText_it)
         bundleContacts.putInt("st_contacts_addressValue", R.string.fr_contacts_addressValue_it)
         bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_it)
+        bundleCalendarCollection.putInt("st_calendarCollection_calendar", R.string.fr_calendarCollection_calendar_it)
+        bundleCalendarCollection.putInt("st_calendarCollection_bookings", R.string.fr_calendarCollection_bookings_it)
+        bundleCalendarAdmin.putInt("st_adminCalendar_title", R.string.fr_adminCalendar_title_it)
+        bundleAddActivity.putInt("st_addActivity_startDate", R.string.fr_addActivity_startDate_it)
+        bundleAddActivity.putInt("st_addActivity_endDate", R.string.fr_addActivity_endDate_it)
+        bundleAddActivity.putInt("st_addActivity_startTime", R.string.fr_addActivity_startTime_it)
+        bundleAddActivity.putInt("st_addActivity_endTime", R.string.fr_addActivity_endTime_it)
+        bundleAddActivity.putInt("st_addActivity_positionNumber", R.string.fr_addActivity_freePosition_it)
+        bundleAddActivity.putInt("st_addActivity_activityType", R.string.fr_addActivity_activityType_it)
+        bundleAddActivity.putInt("st_addActivity_dayOfWeek", R.string.fr_addActivity_dayOfWeek_it)
+        bundleAddActivity.putInt("st_addActivity_title", R.string.fr_addActivity_title_it)
+        bundleAddActivity.putInt("st_addActivity_sun", R.string.fr_addActivity_sunday_it)
+        bundleAddActivity.putInt("st_addActivity_mon", R.string.fr_addActivity_monday_it)
+        bundleAddActivity.putInt("st_addActivity_tue", R.string.fr_addActivity_tuesday_it)
+        bundleAddActivity.putInt("st_addActivity_wed", R.string.fr_addActivity_wednesday_it)
+        bundleAddActivity.putInt("st_addActivity_thu", R.string.fr_addActivity_thursday_it)
+        bundleAddActivity.putInt("st_addActivity_fri", R.string.fr_addActivity_friday_it)
+        bundleAddActivity.putInt("st_addActivity_sat", R.string.fr_addActivity_saturday_it)
 
         //Assignments
         fragmentUser.arguments = bundleUser
@@ -333,8 +357,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentFaq.arguments = bundleFaq
         fragmentContacts.arguments = bundleContacts
         fragmentCalendarCollection.arguments = bundleCalendarCollection
-
-        //supportFragmentManager.beginTransaction().add(fragmentUserCalendar, "fragment_user_calendar")
+        fragmentCalendarAdmin.arguments = bundleCalendarAdmin
+        fragmentAddActivity.arguments = bundleAddActivity
 
     }
 
@@ -384,6 +408,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color)
                 bundleContacts.putInt("cl_contacts_text", R.color.black)
                 bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color)
+                bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color )
+                bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color )
+                bundleAddActivity.putInt("cl_addActivity_text",R.color.black )
 
 
 
@@ -439,6 +466,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color_2)
                 bundleContacts.putInt("cl_contacts_text", R.color.white)
                 bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color_2)
+                bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color_2)
+                bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color_2 )
+                bundleAddActivity.putInt("cl_addActivity_text",R.color.white )
 
                 navigationView.setBackgroundResource(R.color.background_primary_color_2)
 
@@ -524,6 +554,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleContacts.putInt("st_contacts_addressText", R.string.fr_contacts_addressText_it)
             bundleContacts.putInt("st_contacts_addressValue", R.string.fr_contacts_addressValue_it)
             bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_it)
+            bundleCalendarCollection.putInt("st_calendarCollection_calendar", R.string.fr_calendarCollection_calendar_it)
+            bundleCalendarCollection.putInt("st_calendarCollection_bookings", R.string.fr_calendarCollection_bookings_it)
+            bundleCalendarAdmin.putInt("st_adminCalendar_title", R.string.fr_adminCalendar_title_it)
+            bundleAddActivity.putInt("st_addActivity_startDate", R.string.fr_addActivity_startDate_it)
+            bundleAddActivity.putInt("st_addActivity_endDate", R.string.fr_addActivity_endDate_it)
+            bundleAddActivity.putInt("st_addActivity_startTime", R.string.fr_addActivity_startTime_it)
+            bundleAddActivity.putInt("st_addActivity_endTime", R.string.fr_addActivity_endTime_it)
+            bundleAddActivity.putInt("st_addActivity_positionNumber", R.string.fr_addActivity_freePosition_it)
+            bundleAddActivity.putInt("st_addActivity_activityType", R.string.fr_addActivity_activityType_it)
+            bundleAddActivity.putInt("st_addActivity_dayOfWeek", R.string.fr_addActivity_dayOfWeek_it)
+            bundleAddActivity.putInt("st_addActivity_title", R.string.fr_addActivity_title_it)
+            bundleAddActivity.putInt("st_addActivity_sun", R.string.fr_addActivity_sunday_it)
+            bundleAddActivity.putInt("st_addActivity_mon", R.string.fr_addActivity_monday_it)
+            bundleAddActivity.putInt("st_addActivity_tue", R.string.fr_addActivity_tuesday_it)
+            bundleAddActivity.putInt("st_addActivity_wed", R.string.fr_addActivity_wednesday_it)
+            bundleAddActivity.putInt("st_addActivity_thu", R.string.fr_addActivity_thursday_it)
+            bundleAddActivity.putInt("st_addActivity_fri", R.string.fr_addActivity_friday_it)
+            bundleAddActivity.putInt("st_addActivity_sat", R.string.fr_addActivity_saturday_it)
 
             menu.getItem(0).setTitle(getResources().getString(R.string.fr_user_pageTitle_it))
             menu.getItem(1).setTitle(getResources().getString(R.string.fr_advertisment_title_it))
@@ -573,6 +621,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleContacts.putInt("st_contacts_addressText", R.string.fr_contacts_addressText_en)
             bundleContacts.putInt("st_contacts_addressValue", R.string.fr_contacts_addressValue_en)
             bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_en)
+            bundleCalendarCollection.putInt("st_calendarCollection_calendar", R.string.fr_calendarCollection_calendar_en)
+            bundleCalendarCollection.putInt("st_calendarCollection_bookings", R.string.fr_calendarCollection_bookings_en)
+            bundleCalendarAdmin.putInt("st_adminCalendar_title", R.string.fr_adminCalendar_title_en)
+            bundleAddActivity.putInt("st_addActivity_startDate", R.string.fr_addActivity_startDate_en)
+            bundleAddActivity.putInt("st_addActivity_endDate", R.string.fr_addActivity_endDate_en)
+            bundleAddActivity.putInt("st_addActivity_startTime", R.string.fr_addActivity_startTime_en)
+            bundleAddActivity.putInt("st_addActivity_endTime", R.string.fr_addActivity_endTime_en)
+            bundleAddActivity.putInt("st_addActivity_positionNumber", R.string.fr_addActivity_freePosition_en)
+            bundleAddActivity.putInt("st_addActivity_activityType", R.string.fr_addActivity_activityType_en)
+            bundleAddActivity.putInt("st_addActivity_dayOfWeek", R.string.fr_addActivity_dayOfWeek_en)
+            bundleAddActivity.putInt("st_addActivity_title", R.string.fr_addActivity_title_en)
+            bundleAddActivity.putInt("st_addActivity_sun", R.string.fr_addActivity_sunday_en)
+            bundleAddActivity.putInt("st_addActivity_mon", R.string.fr_addActivity_monday_en)
+            bundleAddActivity.putInt("st_addActivity_tue", R.string.fr_addActivity_tuesday_en)
+            bundleAddActivity.putInt("st_addActivity_wed", R.string.fr_addActivity_wednesday_en)
+            bundleAddActivity.putInt("st_addActivity_thu", R.string.fr_addActivity_thursday_en)
+            bundleAddActivity.putInt("st_addActivity_fri", R.string.fr_addActivity_friday_en)
+            bundleAddActivity.putInt("st_addActivity_sat", R.string.fr_addActivity_saturday_en)
 
             menu.getItem(0).setTitle(getResources().getString(R.string.fr_user_pageTitle_en))
             menu.getItem(1).setTitle(getResources().getString(R.string.fr_advertisment_title_en))

@@ -46,6 +46,12 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val v =  inflater.inflate(R.layout.fragment_admin_calendar, container, false)
         listView = v.findViewById<ListView>(R.id.simpleListView)
         val addactivity = v.findViewById<ImageButton>(R.id.add_activity_button)
+        val adminCalendar_mainLayout = v.findViewById<RelativeLayout>(R.id.adminCalendar_mainLayout)
+        val adminCalendar_title = v.findViewById<TextView>(R.id.adminCalendar_title)
+
+        adminCalendar_mainLayout.setBackgroundResource(arguments!!.getInt("cl_adminCalendar_background"))
+
+        adminCalendar_title.setText(getResources().getString(arguments!!.getInt("st_adminCalendar_title")))
 
         calendarDate = v.findViewById<EditText>(R.id.date)
         calendarDate.isFocusable = false

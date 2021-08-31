@@ -19,18 +19,18 @@ class CalendarCollectionFragment : Fragment() {
 
     private lateinit var calendarCollectionAdapter: CalendarCollectionAdapter
     private lateinit var viewPager: ViewPager2
-    private val tabTitles = arrayOf("CALENDARIO", "PRENOTAZIONI")
+    private var string1 : String? = "CALENDARIO"
+    private var string2 : String? = "PRENOTAZIONI"
+    private var tabTitles = arrayOf(string1, string2)
     private val tabIcons = intArrayOf(
         R.drawable.ic_baseline_calendar_today_24,
         R.drawable.ic_baseline_edit_24
     )
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        string1 = getString(arguments!!.getInt("st_calendarCollection_calendar"))
+        string2 = getString(arguments!!.getInt("st_calendarCollection_bookings"))
+        tabTitles = arrayOf(string1, string2)
         calendarCollectionAdapter = CalendarCollectionAdapter(this, arguments!!.getInt("cl_userCalendar_background"))
         return inflater.inflate(R.layout.fragment_collection_calendar, container, false)
     }

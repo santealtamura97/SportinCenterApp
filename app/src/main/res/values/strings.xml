@@ -162,6 +162,54 @@
     <string name="join_us_button">Registrati</string>
     <string name="password_confirm">Conferma password</string>
     <string name="user_code">Codice utente (6 cifre)</string>
+
+    <!-- calendar collection -->
+    <string name="fr_calendarCollection_calendar_it">CALENDARIO</string>
+    <string name="fr_calendarCollection_calendar_en">CALENDAR</string>
+    <string name="fr_calendarCollection_bookings_it">PRENOTAZIONI</string>
+    <string name="fr_calendarCollection_bookings_en">BOOKINGS</string>
+
+    <!-- admin calendar -->
+    <string name="fr_adminCalendar_title_it">Calendario</string>
+    <string name="fr_adminCalendar_title_en">Calendar</string>
+
+    <!-- aggiungi attività -->
+    <string name="fr_addActivity_title_it">Programma attività sportiva</string>
+    <string name="fr_addActivity_title_en">Sports activity program</string>
+    <string name="fr_addActivity_startDate_it">Data inizio:</string>
+    <string name="fr_addActivity_startDate_en">Start date:</string>
+    <string name="fr_addActivity_endDate_it">Data fine:</string>
+    <string name="fr_addActivity_endDate_en">End date:</string>
+    <string name="fr_addActivity_startTime_it">Ora inizio:</string>
+    <string name="fr_addActivity_startTime_en">Start time:</string>
+    <string name="fr_addActivity_endTime_it">Ora fine:</string>
+    <string name="fr_addActivity_endTime_en">End time:</string>
+    <string name="fr_addActivity_freePosition_it">Numero di posti:</string>
+    <string name="fr_addActivity_freePosition_en">Free bookings:</string>
+    <string name="fr_addActivity_activityType_it">Tipo di attività:</string>
+    <string name="fr_addActivity_activityType_en">Activity type:</string>
+    <string name="fr_addActivity_dayOfWeek_it">Giorno della settimana:</string>
+    <string name="fr_addActivity_dayOfWeek_en">Day of week:</string>
+    <string name="fr_addActivity_sunday_it">Dom</string>
+    <string name="fr_addActivity_sunday_en">Sun</string>
+    <string name="fr_addActivity_monday_it">Lun</string>
+    <string name="fr_addActivity_monday_en">Mon</string>
+    <string name="fr_addActivity_tuesday_it">Mar</string>
+    <string name="fr_addActivity_tuesday_en">Tue</string>
+    <string name="fr_addActivity_wednesday_it">Mer</string>
+    <string name="fr_addActivity_wednesday_en">Wed</string>
+    <string name="fr_addActivity_thursday_it">Gio</string>
+    <string name="fr_addActivity_thursday_en">Thu</string>
+    <string name="fr_addActivity_friday_it">Ven</string>
+    <string name="fr_addActivity_friday_en">Fri</string>
+    <string name="fr_addActivity_saturday_it">Sab</string>
+    <string name="fr_addActivity_saturday_en">Sat</string>
+    <string name="fr_addActivity_clear_it">PULISCI</string>
+    <string name="fr_addActivity_clear_en">CLEAR</string>
+    <string name="fr_addActivity_save_it">SALVA</string>
+    <string name="fr_addActivity_save_en">SAVE</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
 
     <!-- Sport Activities -->

@@ -19,6 +19,7 @@ import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.google.gson.annotations.SerializedName
 import com.nex3z.togglebuttongroup.MultiSelectToggleGroup
+import com.nex3z.togglebuttongroup.button.CircularToggle
 import kotlinx.android.synthetic.main.fragment_add_activity.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -66,6 +67,50 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_add_activity, container, false)
+
+        val addActivity_mainLayout = v.findViewById<FrameLayout>(R.id.addActivity_mainLayout)
+        val title_add_activity = v.findViewById<TextView>(R.id.title_add_activity)
+        val addActivity_startDate = v.findViewById<TextView>(R.id.addActivity_startDate)
+        val addActivity_endDate = v.findViewById<TextView>(R.id.addActivity_endDate)
+        val addActivity_startTime = v.findViewById<TextView>(R.id.addActivity_startTime)
+        val addActivity_endTime = v.findViewById<TextView>(R.id.addActivity_endTime)
+        val addActivity_positioNumberText = v.findViewById<TextView>(R.id.addActivity_positioNumberText)
+        val addActivity_activityTypeText = v.findViewById<TextView>(R.id.addActivity_activityTypeText)
+        val addActivity_dayOfWeekText = v.findViewById<TextView>(R.id.addActivity_dayOfWeekText)
+        val sun = v.findViewById<CircularToggle>(R.id.sun)
+        val mon = v.findViewById<CircularToggle>(R.id.mon)
+        val tue = v.findViewById<CircularToggle>(R.id.tue)
+        val wed = v.findViewById<CircularToggle>(R.id.wed)
+        val thu = v.findViewById<CircularToggle>(R.id.thu)
+        val fri = v.findViewById<CircularToggle>(R.id.fri)
+        val sat = v.findViewById<CircularToggle>(R.id.sat)
+        val button_clear = v.findViewById<Button>(R.id.button_clear)
+        val button_save = v.findViewById<Button>(R.id.button_save)
+
+        addActivity_mainLayout.setBackgroundResource(arguments!!.getInt("cl_addActivity_background"))
+        addActivity_startDate.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+        addActivity_endDate.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+        addActivity_endTime.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+        addActivity_startTime.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+        addActivity_positioNumberText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+        addActivity_activityTypeText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+        addActivity_dayOfWeekText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+
+        title_add_activity.setText(getResources().getString(arguments!!.getInt("st_addActivity_title")))
+        addActivity_startDate.setText(getResources().getString(arguments!!.getInt("st_addActivity_startDate")))
+        addActivity_endDate.setText(getResources().getString(arguments!!.getInt("st_addActivity_endDate")))
+        addActivity_startTime.setText(getResources().getString(arguments!!.getInt("st_addActivity_startTime")))
+        addActivity_endTime.setText(getResources().getString(arguments!!.getInt("st_addActivity_endTime")))
+        addActivity_positioNumberText.setText(getResources().getString(arguments!!.getInt("st_addActivity_positionNumber")))
+        addActivity_activityTypeText.setText(getResources().getString(arguments!!.getInt("st_addActivity_activityType")))
+        addActivity_dayOfWeekText.setText(getResources().getString(arguments!!.getInt("st_addActivity_dayOfWeek")))
+        sun.setText(getResources().getString(arguments!!.getInt("st_addActivity_sun")))
+        mon.setText(getResources().getString(arguments!!.getInt("st_addActivity_mon")))
+        tue.setText(getResources().getString(arguments!!.getInt("st_addActivity_tue")))
+        wed.setText(getResources().getString(arguments!!.getInt("st_addActivity_wed")))
+        thu.setText(getResources().getString(arguments!!.getInt("st_addActivity_thu")))
+        fri.setText(getResources().getString(arguments!!.getInt("st_addActivity_fri")))
+        sat.setText(getResources().getString(arguments!!.getInt("st_addActivity_sat")))
 
         //communicator with main activity
         communicator  = activity as Communicator
