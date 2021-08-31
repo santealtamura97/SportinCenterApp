@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportincenterapp.R
@@ -35,12 +36,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BookingsFragment : Fragment() {
+class BookingsFragment(color: Int) : Fragment() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private lateinit var bookingList: List<Event>
     private var bookingToRemove : MutableList<Int> = mutableListOf()
+    private val color: Int = color
 
 
     private val ITEM_TYPE = "BOOKING"
@@ -49,7 +51,6 @@ class BookingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // Inflate the layout for this fragment
         //Session manager
         return inflater.inflate(R.layout.fragment_bookings, container, false)
@@ -58,6 +59,9 @@ class BookingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val fragment_bookings_mainLayout = view.findViewById<CoordinatorLayout>(R.id.fragment_bookings_mainLayout)
+        fragment_bookings_mainLayout.setBackgroundResource(color)
 
         rcv.apply {
             val checkAllButton: View = view.findViewById(R.id.check_all_button)
@@ -99,7 +103,6 @@ class BookingsFragment : Fragment() {
                             qrCodeEventDialog(bookingList[pos].title, bookingList[pos].id, bookingList[pos].data, bookingList[pos].oraInizio,
                                 bookingList[pos].oraFine, sessionManager.fetchUserId()!!)
                         }
-
                         override fun onClick(pos: Int, aView: View) {
                         }
                     })

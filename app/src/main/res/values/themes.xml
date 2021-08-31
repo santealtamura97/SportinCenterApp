@@ -50,4 +50,8 @@
         <item name = "android:textColor">#B5B5B5</item>
     </style>
 
+    <style name="dateDialogStyle" parent="android:Theme.Material.Dialog">
+        <item name="colorAccent">@color/orange</item>
+    </style>
+
 </resources>

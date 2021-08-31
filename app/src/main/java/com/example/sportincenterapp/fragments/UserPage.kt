@@ -242,6 +242,7 @@ class UserPage : Fragment() {
         user_physicsSectionUM2.text = arguments?.getString("um2")
 
         /* ASSIGN DEFAULT COLOR */
+        println("Colore: " + arguments!!.getInt("cl_user_background"))
         user_firstSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_profileNameText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_informationSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
@@ -258,6 +259,7 @@ class UserPage : Fragment() {
         userSubscriptionStatusIconActive.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         userSubscriptionStatusIconExpired.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         userEntries.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
+        user_informationSectionEmailText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_subscriptionSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_subscriptionSectionTipologyIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_subscriptionSectionExpiredIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))

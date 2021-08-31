@@ -107,6 +107,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val datePickerDialog = context?.let {
             DatePickerDialog(
                 it,
+                R.style.dateDialogStyle,
                 this,
                 Calendar.getInstance()[Calendar.YEAR],
                 Calendar.getInstance()[Calendar.MONTH],

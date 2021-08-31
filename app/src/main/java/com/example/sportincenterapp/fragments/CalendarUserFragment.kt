@@ -38,7 +38,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class CalendarUserFragment : Fragment() {
+class CalendarUserFragment(color: Int) : Fragment() {
 
     private lateinit var calendarUserAdapter: CalendarUserAdapter
     private lateinit var viewPager: ViewPager2
@@ -46,19 +46,19 @@ class CalendarUserFragment : Fragment() {
     private val tabDates = ArrayList<String>(DATES_NUMBER)
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
+    private val color: Int = color
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_user_calendar, container, false)
-        val userCalendar_mainBackground = v.findViewById<LinearLayout>(R.id.userCalendar_mainBackground)
-
-        /* DEFAULT VALUE COLOR */
-        userCalendar_mainBackground.setBackgroundResource(arguments!!.getInt("cl_userCalendar_background"))
-
         return v
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        /* DEFAULT VALUE COLOR */
+        val userCalendar_mainBackground = view.findViewById<LinearLayout>(R.id.userCalendar_mainBackground)
+        userCalendar_mainBackground.setBackgroundResource(color)
         setTabDates()
         calendarUserAdapter = CalendarUserAdapter(this)
         calendarUserAdapter.setTabTitleDates(tabDates)

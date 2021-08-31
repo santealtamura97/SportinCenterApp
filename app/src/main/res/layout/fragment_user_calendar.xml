@@ -2,8 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/userCalendar_mainBackground"
-    android:background="@color/white">
+    android:id="@+id/userCalendar_mainBackground">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

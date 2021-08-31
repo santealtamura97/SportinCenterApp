@@ -5,6 +5,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sportincenterapp.R
@@ -30,6 +31,7 @@ class CalendarCollectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        calendarCollectionAdapter = CalendarCollectionAdapter(this, arguments!!.getInt("cl_userCalendar_background"))
         return inflater.inflate(R.layout.fragment_collection_calendar, container, false)
     }
 
@@ -38,7 +40,6 @@ class CalendarCollectionFragment : Fragment() {
         viewPager = view.findViewById(R.id.pager)
         viewPager.isSaveEnabled = false
         viewPager.isUserInputEnabled = false;
-        calendarCollectionAdapter = CalendarCollectionAdapter(this)
         viewPager.adapter = calendarCollectionAdapter
         val tabLayout = view.findViewById(R.id.tab_layout) as TabLayout
         tabLayout.setOnTabSelectedListener(object : OnTabSelectedListener {

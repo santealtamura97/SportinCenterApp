@@ -37,6 +37,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, Communicator {
@@ -56,11 +57,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val fragmentUser : Fragment = UserPage()
     private val fragmentAdvertisement : Fragment = Advertisment()
 
+
     private val fragmentSettings : Fragment = Settings()
     private val fragmentFaq : Fragment = Faq()
     private val fragmentContacts : Fragment = Contacts()
     private val fragmentCalendarAdmin: Fragment = CalendarAdminFragment()
-    private val fragmentCalendar: Fragment = CalendarCollectionFragment()
+    private val fragmentCalendarCollection: Fragment = CalendarCollectionFragment()
     private val fragmentAddActivity: Fragment = AddActivityFragment()
     private val fragmentEventParticipants: Fragment = EventPartecipantsFragment()
     //Bundles
@@ -70,6 +72,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val bundleFaq: Bundle = Bundle()
     private val bundleContacts: Bundle = Bundle()
     private val bundleEventParticipants: Bundle = Bundle()
+    private val bundleCalendarCollection: Bundle = Bundle()
+
+
 
     //API
     private lateinit var apiClient: ApiClient
@@ -78,6 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Locale.setDefault(Locale.ITALY)
         //Session manager
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
         //Main activity
@@ -180,7 +186,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //When i press the correspondent id we load the fragment
         when (menuItem.itemId) {
             R.id.calendar -> supportFragmentManager.beginTransaction()
-                .replace(R.id.Fragment_container, CalendarCollectionFragment(), "CalendarFragment").commit() //Calendar fragment
+                .replace(R.id.Fragment_container, fragmentCalendarCollection, "CalendarFragment").commit() //Calendar fragment
+
             R.id.admin_calendar -> supportFragmentManager.beginTransaction()
                 .replace(R.id.Fragment_container, CalendarAdminFragment(), "AdminCalendarFragment").commit()
 
@@ -278,6 +285,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleFaq.putInt("cl_faq_text", R.color.black)
         bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color)
         bundleContacts.putInt("cl_contacts_text", R.color.black)
+        bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color)
 
         //Language
         bundleHome.putInt("st_home_firstQuestion", R.string.fr_home_firstQuestion_it)
@@ -324,6 +332,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentAdvertisement.arguments = bundleAdvertisement
         fragmentFaq.arguments = bundleFaq
         fragmentContacts.arguments = bundleContacts
+        fragmentCalendarCollection.arguments = bundleCalendarCollection
+
+        //supportFragmentManager.beginTransaction().add(fragmentUserCalendar, "fragment_user_calendar")
+
     }
 
     override fun um_update(um_1: String, um_2: String) {
@@ -371,6 +383,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleFaq.putInt("cl_faq_text", R.color.black)
                 bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color)
                 bundleContacts.putInt("cl_contacts_text", R.color.black)
+                bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color)
+
 
 
                 navigationView.setBackgroundResource(R.color.background_primary_color)
@@ -424,6 +438,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleFaq.putInt("cl_faq_text", R.color.white)
                 bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color_2)
                 bundleContacts.putInt("cl_contacts_text", R.color.white)
+                bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color_2)
 
                 navigationView.setBackgroundResource(R.color.background_primary_color_2)
 
@@ -470,6 +485,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val menu = navigationView.menu
 
         if (index == 0) {
+            Locale.setDefault(Locale.ITALY)
 
             bundleHome.putInt("st_home_firstQuestion", R.string.fr_home_firstQuestion_it)
             bundleHome.putInt("st_home_firstAnswer", R.string.fr_home_firstAnswer_it)
@@ -518,6 +534,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             menu.getItem(5).subMenu.getItem(2).setTitle(getResources().getString(R.string.contacts))
 
         } else if (index == 1) {
+            Locale.setDefault(Locale.ENGLISH)
 
             bundleHome.putInt("st_home_firstQuestion", R.string.fr_home_firstQuestion_en)
             bundleHome.putInt("st_home_firstAnswer", R.string.fr_home_firstAnswer_en)

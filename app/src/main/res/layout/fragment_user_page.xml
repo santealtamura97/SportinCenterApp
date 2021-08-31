@@ -189,15 +189,6 @@
                          android:padding="10dp"
                          android:src="@drawable/ic_baseline_email_24" />
 
-                     <EditText
-                         android:id="@+id/user_informationSectionEmailEdit"
-                         android:layout_width="150dp"
-                         android:layout_height="wrap_content"
-                         android:layout_marginLeft="20dp"
-                         android:textSize="15dp"
-                         android:visibility="gone"
-                         android:textColor="@color/black" />
-
                      <TextView
                          android:id="@+id/user_informationSectionEmailText"
                          android:layout_width="wrap_content"

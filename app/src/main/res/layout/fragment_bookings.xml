@@ -7,7 +7,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:id="@+id/fragment_bookings_mainLayout">
 
         <TextView
             android:id="@+id/no_event"
