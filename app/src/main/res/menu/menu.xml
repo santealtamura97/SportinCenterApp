@@ -45,7 +45,8 @@
     <item android:title="">
     </item>
 
-    <item android:title ="@string/system">
+    <item android:title ="@string/system"
+        android:id="@+id/system">
         <menu>
 
             <item

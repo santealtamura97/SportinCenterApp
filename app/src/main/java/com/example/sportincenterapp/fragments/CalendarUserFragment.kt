@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
@@ -47,12 +48,14 @@ class CalendarUserFragment : Fragment() {
     private lateinit var apiClient: ApiClient
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_user_calendar, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val v = inflater.inflate(R.layout.fragment_user_calendar, container, false)
+        val userCalendar_mainBackground = v.findViewById<LinearLayout>(R.id.userCalendar_mainBackground)
+
+        /* DEFAULT VALUE COLOR */
+        userCalendar_mainBackground.setBackgroundResource(arguments!!.getInt("cl_userCalendar_background"))
+
+        return v
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

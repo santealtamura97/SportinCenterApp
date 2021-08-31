@@ -23,7 +23,7 @@ import com.example.sportincenterapp.data.responses.SubscriptionResponse
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
-//import com.github.dhaval2404.imagepicker.ImagePicker
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -128,14 +128,14 @@ class UserPage : Fragment() {
         }
         changeProfileImage = v.findViewById(R.id.change_photo)
 
-       /* changeProfileImage.setOnClickListener(View.OnClickListener {
+        changeProfileImage.setOnClickListener(View.OnClickListener {
             ImagePicker.with(this)
                 .galleryOnly()
                 .crop()
                 .compress(1024)			//Final image size will be less than 1 MB(Optional)
                 .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                 .start()
-        })*/
+        })
 
 
         //Telephone edit text listener

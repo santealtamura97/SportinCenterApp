@@ -3,7 +3,10 @@ package com.example.sportincenterapp.activities
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.util.Base64
 import android.view.MenuItem
 import android.view.View
@@ -15,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -26,7 +30,8 @@ import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.android.material.navigation.NavigationView
-//import de.hdodenhof.circleimageview.CircleImageView
+import com.google.android.material.resources.TextAppearance
+import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //User information
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
-   // private lateinit var profileImage: CircleImageView
+    private lateinit var profileImage: CircleImageView
 
 
     //Fragments
@@ -82,7 +87,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val header = navigationView.getHeaderView(0)
 
-       // profileImage = header.findViewById<CircleImageView>(R.id.profileimage_container)
+        profileImage = header.findViewById<CircleImageView>(R.id.profileimage_container)
         userName = header.findViewById<TextView>(R.id.nome_utente_nav_header)
         userEmail = header.findViewById<TextView>(R.id.email_nav_header)
 
@@ -99,10 +104,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val newsItem = menu.getItem(1)
         val calendarItem = menu.getItem(2)
         val calendarAdminItem = menu.getItem(3)
+        val settingsItem = menu.getItem(5).subMenu.getItem(0)
         val faqItem = menu.getItem(5).subMenu.getItem(1)
         val contactsItem = menu.getItem(5).subMenu.getItem(2)
         val logoutItem = menu.getItem(5).subMenu.getItem(3)
-
+        navigationView.setItemIconTintList(null)
 
         if (!sessionManager.fetchUserName().isNullOrEmpty()) {
             userName.text = sessionManager.fetchUserName()
@@ -121,8 +127,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
         } else { //if we don't have done the logout
-            //userPageItem.isVisible = false
-            userPageItem.isVisible = true
+            userPageItem.isVisible = false
             logoutItem.isVisible = false
             calendarItem.isVisible = false
         }
@@ -231,7 +236,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         if (response.isSuccessful) {
                             val body = response.body()?.byteStream()
                             val bitmap = BitmapFactory.decodeStream(body)
-                            //profileImage.setImageBitmap(bitmap)
+                            profileImage.setImageBitmap(bitmap)
                             if (bitmap != null) {
                                 sessionManager.saveImage(encodeTobase64(bitmap))
                             }
@@ -328,16 +333,33 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun theme(index : Int) {
-        val homeBtn = findViewById<ImageButton>(R.id.home_button)
+
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        val header = navigationView.getHeaderView(0)
-        val tools: Toolbar = findViewById(R.id.toolbar)
+        val menu = navigationView.menu
+        val userPageItem = menu.getItem(0)
+        val newsItem = menu.getItem(1)
+        val calendarItem = menu.getItem(2)
+        val calendarAdminItem = menu.getItem(3)
+        val systemItem = menu.getItem(5)
+        val settingsItem = menu.getItem(5).subMenu.getItem(0)
+        val faqItem = menu.getItem(5).subMenu.getItem(1)
+        val contactsItem = menu.getItem(5).subMenu.getItem(2)
+        val logoutItem = menu.getItem(5).subMenu.getItem(3)
+        val spannable_user = SpannableString(userPageItem.title)
+        val spannable_news = SpannableString(newsItem.title)
+        val spannable_calendarItem = SpannableString(calendarItem.title)
+        val spannable_calendarAdminItem = SpannableString(calendarAdminItem.title)
+        val spannable_systemItem = SpannableString(systemItem.title)
+        val spannable_settings = SpannableString(settingsItem.title)
+        val spannable_faqItem = SpannableString(faqItem.title)
+        val spannable_contactsItem = SpannableString(contactsItem.title)
+        val spannable_logoutItem = SpannableString(logoutItem.title)
 
         when (index) {
             0 -> {
-                header.setBackgroundResource(R.color.orange)
-                tools.setBackgroundResource(R.color.orange)
-                homeBtn.setBackgroundResource(R.color.orange)
+
+                navigationView.setBackgroundResource(R.color.background_primary_color_2)
+                userPageItem.setIcon(R.drawable.ic_baseline_account_circle_white_24)
 
                 bundleHome.putInt("cl_home_background", R.color.background_primary_color)
                 bundleHome.putInt("cl_home_text", R.color.black)
@@ -349,12 +371,49 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleFaq.putInt("cl_faq_text", R.color.black)
                 bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color)
                 bundleContacts.putInt("cl_contacts_text", R.color.black)
-    
+
+
+                navigationView.setBackgroundResource(R.color.background_primary_color)
+                spannable_user.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_user.length,0)
+                userPageItem.setTitle(spannable_user)
+                userPageItem.setIcon(R.drawable.ic_baseline_account_circle_24)
+
+                spannable_news.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_news.length,0)
+                newsItem.setTitle(spannable_news)
+                newsItem.setIcon(R.drawable.ic_baseline_new_releases_24)
+
+                spannable_calendarItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_calendarItem.length,0)
+                calendarItem.setTitle(spannable_calendarItem)
+                calendarItem.setIcon(R.drawable.ic_baseline_calendar_today_24)
+
+                spannable_calendarAdminItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_calendarAdminItem.length,0)
+                calendarAdminItem.setTitle(spannable_calendarAdminItem)
+                calendarAdminItem.setIcon(R.drawable.ic_baseline_calendar_today_24)
+
+                spannable_systemItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance3),0,spannable_systemItem.length,0)
+                systemItem.setTitle(spannable_systemItem)
+
+                spannable_settings.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_settings.length,0)
+                settingsItem.setTitle(spannable_settings)
+                settingsItem.setIcon(R.drawable.ic_baseline_settings_24)
+
+                spannable_faqItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_faqItem.length,0)
+                faqItem.setTitle(spannable_faqItem)
+                faqItem.setIcon(R.drawable.ic_baseline_help_outline_24)
+
+                spannable_contactsItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_contactsItem.length,0)
+                contactsItem.setTitle(spannable_contactsItem)
+                contactsItem.setIcon(R.drawable.ic_baseline_send_24)
+
+                spannable_logoutItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance),0,spannable_logoutItem.length,0)
+                logoutItem.setTitle(spannable_logoutItem)
+                logoutItem.setIcon(R.drawable.ic_logout)
             }
+
             1 -> {
-                header.setBackgroundResource(R.color.orange)
-                tools.setBackgroundResource(R.color.orange)
-                homeBtn.setBackgroundResource(R.color.orange)
+
+                navigationView.setBackgroundResource(R.color.background_primary_color_2)
+
                 bundleHome.putInt("cl_home_background", R.color.background_primary_color_2)
                 bundleHome.putInt("cl_home_text", R.color.white)
                 bundleUser.putInt("cl_user_background", R.color.background_primary_color_2)
@@ -365,7 +424,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleFaq.putInt("cl_faq_text", R.color.white)
                 bundleContacts.putInt("cl_contacts_background", R.color.background_primary_color_2)
                 bundleContacts.putInt("cl_contacts_text", R.color.white)
-    
+
+                navigationView.setBackgroundResource(R.color.background_primary_color_2)
+
+                spannable_user.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_user.length,0)
+                userPageItem.setTitle(spannable_user)
+                userPageItem.setIcon(R.drawable.ic_baseline_account_circle_white_24)
+
+                spannable_news.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_news.length,0)
+                newsItem.setTitle(spannable_news)
+                newsItem.setIcon(R.drawable.ic_baseline_new_releases_white_24)
+
+                spannable_calendarItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_calendarItem.length,0)
+                calendarItem.setTitle(spannable_calendarItem)
+                calendarItem.setIcon(R.drawable.ic_baseline_calendar_today_white_24)
+
+                spannable_calendarAdminItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_calendarAdminItem.length,0)
+                calendarAdminItem.setTitle(spannable_calendarAdminItem)
+                calendarAdminItem.setIcon(R.drawable.ic_baseline_calendar_today_white_24)
+
+                spannable_systemItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance4),0,spannable_systemItem.length,0)
+                systemItem.setTitle(spannable_systemItem)
+
+                spannable_settings.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_settings.length,0)
+                settingsItem.setTitle(spannable_settings)
+                settingsItem.setIcon(R.drawable.ic_baseline_settings_white_24)
+
+                spannable_faqItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_faqItem.length,0)
+                faqItem.setTitle(spannable_faqItem)
+                faqItem.setIcon(R.drawable.ic_baseline_help_outline_white_24)
+
+                spannable_contactsItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_contactsItem.length,0)
+                contactsItem.setTitle(spannable_contactsItem)
+                contactsItem.setIcon(R.drawable.ic_baseline_send_white_24)
+
+                spannable_logoutItem.setSpan(TextAppearanceSpan(this,R.style.TextAppareance2),0,spannable_logoutItem.length,0)
+                logoutItem.setTitle(spannable_logoutItem)
+                logoutItem.setIcon(R.drawable.ic_logout_white)
             }
         }
     }

@@ -2,7 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:theme="@style/Theme.SportingCenterApp">
+    android:id="@+id/userCalendar_mainBackground"
+    android:background="@color/white">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -10,8 +11,7 @@
         android:layout_height="wrap_content"
         app:tabBackground="@color/white"
         app:tabTextColor="@color/black"
-        app:tabIndicatorColor="@android:color/black"
-        >
+        app:tabIndicatorColor="@android:color/black">
 
     </com.google.android.material.tabs.TabLayout>
 
