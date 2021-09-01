@@ -1,5 +1,6 @@
 package com.example.sportincenterapp.fragments
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
@@ -32,13 +33,12 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var calendarDate: EditText
     private lateinit var listView: ListView
     private val formatDate = SimpleDateFormat("dd-MM-yyyy")
-    private val todayDate = formatDate.parse(formatDate.format(Date()))
+    private lateinit var todayDate: Date
     private lateinit var apiClient: ApiClient
     private lateinit var eventList: MutableList<Event>
     private lateinit var checkAllButton: View
     private lateinit var confirmDeleteButton: View
     private var allChecked: Boolean = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,6 +53,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         adminCalendar_title.setText(getResources().getString(arguments!!.getInt("st_adminCalendar_title")))
 
+        todayDate = formatDate.parse(formatDate.format(Date()))
         calendarDate = v.findViewById<EditText>(R.id.date)
         calendarDate.isFocusable = false
         calendarDate.isClickable = true
@@ -97,10 +98,14 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         listView.setOnItemClickListener { parent: AdapterView<*> , view: View, position: Int, id: Long ->
             communicator.openPartecipantsForEvent(eventList[position].id)
         }
-
-
         return v;
     }
+
+    override fun onResume() {
+        super.onResume()
+        getEvents()
+    }
+
 
     private fun refreshAdapter() {
         adapter = EventAdminAdapter(ApplicationContextProvider.getContext(),
@@ -125,21 +130,23 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun callDeleteEvents(eventList: List<Event>) {
-        apiClient = ApiClient()
-        activity?.let {
-            apiClient.getApiServiceGateway(it).deleteEvents(eventList)
-                .enqueue(object : Callback<ResponseBody?> {
-                    override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
-                        if (response.isSuccessful) {
-                            Toast.makeText(ApplicationContextProvider.getContext(), "EVENTI ELIMINATI CON SUCCESSO!", Toast.LENGTH_LONG).show()
-                        }else{
+        if (eventList.isNotEmpty()) {
+            apiClient = ApiClient()
+            activity?.let {
+                apiClient.getApiServiceGateway(it).deleteEvents(eventList)
+                    .enqueue(object : Callback<ResponseBody?> {
+                        override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                            if (response.isSuccessful) {
+                                Toast.makeText(ApplicationContextProvider.getContext(), "EVENTI ELIMINATI CON SUCCESSO!", Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
                             Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
                         }
-                    }
-                    override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
-                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
-                    }
-                })
+                    })
+            }
         }
     }
 
@@ -165,7 +172,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun getEvents(){
         apiClient = ApiClient()
-        activity?.let {
+        context?.let {
             apiClient.getApiServiceGateway(it).getEventsInDateForAdmin(calendarDate.text.toString())
                 .enqueue(object : Callback<List<Event>> {
                     override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
@@ -184,11 +191,13 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                             listView.adapter = adapter
                         }
                     }
+
                     override fun onFailure(call: Call<List<Event>>, t: Throwable) {
                         Toast.makeText(ApplicationContextProvider.getContext(), "SI E' VERIFICATO UN ERRORE!", Toast.LENGTH_LONG).show()
                     }
                 })
         }
+
     }
 
     private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {

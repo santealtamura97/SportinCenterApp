@@ -216,7 +216,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
 
         //RETRIEVES ALL DATES
         val sdf = SimpleDateFormat("dd-MM-yyyy")
-        val dayFormat: DateFormat = SimpleDateFormat("EEEE")
+        val dayFormat: DateFormat = SimpleDateFormat("EEEE", Locale.ENGLISH)
         val startDate = sdf.parse(startDateString)
         val endDate = sdf.parse(endDateString)
 
