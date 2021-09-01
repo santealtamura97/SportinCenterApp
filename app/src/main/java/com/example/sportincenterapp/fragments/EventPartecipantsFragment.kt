@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.User
@@ -23,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.ResponseBody
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,19 +37,34 @@ class EventPartecipantsFragment : BottomSheetDialogFragment() {
     private lateinit var setPresence: FloatingActionButton
     private lateinit var checkAll: FloatingActionButton
     private lateinit var sessionManager: SessionManager
+    private lateinit var noPartecipants: TextView
+    private lateinit var layout: RelativeLayout
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog!!.setOnShowListener { dialog ->
+        /*dialog!!.setOnShowListener { dialog ->
             val d = dialog as BottomSheetDialog
             val bottomSheetInternal =
                 d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             BottomSheetBehavior.from<View?>(bottomSheetInternal!!)
                 .setState(BottomSheetBehavior.STATE_EXPANDED)
 
-        }
+        }*/
+
         val v =  inflater.inflate(R.layout.fragment_event_partecipants, container, false)
+        noPartecipants = v.findViewById(R.id.no_partecipants)
+        layout = v.findViewById(R.id.event_partecipants_mainLayout)
         listView = v.findViewById(R.id.event_partecipants_list)
+        if (arguments?.getInt("cl_event_partecipants_background") == R.color.background_primary_color_2) {
+            layout.setBackgroundColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_background")))
+            noPartecipants.setTextColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_text")!!))
+            for (i in 0 until listView.count) {
+                println("AOLALAL")
+                var view = listView.getChildAt(i)
+                (view.findViewById<TextView>(R.id.email)).setTextColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_text")!!))
+                (view.findViewById<TextView>(R.id.entries_number)).setTextColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_text")!!))
+            }
+        }
 
         checkAll = v.findViewById(R.id.check_all_button)
         setPresence = v.findViewById(R.id.presence)
@@ -63,7 +76,6 @@ class EventPartecipantsFragment : BottomSheetDialogFragment() {
         if (!sessionManager.fetchUserName().equals("Admin")) {
             checkAll.visibility = View.GONE
         }
-
 
         checkAll.setOnClickListener(View.OnClickListener {
             for (i in 0 until listView.count) {

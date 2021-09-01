@@ -30,7 +30,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class EventFragment : Fragment() {
+class EventFragment() : Fragment() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
@@ -52,9 +52,15 @@ class EventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val color : Int = arguments?.getInt("color") as Int
+
         //la data che rappresenta il fragment corrente
         eventsDate = arguments!!.getString("date").toString().split(" ")[0]
         communicator  = activity as Communicator
+
+        if (color == R.color.background_primary_color_2){
+            view.findViewById<TextView>(R.id.no_event).setTextColor(resources.getColor(R.color.background_primary_color))
+        }
 
         rcv.apply {
             // set a LinearLayoutManager to handle Android
@@ -74,7 +80,7 @@ class EventFragment : Fragment() {
                                     if (orderedEventList.isEmpty()) {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                     }
-                                    adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
+                                    adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color)
                                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                         override fun onBookClick(pos: Int) {
                                         }
@@ -107,7 +113,7 @@ class EventFragment : Fragment() {
                                         if (orderedEventList.isEmpty()) {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
-                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
+                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                             override fun onClick(pos: Int, aView: View) {
                                                 communicator.openPartecipantsForEvent(eventList[pos].id)

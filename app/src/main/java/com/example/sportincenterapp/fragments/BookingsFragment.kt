@@ -36,14 +36,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BookingsFragment(color: Int) : Fragment() {
+class BookingsFragment : Fragment() {
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private lateinit var bookingList: List<Event>
     private var bookingToRemove : MutableList<Int> = mutableListOf()
-    private val color: Int = color
-
 
     private val ITEM_TYPE = "BOOKING"
 
@@ -60,6 +58,8 @@ class BookingsFragment(color: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val color : Int = arguments?.getInt("color") as Int
+
         val fragment_bookings_mainLayout = view.findViewById<CoordinatorLayout>(R.id.fragment_bookings_mainLayout)
         fragment_bookings_mainLayout.setBackgroundResource(color)
 
@@ -68,7 +68,7 @@ class BookingsFragment(color: Int) : Fragment() {
             checkAllButton.setOnClickListener {
                 checkAllButton.visibility = View.GONE
                 for(booking in bookingList) {booking.isSelectable = true}
-                adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE)
+                adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color)
                 (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerDeleteBooking {
                     override fun onChecked(pos: Int) {
                         bookingToRemove.add(pos)
@@ -93,7 +93,7 @@ class BookingsFragment(color: Int) : Fragment() {
                     }
                     for(booking in bookingList) {booking.isSelectable = false}
                     bookingToRemove.clear()
-                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE)
+                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color)
                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
                         override fun onInfoClick(pos: Int) {
                             infoEventDialog(bookingList[pos].title, bookingList[pos].activityId)
@@ -116,7 +116,7 @@ class BookingsFragment(color: Int) : Fragment() {
                     checkAllButton.visibility = View.VISIBLE
                     for(booking in bookingList) {booking.isSelectable = false}
                     bookingToRemove.clear()
-                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE)
+                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color)
                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
                         override fun onInfoClick(pos: Int) {
                             infoEventDialog(bookingList[pos].title, bookingList[pos].activityId)
@@ -152,7 +152,7 @@ class BookingsFragment(color: Int) : Fragment() {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
                                         bookingList = orderedEventList
-                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE)
+                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
                                             override fun onInfoClick(pos: Int) {
                                                 infoEventDialog(orderedEventList[pos].title, orderedEventList[pos].activityId)

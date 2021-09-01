@@ -7,11 +7,12 @@ import com.example.sportincenterapp.fragments.CalendarUserFragment
 import com.example.sportincenterapp.fragments.EventFragment
 
 
-class CalendarUserAdapter (fragment: CalendarUserFragment) : FragmentStateAdapter(fragment) {
+class CalendarUserAdapter (fragment: CalendarUserFragment, color: Int) : FragmentStateAdapter(fragment) {
 
     private val ARG_OBJECT = "date"
     private val DATES_NUMBER = 5
     private var tabTitleDates = ArrayList<String>(DATES_NUMBER)
+    private val color: Int = color
 
     override fun getItemCount(): Int = 5
 
@@ -20,6 +21,7 @@ class CalendarUserAdapter (fragment: CalendarUserFragment) : FragmentStateAdapte
         val fragment = EventFragment()
         fragment.arguments = Bundle().apply {
             putString(ARG_OBJECT, tabTitleDates[position])
+            putInt("color", color)
         }
         return fragment
     }

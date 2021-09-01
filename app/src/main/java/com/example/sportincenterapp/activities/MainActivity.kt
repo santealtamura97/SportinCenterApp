@@ -411,7 +411,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color )
                 bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color )
                 bundleAddActivity.putInt("cl_addActivity_text",R.color.black )
-
+                bundleEventParticipants.putInt("cl_event_partecipants_background", R.color.background_primary_color)
+                bundleEventParticipants.putInt("cl_event_partecipants_text", R.color.black)
 
 
                 navigationView.setBackgroundResource(R.color.background_primary_color)
@@ -469,6 +470,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color_2)
                 bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color_2 )
                 bundleAddActivity.putInt("cl_addActivity_text",R.color.white )
+                bundleEventParticipants.putInt("cl_event_partecipants_background", R.color.background_primary_color_2)
+                bundleEventParticipants.putInt("cl_event_partecipants_text", R.color.white)
 
                 navigationView.setBackgroundResource(R.color.background_primary_color_2)
 
@@ -661,8 +664,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun openPartecipantsForEvent(eventId: String) {
         bundleEventParticipants.putString("eventId", eventId)
-        /*fragmentEventParticipants.arguments = bundleEventParticipants
-        supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentEventParticipants, "EventPartecipantsFragment").commit()*/
         val eventPartecipantsFragment = EventPartecipantsFragment()
         eventPartecipantsFragment.arguments = bundleEventParticipants
         eventPartecipantsFragment.show(supportFragmentManager, "TAG")

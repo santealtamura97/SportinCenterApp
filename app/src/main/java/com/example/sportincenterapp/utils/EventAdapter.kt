@@ -1,6 +1,7 @@
 package com.example.sportincenterapp.utils
 
 import android.content.Context
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String) :
+class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String, val color: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val EVENT = "EVENT"
     private val BOOKING = "BOOKING"
@@ -97,6 +98,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                     (mClickListener as ClickListenerEvent).onInfoClick(adapterPosition)
                 }
 
+
             }else if (itemType == BOOKING) {
 
                 itemView.findViewById<CardView>(R.id.card_booking).setOnClickListener(View.OnClickListener {
@@ -114,6 +116,11 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                 }
                 itemView.findViewById<Button>(R.id.qr_code_icon).setOnClickListener() {
                     (mClickListener as ClickListenerBooking).onQrCodeClick(adapterPosition)
+                }
+
+                if (color == R.color.background_primary_color_2){
+                    itemView.findViewById<TextView>(R.id.date).setTextColor(context.resources.getColor(R.color.background_primary_color))
+                    itemView.findViewById<View>(R.id.line).setBackgroundColor(context.resources.getColor(R.color.background_primary_color))
                 }
             }
         }

@@ -69,7 +69,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         val v = inflater.inflate(R.layout.fragment_add_activity, container, false)
 
         val addActivity_mainLayout = v.findViewById<FrameLayout>(R.id.addActivity_mainLayout)
-        val title_add_activity = v.findViewById<TextView>(R.id.title_add_activity)
+        //val title_add_activity = v.findViewById<TextView>(R.id.title_add_activity)
         val addActivity_startDate = v.findViewById<TextView>(R.id.addActivity_startDate)
         val addActivity_endDate = v.findViewById<TextView>(R.id.addActivity_endDate)
         val addActivity_startTime = v.findViewById<TextView>(R.id.addActivity_startTime)
@@ -96,7 +96,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         addActivity_activityTypeText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
         addActivity_dayOfWeekText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
 
-        title_add_activity.setText(getResources().getString(arguments!!.getInt("st_addActivity_title")))
+        //title_add_activity.setText(getResources().getString(arguments!!.getInt("st_addActivity_title")))
         addActivity_startDate.setText(getResources().getString(arguments!!.getInt("st_addActivity_startDate")))
         addActivity_endDate.setText(getResources().getString(arguments!!.getInt("st_addActivity_endDate")))
         addActivity_startTime.setText(getResources().getString(arguments!!.getInt("st_addActivity_startTime")))

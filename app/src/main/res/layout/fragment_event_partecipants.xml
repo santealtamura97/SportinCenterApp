@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:background = "@color/white">
+    android:id="@+id/event_partecipants_mainLayout">
 
     <LinearLayout
         android:id="@+id/title_event_partecipants"
