@@ -6,9 +6,15 @@ data class Activity(
     @SerializedName("id")
     var id: String,
 
-    @SerializedName("name")
-    var name: String,
+    @SerializedName("nameIta")
+    var nameIta: String,
 
-    @SerializedName("descr")
-    var descr: String
+    @SerializedName("descrIta")
+    var descrIta: String,
+
+    @SerializedName("nameEng")
+    var nameEng: String,
+
+    @SerializedName("descrEng")
+    var descrEng: String
 )

@@ -168,6 +168,11 @@
     <string name="fr_calendarCollection_calendar_en">CALENDAR</string>
     <string name="fr_calendarCollection_bookings_it">PRENOTAZIONI</string>
     <string name="fr_calendarCollection_bookings_en">BOOKINGS</string>
+    <string name="fr_calendarCollection_entries_number_it">Posti Disponibili</string>
+    <string name="fr_calendarCollection_entries_number_en">Places Available</string>
+    <string name="fr_calendarCollection_book_it">PRENOTA</string>
+    <string name="fr_calendarCollection_book_en">BOOK</string>
+
 
     <!-- admin calendar -->
     <string name="fr_adminCalendar_title_it">Calendario</string>
@@ -216,23 +221,39 @@
     <string name="failed_to_load_activities">Impossibile caricare le attività sportive</string>
 
     <!-- Event User Calendar -->
-    <string name="book_event_confirm"><b>Sei sicuro di voler prenotare?</b></string>
-    <string name="book_date"><b>Data:</b> </string>
-    <string name="book_time"><b>Orario:</b></string>
-    <string name="book_yes">Si</string>
-    <string name="book_no">No</string>
-    <string name="booked">PRENOTAZIONE EFFETTUATA!</string>
-    <string name="not_booked">NON è POSSIBILE CONFERMARE LA PRENOTAZIONE!</string>
+    <string name="book_event_confirm_ita"><b>Sei sicuro di voler prenotare?</b></string>
+    <string name="book_date_ita"><b>Data:</b> </string>
+    <string name="book_time_ita"><b>Orario:</b></string>
+    <string name="book_yes_ita">Si</string>
+    <string name="book_no_ita">No</string>
+    <string name="booked_ita">PRENOTAZIONE EFFETTUATA!</string>
+    <string name="not_booked_ita">IMPOSSIBILE CONFERMARE LA PRENOTAZIONE!</string>
+
+    <string name="book_event_confirm_eng"><b>Are you sure you want to book?</b></string>
+    <string name="book_date_eng"><b>Date:</b> </string>
+    <string name="book_time_eng"><b>Time:</b></string>
+    <string name="book_yes_eng">Yes</string>
+    <string name="book_no_eng">No</string>
+    <string name="booked_eng">BOOKING MADE!</string>
+    <string name="not_booked_eng">BOOKING CANNOT BE CONFIRMED!</string>
     <!-- Booking User Calendar -->
-    <string name="booking_delete_confirm">Sei sicuro di voler eliminare la prenotazione?</string>
-    <string name="booking_deleted_succesfully">PRENOTAZIONE ANNULLATA!</string>
-    <string name="booking_not_deleted_succesfully">PRENOTAZIONE ANNULLATA!</string>
+    <string name="booking_delete_confirm_ita">Sei sicuro di voler eliminare la prenotazione?</string>
+    <string name="booking_deleted_succesfully_ita">PRENOTAZIONE ANNULLATA!</string>
+    <string name="booking_not_deleted_succesfully_ita">PRENOTAZIONE ANNULLATA!</string>
+
+    <string name="booking_delete_confirm_eng">Are you sure you want to cancel your booking??</string>
+    <string name="booking_deleted_succesfully_eng">CANCELLED BOOKING!</string>
+    <string name="booking_not_deleted_succesfully_eng">CANCELLED BOOKING!</string>
 
     <!-- Logout -->
-    <string name="logout_confirm">Conferma</string>
-    <string name="logout_message">Sei sicuro/a di voler uscire?</string>
-    <string name="logout_yes">Si</string>
-    <string name="logout_no">No</string>
+    <string name="logout_confirm_ita">Conferma</string>
+    <string name="logout_message_ita">Sei sicuro/a di voler uscire?</string>
+    <string name="logout_yes_ita">Si</string>
+    <string name="logout_no_ita">No</string>
+    <string name="logout_confirm_eng">Confirm</string>
+    <string name="logout_message_eng">Are you sure you want to logout?</string>
+    <string name="logout_yes_eng">Yes</string>
+    <string name="logout_no_eng">No</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

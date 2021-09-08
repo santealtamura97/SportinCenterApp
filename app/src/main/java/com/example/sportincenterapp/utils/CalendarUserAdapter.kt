@@ -7,21 +7,24 @@ import com.example.sportincenterapp.fragments.CalendarUserFragment
 import com.example.sportincenterapp.fragments.EventFragment
 
 
-class CalendarUserAdapter (fragment: CalendarUserFragment, color: Int) : FragmentStateAdapter(fragment) {
+class CalendarUserAdapter (fragment: CalendarUserFragment,
+                           private val color: Int, private val languageAvailablePlaces: Int, private val languageBookButton: Int) : FragmentStateAdapter(fragment) {
 
     private val ARG_OBJECT = "date"
     private val DATES_NUMBER = 5
     private var tabTitleDates = ArrayList<String>(DATES_NUMBER)
-    private val color: Int = color
 
     override fun getItemCount(): Int = 5
 
     override fun createFragment(position: Int): Fragment {
 
+
         val fragment = EventFragment()
         fragment.arguments = Bundle().apply {
             putString(ARG_OBJECT, tabTitleDates[position])
             putInt("color", color)
+            putInt("languageAvailablePlaces", languageAvailablePlaces)
+            putInt("languageBookButton", languageBookButton)
         }
         return fragment
     }

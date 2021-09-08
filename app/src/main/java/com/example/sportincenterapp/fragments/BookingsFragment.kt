@@ -42,6 +42,7 @@ class BookingsFragment : Fragment() {
     private lateinit var apiClient: ApiClient
     private lateinit var bookingList: List<Event>
     private var bookingToRemove : MutableList<Int> = mutableListOf()
+    private var translate: Boolean = false
 
     private val ITEM_TYPE = "BOOKING"
 
@@ -57,18 +58,27 @@ class BookingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
         val color : Int = arguments?.getInt("color") as Int
+        val languageAvailablePlaces: Int = arguments?.getInt("languageAvailablePlaces") as Int
+        val languageBookButton: Int = arguments?.getInt("languageBookButton") as Int
+
+        if (languageBookButton == R.string.fr_calendarCollection_book_en) {
+            translate = true
+        }
 
         val fragment_bookings_mainLayout = view.findViewById<CoordinatorLayout>(R.id.fragment_bookings_mainLayout)
         fragment_bookings_mainLayout.setBackgroundResource(color)
 
         rcv.apply {
             val checkAllButton: View = view.findViewById(R.id.check_all_button)
+            if (sessionManager.fetchUserName().isNullOrEmpty())
+                checkAllButton.visibility = View.GONE
             checkAllButton.setOnClickListener {
                 checkAllButton.visibility = View.GONE
                 for(booking in bookingList) {booking.isSelectable = true}
-                adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color)
+                adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                 (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerDeleteBooking {
                     override fun onChecked(pos: Int) {
                         bookingToRemove.add(pos)
@@ -93,7 +103,7 @@ class BookingsFragment : Fragment() {
                     }
                     for(booking in bookingList) {booking.isSelectable = false}
                     bookingToRemove.clear()
-                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color)
+                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
                         override fun onInfoClick(pos: Int) {
                             infoEventDialog(bookingList[pos].title, bookingList[pos].activityId)
@@ -116,7 +126,7 @@ class BookingsFragment : Fragment() {
                     checkAllButton.visibility = View.VISIBLE
                     for(booking in bookingList) {booking.isSelectable = false}
                     bookingToRemove.clear()
-                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color)
+                    adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
                         override fun onInfoClick(pos: Int) {
                             infoEventDialog(bookingList[pos].title, bookingList[pos].activityId)
@@ -152,7 +162,7 @@ class BookingsFragment : Fragment() {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
                                         bookingList = orderedEventList
-                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color)
+                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerBooking {
                                             override fun onInfoClick(pos: Int) {
                                                 infoEventDialog(orderedEventList[pos].title, orderedEventList[pos].activityId)
@@ -189,13 +199,18 @@ class BookingsFragment : Fragment() {
                 .enqueue(object : Callback<ResponseBody?> {
                     override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
                         if (response.isSuccessful) {
-                            Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_deleted_succesfully), Toast.LENGTH_LONG).show()
+                            if (translate)
+                                Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_deleted_succesfully_eng), Toast.LENGTH_LONG).show()
+                            else
+                                Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_deleted_succesfully_ita), Toast.LENGTH_LONG).show()
+
+
                         }else{
-                            Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_not_deleted_succesfully), Toast.LENGTH_LONG).show()
+                            //Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_not_deleted_succesfully), Toast.LENGTH_LONG).show()
                         }
                     }
                     override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
-                        Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_not_deleted_succesfully), Toast.LENGTH_LONG).show()
+                        //Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booking_not_deleted_succesfully), Toast.LENGTH_LONG).show()
                     }
                 })
         }
@@ -287,17 +302,27 @@ class BookingsFragment : Fragment() {
             customlayout.findViewById<ImageView>(R.id.img).setBackgroundResource(id)
         }
 
-        apiClient = ApiClient()
-        activity?.let {
-            apiClient.getApiServiceGateway(it).getActivityFromId(activityId)
-                .enqueue(object : Callback<Activity?> {
-                    override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
-                        customlayout.findViewById<TextView>(R.id.sub_txt).text = response.body()?.descr
-                    }
-                    override fun onFailure(call: Call<Activity?>, t: Throwable) {
-                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
-                    }
-                })
+        if (!sessionManager.fetchUserName().isNullOrEmpty()) {
+            apiClient = ApiClient()
+            activity?.let {
+                apiClient.getApiServiceGateway(it).getActivityFromId(activityId)
+                    .enqueue(object : Callback<Activity?> {
+                        override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
+                            var descr = ""
+                            if (translate) {
+                                descr = response.body()?.descrEng.toString()
+                            }else{
+                                descr = response.body()?.descrIta.toString()
+                            }
+                            customlayout.findViewById<TextView>(R.id.sub_txt).text = descr
+                        }
+                        override fun onFailure(call: Call<Activity?>, t: Throwable) {
+                            Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                        }
+                    })
+            }
+        }else{
+            //TO-DO
         }
 
         builder?.setView(customlayout)
@@ -351,10 +376,17 @@ class BookingsFragment : Fragment() {
         builder?.setTitle(eventTitle);
 
         val strBuilder = StringBuilder()
-        strBuilder.appendln("CLIENTE: " + sessionManager.fetchUserName())
-        strBuilder.appendln(" ")
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_date) + " " +  eventDate)
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_time) + " " + oraInizio + " - " + oraFine)
+        if (translate) {
+            strBuilder.appendln("CLIENT: " + sessionManager.fetchUserName())
+            strBuilder.appendln(" ")
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_date_eng) + " " +  eventDate)
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_time_eng) + " " + oraInizio + " - " + oraFine)
+        }else{
+            strBuilder.appendln("CLIENTE: " + sessionManager.fetchUserName())
+            strBuilder.appendln(" ")
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_date_ita) + " " +  eventDate)
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_time_ita) + " " + oraInizio + " - " + oraFine)
+        }
 
         builder?.setMessage(strBuilder);
 

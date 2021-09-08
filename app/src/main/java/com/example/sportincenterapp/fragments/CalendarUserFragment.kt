@@ -54,14 +54,23 @@ class CalendarUserFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+
+        if (sessionManager.fetchUserName().isNullOrEmpty()) {
+            view?.findViewById<CircularProgressBar>(R.id.circularProgressBar).visibility = View.GONE
+            view?.findViewById<TextView>(R.id.progress_bar_number).visibility = View.GONE
+
+        }
 
         /* DEFAULT VALUE COLOR */
         val color : Int = arguments?.getInt("color") as Int
+        val languageAvailablePlaces : Int = arguments?.getInt("languageAvailablePlaces") as Int
+        val languageBookButton : Int = arguments?.getInt("languageBookButton") as Int
 
         val userCalendar_mainBackground = view.findViewById<LinearLayout>(R.id.userCalendar_mainBackground)
         userCalendar_mainBackground.setBackgroundResource(color)
         setTabDates()
-        calendarUserAdapter = CalendarUserAdapter(this, color)
+        calendarUserAdapter = CalendarUserAdapter(this, color, languageAvailablePlaces, languageBookButton)
         calendarUserAdapter.setTabTitleDates(tabDates)
         viewPager = view.findViewById(R.id.pager)
         viewPager.adapter = calendarUserAdapter
@@ -71,7 +80,6 @@ class CalendarUserFragment : Fragment() {
         }.attach()
         tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         setUserEntries()
-
     }
 
     /**

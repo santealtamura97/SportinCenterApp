@@ -29,7 +29,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String, val color: Int) :
+class EventAdapter(val modelList: MutableList<Event>, val context: Context, val itemType: String, val color: Int, val languageAvailablePlaces: Int, val languageBookButton: Int) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val EVENT = "EVENT"
     private val BOOKING = "BOOKING"
@@ -98,7 +98,10 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                     (mClickListener as ClickListenerEvent).onInfoClick(adapterPosition)
                 }
 
-
+                itemView.findViewById<Button>(R.id.book_button).text = context.resources.getText(languageBookButton)
+                if (languageBookButton == R.string.fr_calendarCollection_book_en) {
+                    itemView.findViewById<Button>(R.id.expired).text = "EXPIRED!"
+                }
             }else if (itemType == BOOKING) {
 
                 itemView.findViewById<CardView>(R.id.card_booking).setOnClickListener(View.OnClickListener {
@@ -123,6 +126,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                     itemView.findViewById<View>(R.id.line).setBackgroundColor(context.resources.getColor(R.color.background_primary_color))
                 }
             }
+            itemView.findViewById<TextView>(R.id.sub_txt).text = context.resources.getText(languageAvailablePlaces)
         }
 
         fun bind(model: Event): Unit {
@@ -179,9 +183,19 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
                     object : CountDownTimer(millsInFutures, 1000) {
                         // adjust the milli seconds here
                         override fun onTick(millisUntilFinished: Long) {
+                            val string1_ita = "Hai a disposizone: "
+                            val string2_ita = " per prenotarti"
+                            val string1_eng = "You have: "
+                            val string2_eng = " to book"
                             _tv.text = ""
-                            _tv.text = "Hai a disposizone: " + "" + String.format(
-                                "%d min, %d sec" + " per prenotarti",
+                            var string1 = string1_ita
+                            var string2 = string2_ita
+                            if (languageBookButton == R.string.fr_calendarCollection_book_en) {
+                                string1 = string1_eng
+                                string2 = string2_eng
+                            }
+                            _tv.text = string1 + "" + String.format(
+                                "%d min, %d sec" + string2,
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
                                 TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
                                         TimeUnit.MINUTES.toSeconds(
@@ -202,7 +216,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
 
             //DEFAULT
             itemView.txt.text = model.title
-            itemView.sub_txt.text = "Posti \ndisponibili: " + model.number.toString()
+            itemView.sub_txt.text = itemView.sub_txt.text.toString() + ": "+ model.number.toString()
             itemView.time.text = model.oraInizio + " - " + model.oraFine
             val id = context.resources.getIdentifier(model.title.toLowerCase(), "drawable", context.packageName)
             itemView.img.setBackgroundResource(id)

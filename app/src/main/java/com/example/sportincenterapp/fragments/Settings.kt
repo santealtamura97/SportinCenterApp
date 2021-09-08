@@ -35,21 +35,15 @@ class Settings : Fragment() {
         val settings_theme = v.findViewById<TextView>(R.id.settings_theme)
         val settings_spinnerTheme_it = v.findViewById<Spinner>(R.id.settings_spinnerTheme_it)
         val settings_spinnerTheme_en = v.findViewById<Spinner>(R.id.settings_spinnerTheme_en)
-        val settings_measure = v.findViewById<TextView>(R.id.settings_measure)
         val settings_version = v.findViewById<TextView>(R.id.settings_version)
         val settings_versionText = v.findViewById<TextView>(R.id.settings_versionText)
-        val settings_UMRadiogroup = v.findViewById<RadioGroup>(R.id.settings_UMRadiogroup)
-        val settings_radioButton1 = v.findViewById<RadioButton>(R.id.settings_radioButton1)
-        val setting_UM1 = v.findViewById<TextView>(R.id.setting_UM1)
-        val setting_UM2 = v.findViewById<TextView>(R.id.setting_UM2)
+
 
         //Communicator
         communicator = activity as Communicator
 
         /* DEFAULT COLOR ASSIGN */
         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
-        setting_UM1.setTextColor(getResources().getColor(R.color.black))
-        setting_UM2.setTextColor(getResources().getColor(R.color.black))
         settings_versionText.setTextColor(getResources().getColor(R.color.black))
 
 
@@ -57,7 +51,6 @@ class Settings : Fragment() {
         settings_title.text = (getResources().getString(R.string.fr_settings_title_it))
         settings_language.text = (getResources().getString(R.string.fr_settings_language_it))
         settings_theme.text = (getResources().getString(R.string.fr_settings_theme_it))
-        settings_measure.text = (getResources().getString(R.string.fr_settings_measure_it))
         settings_version.text = (getResources().getString(R.string.fr_settings_version_it))
 
         settings_spinnerTheme_it?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -68,15 +61,11 @@ class Settings : Fragment() {
                     0 -> {
                         communicator.theme(0)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
-                        setting_UM1.setTextColor(getResources().getColor(R.color.black))
-                        setting_UM2.setTextColor(getResources().getColor(R.color.black))
                         settings_versionText.setTextColor(getResources().getColor(R.color.black))
                     }
                     1 -> {
                         communicator.theme(1)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color_2)
-                        setting_UM1.setTextColor(getResources().getColor(R.color.white))
-                        setting_UM2.setTextColor(getResources().getColor(R.color.white))
                         settings_versionText.setTextColor(getResources().getColor(R.color.white))
                     }
                 }
@@ -91,15 +80,11 @@ class Settings : Fragment() {
                     0 -> {
                         communicator.theme(0)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color)
-                        setting_UM1.setTextColor(getResources().getColor(R.color.black))
-                        setting_UM2.setTextColor(getResources().getColor(R.color.black))
                         settings_versionText.setTextColor(getResources().getColor(R.color.black))
                     }
                     1 -> {
                         communicator.theme(1)
                         setting_mainLayout.setBackgroundResource(R.color.background_primary_color_2)
-                        setting_UM1.setTextColor(getResources().getColor(R.color.white))
-                        setting_UM2.setTextColor(getResources().getColor(R.color.white))
                         settings_versionText.setTextColor(getResources().getColor(R.color.white))
                     }
                 }
@@ -116,7 +101,6 @@ class Settings : Fragment() {
                         settings_title.text = (getResources().getString(R.string.fr_settings_title_it))
                         settings_language.text = (getResources().getString(R.string.fr_settings_language_it))
                         settings_theme.text = (getResources().getString(R.string.fr_settings_theme_it))
-                        settings_measure.text = (getResources().getString(R.string.fr_settings_measure_it))
                         settings_version.text = (getResources().getString(R.string.fr_settings_version_it))
                     }
                     1 -> {
@@ -124,7 +108,6 @@ class Settings : Fragment() {
                         settings_title.text = (getResources().getString(R.string.fr_settings_title_en))
                         settings_language.text = (getResources().getString(R.string.fr_settings_language_en))
                         settings_theme.text = (getResources().getString(R.string.fr_settings_theme_en))
-                        settings_measure.text = (getResources().getString(R.string.fr_settings_measure_en))
                         settings_version.text = (getResources().getString(R.string.fr_settings_version_en))
                         settings_spinnerLanguage_it.visibility = View.GONE
                         settings_spinnerLanguage_en.visibility = View.VISIBLE
@@ -146,7 +129,6 @@ class Settings : Fragment() {
                         settings_title.text = (getResources().getString(R.string.fr_settings_title_it))
                         settings_language.text = (getResources().getString(R.string.fr_settings_language_it))
                         settings_theme.text = (getResources().getString(R.string.fr_settings_theme_it))
-                        settings_measure.text = (getResources().getString(R.string.fr_settings_measure_it))
                         settings_version.text = (getResources().getString(R.string.fr_settings_version_it))
                         settings_spinnerLanguage_it.visibility = View.VISIBLE
                         settings_spinnerLanguage_en.visibility = View.GONE
@@ -159,32 +141,11 @@ class Settings : Fragment() {
                         settings_title.text = (getResources().getString(R.string.fr_settings_title_en))
                         settings_language.text = (getResources().getString(R.string.fr_settings_language_en))
                         settings_theme.text = (getResources().getString(R.string.fr_settings_theme_en))
-                        settings_measure.text = (getResources().getString(R.string.fr_settings_measure_en))
                         settings_version.text = (getResources().getString(R.string.fr_settings_version_en))
                     }
                 }
             }
         }
-
-
-        if (settings_radioButton1.isChecked) {
-            communicator.um_update("Kg", "Cm")
-        } else {
-            communicator.um_update("Lib", "In")
-        }
-
-        //Listener for radioGroup
-        settings_UMRadiogroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.settings_radioButton1 -> {
-                    communicator.um_update("Kg", "Cm")
-                } //Case RadioButton 1
-
-                R.id.settings_radioButton2 -> {
-                    communicator.um_update("Lib", "In")
-                } //Case RadioButton 2
-            }
-        })
         return v
     }
 }

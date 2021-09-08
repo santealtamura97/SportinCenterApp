@@ -8,6 +8,7 @@ object Constant {
     const val CALENDAR_BASE_URL = "http://192.168.80.55:9003"
 
     //Authentication's endpoints
+
     const val LOGIN_URL = "/api/auth/signin"
     const val SIGN_UP_URL = "/api/auth/signup"
     const val VALIDATE_USER_CODE_URL = "/api/auth/validateUserCode"

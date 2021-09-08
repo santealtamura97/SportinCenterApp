@@ -404,7 +404,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
                     override fun onResponse(call: Call<List<Activity>>, response: Response<List<Activity>>) {
                         activityList = response.body() as ArrayList<Activity>
                         for (activity in activityList){
-                            activitiesNameList.add(activity.name)
+                            activitiesNameList.add(activity.nameIta)
                         }
                         var adapter = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, activitiesNameList) }
                         adapter?.setDropDownViewResource(android.R.layout.simple_spinner_item)
@@ -420,7 +420,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
                         //Toast.makeText(ApplicationContextProvider.getContext(), p0?.getItemAtPosition(p2).toString(), Toast.LENGTH_LONG).show()
                         activityTitleSelected = p0?.getItemAtPosition(p2).toString()
                         for (activity in activityList) {
-                            if (activity.name == activityTitleSelected) {
+                            if (activity.nameIta == activityTitleSelected) {
                                 activityIdSelected = activity.id
                             }
                         }

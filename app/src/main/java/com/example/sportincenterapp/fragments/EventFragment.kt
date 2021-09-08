@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -17,12 +16,9 @@ import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
-import com.example.sportincenterapp.utils.BookingProgressChangeEvent
 import com.example.sportincenterapp.utils.EventAdapter
 import com.example.sportincenterapp.utils.SessionManager
 import kotlinx.android.synthetic.main.fragment_activities.*
-import okhttp3.ResponseBody
-import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +35,7 @@ class EventFragment() : Fragment() {
     private lateinit var eventList: List<Event>
     private lateinit var eventsDate: String
     private val ITEM_TYPE = "EVENT"
+    private var translate: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +50,13 @@ class EventFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val color : Int = arguments?.getInt("color") as Int
+        val languageAvailablePlaces: Int = arguments?.getInt("languageAvailablePlaces") as Int
+        val languageBookButton: Int = arguments?.getInt("languageBookButton") as Int
+
+        if (languageBookButton == R.string.fr_calendarCollection_book_en) {
+            translate = true
+        }
+
 
         //la data che rappresenta il fragment corrente
         eventsDate = arguments!!.getString("date").toString().split(" ")[0]
@@ -79,8 +83,10 @@ class EventFragment() : Fragment() {
                                     val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
                                     if (orderedEventList.isEmpty()) {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
+                                        if (translate)
+                                            view.findViewById<TextView>(R.id.no_event).text = "No event in this date!"
                                     }
-                                    adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color)
+                                    adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                                     (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                         override fun onBookClick(pos: Int) {
                                         }
@@ -113,7 +119,7 @@ class EventFragment() : Fragment() {
                                         if (orderedEventList.isEmpty()) {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
-                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color)
+                                        adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                             override fun onClick(pos: Int, aView: View) {
                                                 communicator.openPartecipantsForEvent(eventList[pos].id)
@@ -147,22 +153,39 @@ class EventFragment() : Fragment() {
         builder?.setTitle(eventTitle);
 
         val strBuilder = StringBuilder()
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_event_confirm))
-        strBuilder.appendln(" ")
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_date) + " " +  date)
-        strBuilder.appendln(activity?.resources?.getString(R.string.book_time) + " " +  oraInizio + " - " + oraFine)
+
+        if (translate) {
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_event_confirm_eng))
+            strBuilder.appendln(" ")
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_date_eng) + " " +  date)
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_time_eng) + " " +  oraInizio + " - " + oraFine)
+            builder?.setPositiveButton(R.string.book_yes_eng) {
+                    dialog, which -> // Do nothing but close the dialog
+                callBookEvent(userId, eventId, adapter, pos)
+            }
+
+            builder?.setNegativeButton(R.string.book_no_eng) {
+                    dialog, which -> // Do nothing but close the dialog
+                dialog.dismiss()
+            }
+
+        }else{
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_event_confirm_ita))
+            strBuilder.appendln(" ")
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_date_ita) + " " +  date)
+            strBuilder.appendln(activity?.resources?.getString(R.string.book_time_ita) + " " +  oraInizio + " - " + oraFine)
+            builder?.setPositiveButton(R.string.book_yes_ita) {
+                    dialog, which -> // Do nothing but close the dialog
+                callBookEvent(userId, eventId, adapter, pos)
+            }
+
+            builder?.setNegativeButton(R.string.book_no_ita) {
+                    dialog, which -> // Do nothing but close the dialog
+                dialog.dismiss()
+            }
+        }
 
         builder?.setMessage(strBuilder);
-
-        builder?.setPositiveButton(R.string.book_yes) {
-                dialog, which -> // Do nothing but close the dialog
-            callBookEvent(userId, eventId, adapter, pos)
-        }
-
-        builder?.setNegativeButton(R.string.book_no) {
-                dialog, which -> // Do nothing but close the dialog
-            dialog.dismiss()
-        }
 
         val alert = builder?.create()
         alert?.show()
@@ -177,13 +200,17 @@ class EventFragment() : Fragment() {
                     override fun onResponse(call: Call<Event?>, response: Response<Event?>) {
                         if (response.isSuccessful) {
                             adapter.deleteItem(pos)
-                            Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booked), Toast.LENGTH_LONG).show()
+                            if (translate)
+                                Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booked_eng), Toast.LENGTH_LONG).show()
+                            else
+                                Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.booked_ita), Toast.LENGTH_LONG).show()
+
                         }else{
-                            Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
+                            //Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
                         }
                     }
                     override fun onFailure(call: Call<Event?>, t: Throwable) {
-                        Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
+                        //Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.not_booked), Toast.LENGTH_LONG).show()
                     }
                 })
         }
@@ -247,7 +274,13 @@ class EventFragment() : Fragment() {
             apiClient.getApiServiceGateway(it).getActivityFromId(activityId)
                 .enqueue(object : Callback<Activity?> {
                     override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
-                        customlayout.findViewById<TextView>(R.id.sub_txt).text = response.body()?.descr
+                        var descr = ""
+                        if (translate) {
+                            descr = response.body()?.descrEng.toString()
+                        }else{
+                            descr = response.body()?.descrIta.toString()
+                        }
+                        customlayout.findViewById<TextView>(R.id.sub_txt).text = descr
                     }
                     override fun onFailure(call: Call<Activity?>, t: Throwable) {
                         Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()

@@ -30,8 +30,10 @@ class CalendarCollectionFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         string1 = getString(arguments!!.getInt("st_calendarCollection_calendar"))
         string2 = getString(arguments!!.getInt("st_calendarCollection_bookings"))
+
         tabTitles = arrayOf(string1, string2)
-        calendarCollectionAdapter = CalendarCollectionAdapter(this, arguments!!.getInt("cl_userCalendar_background"))
+        calendarCollectionAdapter = CalendarCollectionAdapter(this, arguments!!.getInt("cl_userCalendar_background"),
+            arguments!!.getInt("st_calendarCollection_entries_number"), arguments!!.getInt("st_calendarCollection_book"))
         return inflater.inflate(R.layout.fragment_collection_calendar, container, false)
     }
 

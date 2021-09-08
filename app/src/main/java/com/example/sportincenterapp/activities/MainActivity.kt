@@ -76,7 +76,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val bundleCalendarAdmin: Bundle = Bundle()
     private val bundleAddActivity: Bundle = Bundle()
 
-
+    //language
+    private var language: Int = 0
 
     //API
     private lateinit var apiClient: ApiClient
@@ -137,7 +138,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else { //if we don't have done the logout
             userPageItem.isVisible = false
             logoutItem.isVisible = false
-            calendarItem.isVisible = false
+            calendarItem.isVisible = true
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -217,18 +218,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     /* LOGOUT */
     private fun logout() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.logout_confirm).setMessage(R.string.logout_message)
 
-        builder.setPositiveButton(R.string.logout_yes) {
-            dialog, _ -> sessionManager.logout()
-            finish()
-            startActivity(intent)
-            dialog.dismiss()
+        if (language == 0) {
+            builder.setTitle(R.string.logout_confirm_ita).setMessage(R.string.logout_message_ita)
+
+            builder.setPositiveButton(R.string.logout_yes_ita) {
+                    dialog, _ -> sessionManager.logout()
+                finish()
+                startActivity(intent)
+                dialog.dismiss()
+            }
+
+            builder.setNegativeButton(R.string.logout_no_ita) {
+                    dialog, _ -> dialog.dismiss()
+            }
+        }else{
+            builder.setTitle(R.string.logout_confirm_eng).setMessage(R.string.logout_message_eng)
+
+            builder.setPositiveButton(R.string.logout_yes_eng) {
+                    dialog, _ -> sessionManager.logout()
+                finish()
+                startActivity(intent)
+                dialog.dismiss()
+            }
+
+            builder.setNegativeButton(R.string.logout_no_eng) {
+                    dialog, _ -> dialog.dismiss()
+            }
         }
 
-        builder.setNegativeButton(R.string.logout_no) {
-                dialog, _ -> dialog.dismiss()
-        }
 
         val alert = builder.create()
         alert.show()
@@ -333,6 +351,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_it)
         bundleCalendarCollection.putInt("st_calendarCollection_calendar", R.string.fr_calendarCollection_calendar_it)
         bundleCalendarCollection.putInt("st_calendarCollection_bookings", R.string.fr_calendarCollection_bookings_it)
+        bundleCalendarCollection.putInt("st_calendarCollection_entries_number", R.string.fr_calendarCollection_entries_number_it)
+        bundleCalendarCollection.putInt("st_calendarCollection_book", R.string.fr_calendarCollection_book_it)
+
         bundleCalendarAdmin.putInt("st_adminCalendar_title", R.string.fr_adminCalendar_title_it)
         bundleAddActivity.putInt("st_addActivity_startDate", R.string.fr_addActivity_startDate_it)
         bundleAddActivity.putInt("st_addActivity_endDate", R.string.fr_addActivity_endDate_it)
@@ -362,11 +383,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun um_update(um_1: String, um_2: String) {
+    /*override fun um_update(um_1: String, um_2: String) {
         bundleUser.putString("um1", um_1)
         bundleUser.putString("um2", um_2)
         fragmentUser.arguments = bundleUser
-    }
+    }*/
 
     override fun theme(index : Int) {
 
@@ -516,6 +537,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun language(index: Int) {
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val menu = navigationView.menu
+        language = index
 
         if (index == 0) {
             Locale.setDefault(Locale.ITALY)
@@ -559,6 +581,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_it)
             bundleCalendarCollection.putInt("st_calendarCollection_calendar", R.string.fr_calendarCollection_calendar_it)
             bundleCalendarCollection.putInt("st_calendarCollection_bookings", R.string.fr_calendarCollection_bookings_it)
+            bundleCalendarCollection.putInt("st_calendarCollection_entries_number", R.string.fr_calendarCollection_entries_number_it)
+            bundleCalendarCollection.putInt("st_calendarCollection_book", R.string.fr_calendarCollection_book_it)
+
             bundleCalendarAdmin.putInt("st_adminCalendar_title", R.string.fr_adminCalendar_title_it)
             bundleAddActivity.putInt("st_addActivity_startDate", R.string.fr_addActivity_startDate_it)
             bundleAddActivity.putInt("st_addActivity_endDate", R.string.fr_addActivity_endDate_it)
@@ -626,6 +651,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             bundleContacts.putInt("st_contacts_TelephoneText", R.string.fr_contacts_telephoneText_en)
             bundleCalendarCollection.putInt("st_calendarCollection_calendar", R.string.fr_calendarCollection_calendar_en)
             bundleCalendarCollection.putInt("st_calendarCollection_bookings", R.string.fr_calendarCollection_bookings_en)
+            bundleCalendarCollection.putInt("st_calendarCollection_entries_number", R.string.fr_calendarCollection_entries_number_en)
+            bundleCalendarCollection.putInt("st_calendarCollection_book", R.string.fr_calendarCollection_book_en)
             bundleCalendarAdmin.putInt("st_adminCalendar_title", R.string.fr_adminCalendar_title_en)
             bundleAddActivity.putInt("st_addActivity_startDate", R.string.fr_addActivity_startDate_en)
             bundleAddActivity.putInt("st_addActivity_endDate", R.string.fr_addActivity_endDate_en)
