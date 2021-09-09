@@ -36,6 +36,7 @@ class EventFragment() : Fragment() {
     private lateinit var eventsDate: String
     private val ITEM_TYPE = "EVENT"
     private var translate: Boolean = false
+    private var textColor: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -122,7 +123,7 @@ class EventFragment() : Fragment() {
                                         adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
                                             override fun onClick(pos: Int, aView: View) {
-                                                communicator.openPartecipantsForEvent(eventList[pos].id)
+                                                communicator.openPartecipantsForEvent(eventList[pos].id, textColor)
                                             }
                                             override fun onBookClick(pos: Int) {
                                                 bookEvent(eventList[pos].id, sessionManager.fetchUserId()!!, eventList[pos].title,eventList[pos].data,

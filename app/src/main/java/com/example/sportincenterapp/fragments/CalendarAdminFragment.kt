@@ -39,22 +39,26 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var checkAllButton: View
     private lateinit var confirmDeleteButton: View
     private var allChecked: Boolean = false
+    private var textColor: Int = 0
+    private var backgroundColor: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        textColor = arguments!!.getInt("cl_adminCalendar_text")
+        backgroundColor = arguments!!.getInt("cl_adminCalendar_background")
         val v =  inflater.inflate(R.layout.fragment_admin_calendar, container, false)
         listView = v.findViewById<ListView>(R.id.simpleListView)
         val addactivity = v.findViewById<ImageButton>(R.id.add_activity_button)
         val adminCalendar_mainLayout = v.findViewById<RelativeLayout>(R.id.adminCalendar_mainLayout)
         val adminCalendar_title = v.findViewById<TextView>(R.id.adminCalendar_title)
 
-        adminCalendar_mainLayout.setBackgroundResource(arguments!!.getInt("cl_adminCalendar_background"))
+        adminCalendar_mainLayout.setBackgroundResource(backgroundColor)
 
         adminCalendar_title.setText(getResources().getString(arguments!!.getInt("st_adminCalendar_title")))
 
         todayDate = formatDate.parse(formatDate.format(Date()))
         calendarDate = v.findViewById<EditText>(R.id.date)
+        calendarDate.setTextColor(resources.getColor(textColor))
         calendarDate.isFocusable = false
         calendarDate.isClickable = true
         calendarDate.setText(formatDate.format(todayDate))
@@ -96,7 +100,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
 
         listView.setOnItemClickListener { parent: AdapterView<*> , view: View, position: Int, id: Long ->
-            communicator.openPartecipantsForEvent(eventList[position].id)
+            communicator.openPartecipantsForEvent(eventList[position].id, textColor)
         }
         return v;
     }
@@ -109,8 +113,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun refreshAdapter() {
         adapter = EventAdminAdapter(ApplicationContextProvider.getContext(),
-            eventList as java.util.ArrayList<Event>, allChecked
-        )
+            eventList as java.util.ArrayList<Event>, allChecked,textColor, backgroundColor)
         listView.adapter = adapter
     }
 
@@ -186,8 +189,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                             }
                             //Assign the adapter
                             adapter = EventAdminAdapter(ApplicationContextProvider.getContext(),
-                                orderedEventList as java.util.ArrayList<Event>, allChecked
-                            )
+                                orderedEventList as java.util.ArrayList<Event>, allChecked, textColor, backgroundColor)
                             listView.adapter = adapter
                         }
                     }
@@ -246,7 +248,7 @@ class CalendarAdminFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
 
 
-class EventAdminAdapter(private val context: Context, private val arrayList: ArrayList<Event>, allChecked: Boolean) : BaseAdapter() {
+class EventAdminAdapter(private val context: Context, private val arrayList: ArrayList<Event>, allChecked: Boolean, private val textColor: Int, private val backgroundColor: Int) : BaseAdapter() {
     private lateinit var activityName: TextView
     private lateinit var activityHour: TextView
     private lateinit var activityentries: TextView
@@ -268,7 +270,15 @@ class EventAdminAdapter(private val context: Context, private val arrayList: Arr
         activityName = convertView.findViewById(R.id.title)
         activityHour = convertView.findViewById(R.id.hour)
         activityentries = convertView.findViewById(R.id.entries_number)
+
+        //set text color
+        activityHour.setTextColor(context.resources.getColor(textColor))
+        activityentries.setTextColor(context.resources.getColor(textColor))
+
         checkBox = convertView.findViewById(R.id.checkbox_meat)
+
+        checkBox.setBackgroundColor(context.resources.getColor(backgroundColor))
+
         activityName.text = arrayList[position].title
         activityHour.text = arrayList[position].oraInizio + " - " + arrayList[position].oraFine
         activityentries.text = activityentries.text.toString() + arrayList[position].number

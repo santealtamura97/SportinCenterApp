@@ -105,7 +105,7 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
             }else if (itemType == BOOKING) {
 
                 itemView.findViewById<CardView>(R.id.card_booking).setOnClickListener(View.OnClickListener {
-                    communicator.openPartecipantsForEvent(modelList[adapterPosition].id)
+                    communicator.openPartecipantsForEvent(modelList[adapterPosition].id,0)
                 })
 
                 itemView.findViewById<CheckBox>(R.id.checkbox_meat).setOnClickListener() { view ->

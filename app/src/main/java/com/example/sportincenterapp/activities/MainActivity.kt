@@ -139,6 +139,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             userPageItem.isVisible = false
             logoutItem.isVisible = false
             calendarItem.isVisible = true
+            newsItem.isVisible = false
         }
 
         navigationView.setNavigationItemSelectedListener(this)
@@ -180,6 +181,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             /*
                 GESTIONE DEI FRAGMENT USER
              */
+
 
         }
     }
@@ -263,8 +265,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         if (response.isSuccessful) {
                             val body = response.body()?.byteStream()
                             val bitmap = BitmapFactory.decodeStream(body)
-                            profileImage.setImageBitmap(bitmap)
                             if (bitmap != null) {
+                                profileImage.setImageBitmap(bitmap)
                                 sessionManager.saveImage(encodeTobase64(bitmap))
                             }
                         }
@@ -307,6 +309,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bundleContacts.putInt("cl_contacts_text", R.color.black)
         bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color)
         bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color )
+        bundleCalendarAdmin.putInt("cl_adminCalendar_text",R.color.black )
         bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color )
         bundleAddActivity.putInt("cl_addActivity_text",R.color.black )
 
@@ -430,6 +433,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleContacts.putInt("cl_contacts_text", R.color.black)
                 bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color)
                 bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color )
+                bundleCalendarAdmin.putInt("cl_adminCalendar_text",R.color.black )
                 bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color )
                 bundleAddActivity.putInt("cl_addActivity_text",R.color.black )
                 bundleEventParticipants.putInt("cl_event_partecipants_background", R.color.background_primary_color)
@@ -489,6 +493,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleContacts.putInt("cl_contacts_text", R.color.white)
                 bundleCalendarCollection.putInt("cl_userCalendar_background", R.color.background_primary_color_2)
                 bundleCalendarAdmin.putInt("cl_adminCalendar_background",R.color.background_primary_color_2)
+                bundleCalendarAdmin.putInt("cl_adminCalendar_text",R.color.white)
                 bundleAddActivity.putInt("cl_addActivity_background",R.color.background_primary_color_2 )
                 bundleAddActivity.putInt("cl_addActivity_text",R.color.white )
                 bundleEventParticipants.putInt("cl_event_partecipants_background", R.color.background_primary_color_2)
@@ -689,8 +694,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentCalendarAdmin, "AddActivityFragment").commit()
     }
 
-    override fun openPartecipantsForEvent(eventId: String) {
+    override fun openPartecipantsForEvent(eventId: String, textColor: Int) {
         bundleEventParticipants.putString("eventId", eventId)
+        bundleEventParticipants.putInt("textColor", textColor)
         val eventPartecipantsFragment = EventPartecipantsFragment()
         eventPartecipantsFragment.arguments = bundleEventParticipants
         eventPartecipantsFragment.show(supportFragmentManager, "TAG")

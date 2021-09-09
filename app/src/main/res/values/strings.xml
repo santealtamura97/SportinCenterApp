@@ -121,8 +121,8 @@
     <string name="fr_contacts_addressText_en">Address:</string>
     <string name="fr_contacts_addressValue_it">Via Verdi, 10 - 10124 Torino</string>
     <string name="fr_contacts_addressValue_en">Verdi Street, 10 - 10124 Turin</string>
-    <string name="fr_contacts_telephoneText_it">Telefono:</string>
-    <string name="fr_contacts_telephoneText_en">Telephone:</string>
+    <string name="fr_contacts_telephoneText_it">Telefono: 080 9372134</string>
+    <string name="fr_contacts_telephoneText_en">Telephone: 080 9372134</string>
     <string name="fr_contacts_telephoneValue1">045 6231460</string>
     <string name="fr_contacts_telephoneValue2">+39 3359329644</string>
     <string name="fr_contacts_telephoneValue3">+39 3252249678</string>

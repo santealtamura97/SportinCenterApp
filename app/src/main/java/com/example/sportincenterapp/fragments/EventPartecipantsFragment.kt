@@ -39,6 +39,7 @@ class EventPartecipantsFragment : BottomSheetDialogFragment() {
     private lateinit var sessionManager: SessionManager
     private lateinit var noPartecipants: TextView
     private lateinit var layout: RelativeLayout
+    private var textColor: Int = 0
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,19 +52,16 @@ class EventPartecipantsFragment : BottomSheetDialogFragment() {
 
         }*/
 
+
+
         val v =  inflater.inflate(R.layout.fragment_event_partecipants, container, false)
         noPartecipants = v.findViewById(R.id.no_partecipants)
         layout = v.findViewById(R.id.event_partecipants_mainLayout)
         listView = v.findViewById(R.id.event_partecipants_list)
+        textColor = arguments?.getInt("textColor")!!
         if (arguments?.getInt("cl_event_partecipants_background") == R.color.background_primary_color_2) {
             layout.setBackgroundColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_background")))
             noPartecipants.setTextColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_text")!!))
-            for (i in 0 until listView.count) {
-                println("AOLALAL")
-                var view = listView.getChildAt(i)
-                (view.findViewById<TextView>(R.id.email)).setTextColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_text")!!))
-                (view.findViewById<TextView>(R.id.entries_number)).setTextColor(resources.getColor(arguments!!.getInt("cl_event_partecipants_text")!!))
-            }
         }
 
         checkAll = v.findViewById(R.id.check_all_button)
@@ -129,7 +127,7 @@ class EventPartecipantsFragment : BottomSheetDialogFragment() {
 
     private fun refreshAdapter() {
         adapter = PartecipantsEventAdapter(ApplicationContextProvider.getContext(),
-            userList as java.util.ArrayList<User>, sessionManager.fetchUserName())
+            userList as java.util.ArrayList<User>, sessionManager.fetchUserName(), textColor)
         listView.adapter = adapter
     }
 
@@ -172,7 +170,7 @@ class EventPartecipantsFragment : BottomSheetDialogFragment() {
                                 //Assign the adapter
                                 adapter = PartecipantsEventAdapter(
                                     ApplicationContextProvider.getContext(),
-                                    userList as java.util.ArrayList<User>, sessionManager.fetchUserName())
+                                    userList as java.util.ArrayList<User>, sessionManager.fetchUserName(), textColor)
                                 listView.adapter = adapter
 
                                 getProfileImages()

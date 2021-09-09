@@ -1,19 +1,25 @@
 package com.example.sportincenterapp.fragments
 
+import android.graphics.Typeface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
+import mehdi.sakout.aboutpage.AboutPage
+import mehdi.sakout.aboutpage.Element
+
 
 class Contacts : Fragment() {
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v =  inflater.inflate(R.layout.fragment_contacts, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        /*val v =  inflater.inflate(R.layout.fragment_contacts, container, false)
 
         val contacts_mainLayout = v.findViewById<LinearLayout>(R.id.contacts_mainLayout)
         var contacts_title = v.findViewById<TextView>(R.id.contacts_title)
@@ -49,6 +55,46 @@ class Contacts : Fragment() {
         contacts_addressValue.setText(getResources().getString(arguments!!.getInt("st_contacts_addressValue")))
         contacts_telephoneText.setText(getResources().getString(arguments!!.getInt("st_contacts_TelephoneText")))
 
-        return v
+        return v*/
+
+        if (requireArguments().getInt("cl_contacts_background") == R.color.background_primary_color) {
+            return AboutPage(context)
+                .isRTL(false)
+                .setCustomFont(Typeface.DEFAULT) // or Typeface
+                .setImage(R.drawable.logo_small)
+                .setDescription(resources.getString(R.string.fr_home_firstAnswer_it))
+                //DA FARE
+                .addItem(Element().setTitle("Version 1.0.1"))
+                .addGroup(resources.getString(requireArguments().getInt("st_contacts_title")))
+                .addEmail("elmehdi.sakout@gmail.com", "Inviaci una mail")
+                .addWebsite("https://mehdisakout.com/", "Visita il nostro sito Web")
+                .addFacebook("the.medy", "Visita la nostra pagina Facebook")
+                .addYoutube("UCdPQtdWIsg7_pi4mrRu46vA", "Abbiamo anche un canale Youtube")
+                .addInstagram("medyo80", "Guarda la nostre foto su Instagram")
+                .addGroup("Trovaci")
+                .addItem(Element().setTitle(resources.getString(requireArguments().getInt("st_contacts_addressValue"))))
+                .addItem(Element().setTitle(resources.getString(requireArguments().getInt("st_contacts_TelephoneText"))))
+                .create()
+        }else{
+            return AboutPage(context, true)
+                .isRTL(false)
+                .setCustomFont(Typeface.DEFAULT) // or Typeface
+                .setImage(R.drawable.logo_small)
+                .setDescription(resources.getString(R.string.fr_home_firstAnswer_it))
+                    //DA FARE
+                .addItem(Element().setTitle("Version 1.0.1"))
+                .addGroup(resources.getString(requireArguments().getInt("st_contacts_title")))
+                .addEmail("elmehdi.sakout@gmail.com", "Inviaci una mail")
+                .addWebsite("https://mehdisakout.com/", "Visita il nostro sito Web")
+                .addFacebook("the.medy", "Visita la nostra pagina Facebook")
+                .addYoutube("UCdPQtdWIsg7_pi4mrRu46vA", "Abbiamo anche un canale Youtube")
+                .addInstagram("medyo80", "Guarda la nostre foto su Instagram")
+                .addGroup("Trovaci")
+
+                .addItem(Element().setTitle(resources.getString(requireArguments().getInt("st_contacts_addressValue"))))
+                .addItem(Element().setTitle(resources.getString(requireArguments().getInt("st_contacts_TelephoneText"))))
+                .create()
+        }
+
     }
 }

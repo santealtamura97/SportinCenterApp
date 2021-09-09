@@ -80,10 +80,8 @@ interface ApiService {
     @PUT(Constant.CALENDAR_SERVICE + "/admin/remove/{eventId}/bookings")
     fun removeBookings(@Body userIds: List<String>, @Path(value = "eventId") eventId: String): Call<ResponseBody>
 
-    /*@POST(Constant.VALIDATE_USER_CODE_URL)
-    fun setPhoneNumber(@Body phoneNumber: String) : Call<ResponseBody>
+    @POST(Constant.SET_PHONE_NUMBER_URL + "/{userId}")
+    fun setPhoneNumber(@Body phoneNumber: String, @Path(value = "userId") userId: String) : Call<ResponseBody>
 
-    @GET(Constant.VALIDATE_USER_CODE_URL)
-    fun getPhoneNumber() : Call<ResponseBody>*/
 
 }

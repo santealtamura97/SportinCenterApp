@@ -62,16 +62,16 @@ class HomeFragment : Fragment() {
 
 
         /* DEFAULT COLORS */
-        mainLayout.setBackgroundResource(arguments!!.getInt("cl_home_background"))
-        generalLayout.setBackgroundResource(arguments!!.getInt("cl_home_background"))
-        firstAnswer.setTextColor(getResources().getColor(arguments!!.getInt("cl_home_text")))
-        secondAnswer.setTextColor(getResources().getColor(arguments!!.getInt("cl_home_text")))
+        mainLayout.setBackgroundResource(requireArguments().getInt("cl_home_background"))
+        generalLayout.setBackgroundResource(requireArguments().getInt("cl_home_background"))
+        firstAnswer.setTextColor(resources.getColor(requireArguments().getInt("cl_home_text")))
+        secondAnswer.setTextColor(resources.getColor(requireArguments().getInt("cl_home_text")))
         
         /* STRING VALUE */
-        firstQuestion.setText(getResources().getString(arguments!!.getInt("st_home_firstQuestion")))
-        firstAnswer.setText(getResources().getString(arguments!!.getInt("st_home_firstAnswer")))
-        secondQuestion.setText(getResources().getString(arguments!!.getInt("st_home_secondQuestion")))
-        secondAnswer.setText(getResources().getString(arguments!!.getInt("st_home_secondAnswer")))
+        firstQuestion.text = resources.getString(requireArguments().getInt("st_home_firstQuestion"))
+        firstAnswer.text = resources.getString(requireArguments().getInt("st_home_firstAnswer"))
+        secondQuestion.text = resources.getString(requireArguments().getInt("st_home_secondQuestion"))
+        secondAnswer.text = resources.getString(requireArguments().getInt("st_home_secondAnswer"))
 
         return v
     }

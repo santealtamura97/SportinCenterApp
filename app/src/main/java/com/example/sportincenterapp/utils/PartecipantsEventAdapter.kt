@@ -11,10 +11,10 @@ import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.data.models.User
 import java.util.ArrayList
 
-class PartecipantsEventAdapter(private val context: Context, private val arrayList: ArrayList<User>, private val userType: String?) : BaseAdapter() {
+class PartecipantsEventAdapter(private val context: Context, private val arrayList: ArrayList<User>, private val userType: String?, private val textColor: Int) : BaseAdapter() {
     private lateinit var userName: TextView
     private lateinit var userEmail: TextView
-    private lateinit var userEntries: TextView
+    private lateinit var userNUmber: TextView
 
     override fun getCount(): Int {
         return arrayList.size
@@ -30,16 +30,26 @@ class PartecipantsEventAdapter(private val context: Context, private val arrayLi
         convertView = LayoutInflater.from(context).inflate(R.layout.partecipant_item, parent, false)
         userName = convertView.findViewById(R.id.name)
         userEmail = convertView.findViewById(R.id.email)
-        userEntries = convertView.findViewById(R.id.entries_number)
+        userNUmber = convertView.findViewById(R.id.entries_number)
+
+        if (textColor != 0) {
+            userEmail.setTextColor(context.resources.getColor(textColor))
+            userNUmber.setTextColor(context.resources.getColor(textColor))
+        }
 
         if (!userType.equals("Admin")) {
             userEmail.visibility = View.GONE
-            userEntries.visibility = View.GONE
+            userNUmber.visibility = View.GONE
         }
 
         userName.text = arrayList[position].displayName
         userEmail.text = userEmail.text.toString() + arrayList[position].email
-        userEntries.text = userEntries.text.toString() + arrayList[position].ingressi.toString()
+        val number = arrayList[position].number
+        if (number != null)
+            userNUmber.text = userNUmber.text.toString() + number
+        else
+            userNUmber.text = userNUmber.text.toString()
+
 
         return convertView
     }

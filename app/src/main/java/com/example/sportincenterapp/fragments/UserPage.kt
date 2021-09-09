@@ -30,6 +30,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -109,6 +110,7 @@ class UserPage : Fragment() {
         /* User's functions */
         getSubscriptionName()
         getUserSubscriptionInfo()
+        getPhoneNumber()
 
         /* LISTENERS */
 
@@ -196,8 +198,8 @@ class UserPage : Fragment() {
             user_informationSectionButtonSave.visibility = View.VISIBLE
             user_informationSectionTelephoneText.visibility = View.GONE
             user_informationSectionTelephoneEdit.visibility = View.VISIBLE
-            //user_informationSectionEmailText.visibility = View.GONE
-            //user_informationSectionEmailEdit.visibility = View.VISIBLE
+
+            user_informationSectionTelephoneEdit.setText(user_informationSectionTelephoneText.text.toString())
         }
 
         //Save1
@@ -206,8 +208,9 @@ class UserPage : Fragment() {
             user_informationSectionButtonSave.visibility = View.GONE
             user_informationSectionTelephoneText.visibility = View.VISIBLE
             user_informationSectionTelephoneEdit.visibility = View.GONE
-            //user_informationSectionEmailText.visibility = View.VISIBLE
-            //user_informationSectionEmailEdit.visibility = View.GONE
+            //save user's phone
+            setPhoneNumber(user_informationSectionTelephoneEdit.text.toString())
+
         }
 
         //Edit2
@@ -339,6 +342,46 @@ class UserPage : Fragment() {
         }
     }
 
+    private fun setPhoneNumber(userPhoneNumber: String) {
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        activity?.let {
+            context?.let { it1 ->
+                sessionManager.fetchUserId()?.let { it2 ->
+                    apiClient.getApiServiceAuth(it1).setPhoneNumber(userPhoneNumber, it2)
+                        .enqueue(object : Callback<ResponseBody> {
+                            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                                //DO-NOTHING
+                            }
+                            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                            }
+                        })
+                }
+            }
+        }
+    }
+
+    private fun getPhoneNumber() {
+        apiClient = ApiClient()
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
+        activity?.let {
+            context?.let {
+                sessionManager.fetchUserId()?.let { it1 ->
+                    apiClient.getApiServiceAuth(it).getMyUserInfo(it1)
+                        .enqueue(object : Callback<User> {
+                            override fun onResponse(call: Call<User>, response: Response<User>) {
+                                view?.findViewById<TextView>(R.id.user_informationSectionTelephoneText)?.text = response.body()?.number
+                            }
+                            override fun onFailure(call: Call<User>, t: Throwable) {
+
+                            }
+                        })
+                }
+            }
+        }
+    }
+
 
     /*
     Function used for calculate the BMI
@@ -389,6 +432,8 @@ class UserPage : Fragment() {
     }
 
     private fun getSubscriptionName() {
+
+
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
         activity?.let {
@@ -413,6 +458,7 @@ class UserPage : Fragment() {
     private fun getUserSubscriptionInfo() {
         apiClient = ApiClient()
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
+
         println(sessionManager.fetchUserId())
         context?.let {
             sessionManager.fetchUserId()?.let { it1 ->
@@ -422,7 +468,7 @@ class UserPage : Fragment() {
                             println(response.body()!!.scadenzaAbbonamento)
                             userSubscriptionDeadline!!.text =  userSubscriptionDeadline!!.text.toString() + response.body()!!.scadenzaAbbonamento
                             userEntries!!.text = userEntries!!.text.toString() + response.body()!!.ingressi.toString()
-                            view?.findViewById<CircularProgressBar>(R.id.circularProgressBar)?.progress = response.body()!!.ingressi.toString().toFloat()
+                            view?.findViewById<CircularProgressBar>(R.id.user_subscriptionSectionCircularProgressIcon)?.progress = response.body()!!.ingressi.toString().toFloat()
                             if (!response.body()!!.expired) {
                                 userSubscriptionStatus!!.text = "Attivo"
                                 userSubscriptionStatus!!.setTextColor(Color.parseColor("#00FF00"))

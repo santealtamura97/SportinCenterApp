@@ -46,7 +46,7 @@
             android:id="@+id/entries_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entrate rimanenti: "
+            android:text="Telefono: "
             android:textSize="15dp"
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"

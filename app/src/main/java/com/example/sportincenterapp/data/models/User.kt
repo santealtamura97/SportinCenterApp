@@ -30,5 +30,8 @@ data class User (
     var ingressi: Long,
 
     @SerializedName("exipred")
-    var expired: Boolean
+    var expired: Boolean,
+
+    @SerializedName("number")
+    var number: String
 )
