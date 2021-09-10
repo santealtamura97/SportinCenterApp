@@ -62,6 +62,21 @@ class ApiClient {
         return apiService
     }
 
+    fun getApiServiceActivity(context: Context): ApiService {
+        //Initialize ApiService if not initialize yet
+        if (!::apiService.isInitialized) {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(Constant.ACTIVITY_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okhttpClient(context))
+                .build()
+
+            apiService = retrofit.create(ApiService::class.java)
+        }
+
+        return apiService
+    }
+
     /**
      * Initialize OkhttpClient with our interceptor
      */

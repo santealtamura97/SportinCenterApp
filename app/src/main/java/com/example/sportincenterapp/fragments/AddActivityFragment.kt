@@ -98,6 +98,7 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         calendarStart.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
         calendarEnd.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
 
+
         //title_add_activity.setText(getResources().getString(arguments!!.getInt("st_addActivity_title")))
         addActivity_startDate.setText(getResources().getString(arguments!!.getInt("st_addActivity_startDate")))
         addActivity_endDate.setText(getResources().getString(arguments!!.getInt("st_addActivity_endDate")))
@@ -157,6 +158,9 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
             timeType = "END"
             showTimePickerDialog()
         }
+
+        calendarStart.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
+        timeStart.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
 
         //SPINNER ACTIVITIES
         spinnerActivity = v.findViewById<Spinner>(R.id.spinner_activity_add)

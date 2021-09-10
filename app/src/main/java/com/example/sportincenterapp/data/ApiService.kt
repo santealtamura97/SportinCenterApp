@@ -58,6 +58,9 @@ interface ApiService {
     @GET(Constant.ACTIVITY_SERVICE + "/all/get_activity/{activityId}")
     fun getActivityFromId(@Path(value = "activityId") activityId: String) : Call<Activity>
 
+    @GET("/all/get_activity/{activityId}")
+    fun getActivityFromIdNoAuth(@Path(value = "activityId") activityId: String) : Call<Activity>
+
     @GET("/all/date_events/{date}")
     fun getEventsInDate(@Path(value = "date") date: String): Call <List<Event>>
 

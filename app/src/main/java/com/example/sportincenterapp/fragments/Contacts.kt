@@ -64,7 +64,6 @@ class Contacts : Fragment() {
                 .setImage(R.drawable.logo_small)
                 .setDescription(resources.getString(requireArguments().getInt("st_home_firstQuestion")))
                 //DA FARE
-                .addItem(Element().setTitle("Version 1.0.1"))
                 .addGroup(resources.getString(requireArguments().getInt("st_contacts_title")))
                 .addEmail("elmehdi.sakout@gmail.com", resources.getString(requireArguments().getInt("st_contacts_1")))
                 .addWebsite("https://mehdisakout.com/", resources.getString(requireArguments().getInt("st_contacts_2")))
@@ -82,7 +81,6 @@ class Contacts : Fragment() {
                 .setImage(R.drawable.logo_small)
                 .setDescription(resources.getString(R.string.fr_home_firstAnswer_en))
                     //DA FARE
-                .addItem(Element().setTitle("Version 1.0.1"))
                 .addGroup(resources.getString(requireArguments().getInt("st_contacts_title")))
                 .addEmail("elmehdi.sakout@gmail.com", resources.getString(requireArguments().getInt("st_contacts_1")))
                 .addWebsite("https://mehdisakout.com/", resources.getString(requireArguments().getInt("st_contacts_2")))

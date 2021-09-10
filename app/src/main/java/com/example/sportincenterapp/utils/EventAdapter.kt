@@ -216,7 +216,8 @@ class EventAdapter(val modelList: MutableList<Event>, val context: Context, val 
 
             //DEFAULT
             itemView.txt.text = model.title
-            itemView.sub_txt.text = itemView.sub_txt.text.toString() + ": "+ model.number.toString()
+            if (!itemView.sub_txt.text.contains(":"))
+                itemView.sub_txt.text = itemView.sub_txt.text.toString() + ": "+ model.number.toString()
             itemView.time.text = model.oraInizio + " - " + model.oraFine
             val id = context.resources.getIdentifier(model.title.toLowerCase(), "drawable", context.packageName)
             itemView.img.setBackgroundResource(id)

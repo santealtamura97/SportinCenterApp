@@ -10,6 +10,8 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.interfaces.Communicator
+import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.utils.SessionManager
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
@@ -20,10 +22,14 @@ class Settings : Fragment() {
     private lateinit var communicator: Communicator
     private var listColor = intArrayOf(R.color.black, R.color.red)
     private var state = intArrayOf(-android.R.attr.state_enabled, android.R.attr.state_enabled)
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //settings view
         val v = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        //session manager initialize
+        sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
         //Components of the view
 
@@ -38,6 +44,9 @@ class Settings : Fragment() {
         val settings_version = v.findViewById<TextView>(R.id.settings_version)
         val settings_versionText = v.findViewById<TextView>(R.id.settings_versionText)
 
+        if (sessionManager.fetchUserName() == "Admin") {
+            v.findViewById<LinearLayout>(R.id.language_linear_layout).visibility = View.GONE
+        }
 
         //Communicator
         communicator = activity as Communicator
