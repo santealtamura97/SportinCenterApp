@@ -64,9 +64,8 @@ class Contacts : Fragment() {
                 .setImage(R.drawable.logo_small)
                 .setDescription(resources.getString(R.string.fr_home_firstAnswer_it))
                 //DA FARE
-                .addItem(Element().setTitle("Version 1.0.1"))
                 .addGroup(resources.getString(requireArguments().getInt("st_contacts_title")))
-                .addEmail("elmehdi.sakout@gmail.com", "Inviaci una mail")
+                .addEmail("sportingcentertorino@gmail.com", "Inviaci una mail")
                 .addWebsite("https://mehdisakout.com/", "Visita il nostro sito Web")
                 .addFacebook("the.medy", "Visita la nostra pagina Facebook")
                 .addYoutube("UCdPQtdWIsg7_pi4mrRu46vA", "Abbiamo anche un canale Youtube")
@@ -82,7 +81,6 @@ class Contacts : Fragment() {
                 .setImage(R.drawable.logo_small)
                 .setDescription(resources.getString(R.string.fr_home_firstAnswer_it))
                     //DA FARE
-                .addItem(Element().setTitle("Version 1.0.1"))
                 .addGroup(resources.getString(requireArguments().getInt("st_contacts_title")))
                 .addEmail("elmehdi.sakout@gmail.com", "Inviaci una mail")
                 .addWebsite("https://mehdisakout.com/", "Visita il nostro sito Web")

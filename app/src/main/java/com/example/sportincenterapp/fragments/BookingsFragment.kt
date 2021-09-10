@@ -41,7 +41,7 @@ class BookingsFragment : Fragment() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private lateinit var bookingList: List<Event>
-    private var bookingToRemove : MutableList<Int> = mutableListOf()
+    private var bookingToRemove : MutableList<Event> = mutableListOf()
     private var translate: Boolean = false
 
     private val ITEM_TYPE = "BOOKING"
@@ -63,11 +63,9 @@ class BookingsFragment : Fragment() {
         val color : Int = arguments?.getInt("color") as Int
         val languageAvailablePlaces: Int = arguments?.getInt("languageAvailablePlaces") as Int
         val languageBookButton: Int = arguments?.getInt("languageBookButton") as Int
-
         if (languageBookButton == R.string.fr_calendarCollection_book_en) {
             translate = true
         }
-
         val fragment_bookings_mainLayout = view.findViewById<CoordinatorLayout>(R.id.fragment_bookings_mainLayout)
         fragment_bookings_mainLayout.setBackgroundResource(color)
 
@@ -81,7 +79,7 @@ class BookingsFragment : Fragment() {
                 adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                 (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerDeleteBooking {
                     override fun onChecked(pos: Int) {
-                        bookingToRemove.add(pos)
+                        bookingToRemove.add(bookingList[pos])
                     }
                     override fun onClick(pos: Int, aView: View) {
 
@@ -95,12 +93,9 @@ class BookingsFragment : Fragment() {
                     val cancelDelete: View = view.findViewById(R.id.cancel_delete)
                     cancelDelete.visibility = View.GONE
                     checkAllButton.visibility = View.VISIBLE
-                    for (position in bookingToRemove) {
-                        callDeleteBooking(sessionManager.fetchUserId()!!, bookingList[position].id)
-                    }
-                    for (position in bookingToRemove){
-                        (bookingList as MutableList<Event>).removeAt(position)
-                    }
+                    for (booking in bookingToRemove)
+                        callDeleteBooking(sessionManager.fetchUserId()!!, booking.id)
+                    (bookingList as MutableList<Event>).removeAll(bookingToRemove)
                     for(booking in bookingList) {booking.isSelectable = false}
                     bookingToRemove.clear()
                     adapter = EventAdapter(bookingList as MutableList<Event>, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
@@ -238,7 +233,14 @@ class BookingsFragment : Fragment() {
                     var timei1h = eventList[i+1].oraInizio.split(":")[0]
                     var timeim = eventList[i].oraInizio.split(":")[1]
                     var timei1m = eventList[i+1].oraInizio.split(":")[1]
-                    if (timeih.toInt() + timeim.toInt() > timei1h.toInt() + timei1m.toInt()) { //controllo le ore
+                    if (timeih.toInt() == timei1h.toInt()) {
+                        if (timeim.toInt() > timei1m.toInt()) {
+                            var temp = eventList[i]
+                            eventList[i] = eventList[i+1]
+                            eventList[i+1] = temp
+                            change = true
+                        }
+                    }else if (timeih.toInt() > timei1h.toInt()) {
                         var temp = eventList[i]
                         eventList[i] = eventList[i+1]
                         eventList[i+1] = temp
@@ -247,7 +249,6 @@ class BookingsFragment : Fragment() {
                 }
             }
         }
-        orderEventsByTime(eventList)
         return eventList
     }
 

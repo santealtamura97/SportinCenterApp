@@ -1,15 +1,22 @@
 package com.example.sportincenterapp.fragments
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.sportincenterapp.R
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Activity
@@ -54,18 +61,28 @@ class EventFragment() : Fragment() {
         val languageAvailablePlaces: Int = arguments?.getInt("languageAvailablePlaces") as Int
         val languageBookButton: Int = arguments?.getInt("languageBookButton") as Int
 
+
         if (languageBookButton == R.string.fr_calendarCollection_book_en) {
             translate = true
         }
 
-
         //la data che rappresenta il fragment corrente
-        eventsDate = arguments!!.getString("date").toString().split(" ")[0]
+        eventsDate = requireArguments().getString("date").toString().split(" ")[0]
         communicator  = activity as Communicator
 
         if (color == R.color.background_primary_color_2){
             view.findViewById<TextView>(R.id.no_event).setTextColor(resources.getColor(R.color.background_primary_color))
         }
+
+        /*val itemsSwipeToRefresh = view.findViewById<SwipeRefreshLayout>(R.id.itemsswipetorefresh)
+
+
+        itemsSwipeToRefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(context, R.color.background_primary_color_2))
+        itemsSwipeToRefresh.setColorSchemeColors(Color.WHITE)
+
+        itemsSwipeToRefresh.setOnRefreshListener {
+
+        }*/
 
         rcv.apply {
             // set a LinearLayoutManager to handle Android
@@ -103,7 +120,6 @@ class EventFragment() : Fragment() {
                                 }else
                                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
                             }
-
                             override fun onFailure(call: Call<List<Event>>, t: Throwable) {
                                 Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
                             }
@@ -119,6 +135,8 @@ class EventFragment() : Fragment() {
                                         val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
                                         if (orderedEventList.isEmpty()) {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
+                                            if (translate)
+                                                view.findViewById<TextView>(R.id.no_event).text = "No event in this date!"
                                         }
                                         adapter = EventAdapter(orderedEventList, context, ITEM_TYPE, color, languageAvailablePlaces, languageBookButton)
                                         (adapter as EventAdapter).setOnClickListener(object : EventAdapter.ClickListenerEvent {
@@ -272,22 +290,43 @@ class EventFragment() : Fragment() {
 
         apiClient = ApiClient()
         activity?.let {
-            apiClient.getApiServiceGateway(it).getActivityFromId(activityId)
-                .enqueue(object : Callback<Activity?> {
-                    override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
-                        var descr = ""
-                        if (translate) {
-                            descr = response.body()?.descrEng.toString()
-                        }else{
-                            descr = response.body()?.descrIta.toString()
+            if (!sessionManager.fetchUserName().isNullOrEmpty()) {
+                apiClient.getApiServiceGateway(it).getActivityFromId(activityId)
+                    .enqueue(object : Callback<Activity?> {
+                        override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
+                            var descr = ""
+                            if (translate) {
+                                descr = response.body()?.descrEng.toString()
+                            }else{
+                                descr = response.body()?.descrIta.toString()
+                            }
+                            customlayout.findViewById<TextView>(R.id.sub_txt).text = descr
                         }
-                        customlayout.findViewById<TextView>(R.id.sub_txt).text = descr
-                    }
-                    override fun onFailure(call: Call<Activity?>, t: Throwable) {
-                        Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
-                    }
-                })
+                        override fun onFailure(call: Call<Activity?>, t: Throwable) {
+                            Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                        }
+                    })
+            }else{
+                apiClient.getApiServiceActivity(it).getActivityFromIdNoAuth(activityId)
+                    .enqueue(object : Callback<Activity?> {
+                        override fun onResponse(call: Call<Activity?>, response: Response<Activity?>) {
+                            var descr = ""
+                            if (translate) {
+                                descr = response.body()?.descrEng.toString()
+                            }else{
+                                descr = response.body()?.descrIta.toString()
+                            }
+                            customlayout.findViewById<TextView>(R.id.sub_txt).text = descr
+                        }
+                        override fun onFailure(call: Call<Activity?>, t: Throwable) {
+                            Toast.makeText(ApplicationContextProvider.getContext(), "ERRORE", Toast.LENGTH_LONG).show()
+                        }
+                    })
+            }
+
         }
+
+
 
         builder?.setView(customlayout)
         builder?.setPositiveButton("OK") {

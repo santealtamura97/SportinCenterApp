@@ -52,6 +52,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.dhaval2404:imagepicker:2.1'
     implementation 'io.github.medyo:android-about-page:2.0.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
 
     // Network

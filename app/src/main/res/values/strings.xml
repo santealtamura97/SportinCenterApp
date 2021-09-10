@@ -73,13 +73,13 @@
     <string name="fr_settings_version">1.0.0</string>
 
     <string-array name="temi">
-        <item>Tema 1</item>
-        <item>Tema 2</item>
+        <item>Chiaro</item>
+        <item>Scuro</item>
     </string-array>
 
     <string-array name="temi_en">
-        <item>Theme 1</item>
-        <item>Theme 2</item>
+        <item>Light</item>
+        <item>Dark</item>
     </string-array>
 
     <string-array name="lingua">

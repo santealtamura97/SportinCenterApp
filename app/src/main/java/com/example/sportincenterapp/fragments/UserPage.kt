@@ -79,9 +79,6 @@ class UserPage : Fragment() {
         var user_informationSectionEmailText = v.findViewById<TextView>(R.id.user_informationSectionEmailText)
         var user_physichsSection = v.findViewById<LinearLayout>(R.id.user_physicsSection)
         var user_physicsSectionTitle = v.findViewById<TextView>(R.id.user_physicsSectionTitle)
-        var user_physicsSectionAgeText = v.findViewById<TextView>(R.id.user_physicsSectionAgeText)
-        var user_physicsSectionAgeEdit = v.findViewById<EditText>(R.id.user_physicsSectionAgeEdit)
-        var user_physicsSectionAgeTextValue = v.findViewById<TextView>(R.id.user_physicsSectionAgeTextValue)
         var user_physicsSectionWeightText = v.findViewById<TextView>(R.id.user_physicsSectionWeightText)
         var user_physicsSectionWeightEdit = v.findViewById<EditText>(R.id.user_physicsSectionWeightEdit)
         var user_physicsSectionWeightTextValue = v.findViewById<TextView>(R.id.user_physicsSectionWeightTextValue)
@@ -151,16 +148,6 @@ class UserPage : Fragment() {
         })*/
 
 
-        //Age edit text listener
-        user_physicsSectionAgeEdit.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                user_physicsSectionAgeTextValue.text = user_physicsSectionAgeEdit.text
-            }
-        })
-
         //Weight edit text listener
         user_physicsSectionWeightEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -217,8 +204,6 @@ class UserPage : Fragment() {
         user_physicsSectionButton.setOnClickListener {
             user_physicsSectionButton.visibility = View.GONE
             user_physicsSectionButtonSave.visibility = View.VISIBLE
-            user_physicsSectionAgeTextValue.visibility = View.GONE
-            user_physicsSectionAgeEdit.visibility = View.VISIBLE
             user_physicsSectionWeightTextValue.visibility = View.GONE
             user_physicsSectionWeightEdit.visibility = View.VISIBLE
             user_physicsSectionHeightTextValue.visibility = View.GONE
@@ -229,8 +214,6 @@ class UserPage : Fragment() {
         user_physicsSectionButtonSave.setOnClickListener {
             user_physicsSectionButton.visibility = View.VISIBLE
             user_physicsSectionButtonSave.visibility = View.GONE
-            user_physicsSectionAgeTextValue.visibility = View.VISIBLE
-            user_physicsSectionAgeEdit.visibility = View.GONE
             user_physicsSectionWeightTextValue.visibility = View.VISIBLE
             user_physicsSectionWeightEdit.visibility = View.GONE
             user_physicsSectionHeightTextValue.visibility = View.VISIBLE
@@ -268,9 +251,6 @@ class UserPage : Fragment() {
         user_subscriptionSectionExpiredIcon.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_physichsSection.setBackgroundResource(arguments!!.getInt("cl_user_Layoutbackground"))
         user_physicsSectionTitle.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_physicsSectionAgeText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_physicsSectionAgeTextValue.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
-        user_physicsSectionAgeEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_physicsSectionWeightText.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_physicsSectionWeightTextValue.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
         user_physicsSectionWeightEdit.setTextColor(getResources().getColor(arguments!!.getInt("cl_user_text")))
@@ -295,7 +275,6 @@ class UserPage : Fragment() {
         user_subscriptionSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionTitle")))
         userEntries.setText(getResources().getString(arguments!!.getInt("st_user_subscriptionSectionCircularProgress")))
         user_physicsSectionTitle.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionTitle")))
-        user_physicsSectionAgeText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionAge")))
         user_physicsSectionWeightText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionWeight")))
         user_physicsSectionHeightText.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionHeight")))
         user_physicsSectionButton.setText(getResources().getString(arguments!!.getInt("st_user_physicsSectionButton")))
