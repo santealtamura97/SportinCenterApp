@@ -126,6 +126,7 @@ class Settings : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
+                        communicator.language(0)
                         settings_title.text = (getResources().getString(R.string.fr_settings_title_it))
                         settings_language.text = (getResources().getString(R.string.fr_settings_language_it))
                         settings_theme.text = (getResources().getString(R.string.fr_settings_theme_it))
@@ -138,6 +139,7 @@ class Settings : Fragment() {
                         settings_spinnerTheme_it.setSelection(settings_spinnerTheme_en.selectedItemPosition)
                     }
                     1 -> {
+                        communicator.language(1)
                         settings_title.text = (getResources().getString(R.string.fr_settings_title_en))
                         settings_language.text = (getResources().getString(R.string.fr_settings_language_en))
                         settings_theme.text = (getResources().getString(R.string.fr_settings_theme_en))

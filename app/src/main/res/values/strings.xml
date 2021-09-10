@@ -128,6 +128,18 @@
     <string name="fr_contacts_telephoneValue3">+39 3252249678</string>
     <string name="fr_contacts_emailText">E-mail:</string>
     <string name="fr_contacts_emailValue">sportingCenter@gmail.com</string>
+    <string name="fr_contacts_1_it">Inviaci una Mail</string>
+    <string name="fr_contacts_1_en">Send us a Mail</string>
+    <string name="fr_contacts_2_it">Visita il nostro sito web</string>
+    <string name="fr_contacts_2_en">Visit our Web site</string>
+    <string name="fr_contacts_3_it">Visita la nostra pagina Facebook</string>
+    <string name="fr_contacts_3_en">Visit our Facebook page</string>
+    <string name="fr_contacts_4_it">Abbiamo anche un canale YouTube</string>
+    <string name="fr_contacts_4_en">We have a YouTube channel too</string>
+    <string name="fr_contacts_5_it">Guarda le nostre foto su Instagram</string>
+    <string name="fr_contacts_5_en">See our photos on Instagram</string>
+    <string name="fr_contacts_6_it">Trovaci</string>
+    <string name="fr_contacts_6_en">Find us</string>
 
     <!-- FAQ -->
     <string name="fr_faq_title">FAQ</string>
