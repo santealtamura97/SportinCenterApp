@@ -23,6 +23,7 @@ import com.example.sportincenterapp.data.responses.SubscriptionResponse
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
+import com.example.sportincenterapp.utils.UserPageUtils
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -90,7 +91,6 @@ class UserPage : Fragment() {
         var user_physicsSectionButton = v.findViewById<Button>(R.id.user_physicsSectionButton)
         var user_physicsSectionButtonSave = v.findViewById<Button>(R.id.user_physicsSectionButtonSave)
         var user_BMISection = v.findViewById<LinearLayout>(R.id.user_BMISection)
-        var user_physicsSectionBMIValue= v.findViewById<TextView>(R.id.user_physicsSectionBMIValue)
 
 
         bmi = v.findViewById<TextView>(R.id.user_physicsSectionBMIValue)
@@ -123,7 +123,7 @@ class UserPage : Fragment() {
 
         imageProfile = v.findViewById(R.id.image_profile)
         if (!sessionManager.fetchImage().isNullOrEmpty()) {
-            imageProfile.setImageBitmap(decodeBase64(sessionManager.fetchImage()))
+            imageProfile.setImageBitmap(UserPageUtils.decodeBase64(sessionManager.fetchImage()))
         }
         changeProfileImage = v.findViewById(R.id.change_photo)
 
@@ -136,18 +136,6 @@ class UserPage : Fragment() {
                 .start()
         })
 
-
-        //Telephone edit text listener
-        /*user_informationSectionEmailEdit.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                user_informationSectionEmailText.text = user_informationSectionEmailEdit.text
-            }
-        })*/
-
-
         //Weight edit text listener
         user_physicsSectionWeightEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -155,7 +143,7 @@ class UserPage : Fragment() {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.length > 0 && user_physicsSectionHeightTextValue.text.length > 0) {
-                    bmi.text = calculateBMI(s.toString(), user_physicsSectionHeightTextValue.text.toString())
+                    bmi.text = UserPageUtils.calculateBMI(user_physicsSectionWeightTextValue.text.toString(), user_physicsSectionHeightTextValue.text.toString(), result, bmi)
                 } else {
                     bmi.text = "-.--"
                 }
@@ -170,7 +158,7 @@ class UserPage : Fragment() {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.length > 0 && user_physicsSectionWeightTextValue.text.length > 0) {
-                    bmi.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), s.toString())
+                    bmi.text = UserPageUtils.calculateBMI(user_physicsSectionWeightTextValue.text.toString(), user_physicsSectionHeightTextValue.text.toString(), result, bmi)
                 } else {
                     bmi.text = "-.--"
                 }
@@ -221,7 +209,7 @@ class UserPage : Fragment() {
         }
 
         /* ASSIGN DEFAULT VALUE */
-        bmi.text = calculateBMI(user_physicsSectionWeightTextValue.text.toString(), user_physicsSectionHeightTextValue.text.toString())
+        bmi.text = UserPageUtils.calculateBMI(user_physicsSectionWeightTextValue.text.toString(), user_physicsSectionHeightTextValue.text.toString(), result, bmi)
         user_profileNameText.text = arguments?.getString("username")
         user_informationSectionEmailText.text = arguments?.getString("email")
         user_physicsSectionUM1.text = arguments?.getString("um1")
@@ -361,54 +349,6 @@ class UserPage : Fragment() {
         }
     }
 
-
-    /*
-    Function used for calculate the BMI
-     */
-    private fun calculateBMI(weight: String, tall: String): String {
-        var bmi = 0.0
-        if (weight.length > 1 && tall.length > 1) {
-            val numerator = weight.toDouble()
-            val denominator = (tall.toDouble() / 100) * (tall.toDouble() / 100)
-            bmi = (numerator / denominator)
-            if (bmi < 18.5){
-                result.text = "SOTTOPESO"
-                result.setTextColor(Color.parseColor("#2E2EFF"))
-                this.bmi.setTextColor(Color.parseColor("#2E2EFF"))
-            }else if (bmi in 18.5..24.9) {
-                result.text = "PESO NORMALE"
-                result.setTextColor(Color.parseColor("#00D100"))
-                this.bmi.setTextColor(Color.parseColor("#00D100"))
-            }else if (bmi in 25.0..29.9) {
-                result.text = "SOVRAPPESO"
-                result.setTextColor(Color.parseColor("#FF7518"))
-                this.bmi.setTextColor(Color.parseColor("#FF7518"))
-            }else if (bmi in 30.0..34.9) {
-                result.text = "OBESO!"
-                result.setTextColor(Color.parseColor("#FF0000"))
-                this.bmi.setTextColor(Color.parseColor("#FF0000"))
-            }else if (bmi > 35) {
-                result.text = "ESTREMAMENTE OBESO!"
-                result.setTextColor(Color.parseColor("#800000"))
-                this.bmi.setTextColor(Color.parseColor("#800000"))
-            }else if (bmi < 18.5) {
-                result.text = "PESO E ALTEZZA NON VALIDI!"
-            }
-        }
-        return bmi.toString()
-    }
-
-    private fun setPhoneNumber() {
-
-    }
-
-
-    // method for base64 to bitmap
-    private fun decodeBase64(input: String?): Bitmap? {
-        val decodedByte: ByteArray = Base64.decode(input, 0)
-        return BitmapFactory
-            .decodeByteArray(decodedByte, 0, decodedByte.size)
-    }
 
     private fun getSubscriptionName() {
 

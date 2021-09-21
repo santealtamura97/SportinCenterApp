@@ -1,9 +1,9 @@
 package com.example.sportincenterapp.activities
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
@@ -15,9 +15,12 @@ import com.example.sportincenterapp.data.requests.SignUpRequest
 import com.example.sportincenterapp.data.responses.SignUpResponse
 import com.example.sportincenterapp.data.responses.UserCodeResponse
 import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.utils.RegistrationUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class RegistrationActivity : AppCompatActivity() {
@@ -90,11 +93,11 @@ class RegistrationActivity : AppCompatActivity() {
         val password = registerPassword!!.text.toString().trim { it <= ' ' }
         val confirmPassword = registerConfirmPassword!!.text.toString().trim { it <= ' ' }
 
-        if (email.isEmpty()) {
+        if (email.isEmpty() || !RegistrationUtils.isEmailValid(email)) {
             registerEmail!!.error = resources.getString(R.string.missing_email_message)
             registerEmail!!.requestFocus()
             return
-        } else if (password.isEmpty()) {
+        } else if (password.isEmpty() || !RegistrationUtils.isValidPassword(password)) {
             registerPassword!!.error = resources.getString(R.string.missing_password_message)
             registerPassword!!.requestFocus()
             return

@@ -18,13 +18,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportincenterapp.R
-import com.example.sportincenterapp.activities.MainActivity
 import com.example.sportincenterapp.data.ApiClient
 import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
-import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.EventAdapter
+import com.example.sportincenterapp.utils.CalendarUtils
 import com.example.sportincenterapp.utils.SessionManager
 import com.google.zxing.WriterException
 import kotlinx.android.synthetic.main.fragment_bookings.*
@@ -32,8 +31,6 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class BookingsFragment : Fragment() {
@@ -43,6 +40,10 @@ class BookingsFragment : Fragment() {
     private lateinit var bookingList: List<Event>
     private var bookingToRemove : MutableList<Event> = mutableListOf()
     private var translate: Boolean = false
+
+    private var languageAvailablePlaces: Int = 0
+    private var languageBookButton: Int = 0
+    private var color: Int = 0
 
     private val ITEM_TYPE = "BOOKING"
 
@@ -60,16 +61,21 @@ class BookingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sessionManager = SessionManager(ApplicationContextProvider.getContext())
 
-        val color : Int = arguments?.getInt("color") as Int
-        val languageAvailablePlaces: Int = arguments?.getInt("languageAvailablePlaces") as Int
-        val languageBookButton: Int = arguments?.getInt("languageBookButton") as Int
+        color = arguments?.getInt("color") as Int
+        languageAvailablePlaces = arguments?.getInt("languageAvailablePlaces") as Int
+        languageBookButton = arguments?.getInt("languageBookButton") as Int
         if (languageBookButton == R.string.fr_calendarCollection_book_en) {
             translate = true
         }
         val fragment_bookings_mainLayout = view.findViewById<CoordinatorLayout>(R.id.fragment_bookings_mainLayout)
         fragment_bookings_mainLayout.setBackgroundResource(color)
 
-        rcv.apply {
+        getBookingsForUser(view)
+    }
+
+    private fun getBookingsForUser(view: View) {
+        rcv2.apply {
+
             val checkAllButton: View = view.findViewById(R.id.check_all_button)
             if (sessionManager.fetchUserName().isNullOrEmpty())
                 checkAllButton.visibility = View.GONE
@@ -152,7 +158,7 @@ class BookingsFragment : Fragment() {
                                 override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                     if (response.isSuccessful) {
                                         bookingList = response.body()!!
-                                        val orderedEventList = orderEvents(bookingList as MutableList<Event>)
+                                        val orderedEventList = CalendarUtils.orderEvents(bookingList as MutableList<Event>)
                                         if (orderedEventList.isEmpty()) {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         }
@@ -209,89 +215,6 @@ class BookingsFragment : Fragment() {
                     }
                 })
         }
-    }
-
-    /**
-     * Bubble sort
-     */
-    private fun orderEvents(eventList: MutableList<Event>) : MutableList<Event> {
-
-        removePastEvents(eventList)
-
-        val sdf = SimpleDateFormat("dd-MM-yyyy")
-        var change: Boolean = true
-        while (change) {
-            change = false
-            for (i in 0 until eventList.size - 1) {
-                if (sdf.parse(eventList[i].data).after(sdf.parse(eventList[i+1].data))) { //controllo le date
-                    var temp = eventList[i]
-                    eventList[i] = eventList[i+1]
-                    eventList[i+1] = temp
-                    change = true
-                }else if(sdf.parse(eventList[i].data).equals(sdf.parse(eventList[i+1].data))) {
-                    var timeih = eventList[i].oraInizio.split(":")[0]
-                    var timei1h = eventList[i+1].oraInizio.split(":")[0]
-                    var timeim = eventList[i].oraInizio.split(":")[1]
-                    var timei1m = eventList[i+1].oraInizio.split(":")[1]
-                    if (timeih.toInt() == timei1h.toInt()) {
-                        if (timeim.toInt() > timei1m.toInt()) {
-                            var temp = eventList[i]
-                            eventList[i] = eventList[i+1]
-                            eventList[i+1] = temp
-                            change = true
-                        }
-                    }else if (timeih.toInt() > timei1h.toInt()) {
-                        var temp = eventList[i]
-                        eventList[i] = eventList[i+1]
-                        eventList[i+1] = temp
-                        change = true
-                    }
-                }
-            }
-        }
-        return eventList
-    }
-
-    private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
-
-        var change: Boolean = true
-        while (change) {
-            change = false
-            for (i in 0 until eventList.size - 1) {
-                var timeih = eventList[i].oraInizio.split(":")[0]
-                var timei1h = eventList[i+1].oraInizio.split(":")[0]
-                var timeim = eventList[i].oraInizio.split(":")[1]
-                var timei1m = eventList[i+1].oraInizio.split(":")[1]
-                if (timeih.toInt() == timei1h.toInt()) {
-                    if (timeim.toInt() > timei1m.toInt()) {
-                        var temp = eventList[i]
-                        eventList[i] = eventList[i+1]
-                        eventList[i+1] = temp
-                        change = true
-                    }
-                }else if (timeih.toInt() > timei1h.toInt()) {
-                    var temp = eventList[i]
-                    eventList[i] = eventList[i+1]
-                    eventList[i+1] = temp
-                    change = true
-                }
-            }
-        }
-        return eventList
-    }
-
-    private fun removePastEvents(eventList: MutableList<Event>) : MutableList<Event> {
-        var toRemove : MutableList<Event> = mutableListOf()
-        val sdf = SimpleDateFormat("dd-MM-yyyy")
-        val todayDate = sdf.parse(sdf.format(Date()))
-        for (event in eventList) {
-            var eventDate = sdf.parse(event.data)
-            if (eventDate.before(todayDate)) {
-                toRemove.add(event)
-            }
-        }
-        eventList.removeAll(toRemove)
-        return eventList
     }
 
     private fun infoEventDialog(eventTitle: String, activityId: String) {

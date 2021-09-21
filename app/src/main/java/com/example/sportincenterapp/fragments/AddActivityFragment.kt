@@ -95,8 +95,6 @@ class AddActivityFragment : Fragment(), DatePickerDialog.OnDateSetListener{
         addActivity_positioNumberText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
         addActivity_activityTypeText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
         addActivity_dayOfWeekText.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
-        calendarStart.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
-        calendarEnd.setTextColor(getResources().getColor(arguments!!.getInt("cl_addActivity_text")))
 
 
         //title_add_activity.setText(getResources().getString(arguments!!.getInt("st_addActivity_title")))

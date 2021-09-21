@@ -29,6 +29,7 @@ import com.example.sportincenterapp.fragments.*
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
 import com.example.sportincenterapp.utils.SessionManager
+import com.example.sportincenterapp.utils.UserPageUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.resources.TextAppearance
 import de.hdodenhof.circleimageview.CircleImageView
@@ -181,7 +182,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             /*
                 GESTIONE DEI FRAGMENT USER
              */
-
+            supportFragmentManager.beginTransaction().replace(R.id.Fragment_container, fragmentHome).commit()
 
         }
     }
@@ -267,7 +268,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             val bitmap = BitmapFactory.decodeStream(body)
                             if (bitmap != null) {
                                 profileImage.setImageBitmap(bitmap)
-                                sessionManager.saveImage(encodeTobase64(bitmap))
+                                sessionManager.saveImage(UserPageUtils.encodeTobase64(bitmap))
                             }
                         }
                     }
@@ -278,16 +279,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 })
         }
     }
-
-    // method for bitmap to base64
-    private fun encodeTobase64(image: Bitmap): String? {
-        val baos = ByteArrayOutputStream()
-        image.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        val b: ByteArray = baos.toByteArray()
-        val imageEncoded: String = Base64.encodeToString(b, Base64.DEFAULT)
-        return imageEncoded
-    }
-
 
     /* INITIALIZE THE FRAGMENTS */
     private fun initializeFragments() {
@@ -392,12 +383,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentAddActivity.arguments = bundleAddActivity
 
     }
-
-    /*override fun um_update(um_1: String, um_2: String) {
-        bundleUser.putString("um1", um_1)
-        bundleUser.putString("um2", um_2)
-        fragmentUser.arguments = bundleUser
-    }*/
 
     override fun theme(index : Int) {
 

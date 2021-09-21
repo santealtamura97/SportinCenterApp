@@ -100,6 +100,7 @@ class CalendarUserFragment : Fragment() {
             tabDates.add(dateFormat.format(day) + " | " + weekdays[intDay])
             calendar.add(Calendar.DAY_OF_YEAR, 1)
             intDay = calendar.get(Calendar.DAY_OF_WEEK)
+
             day = calendar.time
         }
     }

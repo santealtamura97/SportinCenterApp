@@ -23,6 +23,7 @@ import com.example.sportincenterapp.data.models.Activity
 import com.example.sportincenterapp.data.models.Event
 import com.example.sportincenterapp.interfaces.Communicator
 import com.example.sportincenterapp.utils.ApplicationContextProvider
+import com.example.sportincenterapp.utils.CalendarUtils
 import com.example.sportincenterapp.utils.EventAdapter
 import com.example.sportincenterapp.utils.SessionManager
 import kotlinx.android.synthetic.main.fragment_activities.*
@@ -38,6 +39,10 @@ class EventFragment() : Fragment() {
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: ApiClient
     private lateinit var communicator: Communicator
+
+    private var languageAvailablePlaces: Int = 0
+    private var languageBookButton: Int = 0
+    private var color: Int = 0
 
     private lateinit var eventList: List<Event>
     private lateinit var eventsDate: String
@@ -57,9 +62,11 @@ class EventFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val color : Int = arguments?.getInt("color") as Int
-        val languageAvailablePlaces: Int = arguments?.getInt("languageAvailablePlaces") as Int
-        val languageBookButton: Int = arguments?.getInt("languageBookButton") as Int
+
+
+        color  = arguments?.getInt("color") as Int
+        languageAvailablePlaces = arguments?.getInt("languageAvailablePlaces") as Int
+        languageBookButton = arguments?.getInt("languageBookButton") as Int
 
 
         if (languageBookButton == R.string.fr_calendarCollection_book_en) {
@@ -74,23 +81,29 @@ class EventFragment() : Fragment() {
             view.findViewById<TextView>(R.id.no_event).setTextColor(resources.getColor(R.color.background_primary_color))
         }
 
-        /*val itemsSwipeToRefresh = view.findViewById<SwipeRefreshLayout>(R.id.itemsswipetorefresh)
+        getEventsInDate(view)
+    }
 
-
-        itemsSwipeToRefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(context, R.color.background_primary_color_2))
-        itemsSwipeToRefresh.setColorSchemeColors(Color.WHITE)
-
-        itemsSwipeToRefresh.setOnRefreshListener {
-
-        }*/
-
+    private fun getEventsInDate(view: View) {
         rcv.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
+
+            layoutManager = LinearLayoutManager(activity)
+
+            val itemsSwipeToRefresh = view.findViewById<SwipeRefreshLayout>(R.id.itemsswipetorefresh)
+
+
+            itemsSwipeToRefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(context, R.color.background_primary_color_2))
+            itemsSwipeToRefresh.setColorSchemeColors(Color.WHITE)
+
+            itemsSwipeToRefresh.setOnRefreshListener {
+                getEventsInDate(view)
+                itemsSwipeToRefresh.isRefreshing = false
+            }
+
             apiClient = ApiClient()
             sessionManager = SessionManager(ApplicationContextProvider.getContext())
+            println(sessionManager.fetchUserId() + " " + sessionManager.fetchUserName() + " " + sessionManager.fetchAuthToken())
             activity?.let {
                 if (sessionManager.fetchUserId().isNullOrEmpty()) {
                     apiClient.getApiServiceCalendar(it).getEventsInDate(eventsDate)
@@ -98,7 +111,7 @@ class EventFragment() : Fragment() {
                             override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                 if (response.isSuccessful) {
                                     eventList = response.body()!!
-                                    val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
+                                    val orderedEventList = CalendarUtils.orderEventsByTime(eventList as MutableList<Event>)
                                     if (orderedEventList.isEmpty()) {
                                         view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                         if (translate)
@@ -132,7 +145,7 @@ class EventFragment() : Fragment() {
                                 override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                                     if (response.isSuccessful) {
                                         eventList = response.body()!!
-                                        val orderedEventList = orderEventsByTime(eventList as MutableList<Event>)
+                                        val orderedEventList = CalendarUtils.orderEventsByTime(eventList as MutableList<Event>)
                                         if (orderedEventList.isEmpty()) {
                                             view.findViewById<TextView>(R.id.no_event).visibility = View.VISIBLE
                                             if (translate)
@@ -161,7 +174,7 @@ class EventFragment() : Fragment() {
                                     Toast.makeText(ApplicationContextProvider.getContext(), resources.getString(R.string.failed_to_load_activities), Toast.LENGTH_LONG).show()
                                 }
                             })
-                }
+                    }
                 }
             }
         }
@@ -233,50 +246,6 @@ class EventFragment() : Fragment() {
                     }
                 })
         }
-    }
-
-    private fun orderEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
-        println(eventList)
-
-        removePastEventsByTime(eventList)
-        var change: Boolean = true
-        while (change) {
-            change = false
-            for (i in 0 until eventList.size - 1) {
-                var timeih = eventList[i].oraInizio.split(":")[0]
-                var timei1h = eventList[i+1].oraInizio.split(":")[0]
-                var timeim = eventList[i].oraInizio.split(":")[1]
-                var timei1m = eventList[i+1].oraInizio.split(":")[1]
-                if (timeih.toInt() == timei1h.toInt()) {
-                    if (timeim.toInt() > timei1m.toInt()) {
-                        var temp = eventList[i]
-                        eventList[i] = eventList[i+1]
-                        eventList[i+1] = temp
-                        change = true
-                    }
-                }else if (timeih.toInt() > timei1h.toInt()) {
-                    var temp = eventList[i]
-                    eventList[i] = eventList[i+1]
-                    eventList[i+1] = temp
-                    change = true
-                }
-            }
-        }
-        return eventList
-    }
-
-    private fun removePastEventsByTime(eventList: MutableList<Event>) : MutableList<Event> {
-        var toRemove : MutableList<Event> = mutableListOf()
-        val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm")
-        val todayDate = sdf.parse(sdf.format(Date()))
-        for (event in eventList) {
-            var eventDate = sdf.parse(event.data + " " + event.oraInizio)
-            if (eventDate.before(todayDate) || eventDate.equals(todayDate)) {
-                toRemove.add(event)
-            }
-        }
-        eventList.removeAll(toRemove)
-        return eventList
     }
 
     private fun infoEventDialog(eventTitle: String, activityId: String) {

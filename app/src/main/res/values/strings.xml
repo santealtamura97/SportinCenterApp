@@ -33,8 +33,8 @@
     <string name="fr_user_subscriptionSectionExpiredText_en">Deadline: </string>
     <string name="fr_user_subscriptionSectionCircularProgressText_it">Ingressi rimanenti: </string>
     <string name="fr_user_subscriptionSectionCircularProgressText_en">Remaining inputs: </string>
-    <string name="fr_user_physicalSectionTitle_it">Caratteristiche fisiche:</string>
-    <string name="fr_user_physicalSectionTitle_en">Physical features:</string>
+    <string name="fr_user_physicalSectionTitle_it">Calcola il tuo BMI:</string>
+    <string name="fr_user_physicalSectionTitle_en">Calculate your BMI:</string>
     <string name="fr_user_physicalSectionAge_it">Età:</string>
     <string name="fr_user_physicalSectionAge_en">Age:</string>
     <string name="fr_user_physicalSectionHeight_it">Altezza:</string>
@@ -160,8 +160,8 @@
     <string name="login_button"><u>Login</u></string>
     <string name="email_login">Email</string>
     <string name="password_login">Password</string>
-    <string name="missing_email_message">Per favore inserire la email</string>
-    <string name="missing_password_message">Per favore inserire la password</string>
+    <string name="missing_email_message">Per favore inserire una mail valide</string>
+    <string name="missing_password_message">Per favore inserire una password valida. Deve contenere minimo 8 caratteri, almeno 1 del alfabeto, 1 numero e 1 carattere speciale</string>
     <string name="missing_confirm_password_message">Per favore conferma la tua password</string>
     <string name="password_not_equal_confirm_password_message">Per favore conferma correttamente la password</string>
     <string name="signup_error">Registrazione non riuscita!</string>
